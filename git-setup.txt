@@ -1,0 +1,26 @@
+
+Git setup para o windows:
+
+1) Download git:
+
+* Download-Link: https://git-scm.com/download/win
+* Aceitar todas as opções default...
+
+2) Abrir a git bash a partir das aplicações do windows.
+
+* Fazer cd até à pasta no Windows onde ficará o projeto;
+* A git bash funciona como uma Unix like bash;
+* Todos os comandos como git clone, push, pull, commit são iguais;
+
+3) Fazer clone do repositorio do projeto de LI4 a partir do gitlab:
+
+* Aceder à página web onde está o projeto;
+* No botão "clone" selecionar "Clone with https" copiando o link lá mencionado;
+* Depois, na git bash, ir para a pasta do projeto (com "cd") e fazer:
+
+	git clone link_https_aqui
+
+* Uma pasta com o nome do projeto foi criada automaticamente.
+
+
+
