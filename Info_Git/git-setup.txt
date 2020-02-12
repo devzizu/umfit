@@ -1,5 +1,4 @@
-
-==> Git setup (Windows) e comandos mais frequentes:
+==> Git setup (Windows) e os comandos mais frequentes:
 		
 	0) Alguns dos comandos aqui referidos e a sua explicação pode ser encontrada neste website:
 		
