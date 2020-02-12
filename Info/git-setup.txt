@@ -1,0 +1,33 @@
+
+==> Git setup para o windows:
+
+	1) Download git:
+
+		* Download-Link: https://git-scm.com/download/win
+		* Aceitar todas as opções default...
+
+	2) Configurar o git na máquina:
+
+		$ git config --global user.name "my_user_name"
+		$ git config --global user.email "my_email"
+	
+	3) Fazer clone do repositorio do projeto de LI4 a partir do gitlab:
+
+		* Usar link "clone with https":
+
+		$ git clone link_https_aqui
+
+	4) Trabalhar com ficheiros no git:
+
+		Verificar o estado da diretoria atual (ficheiros modificados, alterados, etc...) e da
+		área de preparação (staged area, local onde ficam os ficheiros prontos para commit):
+
+		$ git status 
+
+		Adicionar todos os ficheiros da diretoria atual ao repositório local e faz stage dele para commit:
+
+		$ git add .
+
+		Faz commit das alterações na fase "stage" e prepara-as para o push num repositório remoto:
+
+		$ git commit -m "Add existing file"
