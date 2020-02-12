@@ -1,4 +1,4 @@
-#UMFit
+UMFit Project
 
 ###### Group members:
 
