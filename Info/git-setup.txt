@@ -1,4 +1,3 @@
-
 ==> Git setup (Windows) e comandos mais frequentes:
 
 	1) Download git:
@@ -39,3 +38,15 @@
 		Enviar os ficheiros para o servidor remoto (GitHub, Gitlab, ...):
 
 		$ git push
+		
+		Atualizar o repositório local com as alterações do gitlab:
+		(É o mesmo que git fetch & git merge...)
+		
+		$ git pull
+		
+		Nota: 
+		    - Deve-se garantir que se faz commit do trabalho local (caso seja mais antigo que o do gitlab) antes de fazer pull pois o pull faz merge.
+		    - Caso nos deparemos com um merge que não conseguimos resolver podemos fazer: $ git merge --abort, para voltar onde estavamos antes do pull.
+		
+		
+		
