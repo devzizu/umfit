@@ -1,9 +1,14 @@
+
 ==> Git setup (Windows) e comandos mais frequentes:
+		
+	0) Alguns dos comandos aqui referidos e a sua explicação pode ser encontrada neste website:
+		
+		https://github.github.com/training-kit/downloads/pt_PT/github-git-cheat-sheet/
 
 	1) Download git:
 
-		* Download-Link: https://git-scm.com/download/win
-		* Aceitar todas as opções default...
+		Download-Link: https://git-scm.com/download/win
+		Aceitar todas as opções default...
 
 	2) Configurar o git na máquina:
 
@@ -47,6 +52,4 @@
 		Nota: 
 		    - Deve-se garantir que se faz commit do trabalho local (caso seja mais antigo que o do gitlab) antes de fazer pull pois o pull faz merge.
 		    - Caso nos deparemos com um merge que não conseguimos resolver podemos fazer: $ git merge --abort, para voltar onde estavamos antes do pull.
-		
-		
 		
