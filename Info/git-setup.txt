@@ -1,5 +1,5 @@
 
-==> Git setup para o windows:
+==> Git setup (Windows) e comandos mais frequentes:
 
 	1) Download git:
 
@@ -17,7 +17,7 @@
 
 		$ git clone link_https_aqui
 
-	4) Trabalhar com ficheiros no git:
+	4) Trabalhar com ficheiros no git (add (file) -> commit (local) -> push (remote)):
 
 		Verificar o estado da diretoria atual (ficheiros modificados, alterados, etc...) e da
 		área de preparação (staged area, local onde ficam os ficheiros prontos para commit):
@@ -26,8 +26,16 @@
 
 		Adicionar todos os ficheiros da diretoria atual ao repositório local e faz stage dele para commit:
 
-		$ git add .
+		$ git add .            ou...            $ git add file_name
 
-		Faz commit das alterações na fase "stage" e prepara-as para o push num repositório remoto:
+		Faz commit das alterações na fase "staged" e prepara-as para o push num repositório remoto:
 
-		$ git commit -m "Add existing file"
+		$ git commit -m "message"
+
+		Reverter o commit antes de fazer push (implica adicionar "git add ..." outra vez para o modo "staged" e posterior commit novo):
+
+		$ git reset --soft HEAD~1
+
+		Enviar os ficheiros para o servidor remoto (GitHub, Gitlab, ...):
+
+		$ git push
