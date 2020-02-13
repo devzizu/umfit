@@ -6,9 +6,13 @@ All notable changes to this project will be documented in this file.
 ### Added
 
 - README.md com os detalhes básicos do projeto by [@devzizu - João Azevedo]; 
+
 - Modelacao/Analise-Requisitos/Analise-de-Requisitos.txt com uma base da análise de requisitos que foi feita (rascunho),  [@devzizu - João Azevedo];
+
 - Modelacao/Analise-Requisitos/Use-Cases.txt com um rascunho dos use cases por ator,  [@devzizu - João Azevedo];
+
+- Modelacao/Modelacao-Base/UMFit-Modelacao_Base.vpp com um projeto .vpp para guardar a modelação de dominio, use cases, etc...,  [@devzizu - João Azevedo];
 
 ### Changed
 
-- ...;
+- Modelacao/Modelacao-Base/UMFit-Modelacao_Base.vpp adicionei um rascunho do modelo de domínio (ainda incompleto) [@devzizu - João Azevedo];
