@@ -1,4 +1,3 @@
-
 Definição de atores e use cases para o sistema:
 
 1) Atores (Utilizadores do sistema):
@@ -48,4 +47,4 @@ Definição de atores e use cases para o sistema:
 	c) Rececionista:
 
 		- Criar um Utilizador;
-		
+		- Remover Utilizador;
