@@ -36,9 +36,7 @@ Definição de atores e use cases para o sistema:
 
 	b) Instrutor:
 
-		- Criação de aulas de grupo;
 		- Alterar propriedades de uma aula de grupo;
-		- Cancelar aula de grupo;
 		- Criar plano de treino para o Cliente;
 		- Criar plano alimentar para o Cliente;
 		- Criar resultado de avaliação para o Cliente;
@@ -48,3 +46,4 @@ Definição de atores e use cases para o sistema:
 
 		- Criar um Utilizador;
 		- Remover Utilizador;
+		- Editar plano de aulas semanal (alterar, editar, cancelar, ...);
