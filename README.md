@@ -1,5 +1,5 @@
-Project title : UMFit
-Version       : Unreleased (2020)
+- Project title : UMFit
+- Version       : Unreleased (2020)
 
 ###### Maintainers:
 
