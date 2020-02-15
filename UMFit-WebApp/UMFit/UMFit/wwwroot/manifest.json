@@ -1,0 +1,17 @@
+{
+  "name": "UMFit",
+  "short_name": "UMFit | Home",
+  "description": "Creating PWA in ASP.NET Core.",
+  "icons": [
+    {
+      "src": "/images/umfit_512.png",
+      "sizes": "512x512"
+    },
+    {
+      "src": "/images/umfit_192.png",
+      "sizes": "192x192"
+    }
+  ],
+  "display": "fullscreen",
+  "start_url": "/"
+}
