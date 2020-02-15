@@ -20,3 +20,5 @@ All notable changes to this project will be documented in this file.
 - Modelacao/Modelacao-Base/UMFit-Modelacao_Base.vpp adicionei um rascunho do modelo de domínio (ainda incompleto) [@devzizu - João Azevedo];
 
 - Modelacao/Modelacao-Base/UMFit-Modelacao_Base.vpp adicionado Diagrama de Use Cases e finalizado Modelo de dominio [Pedro Machado | João Azevedo];
+
+- Modelacao-Base/2_Use-Cases/Mockups/Mockups-Project adicionado o mockup de Criar Avaliacao [@PedroFCM - Pedro Machado];
