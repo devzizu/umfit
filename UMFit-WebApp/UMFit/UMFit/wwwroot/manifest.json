@@ -1,17 +1,22 @@
 {
-  "name": "UMFit",
-  "short_name": "UMFit | Home",
-  "description": "Creating PWA in ASP.NET Core.",
+  "name": "UMFit | PWA",
+  "short_name": "UMFit",
+  "orientation": "portrait",
+  "display": "standalone",
   "icons": [
     {
-      "src": "/images/umfit_512.png",
-      "sizes": "512x512"
+      "src": "images/logos/umfit_192.png",
+      "sizes": "192x192",
+      "type": "image/png"
     },
     {
-      "src": "/images/umfit_192.png",
-      "sizes": "192x192"
+      "src": "images/logos/umfit_512.png",
+      "sizes": "512x512",
+      "type": "image/png"
     }
   ],
-  "display": "fullscreen",
-  "start_url": "/"
+  "start_url": "/",
+  "color": "#ffffff",
+  "background_color": "#20c4f4",
+  "theme_color": "#20c4f4"  
 }

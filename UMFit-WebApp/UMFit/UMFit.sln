@@ -1,9 +1,6 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.29728.190
-MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UMFit", "UMFit\UMFit.csproj", "{CCFCD290-9037-419D-AA3F-3366734B4880}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UMFit", "UMFit\UMFit.csproj", "{5C088023-EE68-4F2B-AE9E-55895B185ED3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -11,15 +8,9 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{CCFCD290-9037-419D-AA3F-3366734B4880}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{CCFCD290-9037-419D-AA3F-3366734B4880}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{CCFCD290-9037-419D-AA3F-3366734B4880}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{CCFCD290-9037-419D-AA3F-3366734B4880}.Release|Any CPU.Build.0 = Release|Any CPU
-	EndGlobalSection
-	GlobalSection(SolutionProperties) = preSolution
-		HideSolutionNode = FALSE
-	EndGlobalSection
-	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {5E8BC6F0-B897-4469-83BE-F19E6D1492DA}
+		{5C088023-EE68-4F2B-AE9E-55895B185ED3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5C088023-EE68-4F2B-AE9E-55895B185ED3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5C088023-EE68-4F2B-AE9E-55895B185ED3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5C088023-EE68-4F2B-AE9E-55895B185ED3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
