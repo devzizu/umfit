@@ -6,7 +6,7 @@
 - João Azevedo 	 | [A85227];
 - Pedro Machado  | [A83719];
 - Paulo Araujo   | [A85729];
-- Paulo Lima     | [......];
+- Paulo Lima     | [A89983];
 - Hugo Cunha     | [......];
 
 University of Minho | 3rd year | Software Engineering
