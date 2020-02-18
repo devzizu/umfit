@@ -25,6 +25,7 @@ namespace UMFit
         {
             services.AddControllersWithViews();
 
+            //Add progressive web app support by adding service workers
             services.AddProgressiveWebApp();
         }
 
