@@ -1,0 +1,54 @@
+==> Git setup (Windows) e os comandos mais frequentes:
+		
+	0) Alguns dos comandos aqui referidos e a sua explicação pode ser encontrada neste website:
+		
+		https://github.github.com/training-kit/downloads/pt_PT/github-git-cheat-sheet/
+
+	1) Download git:
+
+		Download-Link: https://git-scm.com/download/win
+		Aceitar todas as opções default...
+
+	2) Configurar o git na máquina:
+
+		$ git config --global user.name "my_user_name"
+		$ git config --global user.email "my_email"
+	
+	3) Fazer clone do repositorio do projeto de LI4 a partir do gitlab:
+
+		* Usar link "clone with https":
+
+		$ git clone link_https_aqui
+
+	4) Trabalhar com ficheiros no git (add (file) -> commit (local) -> push (remote)):
+
+		Verificar o estado da diretoria atual (ficheiros modificados, alterados, etc...) e da
+		área de preparação (staged area, local onde ficam os ficheiros prontos para commit):
+
+		$ git status 
+
+		Adicionar todos os ficheiros da diretoria atual ao repositório local e faz stage dele para commit:
+
+		$ git add .            ou...            $ git add file_name
+
+		Faz commit das alterações na fase "staged" e prepara-as para o push num repositório remoto:
+
+		$ git commit -m "message"
+
+		Reverter o commit antes de fazer push (implica adicionar "git add ..." outra vez para o modo "staged" e posterior commit novo):
+
+		$ git reset --soft HEAD~1
+
+		Enviar os ficheiros para o servidor remoto (GitHub, Gitlab, ...):
+
+		$ git push
+		
+		Atualizar o repositório local com as alterações do gitlab:
+		(É o mesmo que git fetch & git merge...)
+		
+		$ git pull
+		
+		Nota: 
+		    - Deve-se garantir que se faz commit do trabalho local (caso seja mais antigo que o do gitlab) antes de fazer pull pois o pull faz merge.
+		    - Caso nos deparemos com um merge que não conseguimos resolver podemos fazer: $ git merge --abort, para voltar onde estavamos antes do pull.
+		

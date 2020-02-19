@@ -1,9 +1,12 @@
-UMFit Project
+- Project title : UMFit
+- Version       : Unreleased (2020)
 
-###### Group members:
+###### Maintainers:
 
-- João Azevedo (A85227);
-- Pedro Machado (...);
-- Paulo Araujo (...);
-- Paulo Lima (...);
-- Hugo Cunha (...);
+- João Azevedo 	 | [A85227];
+- Pedro Machado  | [A83719];
+- Paulo Araujo   | [A85729];
+- Paulo Lima     | [A89983];
+- Hugo Cunha     | [......];
+
+University of Minho | 3rd year | Software Engineering

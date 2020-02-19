@@ -1,0 +1,49 @@
+Definição de atores e use cases para o sistema:
+
+1) Atores (Utilizadores do sistema):
+
+	- Cliente;
+	- Instrutor;
+	- Rececionista;
+
+2) Definição de Use Cases por Ator:
+
+	a) Todos (Cliente, Instrutores e Rececionistas):
+
+		- Log-In e Log-out;
+		- Consultar aulas de grupo;
+		
+		- [EXTRA] Consultar estatísticas de lotação (de um espaço);
+
+	a) Cliente: 
+
+		a.0) Qualquer:
+
+			- Marcar presença numa aula;
+			- Consultar última avaliação;
+			- Consultar evolução;
+
+			- [EXTRA] Marcar presença num espaço do ginásio;
+
+		a.1) Premium:
+
+			- Criar meta;
+			- Consultar plano de treino;
+			- Consultar plano alimentar;			
+
+		a.2) Standard: (ver a.0)
+
+
+	b) Instrutor:
+
+		- Alterar propriedades de uma aula de grupo;
+		- Criar plano de treino para o Cliente;
+		- Criar plano alimentar para o Cliente;
+		- Criar resultado de avaliação para o Cliente;
+		- Consultar resultado da última avaliação do Cliente;
+
+	c) Rececionista:
+
+		- Criar um Utilizador;
+		- Remover Utilizador;
+		- Editar plano de aulas semanal (alterar, editar, cancelar, ...);

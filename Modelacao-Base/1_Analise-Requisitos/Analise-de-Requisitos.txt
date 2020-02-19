@@ -1,0 +1,52 @@
+
+_________________________________________________________
+
+Análise de Requisitos para o sistema UMFit:
+_________________________________________________________
+
+* Toda a análise de requisitos baseou-se em aplicações de ginásios e de fitness em geral;
+* Teve por base também alguma experiência de elementos do grupo em ginásios e na utilização de algumas dessas aplicações;
+
+# Aplicações analisadas: "MyFitnessPal", "Academia Fitness BVFamalicão", "Gym WP", entre outras;
+
+* Com base nestas aplicações estabelece-se os seguintes requisitos:
+
+_________________________________________________________
+
+1) Requisitos funcionais:
+
+	- Autenticação de utilizadores (clientes, treinadores e rececionistas);
+	
+	- Apresentação e marcação de aulas de grupo disponíveis bem como carateristicas das mesmas (como duração, intensidade, instrutor(a), calorias e nº de inscritos);
+		
+	- Criação e consulta de planos de treino e alimentares;
+	
+	- Criação de metas (como peso, perímetros,  alimentação, entre outros);
+	
+	1.1) Extra:
+
+		- Marcar presença num espaço (sem ser as aulas), p. exe., sala de musculação, cardio, piscina, entre outros;
+
+		- Apresentação de lotação dos diferentes espaços do ginásio (com uso de QR Codes ou outra tecnologia);
+
+		- Consultar estatísticas de lotação por horário;
+
+_________________________________________________________
+
+2) Requisitos não funcionais:
+
+	- Um utilizador pode ser Premium ou Standard.
+	
+	- Os Premium têm acesso a todas as funcionalidades do ginásio referidas acima. 
+
+	- Os utilizadores Standard podem consultar e participar nas aulas de grupo, bem como usufruir das zonas de "cardio", musculação e piscina do ginásio. Contudo, estes últimos não têm acesso a planos de treino e/ou alimentares mas podem, no entanto, visualizar a sua última avaliação e evolução.
+	
+	- A última avaliação de um cliente deve apresentar a data e todas as medidas de perímetro e composição corporal, incluindo um gráfico da evolução, adequando a interface à medida de risco associada à saúde do cliente;
+	
+	- Os planos de treino e as aulas de grupo devem apresentar a data/hora e um conjunto de imagens ilustrativas;
+
+_________________________________________________________
+
+3) Requisitos de negócio/contexto:
+
+(...?)

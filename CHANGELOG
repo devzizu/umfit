@@ -1,0 +1,28 @@
+# Changelog
+All notable changes to this project will be documented in this file.
+
+## [Unreleased]
+
+### Added
+
+- README.md com os detalhes básicos do projeto by [@devzizu - João Azevedo]; 
+
+- Modelacao/Analise-Requisitos/Analise-de-Requisitos.txt com uma base da análise de requisitos que foi feita (rascunho),  [@devzizu - João Azevedo];
+
+- Modelacao/Analise-Requisitos/Use-Cases.txt com um rascunho dos use cases por ator,  [@devzizu - João Azevedo];
+
+- Modelacao/Modelacao-Base/UMFit-Modelacao_Base.vpp com um projeto .vpp para guardar a modelação de dominio, use cases, etc...,  [@devzizu - João Azevedo];
+
+- Primeiros mockups par alguns Use Cases [@devzizu - João Azevedo | Pedro Machado];
+
+- Mais alguns mockups (Em falta/Para analisar: metas) [@devzizu - João Azevedo | Paulo Araújo];
+
+- Adicionada uma previsão das próximas tarefas a serem realizadas [@all - Todos];
+
+### Changed
+
+- Modelacao/Modelacao-Base/UMFit-Modelacao_Base.vpp adicionei um rascunho do modelo de domínio (ainda incompleto) [@devzizu - João Azevedo];
+
+- Modelacao/Modelacao-Base/UMFit-Modelacao_Base.vpp adicionado Diagrama de Use Cases e finalizado Modelo de dominio [Pedro Machado | João Azevedo];
+
+- Modelacao-Base/2_Use-Cases/Mockups/Mockups-Project adicionado o mockup de Criar Avaliacao [@PedroFCM - Pedro Machado];
