@@ -7,6 +7,6 @@
 - Pedro Machado  | [A83719];
 - Paulo Araujo   | [A85729];
 - Paulo Lima     | [A89983];
-- Hugo Cunha     | [......];
+- Hugo Cunha     | [A84656];
 
 University of Minho | 3rd year | Software Engineering
