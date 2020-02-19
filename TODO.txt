@@ -1,7 +1,7 @@
----- Incorporar da análise já feita no relatório (análise de requisitos e de mercado) [1 pessoa]; -> Lima
----- Diagrama de classes [3 pessoas]; -> Zizu, Pedro, PauloJ
---- Criação de views para a ferramenta a utilizar [2 pessoas]; -> Zizu, Hugo
---- Desenvolvimento do modelo Conceptual da Base de Dados [2 pessoas]; -> Pedro, PauloJ
--- Especificação de use cases e diagramas de sequência [2 pessoas]; -> Lima, Hugo
-- Desenvolvimento dos modelos Lógico da Base de Dados [2 pessoa]; -> Pedro, Zizu
-- Validação das tarefas desenvolvidas pelo grupo [5 pessoas]; -> Todos
++ Incorporar da análise já feita no relatório (análise de requisitos e de mercado) [1 pessoa]; -> LIMA
++ Diagrama de classes [3 pessoas]; -> PAULOJ, Zizu, Pedro
++ Criação de views para a ferramenta a utilizar [2 pessoas]; -> HUGO, Zizu, Lima
++ Desenvolvimento do modelo Conceptual da Base de Dados [2 pessoas]; -> PEDRO, PauloJ, zizu
++ Especificação de use cases [4 pessoas]; -> ZIZU, Lima, Hugo, PauloJ
++ Desenvolvimento dos modelos Lógico da Base de Dados [2 pessoa]; -> PEDRO, Zizu
+ Validação das tarefas desenvolvidas pelo grupo [5 pessoas]; -> Todos 
