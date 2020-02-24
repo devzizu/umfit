@@ -1,0 +1,22 @@
+Remover Utilizador
+
+• Descrição:
+Um Utilizador é removido do sistema pelo Rececionista.
+
+• Cenários:
+Cenário Geral: Para facilitar a gestão de Utilizador no Sistema, o Rececionista tem a possibilidade de remover Utilizadores;
+
+• Pré-Condição:
+O Rececionista tem de estar autenticado no Sistema.
+
+• Pós-Condição:
+Um Utilizador é removido do Sistema.
+
+..............................................................................................
+
+• Fluxo Normal:
+1. O Rececionista escolhe a opção de "Remover Utilizador";
+2. O Rececionista escolhe o e-mail do Utilizador que pretende remover;
+3. O Rececionista escolhe a opção de "Remover do Sistema";
+3. O Rececionista seleciona o Utilizador que quer remover;
+4. O Sistema remove o Utilizador e todo o seu conteúdo;
