@@ -1,0 +1,17 @@
+Consultar Resultado da última avaliação
+
+• Descrição:
+O Rececionista verifica dados da sua última avaliação do utilizador escolhido.
+
+• Pré-Condição:
+O Utilizador ter pelo menos uma avaliação e o Rececionista estar autenticado.
+
+• Pós-Condição:
+O Rececionista vê os dados da avaliação.
+
+. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+
+• Fluxo Normal:
+1. O Rececionista seleciona a opcao "Consultar última Avaliação";
+2. O Rececionista insere o e-mail do Utilizador pretendido;
+3. O Sistema apresenta a última avaliação do utilizador ao Rececionista.

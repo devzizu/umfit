@@ -1,0 +1,23 @@
+Criar utilizador
+
+• Descrição:
+- Um novo utilizador é criado no sistema pelo rececionista.
+
+• Cenários:
+- Um Emanuel quer entrar no ginásio e a Maria rececionista cria a sua conta.
+
+• Pré-Condição:
+- O rececionista tem de estar autenticado no sistema.
+
+• Pós-Condição:
+- Um novo utilizador é adicionado ao sistema.
+
+. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+
+• Fluxo Normal:
+1. O rececionista insere o nome, e-mail e morada do novo utilizador, juntamente com o seu gênero e outras informações pertinentes ao registo.
+2. O Sistema valida os dados e regista um novo utilizador com credenciais aleatórias;
+
+• Fluxo Excepção:
+2.1. Os dados fornecidos ao Administrador são inválidos;
+2.2. O Administrador não cria a nova conta;

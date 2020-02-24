@@ -1,0 +1,16 @@
+Consultar Plano de Treino
+
+• Descrição:
+Utilizador verifica o seu plano de treino.
+
+• Pré-Condição:
+O utilizador ter-lhe atribuido um plano de treino.
+
+• Pós-Condição:
+O utlizador vê os dados do seu plano de treino.
+
+. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+
+• Fluxo Normal:
+1. O Utilizador seleciona a opcao ”Consultar Plano de treino”; 
+2. O Sistema apresenta os dados do plano de treino.

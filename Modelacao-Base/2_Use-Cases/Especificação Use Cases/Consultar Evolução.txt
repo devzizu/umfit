@@ -1,0 +1,16 @@
+Consultar Evolução
+
+• Descrição:
+Utilizador verifica dados da sua evolução.
+
+• Pré-Condição:
+O utilizador ter pelo menos uma avaliação.
+
+• Pós-Condição:
+O utlizador vê os dados da sua evolução.
+
+. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+
+• Fluxo Normal:
+1. O Utilizador seleciona a opcao ”Consultar Evolução”; 
+2. O Sistema apresenta os dados da sua evolução.

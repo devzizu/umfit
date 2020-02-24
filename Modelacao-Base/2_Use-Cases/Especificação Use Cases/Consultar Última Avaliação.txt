@@ -1,0 +1,16 @@
+Consultar Última Avaliação
+
+• Descrição:
+Utilizador verifica dados da sua última avaliação.
+
+• Pré-Condição:
+O utilizador ter pelo menos uma avaliação.
+
+• Pós-Condição:
+O utlizador vê os dados da avaliação.
+
+. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+
+• Fluxo Normal:
+1. O Utilizador seleciona a opcao ”Consultar última Avaliação”; 
+2. O Sistema apresenta a última avaliação do utilizador.
