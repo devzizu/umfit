@@ -1,0 +1,17 @@
+Log Out 
+
+• Descrição:
+
+O utilizador faz log out da aplicação.
+
+• Pré-Condição:
+O Utilizador tem de estar autenticado no Sistema.
+
+• Pós-Condição:
+O utlizador saiu do sistema. 
+
+. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+
+• Fluxo Normal:
+1. O utente seleciona a opção "Log out";
+2. O sistema faz log-out do utilizador.

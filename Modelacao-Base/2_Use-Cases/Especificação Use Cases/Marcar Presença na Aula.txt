@@ -1,0 +1,18 @@
+Marcar presença na aula
+
+• Descrição:
+Uttilizador escolhe uma aula na qual pretende marcar presença.
+
+• Pré-Condição:
+Utilizador estar autenticado no sistema e existirem vagas para a aula selecionada.
+
+• Pós-Condição:
+O utlizador fica inscrito na aula escolhida.
+
+. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+
+• Fluxo Normal:
+1. O Utilizador seleciona a opcao ”Consultar Aulas”; 
+2. O Sistema apresenta a lista aulas.
+3. O Utlizador seleciona a aula.
+4. O Sistema inscreve o utilizador na aula.

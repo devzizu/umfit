@@ -1,0 +1,25 @@
+Log In
+
+• Descrição:
+Autenticar um cliente[Standard/Premium], instrutor ou rececionista.
+
+• Pré-Condição:
+O Utilizador tem de estar registado no Sistema e não pode haver outro Utilizador no Sistema.
+
+• Pós-Condição:
+O Utilizador fica autenticado no Sistema como cliente[Standard/Premium], instrutor ou rececionista.
+
+. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+
+• Fluxo Normal:
+1. O Sistema apresenta as opcões de Autenticacão;
+2. O Utilizador escolhe a opcão de entrar como cliente[Standard/Premium], instrutor ou rececionista e insere as credenciais;
+3. O Sistema valida as credenciais inseridas;
+4. O Utilizador autentica-se no Sistema;
+
+. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+
+• Fluxo de excepcão 1: [As credenciais são inválidas] (passo 3)
+
+3.1. O Sistema avisa o Utilizador que as credenciais são inválidas;
+3.2. O Utilizador sai do Sistema.

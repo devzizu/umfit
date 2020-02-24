@@ -1,0 +1,16 @@
+Consultar Plano Alimentar
+
+• Descrição:
+Utilizador verifica o seu plano alimentar.
+
+• Pré-Condição:
+O utilizador ter-lhe atribuido um plano alimentar.
+
+• Pós-Condição:
+O utlizador vê os dados do seu plano alimentar.
+
+. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+
+• Fluxo Normal:
+1. O Utilizador seleciona a opcao ”Consultar Plano alimentar”; 
+2. O Sistema apresenta os dados do plano alimentar.

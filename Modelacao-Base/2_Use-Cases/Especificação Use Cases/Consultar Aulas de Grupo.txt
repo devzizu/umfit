@@ -1,0 +1,16 @@
+Consultar Aulas de Grupo
+
+• Descrição:
+Uttilizador verifica a informação referente a uma aulda de grupo.
+
+• Pré-Condição:
+O Utilizador tem de estar autenticado no sistema e existirem aulas de grupo no sistema.
+
+• Pós-Condição:
+O utlizador vê a informação referente à aula de grupo.
+
+. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+
+• Fluxo Normal:
+1. O utilizador seleciona a opção "consultar aulas de grupo".
+2. O sistema apresenta a lista com as aulas de grupo e as suas informações respetivas.
