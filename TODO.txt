@@ -5,3 +5,4 @@
 + Especificação de use cases [4 pessoas]; -> ZIZU, Lima, Hugo, PauloJ
 + Desenvolvimento dos modelos Lógico da Base de Dados [2 pessoa]; -> PEDRO, Zizu
  Validação das tarefas desenvolvidas pelo grupo [5 pessoas]; -> Todos 
+ 
