@@ -21,6 +21,8 @@ All notable changes to this project will be documented in this file.
 
 - Adicionado a primeira versão do Modelo Lógico da Base de Dados [@PedroFCM - Pedro Machado];
 
+- Adicionado imagem do Modelo Conceptual da Base de Dados [@PedroFCM - Pedro Machado];
+
 ### Changed
 
 - Modelacao/Modelacao-Base/UMFit-Modelacao_Base.vpp adicionei um rascunho do modelo de domínio (ainda incompleto) [@devzizu - João Azevedo];
