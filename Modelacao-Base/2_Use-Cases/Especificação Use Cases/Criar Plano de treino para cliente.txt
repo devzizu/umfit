@@ -1,0 +1,24 @@
+Criar Plano de treino para Cliente
+
+• Descrição:
+O Instrutor atribui a um utilizador um plano de treino.
+
+• Pré-Condição:
+O instrutor está autenticado no sistema.
+
+• Pós-Condição:
+O sistema insere um novo plano de treino no cliente.
+
+. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+
+• Fluxo Normal:
+1. O instrutor seleciona a opção "Criar Plano de treino";
+2. O instrutor insere o email do cliente a quem deseja atribuir o plano de treino;
+3. O sistema valida o cliente escolhido;
+4. O instrutor insere os dados do plano de treino;
+5. O sistema adiciona o plano de treino ao utilizador.
+
+• Fluxo Exceção 1: [O email inserido não é válido] (passo 3)
+
+3.1. O Sistema invalida o email inserido.
+3.2. O Sistema termina o processo.
