@@ -27,6 +27,8 @@ All notable changes to this project will be documented in this file.
 
 - Adicionado imagem do Modelo Conceptual da Base de Dados [@PedroFCM - Pedro Machado];
 
+- Adicionada a primeira versão do Diagrama de Classes [@PedroFCM - Pedro Machado];
+
 ### Changed
 
 - Modelacao/Modelacao-Base/UMFit-Modelacao_Base.vpp adicionei um rascunho do modelo de domínio (ainda incompleto) [@devzizu - João Azevedo];
