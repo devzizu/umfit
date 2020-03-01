@@ -1,8 +1,8 @@
 + Incorporar da análise já feita no relatório (análise de requisitos e de mercado); -> LIMA
-+ Diagrama de classes; -> PAULOJ, Zizu, Pedro
-+ Criação de views para a ferramenta a utilizar; -> HUGO, Zizu, Lima
++ Diagrama de classes; -> PAULOJ, Zizu, Pedro ---> {DONE}
++ Ambientação com as tecnologias a utilizar; -> ZIZU, hugo, Lima ---> {DONE}
 + Desenvolvimento do modelo Conceptual da Base de Dados; -> PEDRO, PauloJ, zizu ---> {DONE}
-+ Especificação de use cases; -> ZIZU, Lima, Hugo, PauloJ
++ Especificação de use cases; -> LIMA, Hugo, PauloJ, zizu
 + Desenvolvimento dos modelos Lógico da Base de Dados; -> PEDRO, Zizu ---> {DONE} 
  Validação das tarefas desenvolvidas pelo grupo; -> Todos 
  
