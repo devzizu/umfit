@@ -1,0 +1,34 @@
+Editar planos de aulas semanal
+
+• Descrição:
+A rececionista altera as aulas de grupo.
+
+• Pré-Condição:
+O rececionista está autenticado no sistema.
+
+• Pós-Condição:
+No sistema são alteradas as informações das aulas de grupo.
+
+. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+
+• Fluxo Normal:
+
+1. O receccionista seleciona a opção "Editar plano de aulas";
+2. O sistema apresenta as opções de "edição de aulas" ou "adição de aulas".
+3. O reccionista seleciona a opção edição de aulas.
+4. O sitema apresenta uma lista das aulas de grupo existentes.
+5. O receccionista escolhe uma aula de grupo para ser editada.
+6. O sistema apresenta os dados referentes a essa aula.
+7. O receccionista altera os dados da aula.
+8. O sistema altera a informção da aula de grupo com os novos dados.
+
+• Fluxo Alternativo 1: [O receccionista seleciona adição de aulas] (passo 3)
+
+3.1 O sistema pergunta ao receccionista as informações sobre a nova aula.
+3.2 O reccecionista insere as informações referentes a essa aula.
+3.3 A nova aula de grupo é adicionada ao sistema.
+
+• Fluxo Exceção 1: [Não existem aulas disponiveis] (passo 4)
+
+4.1 O sistema informa que ñão existem aulas de grupo no sistema.
+4.2 O sistema termina o processo.

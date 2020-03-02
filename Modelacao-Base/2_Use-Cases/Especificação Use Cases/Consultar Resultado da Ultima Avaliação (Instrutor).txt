@@ -1,0 +1,27 @@
+Consultar resultado da última avaliação de um dado utilizador
+
+• Descrição:
+O instrutor consulta a última avaliação.
+
+• Pré-Condição:
+O instrutor está autenticado no sistema.
+
+• Pós-Condição:
+O instrutor obtém os dados da ultima avaliação.
+
+. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+
+• Fluxo Normal:
+1. O instrutor seleciona a opção "Consultar a última avaliação";
+2. O instrutor insere o email do cliente do qual pretende ver a última avaliação;
+3. O sistema valida o cliente escolhido;
+4. O sistema apresenta os dados da última avaliação.
+
+• Fluxo Exceção 1: [O email inserido não é válido] (passo 3)
+
+3.1. O Sistema invalida o email inserido.
+3.2. O Sistema termina o processo.
+
+• Fluxo Exceção 2: [O cliente não tem avaliações] (passo 4)
+
+4.1. O Sistema termina o processo.

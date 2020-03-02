@@ -1,0 +1,24 @@
+Criar Plano alimentar para Cliente
+
+• Descrição:
+O Instrutor atribui a um utilizador um plano alimentar.
+
+• Pré-Condição:
+O instrutor está autenticado no sistema.
+
+• Pós-Condição:
+O sistema insere um novo plano alimentar no cliente.
+
+. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+
+• Fluxo Normal:
+1. O instrutor seleciona a opção "Criar Plano Alimentar";
+2. O instrutor insere o email do cliente a quem deseja atribuir o plano alimentar;
+3. O sistema valida o cliente escolhido;
+4. O instrutor insere os dados do plano alimentar;
+5. O sistema adiciona o plano alimentar ao utilizador.
+
+• Fluxo Exceção 1: [O email inserido não é válido] (passo 3)
+
+3.1. O Sistema invalida o email inserido.
+3.2. O Sistema termina o processo.

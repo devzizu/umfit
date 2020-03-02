@@ -1,0 +1,24 @@
+Criar resultado de avaliação para Cliente
+
+• Descrição:
+O Instrutor atribui a um utilizador uma avaliação.
+
+• Pré-Condição:
+O instrutor está autenticado no sistema.
+
+• Pós-Condição:
+O sistema insere uma nova avaliação no cliente.
+
+. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+
+• Fluxo Normal:
+1. O instrutor seleciona a opção "Criar Avaliação";
+2. O instrutor insere o email do cliente a quem deseja atribuir a avaliação;
+3. O sistema valida o cliente escolhido;
+4. O instrutor insere os dados da avaliação;
+5. O sistema adiciona a avaliação ao utilizador.
+
+• Fluxo Exceção 1: [O email inserido não é válido] (passo 3)
+
+3.1. O Sistema invalida o email inserido.
+3.2. O Sistema termina o processo.
