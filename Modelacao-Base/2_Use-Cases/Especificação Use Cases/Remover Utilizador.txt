@@ -18,5 +18,5 @@ Um Utilizador é removido do Sistema.
 1. O Rececionista escolhe a opção de "Remover Utilizador";
 2. O Rececionista escolhe o e-mail do Utilizador que pretende remover;
 3. O Rececionista escolhe a opção de "Remover do Sistema";
-3. O Rececionista seleciona o Utilizador que quer remover;
-4. O Sistema remove o Utilizador e todo o seu conteúdo;
+4. O Rececionista seleciona o Utilizador que quer remover;
+5. O Sistema remove o Utilizador e todo o seu conteúdo;
