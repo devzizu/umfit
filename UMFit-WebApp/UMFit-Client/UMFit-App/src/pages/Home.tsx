@@ -11,8 +11,8 @@ class Home extends React.Component {
     return (
       <IonPage>
         <IonHeader>
-          <IonToolbar>
-            <IonTitle>UMFit</IonTitle>
+          <IonToolbar color="secondary">
+            <IonTitle class="ion-text-center">UMFit</IonTitle>
           </IonToolbar>
         </IonHeader>
         <IonContent>

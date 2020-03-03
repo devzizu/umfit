@@ -1,3 +1,5 @@
+using System.Security.Policy;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 
 namespace UMFit_WebAPI.Controllers
@@ -24,6 +26,12 @@ namespace UMFit_WebAPI.Controllers
             if (user == null) return NotFound("Cannot find user with that id");
             
             return Ok(user);
+        }
+
+        [HttpPost]
+        public IActionResult Post(string msg)
+        {
+            return Ok("Recebi: " + msg);
         }
     }
 }
