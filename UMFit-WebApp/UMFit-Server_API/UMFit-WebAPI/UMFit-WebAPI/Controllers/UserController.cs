@@ -1,6 +1,8 @@
-using System.Security.Policy;
-using System.Threading.Tasks;
+
+using System;
 using Microsoft.AspNetCore.Mvc;
+using UMFit_WebAPI.Dto;
+using UMFit_WebAPI.Models.Users;
 
 namespace UMFit_WebAPI.Controllers
 {
@@ -23,15 +25,27 @@ namespace UMFit_WebAPI.Controllers
         {
             var user = _system.GetUser(id);
 
-            if (user == null) return NotFound("Cannot find user with that id");
+            if (user == null) 
+                return 
+                    NotFound("Não existe um utilizador com esse ID.");
             
             return Ok(user);
         }
 
-        [HttpPost]
-        public IActionResult Post(string msg)
+        [HttpPost("authenticate")]
+        public ActionResult<User> Post([Bind] UserDto userDto)
         {
-            return Ok("Recebi: " + msg);
+            var user = _system.Authenticate(userDto.email, userDto.password);
+
+            if (user == null)
+            {
+                return BadRequest(new
+                {
+                    message = "Credentials are wrong..."
+                });
+            }
+
+            return Ok(user);
         }
     }
 }

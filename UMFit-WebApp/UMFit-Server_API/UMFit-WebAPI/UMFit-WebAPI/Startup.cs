@@ -30,7 +30,8 @@ namespace UMFit_WebAPI
             services.AddCors(options =>
             {
                 options.AddPolicy("AllowOrigin",
-                    builder => builder.AllowAnyOrigin());
+                    builder => builder.AllowAnyOrigin()
+                                                   .AllowAnyHeader());
             });
         }
 
@@ -42,7 +43,7 @@ namespace UMFit_WebAPI
                 app.UseDeveloperExceptionPage();
             }
 
-            app.UseCors(builder => builder.AllowAnyOrigin());
+            app.UseCors(builder => builder.AllowAnyOrigin().AllowAnyHeader());
             
             app.UseHttpsRedirection();
 

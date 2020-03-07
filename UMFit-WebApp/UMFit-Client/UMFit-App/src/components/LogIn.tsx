@@ -1,8 +1,36 @@
 
 import React, { useState } from 'react';
 
+import sha256 from "fast-sha256";
+//import axios from 'axios';
+
 import './css/LogIn.css';
 import { IonInput, IonText, IonButton, IonLoading } from '@ionic/react';
+
+var baseURL: string = "https://192.168.1.67:5001/api/user";
+
+interface User {
+    id: number,
+    email: string,
+    password: string
+}
+
+const authenticate = async (email: string, pass: string) => {
+
+    const res = await fetch(baseURL + "/authenticate", {
+        method: 'post',
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            email: email,
+            password: pass 
+        })
+    });
+
+    return await res.json();
+}
 
 const LogIn: React.FC = () => {
 
@@ -10,9 +38,22 @@ const LogIn: React.FC = () => {
     const [emailValue, setEmailValue] = useState<string>("");
     const [passwordValue, setPasswordValue] = useState<string>("");
 
+    /* Future use
+    const [data, setData] = useState({
+        email: "not_fetched",
+        password: "not_fetched"
+    });
+    */
+
     setTimeout(() => {
         setShowLoading(false);
     }, 2000);
+    
+    /* Future use
+    useEffect(() => {
+        const res = authenticate(emailValue, passwordValue);
+    }, []);
+    */
 
     return (
         <div id="login-form">
@@ -37,12 +78,29 @@ const LogIn: React.FC = () => {
             </IonInput>
         </div>
         <IonButton expand="block" type="submit" id="login-button" onClick={() => {
+                
                 setShowLoading(true);
-                console.log("E-Mail: " + emailValue);
-                console.log("Password: " + passwordValue);
+
+                let pass_enc = new TextEncoder();
+                let encoded = pass_enc.encode(passwordValue);
+                let hash256 = Buffer.from(sha256(encoded)).toString('hex').toUpperCase();
+
+                console.log("Http post to api/user/authenticate:");
+                console.log("> E-Mail: " + emailValue);
+                console.log("> Password: " + passwordValue);
+                console.log("> Password (sha256): " + hash256);
+
+                //request
+                let json_res = authenticate(emailValue, passwordValue);
+
+                json_res.then(function(value) {
+                    
+                    console.log(value);
+                });
             }
         }>
             Log-In
+
         </IonButton>
             <IonLoading
                 isOpen={showLoading}
@@ -51,6 +109,8 @@ const LogIn: React.FC = () => {
                 duration={5000}
             />
         </div>
+
+        
     );
 };
 
