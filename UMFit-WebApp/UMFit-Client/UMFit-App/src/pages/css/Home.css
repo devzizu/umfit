@@ -1,0 +1,24 @@
+ion-content ion-toolbar {
+  --background: translucent;
+}
+
+#page-title {
+  
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  flex-direction: column;
+
+  font-family: monospace;
+  font-size: 25px;
+  font-weight: bold;
+  color: white;
+}
+
+.background-image {
+  --background: url(../../imgs/gym-background.jpg) 0 0/100% 100% no-repeat;
+  -webkit-filter: blur(2px);
+  filter: blur(2px);
+  opacity: 0.8;
+}

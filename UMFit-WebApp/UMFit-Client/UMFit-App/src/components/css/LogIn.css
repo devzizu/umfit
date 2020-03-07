@@ -1,0 +1,72 @@
+#login-form {
+    background-color: white;
+    height: 500px;
+    width: 360px;
+    position:absolute;
+    left:0; right:0;
+    top:0; bottom:0;
+    margin:auto;
+    border: 3px solid lightblue;
+    border-radius: 10px;
+    max-width:100%;
+    max-height:100%;
+    overflow:auto;
+}
+
+#Logo {
+    content: url(../../imgs/logo.png);
+    height: 100px;
+    width: 100px;
+    display: flex;
+    margin: auto;
+    margin-top: 20px;
+}
+
+#input-form {
+    background-color: white;
+    height: 200px;
+    width: 300px;
+    position:absolute;
+    left:0; right:0;
+    top:100px; bottom:0;
+    margin: auto;
+    border-radius: 10px;
+    max-width:100%;
+    max-height:100%;
+    overflow:auto; 
+}
+
+#email-input {
+    border-left: 5px solid orange;
+    border-bottom: 1px dotted orange;
+    color: black;
+}
+
+#pass-input {
+    border-left: 5px solid orange;
+    border-bottom: 1px dotted orange;
+    color: black;
+}
+
+
+#phrase {
+    font-style: italic;
+    margin-top: 30px;
+    font-size: 17px;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    text-align: center;
+    color: darkslategrey;
+    font-weight: bold;
+}
+
+#login-button {
+    position:absolute;
+    left:0; right:0;
+    top:300px; bottom:0;
+    margin: auto;
+    max-width:100%;
+    max-height:100%;
+    overflow:auto; 
+    width: 120px;
+    
+}

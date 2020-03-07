@@ -1,7 +1,10 @@
-import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar } from '@ionic/react';
+
+import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar, IonMenuButton, IonButtons } from '@ionic/react';
 import React from 'react';
-import ExploreContainer from '../components/ExploreContainer';
-import './Home.css';
+
+//Page components
+import LogIn from '../components/LogIn';
+import './css/Home.css';
 
 
 class Home extends React.Component {
@@ -10,19 +13,16 @@ class Home extends React.Component {
 
     return (
       <IonPage>
-        <IonHeader>
-          <IonToolbar color="secondary">
-            <IonTitle class="ion-text-center">UMFit</IonTitle>
-          </IonToolbar>
-        </IonHeader>
-        <IonContent>
-          <IonHeader collapse="condense">
-            <IonToolbar>
-              <IonTitle size="large">Blank</IonTitle>
-            </IonToolbar>
+          <IonHeader>
+              <IonToolbar color="primary">
+                <IonButtons slot="start">
+                  <IonMenuButton auto-hide="false"></IonMenuButton>
+                </IonButtons>
+                <IonTitle id="page-title">UMFit</IonTitle>
+              </IonToolbar>
           </IonHeader>
-          <ExploreContainer />
-        </IonContent>
+      <IonContent class="background-image"></IonContent>
+      <LogIn />
       </IonPage>
     );
   }
@@ -30,3 +30,18 @@ class Home extends React.Component {
 };
 
 export default Home;
+
+/*
+<IonPage>
+          <IonHeader>
+              <IonToolbar color="primary">
+                <IonButtons slot="start">
+                  <IonMenuButton auto-hide="false"></IonMenuButton>
+                </IonButtons>
+                <IonTitle id="page-title">UMFit</IonTitle>
+              </IonToolbar>
+          </IonHeader>
+      <IonContent class="background-image"></IonContent>
+      <LogIn />
+      </IonPage>
+*/
