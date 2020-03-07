@@ -1,0 +1,11 @@
+C:\Users\Luis\Desktop\Documentos\Universidade\3º Ano\Semestre2\LI4\li4_umfit\UMFit-WebApp\TestingHash\TestingHash\bin\Debug\netcoreapp3.1\TestingHash.exe
+C:\Users\Luis\Desktop\Documentos\Universidade\3º Ano\Semestre2\LI4\li4_umfit\UMFit-WebApp\TestingHash\TestingHash\bin\Debug\netcoreapp3.1\TestingHash.deps.json
+C:\Users\Luis\Desktop\Documentos\Universidade\3º Ano\Semestre2\LI4\li4_umfit\UMFit-WebApp\TestingHash\TestingHash\bin\Debug\netcoreapp3.1\TestingHash.runtimeconfig.json
+C:\Users\Luis\Desktop\Documentos\Universidade\3º Ano\Semestre2\LI4\li4_umfit\UMFit-WebApp\TestingHash\TestingHash\bin\Debug\netcoreapp3.1\TestingHash.runtimeconfig.dev.json
+C:\Users\Luis\Desktop\Documentos\Universidade\3º Ano\Semestre2\LI4\li4_umfit\UMFit-WebApp\TestingHash\TestingHash\bin\Debug\netcoreapp3.1\TestingHash.dll
+C:\Users\Luis\Desktop\Documentos\Universidade\3º Ano\Semestre2\LI4\li4_umfit\UMFit-WebApp\TestingHash\TestingHash\bin\Debug\netcoreapp3.1\TestingHash.pdb
+C:\Users\Luis\Desktop\Documentos\Universidade\3º Ano\Semestre2\LI4\li4_umfit\UMFit-WebApp\TestingHash\TestingHash\obj\Debug\netcoreapp3.1\TestingHash.AssemblyInfoInputs.cache
+C:\Users\Luis\Desktop\Documentos\Universidade\3º Ano\Semestre2\LI4\li4_umfit\UMFit-WebApp\TestingHash\TestingHash\obj\Debug\netcoreapp3.1\TestingHash.AssemblyInfo.cs
+C:\Users\Luis\Desktop\Documentos\Universidade\3º Ano\Semestre2\LI4\li4_umfit\UMFit-WebApp\TestingHash\TestingHash\obj\Debug\netcoreapp3.1\TestingHash.dll
+C:\Users\Luis\Desktop\Documentos\Universidade\3º Ano\Semestre2\LI4\li4_umfit\UMFit-WebApp\TestingHash\TestingHash\obj\Debug\netcoreapp3.1\TestingHash.pdb
+C:\Users\Luis\Desktop\Documentos\Universidade\3º Ano\Semestre2\LI4\li4_umfit\UMFit-WebApp\TestingHash\TestingHash\obj\Debug\netcoreapp3.1\TestingHash.csprojAssemblyReference.cache
