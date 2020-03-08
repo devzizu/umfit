@@ -3,18 +3,21 @@ namespace UMFit_WebAPI.Models.Users
 {
     public class User
     {
+        public int id { get; set; }
+        public string email { get; set; }
+        public string password { get; set; }
 
-        public int Id { get; set; }
-        public string Name { get; set; }
-        public string EMail { get; set; }
-        public string Password { get; set; }
-
-        public User(int id, string name, string eMail, string password)
+        public User()
         {
-            Id = id;
-            Name = name;
-            EMail = eMail;
-            Password = password;
+            this.id = -1;
+            this.email = "empty.user@umfit.com";
+        }
+        
+        public User(int id, string new_email, string new_password)
+        {
+            this.id = id;
+            this.email = new_email;
+            this.password = new_password;
         }
     }
 }
