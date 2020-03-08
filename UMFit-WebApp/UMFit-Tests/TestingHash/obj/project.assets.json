@@ -14,11 +14,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Luis\\Desktop\\Documentos\\Universidade\\3º Ano\\Semestre2\\LI4\\li4_umfit\\UMFit-WebApp\\TestingHash\\TestingHash\\TestingHash.csproj",
+      "projectUniqueName": "C:\\Users\\Luis\\Desktop\\Documentos\\Universidade\\3º Ano\\Semestre2\\LI4\\li4_umfit\\UMFit-WebApp\\UMFit-Tests\\TestingHash\\TestingHash.csproj",
       "projectName": "TestingHash",
-      "projectPath": "C:\\Users\\Luis\\Desktop\\Documentos\\Universidade\\3º Ano\\Semestre2\\LI4\\li4_umfit\\UMFit-WebApp\\TestingHash\\TestingHash\\TestingHash.csproj",
+      "projectPath": "C:\\Users\\Luis\\Desktop\\Documentos\\Universidade\\3º Ano\\Semestre2\\LI4\\li4_umfit\\UMFit-WebApp\\UMFit-Tests\\TestingHash\\TestingHash.csproj",
       "packagesPath": "C:\\Users\\Luis\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Luis\\Desktop\\Documentos\\Universidade\\3º Ano\\Semestre2\\LI4\\li4_umfit\\UMFit-WebApp\\TestingHash\\TestingHash\\obj\\",
+      "outputPath": "C:\\Users\\Luis\\Desktop\\Documentos\\Universidade\\3º Ano\\Semestre2\\LI4\\li4_umfit\\UMFit-WebApp\\UMFit-Tests\\TestingHash\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Microsoft\\Xamarin\\NuGet\\"
