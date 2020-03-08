@@ -2,35 +2,13 @@
 import React, { useState } from 'react';
 
 import sha256 from "fast-sha256";
-//import axios from 'axios';
 
 import './css/LogIn.css';
 import { IonInput, IonText, IonButton, IonLoading } from '@ionic/react';
-
-var baseURL: string = "https://192.168.1.67:5001/api/user";
-
-interface User {
-    id: number,
-    email: string,
-    password: string
-}
-
-const authenticate = async (email: string, pass: string) => {
-
-    const res = await fetch(baseURL + "/authenticate", {
-        method: 'post',
-        headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-            email: email,
-            password: pass 
-        })
-    });
-
-    return await res.json();
-}
+import { authenticate } from '../models/API/UserAPI';
+import { formatUser, User } from '../models/Other/User';
+import ReactDOM from 'react-dom';
+import AppProfile from './sections/AppProfile';
 
 const LogIn: React.FC = () => {
 
@@ -38,22 +16,9 @@ const LogIn: React.FC = () => {
     const [emailValue, setEmailValue] = useState<string>("");
     const [passwordValue, setPasswordValue] = useState<string>("");
 
-    /* Future use
-    const [data, setData] = useState({
-        email: "not_fetched",
-        password: "not_fetched"
-    });
-    */
-
     setTimeout(() => {
         setShowLoading(false);
     }, 2000);
-    
-    /* Future use
-    useEffect(() => {
-        const res = authenticate(emailValue, passwordValue);
-    }, []);
-    */
 
     return (
         <div id="login-form">
@@ -85,23 +50,45 @@ const LogIn: React.FC = () => {
                 let encoded = pass_enc.encode(passwordValue);
                 let hash256 = Buffer.from(sha256(encoded)).toString('hex').toUpperCase();
 
-                console.log("Http post to api/user/authenticate:");
+                console.log("Para a API: /api/user/authenticate");
                 console.log("> E-Mail: " + emailValue);
                 console.log("> Password: " + passwordValue);
                 console.log("> Password (sha256): " + hash256);
 
                 //request
-                let json_res = authenticate(emailValue, passwordValue);
+                let response = authenticate(emailValue, passwordValue);
 
-                json_res.then(function(value) {
+                response.then(function(value) {
                     
-                    console.log(value);
+                    //Success OK = 200    
+                    if (value.status === 200) {
+                        
+                        console.log("Resposta LOGIN OK");
+             
+                        var json = value.json();
+
+                        json.then(function(value) {
+                            
+                            let user: User = formatUser(value);
+                            
+                            console.log(user);
+
+                            //ReactDOM.render(<AppProfile />, document.getElementById('root'));
+
+                            //<MenuClienteStandard>
+                        });
+
+                    //Login error: 400    
+                    } else {
+
+                        console.log(value.status + " Resposta LOGIN not OK");
+                    }
                 });
             }
         }>
             Log-In
-
         </IonButton>
+
             <IonLoading
                 isOpen={showLoading}
                 onDidDismiss={() => setShowLoading(false)}
