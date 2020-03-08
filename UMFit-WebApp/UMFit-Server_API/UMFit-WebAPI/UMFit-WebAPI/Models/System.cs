@@ -18,7 +18,8 @@ namespace UMFit_WebAPI.Models
                 {2, new User(2, "a89983@alunos.uminho.pt", "secretpass2")},
                 {3, new User(3, "a83719@alunos.uminho.pt", "secretpass3")},
                 {4, new User(4, "a85729@alunos.uminho.pt", "secretpass4")},
-                {5, new User(5, "a84656@alunos.uminho.pt", "secretpass5")}
+                {5, new User(5, "a84656@alunos.uminho.pt", "secretpass5")},
+                {6, new User(6, "test", "test")}                
             };
         }
 

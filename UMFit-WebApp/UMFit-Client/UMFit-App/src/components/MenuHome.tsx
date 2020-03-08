@@ -43,7 +43,7 @@ const appPages: AppPage[] = [
     url: '/contact',
     iosIcon: chevronForward,
     mdIcon: chevronForward
-  }
+  } 
 ];
 
 const Menu: React.FunctionComponent<MenuProps> = ({ selectedPage }) => {

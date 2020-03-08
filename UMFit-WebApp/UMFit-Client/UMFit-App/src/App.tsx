@@ -22,7 +22,7 @@ import '@ionic/react/css/display.css';
 /* Theme variables */
 import './theme/variables.css';
 
-import Menu from './components/Menu';
+import Menu from './components/MenuHome';
 import About from './pages/About';
 import Home from './pages/Home';
 import Contact from './pages/Contact';
