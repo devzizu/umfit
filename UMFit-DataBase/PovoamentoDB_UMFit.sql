@@ -214,11 +214,12 @@ insert into PlanoAlimentar_do_Cliente
 values (1, "a85729@alunos.uminho.pt");
 
 
-  
+-- delete from UtilizadoresOnline u where u.email = "a83719@alunos.uminho.pt"; 
+
 select * from Rececionista;
 select * from avaliaçao_realizada;
 select * from avaliaçao_agendada;
-
+select * from utilizadoresonline;
 
 
 
