@@ -23,6 +23,8 @@ namespace TesteApiConnect
             string nome, data_nascimento, localidade, categoria;
             int genero, nif;
 
+            string time_to_expire = "2020-03-11 20:00:00";
+
             MySqlConnection connection = new MySqlConnection(builder.ToString());
 
             try
@@ -88,6 +90,11 @@ namespace TesteApiConnect
 
                         Cliente user = new Cliente(email, nif, nome, genero, data_nascimento, localidade, categoria);
 
+                        // Adicionar o Cliente à tabela de utilizadores online...
+                        sqlCommand = "insert into UtilizadoresOnline values ('" +  email + "', '" + time_to_expire + "')";
+                        command = new MySqlCommand(sqlCommand, connection);
+                        result = command.ExecuteScalar();
+
                         connection.Close();
 
                         return user;
@@ -143,6 +150,11 @@ namespace TesteApiConnect
                             localidade = Convert.ToString(result);
 
                             Instrutor user = new Instrutor(email, nif, nome, genero, data_nascimento, localidade);
+
+                            // Adicionar o Instrutor à tabela de utilizadores online...
+                            sqlCommand = "insert into UtilizadoresOnline values ('" + email + "', '" + time_to_expire + "')";
+                            command = new MySqlCommand(sqlCommand, connection);
+                            result = command.ExecuteScalar();
 
                             connection.Close();
 
@@ -200,6 +212,11 @@ namespace TesteApiConnect
 
                                 Rececionista user = new Rececionista(email, nif, nome, genero, data_nascimento, localidade);
 
+                                // Adicionar o Rececionista à tabela de utilizadores online...
+                                sqlCommand = "insert into UtilizadoresOnline values ('" + email + "', '" + time_to_expire + "')";
+                                command = new MySqlCommand(sqlCommand, connection);
+                                result = command.ExecuteScalar();
+
                                 connection.Close();
 
                                 return user;
@@ -214,6 +231,41 @@ namespace TesteApiConnect
             }
 
             return null;
+        }
+
+        public static void LogOut(string email)
+        {
+            MySqlConnection connection = new MySqlConnection(builder.ToString());
+
+            connection.Open();
+
+            string sqlCommand = "delete from UtilizadoresOnline u where u.email = '" + email + "'";
+            MySqlCommand command = new MySqlCommand(sqlCommand, connection);
+
+            command.ExecuteScalar();
+            connection.Close();
+        }
+
+        public static string GetUtilizadoresOnline()
+        {
+            MySqlConnection connection = new MySqlConnection(builder.ToString());
+
+            connection.Open();
+
+            string sqlCommand = "select u.email from UtilizadoresOnline u";
+            MySqlCommand command = new MySqlCommand(sqlCommand, connection);
+
+            object result = command.ExecuteScalar();
+            connection.Close();
+
+            string usersOn = null;
+
+            if(result != null)
+            {
+                usersOn = Convert.ToString(result);
+            }
+
+            return usersOn;
         }
 
     }

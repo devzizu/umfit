@@ -29,13 +29,13 @@ namespace TesteApiConnect
         {
             StringBuilder r = new StringBuilder();
 
-            r.Append(this.email + ", ");
-            r.Append(this.nif + ", ");
-            r.Append(this.nome + ", ");
-            r.Append(this.genero + ", ");
-            r.Append(this.data_nascimento + ", ");
-            r.Append(this.localidade + ", ");
-            r.Append(this.categoria + ".");
+            r.Append("\nEmail: " + this.email + ";\n");
+            r.Append("Nif: " + this.nif + ";\n");
+            r.Append("Nome: " + this.nome + ";\n");
+            r.Append("Genero: " + this.genero + ";\n");
+            r.Append("Data nascimento: " + this.data_nascimento + ";\n");
+            r.Append("Localidade: " + this.localidade + ";\n");
+            r.Append("Categoria: " + this.categoria + ".\n");
 
             return r.ToString();
         }

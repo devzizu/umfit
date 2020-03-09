@@ -1,7 +1,5 @@
 ﻿using System;
 
-using MySql.Data.MySqlClient;
-
 namespace TesteApiConnect
 {
     class UMFitLN
@@ -21,11 +19,23 @@ namespace TesteApiConnect
             if(user != null )
             {
                 Console.WriteLine(user.ToString());
+
+                Console.WriteLine("Users online: " + UtilizadorDAO.GetUtilizadoresOnline());
             }
             else
             {
                 Console.WriteLine("Email e/ou password incorreto!");
             }
+
+            Console.WriteLine("Want to LogOut? [yes/no]");
+            string res = Console.ReadLine();
+
+            if(res.Equals("yes"))
+            {
+                UtilizadorDAO.LogOut(email);
+                Console.WriteLine("Goodbye...");
+            }
+
         }
     }
 }
