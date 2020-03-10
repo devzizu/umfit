@@ -6,6 +6,8 @@ namespace TesteApiConnect
 {
     interface InterfaceUtilizador
     {
+        public string GetEmail();
 
+        public string ToString();
     }
 }

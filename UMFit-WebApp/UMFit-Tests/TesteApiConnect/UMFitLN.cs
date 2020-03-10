@@ -1,11 +1,16 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace TesteApiConnect
 {
     class UMFitLN
     {
+        public static Dictionary<string, InterfaceUtilizador> utilizadoresOn;
+        
         static void Main(string[] args)
         {
+            utilizadoresOn = new Dictionary<string, InterfaceUtilizador>();
+
             Console.WriteLine("LogIn...");
 
             Console.WriteLine("Enter the email:");
@@ -14,28 +19,57 @@ namespace TesteApiConnect
             Console.WriteLine("Password:");
             string pass = Console.ReadLine();
 
-            Cliente user = (Cliente) UtilizadorDAO.LogIn(email, pass);
+            int typeUser = UtilizadorDAO.TypeUser(email);
 
-            if(user != null )
-            {
-                Console.WriteLine(user.ToString());
+            InterfaceUtilizador user = null;
 
-                Console.WriteLine("Users online: " + UtilizadorDAO.GetUtilizadoresOnline());
+            if (typeUser != -1)
+            { 
+                switch (typeUser)
+                {
+                    case 0:
+                        {
+                            user = (Cliente)UtilizadorDAO.LogIn(email, pass);
+                            break;
+                        }
+                    case 1:
+                        {
+                            user = (Instrutor)UtilizadorDAO.LogIn(email, pass);
+                            break;
+                        }
+                    case 2:
+                        {
+                            user = (Rececionista)UtilizadorDAO.LogIn(email, pass);
+                            break;
+                        }
+                }
+
+                try
+                {
+                    Console.WriteLine(user.ToString());
+
+                    utilizadoresOn.Add(user.GetEmail(), user);
+
+                    Console.WriteLine("Users online: " + UtilizadorDAO.GetUtilizadoresOnline());
+
+                    Console.WriteLine("Want to LogOut? [yes/no]");
+                    string res = Console.ReadLine();
+
+                    if (res.Equals("yes"))
+                    {
+                        UtilizadorDAO.LogOut(email);
+                        Console.WriteLine("Goodbye...");
+                    }
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine("Email e/ou password incorreto(s)!");
+                }
             }
             else
             {
-                Console.WriteLine("Email e/ou password incorreto!");
+                Console.WriteLine("Email e/ou password incorreto(s)!");
             }
-
-            Console.WriteLine("Want to LogOut? [yes/no]");
-            string res = Console.ReadLine();
-
-            if(res.Equals("yes"))
-            {
-                UtilizadorDAO.LogOut(email);
-                Console.WriteLine("Goodbye...");
-            }
-
         }
     }
 }

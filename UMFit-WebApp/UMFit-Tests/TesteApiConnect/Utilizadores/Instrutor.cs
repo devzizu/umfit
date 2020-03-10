@@ -24,5 +24,23 @@ namespace TesteApiConnect
             this.data_nascimento = data_nascimento;
             this.localidade = localidade;
         }
+        public override string ToString()
+        {
+            StringBuilder r = new StringBuilder();
+
+            r.Append("\nEmail: " + this.email + ";\n");
+            r.Append("Nif: " + this.nif + ";\n");
+            r.Append("Nome: " + this.nome + ";\n");
+            r.Append("Genero: " + this.genero + ";\n");
+            r.Append("Data nascimento: " + this.data_nascimento + ";\n");
+            r.Append("Localidade: " + this.localidade + ".\n");
+
+            return r.ToString();
+        }
+
+        public string GetEmail()
+        {
+            return this.email;
+        }
     }
 }

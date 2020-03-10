@@ -25,7 +25,7 @@ namespace TesteApiConnect
             this.categoria = categoria;
         }
 
-        public string ToString()
+        public override string ToString()
         {
             StringBuilder r = new StringBuilder();
 
@@ -38,6 +38,11 @@ namespace TesteApiConnect
             r.Append("Categoria: " + this.categoria + ".\n");
 
             return r.ToString();
+        }
+
+        public string GetEmail()
+        {
+            return this.email;
         }
     }
 }
