@@ -14,9 +14,24 @@
           <e p="UserDto.cs" t="Include" />
         </e>
         <e p="Models" t="Include">
-          <e p="System.cs" t="Include" />
-          <e p="Users" t="Include">
-            <e p="User.cs" t="Include" />
+          <e p="Data" t="Include">
+            <e p="DAO" t="Include">
+              <e p="UtilizadorDAO.cs" t="Include" />
+            </e>
+          </e>
+          <e p="Security" t="Include">
+            <e p="CalculateHash.cs" t="Include" />
+          </e>
+          <e p="UMFit_LN" t="Include">
+            <e p="UMFit_LN.cs" t="Include" />
+            <e p="Utilizadores" t="Include">
+              <e p="Cliente.cs" t="Include" />
+              <e p="Instrutor.cs" t="Include" />
+              <e p="Interfaces" t="Include">
+                <e p="InterfaceUtilizador.cs" t="Include" />
+              </e>
+              <e p="Rececionista.cs" t="Include" />
+            </e>
           </e>
         </e>
         <e p="Program.cs" t="Include" />

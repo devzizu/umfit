@@ -2,7 +2,11 @@
 using System;
 using Microsoft.AspNetCore.Mvc;
 using UMFit_WebAPI.Dto;
-using UMFit_WebAPI.Models.Users;
+using UMFit_WebAPI.Models.Data.DAO;
+using UMFit_WebAPI.Models.UMFit_LN;
+using UMFit_WebAPI.Models.UMFit_LN.Utilizadores;
+using UMFit_WebAPI.Models.UMFit_LN.Utilizadores.Interfaces;
+
 
 namespace UMFit_WebAPI.Controllers
 {
@@ -10,32 +14,36 @@ namespace UMFit_WebAPI.Controllers
     [Route("api/[controller]")]
     public class UserController : ControllerBase
     {
-        private readonly Models.System _system = new Models.System();
-
-        [HttpGet]
-        public IActionResult Get()
-        {
-            var users = _system.GetUsers();
-
-            return Ok(users);
-        }
-        
-        [HttpGet("{id}")]
-        public IActionResult Get(int id)
-        {
-            var user = _system.GetUser(id);
-
-            if (user == null) 
-                return 
-                    NotFound("Não existe um utilizador com esse ID.");
-            
-            return Ok(user);
-        }
+        private readonly UMFit_LN _system = new UMFit_LN();
 
         [HttpPost("authenticate")]
-        public ActionResult<User> Post([Bind] UserDto userDto)
+        public ActionResult<InterfaceUtilizador> Post([Bind] UserDto userDto)
         {
-            var user = _system.Authenticate(userDto.email, userDto.password);
+            
+            InterfaceUtilizador user = null;
+            int typeOfUser = _system.TypeUser(userDto.email);
+
+            if (typeOfUser != -1)
+            {
+                switch (typeOfUser)
+                {
+                    case 0:
+                    {
+                        user = (Cliente) _system.Authenticate(userDto.email, userDto.password);
+                        break;
+                    }
+                    case 1:
+                    {
+                        user = (Instrutor) _system.Authenticate(userDto.email, userDto.password);
+                        break;
+                    }
+                    case 2:
+                    {
+                        user = (Rececionista) _system.Authenticate(userDto.email, userDto.password);
+                        break;
+                    }
+                }
+            }
 
             if (user == null)
             {

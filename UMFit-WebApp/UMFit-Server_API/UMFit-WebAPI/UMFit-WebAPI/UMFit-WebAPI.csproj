@@ -5,5 +5,9 @@
         <RootNamespace>UMFit_WebAPI</RootNamespace>
     </PropertyGroup>
 
+    <ItemGroup>
+      <PackageReference Include="MySql.Data" Version="8.0.19" />
+    </ItemGroup>
+
 
 </Project>

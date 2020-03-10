@@ -3,15 +3,29 @@ export {}
 
 export class User {
 
-    id: number;
     email: string;
-    password: string;
+    nif: number;
+    nome: string;
+    genero: number;
+    data_nascimento: string;
+    localidade: string;
+    categoria: string;
 
-    constructor(id: string, em: string, pass: string) {
+    constructor(email: string, 
+                nif: number, 
+                nome: string,
+                genero: number,
+                data_nascimento: string,
+                localidade: string,
+                categoria: string) {
 
-        this.id = -1;
-        this.email = "";
-        this.password = "";
+        this.email = email;
+        this.nif = nif;
+        this.nome = nome;
+        this.genero = genero;
+        this.data_nascimento = data_nascimento;
+        this.localidade = localidade;
+        this.categoria = categoria;
     }
 }
 
@@ -19,26 +33,12 @@ export class User {
 export function formatUser(user: any): User {
     
     return { 
-        id: user.id, 
         email: user.email,
-        password: user.password
+        nif: user.nif,
+        nome: user.nome,
+        genero: user.genero,
+        data_nascimento: user.data_nascimento,
+        localidade: user.localidade,
+        categoria: user.categoria
     };
 }
-
-
-/*
-interface User {
-    id: number,
-    email: string,
-    password: string
-}
-
-function formatUser(user: any): User {
-    
-    return { 
-        id: user.id, 
-        email: user.email,
-        password: user.password 
-    };
-  }
-*/

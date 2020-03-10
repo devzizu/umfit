@@ -17,7 +17,7 @@ ion-content ion-toolbar {
 }
 
 .background-image {
-  --background: url(../../imgs/gym-background.jpg) 0 0/100% 100% no-repeat;
+  --background: url("../../imgs/gym-background.jpg") 0 0/100% 100% no-repeat;
   -webkit-filter: blur(2px);
   filter: blur(2px);
   opacity: 0.8;

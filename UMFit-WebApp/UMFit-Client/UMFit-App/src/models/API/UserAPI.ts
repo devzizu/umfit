@@ -20,16 +20,3 @@ export async function authenticate (email: string, pass: string) {
 
     return res;
 }
-
-    /* Future use
-    const [data, setData] = useState({
-        email: "not_fetched",
-        password: "not_fetched"
-    });
-    */
-
-        /* Future use
-    useEffect(() => {
-        const res = authenticate(emailValue, passwordValue);
-    }, []);
-    */

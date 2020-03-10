@@ -12,10 +12,12 @@ import {
 import React from 'react';
 import { RouteComponentProps, withRouter } from 'react-router-dom';
 import { chevronForward } from 'ionicons/icons';
-import './css/Menu.css';
+
+import './css/MenuHome.css';
 
 interface MenuProps extends RouteComponentProps {
   selectedPage: string;
+  menus: string;
 }
 
 interface AppPage {
@@ -25,7 +27,7 @@ interface AppPage {
   title: string;
 }
 
-const appPages: AppPage[] = [
+const appPagesHome: AppPage[] = [
   {
     title: 'Home',
     url: '/home',
@@ -43,10 +45,32 @@ const appPages: AppPage[] = [
     url: '/contact',
     iosIcon: chevronForward,
     mdIcon: chevronForward
-  } 
+  }
 ];
 
-const Menu: React.FunctionComponent<MenuProps> = ({ selectedPage }) => {
+const appPagesUser: AppPage[] = [
+  {
+    title: 'O meu perfil',
+    url: '/profile',
+    iosIcon: chevronForward,
+    mdIcon: chevronForward
+  }, 
+  {
+    title: 'Avaliações (not implemented)',
+    url: '/aval',
+    iosIcon: chevronForward,
+    mdIcon: chevronForward
+  },
+  {
+    title: 'Planos (not implemented)',
+    url: '/planos',
+    iosIcon: chevronForward,
+    mdIcon: chevronForward
+  }
+];
+
+
+const Menu: React.FunctionComponent<MenuProps> = ({ selectedPage, menus }) => {
 
   return (
     <IonMenu contentId="main" type="overlay">
@@ -55,16 +79,32 @@ const Menu: React.FunctionComponent<MenuProps> = ({ selectedPage }) => {
           <IonListHeader>UMFit</IonListHeader>
           <br></br>
           <IonNote>Ginásio da Universidade do Minho</IonNote>
-          {appPages.map((appPage, index) => {
-            return (
-              <IonMenuToggle key={index} autoHide={false}>
-                <IonItem className={selectedPage === appPage.title ? 'selected' : ''} routerLink={appPage.url} routerDirection="none" lines="none" detail={false}>
-                  <IonIcon slot="start" icon={appPage.iosIcon} />
-                  <IonLabel>{appPage.title}</IonLabel>
-                </IonItem>
-              </IonMenuToggle>
-            );
-          })}
+          {
+            menus === 'home' ? (
+              appPagesHome.map((appPage, index) => {
+                return (
+                  <IonMenuToggle key={index} autoHide={false}>
+                    <IonItem className={selectedPage === appPage.title ? 'selected' : ''} routerLink={appPage.url} routerDirection="none" lines="none" detail={false}>
+                      <IonIcon slot="start" icon={appPage.iosIcon} />
+                      <IonLabel>{appPage.title}</IonLabel>
+                    </IonItem>
+                  </IonMenuToggle>
+                );
+              }
+            )
+            ) : (
+              appPagesUser.map((appPage, index) => {
+                return (
+                  <IonMenuToggle key={index} autoHide={false}>
+                    <IonItem className={selectedPage === appPage.title ? 'selected' : ''} routerLink={appPage.url} routerDirection="none" lines="none" detail={false}>
+                      <IonIcon slot="start" icon={appPage.iosIcon} />
+                      <IonLabel>{appPage.title}</IonLabel>
+                    </IonItem>
+                  </IonMenuToggle>
+                );
+              }
+            )
+        )}
         </IonList>
       </IonContent>
     </IonMenu>
