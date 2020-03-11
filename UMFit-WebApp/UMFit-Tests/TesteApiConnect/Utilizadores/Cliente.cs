@@ -5,13 +5,13 @@ namespace TesteApiConnect
 {
     class Cliente : InterfaceUtilizador
     {
-        public string email;
-        public int nif;
-        public string nome;
-        public int genero;
-        public string data_nascimento;
-        public string localidade;
-        public string categoria;
+        public string email { get; set; }
+        public int nif { get; set; }
+        public string nome { get; set; }
+        public int genero { get; set; }
+        public string data_nascimento { get; set; }
+        public string localidade { get; set; }
+        public string categoria { get; set; }
 
         public Cliente(string email, int nif, string nome, int genero, 
                        string data_nascimento, string localidade, string categoria)

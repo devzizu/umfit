@@ -10,38 +10,53 @@ use UMFit_DB;
 insert into Codigo_Postal values ("Famalicão", "4760");
 insert into Codigo_Postal values ("Braga", "4700");
 insert into Codigo_Postal values ("Porto", "4000");
-
+insert into Codigo_Postal values ("Fafe", "4820");
 
 -- RECECIONISTAS -----------------------------------------------------------------------------------------
 
 -- Pass sem estar encriptada: helloSus
 insert into Rececionista
-values ("susanaMag@gmail.com", 1, "Susana Magalhães", "1990-04-23", 0, 
-		"96220D456C93E47A7C70C217DF5ED577CA91E2B03DF758A1422FA6CE1585A5BF", "Porto");
+values ("susanaMag@gmail.com", 1, "Susana Magalhães", 
+		"96220D456C93E47A7C70C217DF5ED577CA91E2B03DF758A1422FA6CE1585A5BF",
+         "1990-04-23", 0, "Porto");
 -- Pass : helloAnto 
 insert into Rececionista
-values ("antoPi@hotmail.com", 2, "António Pinheiro", "1983-06-01", 1, 
-		"E727B8094CF763E259F3C1F0DA8B3AAFFC5371A3B1F655546AD5D0C67784EE15", "Braga");
+values ("antoPi@hotmail.com", 2, "António Pinheiro", 
+		"E727B8094CF763E259F3C1F0DA8B3AAFFC5371A3B1F655546AD5D0C67784EE15", 
+         "1983-06-01", 1, "Braga");
 -- pass: passTeste
 insert into Rececionista
-values ("a84656@alunos.uminho.pt", 3, "Hugo Cunha", "1999-04-23", 1, 
-		"52BBA69FCE7D58C7BD158821495F50355D6CA00D2403B764A42368DFFA84CE1A", "Famalicão");
+values ("a84656@alunos.uminho.pt", 3, "Hugo Cunha",  
+		"52BBA69FCE7D58C7BD158821495F50355D6CA00D2403B764A42368DFFA84CE1A",
+        "1999-04-23", 1, "Fafe");
 
 
 
 -- CLIENTES -----------------------------------------------------------------------------------------
 -- pass: passTeste
 insert into Cliente 
-values ("a83719@alunos.uminho.pt", 10, "Pedro Machado", "1999-02-23", 1, "Premium",
-		"52BBA69FCE7D58C7BD158821495F50355D6CA00D2403B764A42368DFFA84CE1A", "Famalicão");
+values ("a83719@alunos.uminho.pt", 10, "Pedro Machado",
+		"52BBA69FCE7D58C7BD158821495F50355D6CA00D2403B764A42368DFFA84CE1A",
+        "1999-02-23", 1, "Premium", "Famalicão");
 -- pass: passTeste
 insert into Cliente
+<<<<<<< HEAD
+values ("a85729@alunos.uminho.pt", 11, "Paulo Araújo", 
+		"52BBA69FCE7D58C7BD158821495F50355D6CA00D2403B764A42368DFFA84CE1A",
+        "1999-09-28", 1, "Standard", "Famalicão");
+
+insert into Cliente
+values ("test", 99, "TesteUser",
+        "9F86D081884C7D659A2FEAA0C55AD015A3BF4F1B2B0B822CD15D6C15B0F00A08",
+        "1999-09-19", 1, "Standard", "Famalicão");
+=======
 values ("a85729@alunos.uminho.pt", 11, "Paulo Araújo", "1999-09-19", 1, "Standard", 
 		"52BBA69FCE7D58C7BD158821495F50355D6CA00D2403B764A42368DFFA84CE1A", "Famalicão");
         
 insert into Cliente
 values ("test", 99, "TesteUser", "1999-09-19", 1, "Standard", 
 		"9F86D081884C7D659A2FEAA0C55AD015A3BF4F1B2B0B822CD15D6C15B0F00A08", "Rua de teste, nº 99");
+>>>>>>> afe8f23d709814bcf15f00f7c2dc28c5d74b5c1a
         
            
         
@@ -49,13 +64,15 @@ values ("test", 99, "TesteUser", "1999-09-19", 1, "Standard",
 
 -- pass: passTeste
 insert into Instrutor 
-values ("a85227@alunos.uminho.pt", 100, "João Azevedo", "1999-10-15", 1,
-		"52BBA69FCE7D58C7BD158821495F50355D6CA00D2403B764A42368DFFA84CE1A", "Famalicão");
+values ("a85227@alunos.uminho.pt", 100, "João Azevedo", 
+		"52BBA69FCE7D58C7BD158821495F50355D6CA00D2403B764A42368DFFA84CE1A",
+        "1999-10-15", 1, "Famalicão");
         
 -- pass: passTeste
 insert into Instrutor
-values ("a89983@alunos.uminho.pt", 101, "Paulo Lima", "1999-04-20", 1, 
-		"52BBA69FCE7D58C7BD158821495F50355D6CA00D2403B764A42368DFFA84CE1A", "Famalicão");
+values ("a89983@alunos.uminho.pt", 101, "Paulo Lima", 
+		"52BBA69FCE7D58C7BD158821495F50355D6CA00D2403B764A42368DFFA84CE1A", 
+        "1999-04-20", 1, "Famalicão");
 
 
 
@@ -220,7 +237,17 @@ values (1, "a85729@alunos.uminho.pt");
 
 -- delete from UtilizadoresOnline u where u.email = "a83719@alunos.uminho.pt"; 
 
+<<<<<<< HEAD
+select * from Rececionista;
+select * from Avaliaçao_Realizada;
+select * from Avaliaçao_Agendada;
+select * from UtilizadoresOnline;
+
+
+
+=======
 -- select * from Rececionista;
 -- select * from avaliaçao_realizada;
 -- select * from avaliaçao_agendada;
 -- select * from utilizadoresonline;
+>>>>>>> afe8f23d709814bcf15f00f7c2dc28c5d74b5c1a
