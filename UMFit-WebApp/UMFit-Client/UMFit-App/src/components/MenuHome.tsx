@@ -29,7 +29,7 @@ interface AppPage {
 
 const appPagesHome: AppPage[] = [
   {
-    title: 'Home',
+    title: 'Iniciar Sessão',
     url: '/home',
     iosIcon: chevronForward,
     mdIcon: chevronForward
@@ -54,16 +54,16 @@ const appPagesUser: AppPage[] = [
     url: '/profile',
     iosIcon: chevronForward,
     mdIcon: chevronForward
-  }, 
-  {
-    title: 'Avaliações (not implemented)',
-    url: '/aval',
-    iosIcon: chevronForward,
-    mdIcon: chevronForward
   },
   {
     title: 'Planos (not implemented)',
     url: '/planos',
+    iosIcon: chevronForward,
+    mdIcon: chevronForward
+  },
+  {
+    title: 'Log-Out',
+    url: '/logout',
     iosIcon: chevronForward,
     mdIcon: chevronForward
   }

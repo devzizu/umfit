@@ -4,7 +4,8 @@ use UMFit_DB;
 -- Género é definido por um inteiro. 0 no caso de ser feminino e 1 caso seja masculino;
 -- A categoria do cliente tem os seguintes valores possiveis: Standard, Premium;
 
-
+select * from UtilizadoresOnline;
+delete from UtilizadoresOnline;
 
 -- CODIGO_POSTAL -----------------------------------------------------------------------------------------
 insert into Codigo_Postal values ("Famalicão", "4760");
@@ -40,7 +41,6 @@ values ("a83719@alunos.uminho.pt", 10, "Pedro Machado",
         "1999-02-23", 1, "Premium", "Famalicão");
 -- pass: passTeste
 insert into Cliente
-<<<<<<< HEAD
 values ("a85729@alunos.uminho.pt", 11, "Paulo Araújo", 
 		"52BBA69FCE7D58C7BD158821495F50355D6CA00D2403B764A42368DFFA84CE1A",
         "1999-09-28", 1, "Standard", "Famalicão");
@@ -48,17 +48,8 @@ values ("a85729@alunos.uminho.pt", 11, "Paulo Araújo",
 insert into Cliente
 values ("test", 99, "TesteUser",
         "9F86D081884C7D659A2FEAA0C55AD015A3BF4F1B2B0B822CD15D6C15B0F00A08",
-        "1999-09-19", 1, "Standard", "Famalicão");
-=======
-values ("a85729@alunos.uminho.pt", 11, "Paulo Araújo", "1999-09-19", 1, "Standard", 
-		"52BBA69FCE7D58C7BD158821495F50355D6CA00D2403B764A42368DFFA84CE1A", "Famalicão");
-        
-insert into Cliente
-values ("test", 99, "TesteUser", "1999-09-19", 1, "Standard", 
-		"9F86D081884C7D659A2FEAA0C55AD015A3BF4F1B2B0B822CD15D6C15B0F00A08", "Rua de teste, nº 99");
->>>>>>> afe8f23d709814bcf15f00f7c2dc28c5d74b5c1a
-        
-           
+        "1999-09-19", 1, "Standard", "Famalicão");     
+		
         
 -- INSTRUTORES -----------------------------------------------------------------------------------------
 
@@ -236,18 +227,3 @@ values (1, "a85729@alunos.uminho.pt");
 
 
 -- delete from UtilizadoresOnline u where u.email = "a83719@alunos.uminho.pt"; 
-
-<<<<<<< HEAD
-select * from Rececionista;
-select * from Avaliaçao_Realizada;
-select * from Avaliaçao_Agendada;
-select * from UtilizadoresOnline;
-
-
-
-=======
--- select * from Rececionista;
--- select * from avaliaçao_realizada;
--- select * from avaliaçao_agendada;
--- select * from utilizadoresonline;
->>>>>>> afe8f23d709814bcf15f00f7c2dc28c5d74b5c1a

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Redirect, Route } from 'react-router-dom';
-import { IonApp, IonRouterOutlet, IonSplitPane, IonPage, IonHeader, IonToolbar, IonButtons, IonMenuButton, IonTitle, IonContent, IonText, IonInput, IonButton, IonLoading } from '@ionic/react';
+import { IonApp, IonRouterOutlet, IonSplitPane, IonPage, IonHeader, IonToolbar, IonButtons, IonMenuButton, IonTitle, IonText, IonInput, IonButton, IonLoading } from '@ionic/react';
 import { IonReactRouter } from '@ionic/react-router';
 
 /* Core CSS required for Ionic components to work properly */
@@ -25,7 +25,7 @@ import './theme/variables.css';
 //---------------------------------------------------------------------------------------
 //---------------------------------------------------------------------------------------
 
-import { authenticate } from './models/API/UserAPI';
+import { authenticate, getUserStatus } from './models/API/UserAPI';
 import { User, formatUser } from './models/Other/User';
 
 import sha256 from "fast-sha256";
@@ -39,64 +39,54 @@ import './pages/css/Home.css';
 import Menu from './components/MenuHome';
 import About from './pages/About';
 import Contact from './pages/Contact';
-
-import UserHome from './pages/UserHome';
+import UserProfile from './pages/UserProfile';
 
 //---------------------------------------------------------------------------------------
-
-var authenticationInfo = {
-  isAuthenticated: false,
-  signin() {
-    this.isAuthenticated = true;
-  },
-  signout() {
-    this.isAuthenticated = false;
-  }
-}
 
 class App extends React.Component {
 
   state = {
-    selectedPage: "",
-    menuGroup: "home"
+    selectedPage: "home",
+    menuGroup: "home",
+    isLogged: false
   }
 
-  handleSignIn() {
+  async componentDidMount() {
+    
+    let json = getUserStatus("test").then(res => res.json());
+
+    let json_value = await json.then(function(value) {return value}); 
+
+    let s: string = await json_value.status;
+
     this.setState({
-      menuGroup: 'user'
+      isLogged: s === "online"
     });
   }
-
+  
   render() {
 
     return (
       <IonApp>
         <IonReactRouter>
+          
           <IonSplitPane id="split-pane" contentId="main">
             <Menu selectedPage={this.state.selectedPage} menus={this.state.menuGroup}/>
+              
               <IonRouterOutlet id="main">
+                
                 <Route path="/home" component={Home} exact={true} />
                 <Route path="/about" component={About} exact={true} />
                 <Route path="/contact" component={Contact} exact={true} />
                 
-                <Route path='/profile' component={() => {
-  
-                  if (authenticationInfo.isAuthenticated === true) {
-                    
-                    this.handleSignIn.bind(this);
+                <Route path='/profile' render={async () => {
 
-                    return <UserHome />;
-  
-                  } else {
+                  return this.state.isLogged ? <Profile /> : <Redirect to='/home' />;
 
-                    return <Redirect to='/home' />;
-                  }
-  
                 }}/>
-                
-                <Route path="/aval" component={Contact} exact={true} />
-  
+
                 <Route exact path="/" render={() => <Redirect to="/home" />} />
+
               </IonRouterOutlet>
           </IonSplitPane>
         </IonReactRouter>
@@ -123,13 +113,39 @@ class Home extends React.Component {
                 <IonTitle id="page-title">UMFit</IonTitle>
               </IonToolbar>
           </IonHeader>
-      <IonContent class="background-image"></IonContent>
       <LogIn />
       </IonPage>
     );
   }
 
 };
+
+//---------------------------------------------------------------------------------------
+
+class Profile extends React.Component {
+
+  render() {
+    
+    return(
+      
+      <IonSplitPane id="split-pane" contentId="main">
+      <Menu selectedPage={'profile'} menus={'user'}/>
+        
+        <IonRouterOutlet id="main">
+
+          <Route path="/profile" component={UserProfile} exact={true} />
+
+          <Route path="/aval" component={UserProfile} exact={true} />
+                
+          <Route path="/planos" component={UserProfile} exact={true} />
+
+        </IonRouterOutlet>
+      
+      </IonSplitPane>
+    );    
+  }
+
+}
 
 //---------------------------------------------------------------------------------------
 
@@ -143,12 +159,7 @@ const LogIn: React.FC = () => {
       setShowLoading(false);
   }, 2000);
   
-  if (authenticationInfo.isAuthenticated) {
-    
-    return <Redirect to='/profile'/>
-  
-  } else
-    return (
+  return (
 
       <div id="login-form">
           <div id="Logo"></div>
@@ -171,7 +182,7 @@ const LogIn: React.FC = () => {
           }}>
           </IonInput>
       </div>
-      <IonButton expand="block" type="submit" id="login-button" onClick={() => {
+      <IonButton expand="block" type="submit" id="login-button" onClick={async () => {
               
               setShowLoading(true);
 
@@ -187,34 +198,29 @@ const LogIn: React.FC = () => {
               //request
               let response = authenticate(emailValue, passwordValue);
 
-              response.then(function(value) {
+              await response.then(async function(value) {
                   
                   //Success OK = 200    
                   if (value.status === 200) {
                                    
                       var json = value.json();
                       
-                      json.then(function(value) {
+                      await json.then(async function(value) {
                           
                           let user: User = formatUser(value);
                           
                           console.log(user);
-                          
-                          //alert("Hello " + user.email);
-                          alert("Bem-vindo " + user.email);
-
+   
                       });
-
-                      authenticationInfo.signin();
 
                   //Login error: 400    
                   } else {
 
                       alert("E-mail ou password incorretos...");
-                    
-                      authenticationInfo.signout();
+
                   }
               });
+
           }
       }>
           Log-In

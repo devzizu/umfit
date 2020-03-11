@@ -24,5 +24,10 @@ namespace UMFit_WebAPI.Models.UMFit_LN
             
             return utilizadoresDAO.TypeUser(email);
         }
+
+        public bool isUserOnline(string email)
+        {
+            return utilizadoresDAO.isUserOnline(email);
+        }
     }
 }

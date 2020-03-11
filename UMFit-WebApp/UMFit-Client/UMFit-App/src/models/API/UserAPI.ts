@@ -20,3 +20,20 @@ export async function authenticate (email: string, pass: string) {
 
     return res;
 }
+
+export function getUserStatus (email: string) {
+
+    const res = fetch(baseURL + "/status", {
+        method: 'post',
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            email: email,
+            password: ""
+        })
+    });
+
+    return res;
+}

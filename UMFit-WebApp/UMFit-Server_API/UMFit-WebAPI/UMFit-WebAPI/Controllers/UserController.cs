@@ -16,10 +16,17 @@ namespace UMFit_WebAPI.Controllers
     {
         private readonly UMFit_LN _system = new UMFit_LN();
 
-        [HttpPost("authenticate")]
-        public ActionResult<InterfaceUtilizador> Post([Bind] UserDto userDto)
+        [HttpPost("status")]
+        public ActionResult<string> Status([Bind] UserDto userDto)
         {
+            var res = _system.isUserOnline(userDto.email);
             
+            return res ? Ok(new {status = "online"}) : Ok(new {status = "offline"});
+        }
+        
+        [HttpPost("authenticate")]
+        public ActionResult<InterfaceUtilizador> Authenticate([Bind] UserDto userDto)
+        {
             InterfaceUtilizador user = null;
             int typeOfUser = _system.TypeUser(userDto.email);
 
@@ -44,8 +51,8 @@ namespace UMFit_WebAPI.Controllers
                     }
                 }
             }
-
-            if (user == null)
+            
+            if (user == null && typeOfUser == -1)
             {
                 return BadRequest(new
                 {

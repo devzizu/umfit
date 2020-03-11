@@ -5,8 +5,12 @@ namespace TesteApiConnect
 {
     class UMFitLN
     {
+        public static Dictionary<string, InterfaceUtilizador> utilizadoresOn;
+        
         static void Main(string[] args)
         {
+            utilizadoresOn = new Dictionary<string, InterfaceUtilizador>();
+
             Console.WriteLine("LogIn...");
 
             Console.WriteLine("Enter the email:");
@@ -44,6 +48,8 @@ namespace TesteApiConnect
                 {
                     Console.WriteLine(user.ToString());
 
+                    utilizadoresOn.Add(user.GetEmail(), user);
+
                     Console.WriteLine("Users online: " + UtilizadorDAO.GetUtilizadoresOnline());
 
                     Console.WriteLine("Want to LogOut? [yes/no]");
@@ -58,7 +64,6 @@ namespace TesteApiConnect
                 catch (Exception e)
                 {
                     Console.WriteLine("Email e/ou password incorreto(s)!");
-                    Console.WriteLine(e.ToString());
                 }
             }
             else

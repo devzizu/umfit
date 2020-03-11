@@ -1,11 +1,11 @@
 
 import React from "react";
-import { IonPage, IonHeader, IonToolbar, IonTitle, IonContent, IonButtons, IonMenuButton } from "@ionic/react";
+import { IonPage, IonHeader, IonToolbar, IonTitle, IonButtons, IonMenuButton } from "@ionic/react";
 
 const About: React.FC = () => {
 
     return(
-        <IonPage>
+        <IonPage id="main">
             <IonHeader>
               <IonToolbar color="primary">
                 <IonButtons slot="start">
@@ -14,8 +14,7 @@ const About: React.FC = () => {
                 <IonTitle id="page-title">Quem somos?</IonTitle>
               </IonToolbar>
             </IonHeader>
-            <IonContent class="background-image">
-            </IonContent>
+
       </IonPage>
     );
 }

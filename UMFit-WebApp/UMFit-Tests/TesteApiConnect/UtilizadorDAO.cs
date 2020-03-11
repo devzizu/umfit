@@ -8,6 +8,7 @@ namespace TesteApiConnect
 {
     class UtilizadorDAO
     {
+
         private static MySqlBaseConnectionStringBuilder builder = new MySqlConnectionStringBuilder
         {
             Server = "localhost",
@@ -80,63 +81,79 @@ namespace TesteApiConnect
 
             MySqlConnection connection = new MySqlConnection(builder.ToString());
 
-            typeUser = TypeUser(email);
-
-            if(typeUser == -1)
-            {
-                return null;
-            }
-
             try
             {
                 connection.Open();
 
+                typeUser = TypeUser(email);
+
                 string hashPass = CalculateHash.GetHashString(passInserida);
 
+                string hashUser, sqlCommand;
                 MySqlCommand command;
-                string sqlCommand;
+                object result;
 
                 switch (typeUser)
                 {
                     // Cliente
                     case 0: 
                         {
-                            sqlCommand = "select * from Cliente c where c.email = " + "'" + email + "'";
+                            sqlCommand = "select c.hashPass from Cliente c where c.email = " + "'" + email + "'";
                             command = new MySqlCommand(sqlCommand, connection);
+                            result = command.ExecuteScalar();
 
-                            MySqlDataReader reader = command.ExecuteReader();
-
-                            reader.Read();
-                            string hashUser = reader.GetString(3);
+                            hashUser = Convert.ToString(result);
 
                             if (hashUser.Equals(hashPass))
                             {
                                 // Get Nome
-                                nome = reader.GetString(2);
+                                sqlCommand = "select c.nome from Cliente c where c.email = " + "'" + email + "'";
+                                command = new MySqlCommand(sqlCommand, connection);
+                                result = command.ExecuteScalar();
+
+                                nome = Convert.ToString(result);
 
                                 // Get Nif
-                                nif = reader.GetInt32(1);
+                                sqlCommand = "select c.nif from Cliente c where c.email = " + "'" + email + "'";
+                                command = new MySqlCommand(sqlCommand, connection);
+                                result = command.ExecuteScalar();
+
+                                nif = Convert.ToInt32(result);
 
                                 // Get Genero
-                                genero = reader.GetInt16(5);
+                                sqlCommand = "select c.genero from Cliente c where c.email = " + "'" + email + "'";
+                                command = new MySqlCommand(sqlCommand, connection);
+                                result = command.ExecuteScalar();
+
+                                genero = Convert.ToInt16(result);
 
                                 // Get Data_nascimento
-                                data_nascimento = reader.GetString(4);
+                                sqlCommand = "select c.data_nascimento from Cliente c where c.email = " + "'" + email + "'";
+                                command = new MySqlCommand(sqlCommand, connection);
+                                result = command.ExecuteScalar();
+
+                                data_nascimento = Convert.ToString(result);
 
                                 // Get Localidade
-                                localidade = reader.GetString(7);
+                                sqlCommand = "select c.localidade from Cliente c where c.email = " + "'" + email + "'";
+                                command = new MySqlCommand(sqlCommand, connection);
+                                result = command.ExecuteScalar();
+
+                                localidade = Convert.ToString(result);
 
                                 // Get Categoria
-                                categoria = reader.GetString(6);
+                                sqlCommand = "select c.categoria from Cliente c where c.email = " + "'" + email + "'";
+                                command = new MySqlCommand(sqlCommand, connection);
+                                result = command.ExecuteScalar();
 
-                                reader.Close();
+                                categoria = Convert.ToString(result);
 
                                 Cliente user = new Cliente(email, nif, nome, genero, data_nascimento, localidade, categoria);
 
                                 // Adicionar o Cliente à tabela de utilizadores online...
-                                //sqlCommand = "insert into UtilizadoresOnline values ('" + email + "', '" + time_to_expire + "')";
-                                //command = new MySqlCommand(sqlCommand, connection);
-                                //command.ExecuteScalar();
+                                sqlCommand = "insert into UtilizadoresOnline values ('" + email + "', '" + time_to_expire + "')";
+                                command = new MySqlCommand(sqlCommand, connection);
+                                result = command.ExecuteScalar();
 
                                 connection.Close();
 
@@ -148,39 +165,55 @@ namespace TesteApiConnect
                     // Instrutor
                     case 1:
                         {
-                            sqlCommand = "select * from Instrutor i where i.email = " + "'" + email + "'";
+                            sqlCommand = "select i.hashPass from Instrutor i where i.email = " + "'" + email + "'";
                             command = new MySqlCommand(sqlCommand, connection);
+                            result = command.ExecuteScalar();
 
-                            MySqlDataReader reader = command.ExecuteReader();
-
-                            reader.Read();
-                            string hashUser = reader.GetString(3);
+                            hashUser = Convert.ToString(result);
 
                             if (hashUser.Equals(hashPass))
                             {
                                 // Get Nome
-                                nome = reader.GetString(2);
+                                sqlCommand = "select i.nome from Instrutor i where i.email = " + "'" + email + "'";
+                                command = new MySqlCommand(sqlCommand, connection);
+                                result = command.ExecuteScalar();
+
+                                nome = Convert.ToString(result);
 
                                 // Get Nif
-                                nif = reader.GetInt32(1);
+                                sqlCommand = "select i.nif from Instrutor i where i.email = " + "'" + email + "'";
+                                command = new MySqlCommand(sqlCommand, connection);
+                                result = command.ExecuteScalar();
+
+                                nif = Convert.ToInt32(result);
 
                                 // Get Genero
-                                genero = reader.GetInt16(5);
+                                sqlCommand = "select i.genero from Instrutor i where i.email = " + "'" + email + "'";
+                                command = new MySqlCommand(sqlCommand, connection);
+                                result = command.ExecuteScalar();
+
+                                genero = Convert.ToInt16(result);
 
                                 // Get Data_nascimento
-                                data_nascimento = reader.GetString(4);
+                                sqlCommand = "select i.data_nascimento from Instrutor i where i.email = " + "'" + email + "'";
+                                command = new MySqlCommand(sqlCommand, connection);
+                                result = command.ExecuteScalar();
+
+                                data_nascimento = Convert.ToString(result);
 
                                 // Get Localidade
-                                localidade = reader.GetString(6);
+                                sqlCommand = "select i.localidade from Instrutor i where i.email = " + "'" + email + "'";
+                                command = new MySqlCommand(sqlCommand, connection);
+                                result = command.ExecuteScalar();
 
-                                reader.Close();
+                                localidade = Convert.ToString(result);
 
                                 Instrutor user = new Instrutor(email, nif, nome, genero, data_nascimento, localidade);
 
-                                // Adicionar o Cliente à tabela de utilizadores online...
-                                //sqlCommand = "insert into UtilizadoresOnline values ('" + email + "', '" + time_to_expire + "')";
-                                //command = new MySqlCommand(sqlCommand, connection);
-                                //command.ExecuteScalar();
+                                // Adicionar o Instrutor à tabela de utilizadores online...
+                                sqlCommand = "insert into UtilizadoresOnline values ('" + email + "', '" + time_to_expire + "')";
+                                command = new MySqlCommand(sqlCommand, connection);
+                                result = command.ExecuteScalar();
 
                                 connection.Close();
 
@@ -188,43 +221,59 @@ namespace TesteApiConnect
                             }
                             break;
                         }
-                        
+
                     // Rececionista
                     case 2:
                         {
-                            sqlCommand = "select * from Rececionista r where r.email = " + "'" + email + "'";
+                            sqlCommand = "select r.hashPass from Rececionista r where r.email = " + "'" + email + "'";
                             command = new MySqlCommand(sqlCommand, connection);
+                            result = command.ExecuteScalar();
 
-                            MySqlDataReader reader = command.ExecuteReader();
-
-                            reader.Read();
-                            string hashUser = reader.GetString(3);
+                            hashUser = Convert.ToString(result);
 
                             if (hashUser.Equals(hashPass))
                             {
                                 // Get Nome
-                                nome = reader.GetString(2);
+                                sqlCommand = "select r.nome from Rececionista r where r.email = " + "'" + email + "'";
+                                command = new MySqlCommand(sqlCommand, connection);
+                                result = command.ExecuteScalar();
+
+                                nome = Convert.ToString(result);
 
                                 // Get Nif
-                                nif = reader.GetInt32(1);
+                                sqlCommand = "select r.nif from Rececionista r where r.email = " + "'" + email + "'";
+                                command = new MySqlCommand(sqlCommand, connection);
+                                result = command.ExecuteScalar();
+
+                                nif = Convert.ToInt32(result);
 
                                 // Get Genero
-                                genero = reader.GetInt16(5);
+                                sqlCommand = "select r.genero from Rececionista r where r.email = " + "'" + email + "'";
+                                command = new MySqlCommand(sqlCommand, connection);
+                                result = command.ExecuteScalar();
+
+                                genero = Convert.ToInt16(result);
 
                                 // Get Data_nascimento
-                                data_nascimento = reader.GetString(4);
+                                sqlCommand = "select r.data_nascimento from Rececionista r where r.email = " + "'" + email + "'";
+                                command = new MySqlCommand(sqlCommand, connection);
+                                result = command.ExecuteScalar();
+
+                                data_nascimento = Convert.ToString(result);
 
                                 // Get Localidade
-                                localidade = reader.GetString(6);
+                                sqlCommand = "select r.localidade from Rececionista r where r.email = " + "'" + email + "'";
+                                command = new MySqlCommand(sqlCommand, connection);
+                                result = command.ExecuteScalar();
 
-                                reader.Close();
+                                localidade = Convert.ToString(result);
 
                                 Rececionista user = new Rececionista(email, nif, nome, genero, data_nascimento, localidade);
 
-                                // Adicionar o Cliente à tabela de utilizadores online...
-                                //sqlCommand = "insert into UtilizadoresOnline values ('" + email + "', '" + time_to_expire + "')";
-                                //command = new MySqlCommand(sqlCommand, connection);
-                                //command.ExecuteScalar();
+                                // Adicionar o Rececionista à tabela de utilizadores online...
+                                sqlCommand = "insert into UtilizadoresOnline values ('" + email + "', '" + time_to_expire + "')";
+                                command = new MySqlCommand(sqlCommand, connection);
+                                result = command.ExecuteScalar();
 
                                 connection.Close();
 
