@@ -4,9 +4,6 @@ use UMFit_DB;
 -- Género é definido por um inteiro. 0 no caso de ser feminino e 1 caso seja masculino;
 -- A categoria do cliente tem os seguintes valores possiveis: Standard, Premium;
 
-select * from UtilizadoresOnline;
-delete from UtilizadoresOnline;
-
 -- CODIGO_POSTAL -----------------------------------------------------------------------------------------
 insert into Codigo_Postal values ("Famalicão", "4760");
 insert into Codigo_Postal values ("Braga", "4700");
@@ -227,3 +224,30 @@ values (1, "a85729@alunos.uminho.pt");
 
 
 -- delete from UtilizadoresOnline u where u.email = "a83719@alunos.uminho.pt"; 
+
+select * from UtilizadoresOnline;
+delete from UtilizadoresOnline;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

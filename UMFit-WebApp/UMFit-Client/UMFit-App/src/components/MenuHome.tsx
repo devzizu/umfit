@@ -56,14 +56,8 @@ const appPagesUser: AppPage[] = [
     mdIcon: chevronForward
   },
   {
-    title: 'Planos (not implemented)',
-    url: '/planos',
-    iosIcon: chevronForward,
-    mdIcon: chevronForward
-  },
-  {
-    title: 'Log-Out',
-    url: '/logout',
+    title: 'Avaliações',
+    url: '/profile/aval',
     iosIcon: chevronForward,
     mdIcon: chevronForward
   }

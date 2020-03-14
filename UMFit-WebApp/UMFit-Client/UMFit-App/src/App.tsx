@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Redirect, Route } from 'react-router-dom';
-import { IonApp, IonRouterOutlet, IonSplitPane, IonPage, IonHeader, IonToolbar, IonButtons, IonMenuButton, IonTitle, IonText, IonInput, IonButton, IonLoading } from '@ionic/react';
+import { IonApp, IonRouterOutlet, IonSplitPane, IonPage, IonHeader, IonToolbar, IonTitle, IonText, IonInput, IonButton } from '@ionic/react';
 import { IonReactRouter } from '@ionic/react-router';
 
 /* Core CSS required for Ionic components to work properly */
@@ -26,7 +26,7 @@ import './theme/variables.css';
 //---------------------------------------------------------------------------------------
 
 import { authenticate, getUserStatus } from './models/API/UserAPI';
-import { User, formatUser } from './models/Other/User';
+import { User } from './models/Other/User';
 
 import sha256 from "fast-sha256";
 
@@ -39,81 +39,145 @@ import './pages/css/Home.css';
 import Menu from './components/MenuHome';
 import About from './pages/About';
 import Contact from './pages/Contact';
-import UserProfile from './pages/UserProfile';
+import UserProfile, { Avaliacoes } from './pages/UserProfile';
 
 //---------------------------------------------------------------------------------------
 
 class App extends React.Component {
 
-  state = {
-    selectedPage: "home",
-    menuGroup: "home",
-    isLogged: false
+  state: {
+    selectedPage: string,
+    menus: string,
+    logged: boolean,
+    loadingAPIcall: boolean
+  }
+
+  setLogged = (logged: boolean) => {
+
+    this.setState({ logged: logged, menus: logged ? 'user' : 'home' });
+
+  };
+
+  constructor(props: any) {
+    
+    super(props);
+
+    this.state = {
+      selectedPage: '',
+      menus: 'home',
+      logged: false,
+      loadingAPIcall: true
+    };
+
   }
 
   async componentDidMount() {
-    
-    let json = getUserStatus("test").then(res => res.json());
 
-    let json_value = await json.then(function(value) {return value}); 
+    console.log("com..DidMount() -> updating state...");
 
-    let s: string = await json_value.status;
+    await getUserStatus("test")
+      .then(res => res.json())
+      .then((data) => {
 
-    this.setState({
-      isLogged: s === "online"
-    });
-  }
-  
+        if (data.status === "online") {
+          this.setState({
+            logged: true,
+            menus: 'user',
+            loadingAPIcall: false
+          });
+        } else {
+          this.setState({
+
+            logged: false,
+            menus: 'home',
+            loadingAPIcall: false
+          });
+        }
+
+      });
+
+      console.log("VERIFICACAO");
+
+    }
+
   render() {
 
+    console.log("[...] Rendering App component...");
+
+    var logged = this.state.logged;
+
     return (
-      <IonApp>
-        <IonReactRouter>
-          
-          <IonSplitPane id="split-pane" contentId="main">
-            <Menu selectedPage={this.state.selectedPage} menus={this.state.menuGroup}/>
-              
-              <IonRouterOutlet id="main">
+        <IonApp>
+          {
+            this.state.loadingAPIcall ? <div></div> : (
+              <IonReactRouter>
+            
+              <IonSplitPane id="split-pane" contentId="main">
+                <Menu selectedPage={this.state.selectedPage} menus={this.state.menus}/>
+                  
+                  <IonRouterOutlet id="main">
+                    
+                    <Route path="/home" component={(props: any) => {
+                      
+                      if (logged) {
+                        
+                        return <Redirect to="/profile" />;
+                      } 
+                      
+                      return <Home logged={logged} {...props} setLogged={this.setLogged} />;
+    
+                    }} />
+                    <Route path="/about" component={About} exact={true} />
+                    <Route path="/contact" component={Contact} exact={true} />                          
+    
+                    <Route path="/profile" component={(props: any) => {
+                      
+                      console.log("logged = " + logged);
+
+                      if (!logged) {
+                        
+                        return <Redirect to="/home" />;
+                      }
+    
+                      return <Profile />;
+    
+                    }} />
+    
+                    <Redirect exact from="/" to="/home" />
+                  
+                  </IonRouterOutlet>
+                  
+    
+              </IonSplitPane>
+            </IonReactRouter>
                 
-                <Route path="/home" component={Home} exact={true} />
-                <Route path="/about" component={About} exact={true} />
-                <Route path="/contact" component={Contact} exact={true} />
-                
-                <Route path='/profile' render={async () => {
-
-                  return this.state.isLogged ? <Profile /> : <Redirect to='/home' />;
-
-                }}/>
-
-                <Route exact path="/" render={() => <Redirect to="/home" />} />
-
-              </IonRouterOutlet>
-          </IonSplitPane>
-        </IonReactRouter>
-      </IonApp>
-    );
-    }
+            )
+          }
+        </IonApp>
+      );
+  }
 };
 
 export default App;
 
 //---------------------------------------------------------------------------------------
 
-class Home extends React.Component {
+class Home extends React.Component<any> {
 
   render() {
 
     return (
       <IonPage>
-          <IonHeader>
-              <IonToolbar color="primary">
-                <IonButtons slot="start">
-                  <IonMenuButton auto-hide="false"></IonMenuButton>
-                </IonButtons>
-                <IonTitle id="page-title">UMFit</IonTitle>
-              </IonToolbar>
-          </IonHeader>
-      <LogIn />
+
+
+        <IonHeader>
+          <IonToolbar color="primary">
+            <IonTitle id="page-title">UMFit</IonTitle>
+          </IonToolbar>
+        </IonHeader>
+
+        <LogInForm logged={this.props.logged} history={this.props.history} setLogged={this.props.setLogged}/>
+
       </IonPage>
     );
   }
@@ -127,21 +191,15 @@ class Profile extends React.Component {
   render() {
     
     return(
-      
-      <IonSplitPane id="split-pane" contentId="main">
-      <Menu selectedPage={'profile'} menus={'user'}/>
-        
-        <IonRouterOutlet id="main">
+              
+        <IonRouterOutlet>
 
           <Route path="/profile" component={UserProfile} exact={true} />
 
-          <Route path="/aval" component={UserProfile} exact={true} />
-                
-          <Route path="/planos" component={UserProfile} exact={true} />
+          <Route path="/profile/aval" component={Avaliacoes} exact={true} />
 
         </IonRouterOutlet>
       
-      </IonSplitPane>
     );    
   }
 
@@ -149,18 +207,40 @@ class Profile extends React.Component {
 
 //---------------------------------------------------------------------------------------
 
-const LogIn: React.FC = () => {
+class LogInForm extends React.Component<any> {
 
-  const [showLoading, setShowLoading] = useState(false);
-  const [emailValue, setEmailValue] = useState<string>("");
-  const [passwordValue, setPasswordValue] = useState<string>("");
+  state: {
+    emailValue: string,
+    passwordValue: string
+  }
 
-  setTimeout(() => {
-      setShowLoading(false);
-  }, 2000);
-  
-  return (
+  constructor(props: any) {
+    
+    super(props);
 
+    this.state = {
+      emailValue: "",
+      passwordValue: ""
+    }
+  }
+
+  componentDidMount() {
+
+    console.log(this.props.history);
+
+    if (this.props.logged) {
+
+      this.props.history.push("/profile");
+
+
+    }
+
+  }
+
+  render() {
+
+    return (
+      
       <div id="login-form">
           <div id="Logo"></div>
           <div id="phrase">
@@ -169,48 +249,60 @@ const LogIn: React.FC = () => {
       <div id="input-form">
           <br></br>
           <IonInput required type="email" id="email-input" placeholder="E-Mail"
-          value={emailValue}
+          value={this.state.emailValue}
           onIonChange={(e) => {
-              setEmailValue((e.target as HTMLInputElement).value);
+             
+            this.setState({
+              emailValue: (e.target as HTMLInputElement).value,
+            });
+
           }}>
           </IonInput>
           <br></br>
           <IonInput required type="password" id="pass-input" placeholder="Password"
-          value={passwordValue}
+          value={this.state.passwordValue}
           onIonChange={(e) => {
-              setPasswordValue((e.target as HTMLInputElement).value);
+
+            this.setState({
+              passwordValue: (e.target as HTMLInputElement).value,
+            });
+
           }}>
           </IonInput>
       </div>
       <IonButton expand="block" type="submit" id="login-button" onClick={async () => {
               
-              setShowLoading(true);
+              //setShowLoading(true);
 
               let pass_enc = new TextEncoder();
-              let encoded = pass_enc.encode(passwordValue);
+              let encoded = pass_enc.encode(this.state.passwordValue);
               let hash256 = Buffer.from(sha256(encoded)).toString('hex').toUpperCase();
 
               console.log("Para a API: /api/user/authenticate");
-              console.log("> E-Mail: " + emailValue);
-              console.log("> Password: " + passwordValue);
+              console.log("> E-Mail: " + this.state.emailValue);
+              console.log("> Password: " + this.state.passwordValue);
               console.log("> Password (sha256): " + hash256);
 
               //request
-              let response = authenticate(emailValue, passwordValue);
+              let response = authenticate(this.state.emailValue, this.state.passwordValue);
 
-              await response.then(async function(value) {
+              await response.then(async (value) => {
                   
                   //Success OK = 200    
                   if (value.status === 200) {
                                    
                       var json = value.json();
-                      
-                      await json.then(async function(value) {
+                      //var json: User = await value.json();
+                     
+                      await json.then((value) => {
                           
-                          let user: User = formatUser(value);
+                          let user: User = value;
                           
                           console.log(user);
-   
+
+                          this.props.setLogged(true);
+
+                          //this.props.history.replace("/profile");
                       });
 
                   //Login error: 400    
@@ -225,14 +317,9 @@ const LogIn: React.FC = () => {
       }>
           Log-In
       </IonButton>
-
-          <IonLoading
-              isOpen={showLoading}
-              onDidDismiss={() => setShowLoading(false)}
-              message={'Espere um momento...'}
-              duration={5000}
-          />
       </div> 
   );
+  }
+
   
 };
