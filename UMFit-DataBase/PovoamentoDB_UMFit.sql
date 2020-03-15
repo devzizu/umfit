@@ -227,27 +227,3 @@ values (1, "a85729@alunos.uminho.pt");
 
 select * from UtilizadoresOnline;
 delete from UtilizadoresOnline;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

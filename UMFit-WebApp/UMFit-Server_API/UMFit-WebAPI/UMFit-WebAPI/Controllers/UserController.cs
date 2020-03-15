@@ -16,6 +16,14 @@ namespace UMFit_WebAPI.Controllers
     {
         private readonly UMFit_LN _system = new UMFit_LN();
 
+        [HttpPost("logout")]
+        public ActionResult<string> Logout([Bind] UserDto userDto)
+        {
+            _system.logout(userDto.email);
+
+            return Ok(new {status = "logout OK " + userDto.email});
+        }
+
         [HttpPost("status")]
         public ActionResult<string> Status([Bind] UserDto userDto)
         {

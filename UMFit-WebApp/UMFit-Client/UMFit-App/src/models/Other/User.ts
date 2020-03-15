@@ -42,3 +42,16 @@ export function formatUser(user: any): User {
         categoria: user.categoria
     };
 }
+
+export function getTestValueUser(): User {
+
+    return {
+        email: "testemail@test.pt",
+        nif: 123456789,
+        nome: "Joseph",
+        genero: 1,
+        data_nascimento: "data de nascimento",
+        localidade: "Rua random de Portugal",
+        categoria: "Premium" 
+    }
+}

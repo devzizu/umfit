@@ -11,7 +11,7 @@ import {
 } from '@ionic/react';
 import React from 'react';
 import { RouteComponentProps, withRouter } from 'react-router-dom';
-import { chevronForward } from 'ionicons/icons';
+import { logInOutline, helpCircleOutline, callOutline, logOutOutline, personOutline } from 'ionicons/icons';
 
 import './css/MenuHome.css';
 
@@ -31,20 +31,20 @@ const appPagesHome: AppPage[] = [
   {
     title: 'Iniciar Sessão',
     url: '/home',
-    iosIcon: chevronForward,
-    mdIcon: chevronForward
+    iosIcon: logInOutline,
+    mdIcon: logInOutline
   }, 
   {
     title: 'Sobre',
     url: '/about',
-    iosIcon: chevronForward,
-    mdIcon: chevronForward
+    iosIcon: helpCircleOutline,
+    mdIcon: helpCircleOutline
   },
   {
     title: 'Contacto',
     url: '/contact',
-    iosIcon: chevronForward,
-    mdIcon: chevronForward
+    iosIcon: callOutline,
+    mdIcon: callOutline
   }
 ];
 
@@ -52,14 +52,14 @@ const appPagesUser: AppPage[] = [
   {
     title: 'O meu perfil',
     url: '/profile',
-    iosIcon: chevronForward,
-    mdIcon: chevronForward
+    iosIcon: personOutline,
+    mdIcon: personOutline
   },
   {
-    title: 'Avaliações',
-    url: '/profile/aval',
-    iosIcon: chevronForward,
-    mdIcon: chevronForward
+    title: 'Log-Out',
+    url: '/profile/logout',
+    iosIcon: logOutOutline,
+    mdIcon: logOutOutline
   }
 ];
 

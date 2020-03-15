@@ -37,3 +37,23 @@ export function getUserStatus (email: string) {
 
     return res;
 }
+
+export function logout(email: string) {
+
+    console.log("Sending logout call with email " + email);
+
+    const res = fetch(baseURL + "/logout", {
+        method: 'post',
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            email: email,
+            password: ""
+        })
+    });
+
+    res.then(res => res.json())
+        .then(data => console.log(data));
+}

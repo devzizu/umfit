@@ -29,5 +29,10 @@ namespace UMFit_WebAPI.Models.UMFit_LN
         {
             return utilizadoresDAO.isUserOnline(email);
         }
+
+        public void logout(string email)
+        {
+            utilizadoresDAO.LogOut(email);
+        }
     }
 }

@@ -25,7 +25,7 @@ import './theme/variables.css';
 //---------------------------------------------------------------------------------------
 //---------------------------------------------------------------------------------------
 
-import { authenticate, getUserStatus } from './models/API/UserAPI';
+import { authenticate, getUserStatus, logout } from './models/API/UserAPI';
 import { User } from './models/Other/User';
 
 import sha256 from "fast-sha256";
@@ -39,7 +39,7 @@ import './pages/css/Home.css';
 import Menu from './components/MenuHome';
 import About from './pages/About';
 import Contact from './pages/Contact';
-import UserProfile, { Avaliacoes } from './pages/UserProfile';
+import UserProfile from './pages/UserProfile';
 
 //---------------------------------------------------------------------------------------
 
@@ -49,14 +49,29 @@ class App extends React.Component {
     selectedPage: string,
     menus: string,
     logged: boolean,
-    loadingAPIcall: boolean
+    loadingAPIcall: boolean,
+    userLogged: User
   }
 
   setLogged = (logged: boolean) => {
 
-    this.setState({ logged: logged, menus: logged ? 'user' : 'home' });
+    if (logged === false) {
 
+      logout(this.state.userLogged.email);      
+    }
+
+    this.setState({ 
+      logged: logged, 
+      menus: logged ? 'user' : 'home'
+    });
   };
+
+  setUser = (user: User) => {
+
+    this.setState({
+      userLogged: user      
+    });
+  }
 
   constructor(props: any) {
     
@@ -66,7 +81,8 @@ class App extends React.Component {
       selectedPage: '',
       menus: 'home',
       logged: false,
-      loadingAPIcall: true
+      loadingAPIcall: true,
+      userLogged: new User("", -1, "", -1, "", "", "")
     };
 
   }
@@ -75,7 +91,8 @@ class App extends React.Component {
 
     console.log("com..DidMount() -> updating state...");
 
-    await getUserStatus("test")
+    //await getUserStatus(this.state.userLogged.email)
+    await getUserStatus(this.state.userLogged.email)
       .then(res => res.json())
       .then((data) => {
 
@@ -95,9 +112,6 @@ class App extends React.Component {
         }
 
       });
-
-      console.log("VERIFICACAO");
-
     }
 
   render() {
@@ -124,7 +138,7 @@ class App extends React.Component {
                         return <Redirect to="/profile" />;
                       } 
                       
-                      return <Home logged={logged} {...props} setLogged={this.setLogged} />;
+                      return <Home logged={logged} {...props} setLogged={this.setLogged} setUser={this.setUser} />;
     
                     }} />
                     <Route path="/about" component={About} exact={true} />
@@ -132,14 +146,12 @@ class App extends React.Component {
     
                     <Route path="/profile" component={(props: any) => {
                       
-                      console.log("logged = " + logged);
-
                       if (!logged) {
                         
                         return <Redirect to="/home" />;
                       }
     
-                      return <Profile />;
+                      return <Profile setLogged={this.setLogged} user={this.state.userLogged}/>;
     
                     }} />
     
@@ -176,7 +188,7 @@ class Home extends React.Component<any> {
           </IonToolbar>
         </IonHeader>
 
-        <LogInForm logged={this.props.logged} history={this.props.history} setLogged={this.props.setLogged}/>
+        <LogInForm logged={this.props.logged} history={this.props.history} setLogged={this.props.setLogged} setUser={this.props.setUser}/>
 
       </IonPage>
     );
@@ -186,23 +198,46 @@ class Home extends React.Component<any> {
 
 //---------------------------------------------------------------------------------------
 
-class Profile extends React.Component {
+class Profile extends React.Component<any> {
+
+  state = {
+    user: User
+  }
+
+  constructor(props: any) {
+    super(props);
+    this.state = {
+      user: this.props.user
+    };
+  }
 
   render() {
-    
+
     return(
               
         <IonRouterOutlet>
 
-          <Route path="/profile" component={UserProfile} exact={true} />
+          <Route path="/profile" render={() => {return <UserProfile user={this.state.user} />}} exact={true} />
 
-          <Route path="/profile/aval" component={Avaliacoes} exact={true} />
+          <Route path="/profile/logout" component={() => {return <LogOut setLogged={this.props.setLogged}/>}} exact={true} />
 
         </IonRouterOutlet>
       
     );    
   }
 
+}
+//---------------------------------------------------------------------------------------
+
+class LogOut extends React.Component<any> {
+
+  componentDidMount() {
+    this.props.setLogged(false);
+  }
+
+  render() {
+    return <div></div>;
+  }
 }
 
 //---------------------------------------------------------------------------------------
@@ -222,19 +257,6 @@ class LogInForm extends React.Component<any> {
       emailValue: "",
       passwordValue: ""
     }
-  }
-
-  componentDidMount() {
-
-    console.log(this.props.history);
-
-    if (this.props.logged) {
-
-      this.props.history.push("/profile");
-
-
-    }
-
   }
 
   render() {
@@ -296,11 +318,10 @@ class LogInForm extends React.Component<any> {
                      
                       await json.then((value) => {
                           
-                          let user: User = value;
-                          
-                          console.log(user);
+                          var user: User = value;
 
                           this.props.setLogged(true);
+                          this.props.setUser(user);
 
                           //this.props.history.replace("/profile");
                       });
@@ -312,6 +333,9 @@ class LogInForm extends React.Component<any> {
 
                   }
               });
+
+              //for debug
+              //this.props.setLogged(true);
 
           }
       }>

@@ -244,13 +244,13 @@ namespace UMFit_WebAPI.Models.Data.DAO
             return null;
         }
 
-        public static void LogOut(string email)
+        public void LogOut(string email)
         {
             MySqlConnection connection = new MySqlConnection(builder.ToString());
 
             connection.Open();
 
-            string sqlCommand = "delete from UtilizadoresOnline u where u.email = '" + email + "'";
+            string sqlCommand = "delete from UtilizadoresOnline where email = " + "'" + email + "'";
             MySqlCommand command = new MySqlCommand(sqlCommand, connection);
 
             command.ExecuteScalar();

@@ -1,0 +1,31 @@
+
+#main-div-top {
+
+    width: 90%;
+    overflow: hidden;
+    margin-top: 40px;
+    margin-left: 50px;
+    padding: 50px;
+    border-color: orange;
+    border-style: outset;
+}
+
+#left-profile-pic {
+
+    width: 200px;
+    float: left;
+    margin-left: 40px;
+    border-color: orange;
+    border-style: groove;
+    height: 200px;
+}
+
+#right-profile-info {
+
+    margin-left: 300px;
+    border-color: orange;
+    border-style: ridge;
+    height: 200px;
+    width: 700px;
+    padding: 20px;
+}
