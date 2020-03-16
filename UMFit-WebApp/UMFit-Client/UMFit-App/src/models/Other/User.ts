@@ -46,12 +46,12 @@ export function formatUser(user: any): User {
 export function getTestValueUser(): User {
 
     return {
-        email: "testemail@test.pt",
+        email: "joseph.99.matt@umfit.com",
         nif: 123456789,
-        nome: "Joseph",
-        genero: 1,
-        data_nascimento: "data de nascimento",
-        localidade: "Rua random de Portugal",
+        nome: "Joseph Matt",
+        genero: 0,
+        data_nascimento: "22/02/1992",
+        localidade: "Rua das flores, nº 554.",
         categoria: "Premium" 
     }
 }

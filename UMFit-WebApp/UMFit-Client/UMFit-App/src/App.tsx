@@ -92,6 +92,7 @@ class App extends React.Component {
     console.log("com..DidMount() -> updating state...");
 
     //await getUserStatus(this.state.userLogged.email)
+    //await getUserStatus("test")
     await getUserStatus(this.state.userLogged.email)
       .then(res => res.json())
       .then((data) => {
