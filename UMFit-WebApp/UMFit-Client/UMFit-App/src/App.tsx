@@ -1,6 +1,6 @@
 import React from 'react';
 import { Redirect, Route } from 'react-router-dom';
-import { IonApp, IonRouterOutlet, IonSplitPane, IonPage, IonHeader, IonToolbar, IonTitle, IonText, IonInput, IonButton } from '@ionic/react';
+import { IonApp, IonRouterOutlet, IonSplitPane, IonPage, IonHeader, IonToolbar, IonTitle, IonText, IonInput, IonButton, IonItem, IonCheckbox, IonLabel } from '@ionic/react';
 import { IonReactRouter } from '@ionic/react-router';
 
 /* Core CSS required for Ionic components to work properly */
@@ -58,12 +58,14 @@ class App extends React.Component {
     if (logged === false) {
 
       logout(this.state.userLogged.email);      
+      localStorage.clear();
     }
 
     this.setState({ 
       logged: logged, 
       menus: logged ? 'user' : 'home'
     });
+
   };
 
   setUser = (user: User) => {
@@ -82,7 +84,7 @@ class App extends React.Component {
       menus: 'home',
       logged: false,
       loadingAPIcall: true,
-      userLogged: new User("", -1, "", -1, "", "", "")
+      userLogged: new User("", "", -1, "", -1, "", "", "")
     };
 
   }
@@ -93,7 +95,21 @@ class App extends React.Component {
 
     //await getUserStatus(this.state.userLogged.email)
     //await getUserStatus("test")
-    await getUserStatus(this.state.userLogged.email)
+
+    var emailFromStorage = localStorage.getItem('email');
+
+    if (emailFromStorage === null) 
+      emailFromStorage = this.state.userLogged.email
+    else {
+      var userFromStorage = localStorage.getItem('user');
+      if (userFromStorage != null) {
+        this.setState({
+          userLogged: JSON.parse(userFromStorage)
+        });  
+      }
+    }
+
+    await getUserStatus(emailFromStorage)
       .then(res => res.json())
       .then((data) => {
 
@@ -247,7 +263,8 @@ class LogInForm extends React.Component<any> {
 
   state: {
     emailValue: string,
-    passwordValue: string
+    passwordValue: string,
+    rememberMe: boolean
   }
 
   constructor(props: any) {
@@ -256,7 +273,8 @@ class LogInForm extends React.Component<any> {
 
     this.state = {
       emailValue: "",
-      passwordValue: ""
+      passwordValue: "",
+      rememberMe: false
     }
   }
 
@@ -292,7 +310,17 @@ class LogInForm extends React.Component<any> {
 
           }}>
           </IonInput>
+          <br></br>
+          <IonItem>
+            <IonCheckbox color="primary" slot="start" onIonChange={(e) => {
+                this.setState({
+                  rememberMe: (e.target as HTMLInputElement).checked
+                });
+            }}></IonCheckbox>
+            <IonLabel>Remember me</IonLabel>
+          </IonItem>
       </div>
+      <div>
       <IonButton expand="block" type="submit" id="login-button" onClick={async () => {
               
               //setShowLoading(true);
@@ -324,6 +352,9 @@ class LogInForm extends React.Component<any> {
                           this.props.setLogged(true);
                           this.props.setUser(user);
 
+                          localStorage.setItem("email", user.email);
+                          localStorage.setItem("user", JSON.stringify(user));
+
                           //this.props.history.replace("/profile");
                       });
 
@@ -342,7 +373,8 @@ class LogInForm extends React.Component<any> {
       }>
           Log-In
       </IonButton>
-      </div> 
+      </div>
+    </div> 
   );
   }
 

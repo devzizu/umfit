@@ -6,6 +6,7 @@ namespace UMFit_WebAPI.Models.UMFit_LN.Utilizadores
 {
     public class Cliente : InterfaceUtilizador
     {
+        public string tipoDeUser { get; set; }
         public string email { get; set; }
         public int nif { get; set; }
         public string nome { get; set; }
@@ -17,6 +18,7 @@ namespace UMFit_WebAPI.Models.UMFit_LN.Utilizadores
         public Cliente(string email, int nif, string nome, int genero, 
                        string data_nascimento, string localidade, string categoria)
         {
+            this.tipoDeUser = "Cliente";
             this.email = email;
             this.nif = nif;
             this.nome = nome;
@@ -30,6 +32,7 @@ namespace UMFit_WebAPI.Models.UMFit_LN.Utilizadores
         {
             StringBuilder r = new StringBuilder();
 
+            r.Append(this.tipoDeUser + "\n");
             r.Append("\nEmail: " + this.email + ";\n");
             r.Append("Nif: " + this.nif + ";\n");
             r.Append("Nome: " + this.nome + ";\n");

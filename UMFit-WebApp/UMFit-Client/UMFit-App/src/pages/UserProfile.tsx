@@ -4,7 +4,7 @@ import React from "react";
 import { User } from "../models/Other/User";
 
 import './css/UserProfile.css';
-import { mailOutline, femaleOutline, maleOutline, locationOutline, calendarOutline, cardOutline } from "ionicons/icons";
+import { mailOutline, femaleOutline, maleOutline, locationOutline, calendarOutline, cardOutline, informationCircleOutline } from "ionicons/icons";
 
 class UserProfile extends React.Component<any> {
 
@@ -75,6 +75,10 @@ class UserProfile extends React.Component<any> {
 
               <IonCardContent className="info-text">
 
+                  <IonIcon slot="start" icon={informationCircleOutline} />
+                  <b>{ this.state.user.tipoDeUser}</b>
+                  <br></br>
+                  <br></br>
                   <IonIcon slot="start" icon={mailOutline} />
                   <b> E-Mail:</b> {this.state.user.email}
                   <br></br>

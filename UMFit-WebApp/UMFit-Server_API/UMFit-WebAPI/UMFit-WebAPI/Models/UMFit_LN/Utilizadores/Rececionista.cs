@@ -4,18 +4,20 @@ using UMFit_WebAPI.Models.UMFit_LN.Utilizadores.Interfaces;
 
 namespace UMFit_WebAPI.Models.UMFit_LN.Utilizadores
 {
-    class Rececionista : InterfaceUtilizador
+    public class Rececionista : InterfaceUtilizador
     {
-        public string email;
-        public int nif;
-        public string nome;
-        public int genero;
-        public string data_nascimento;
-        public string localidade;
+        public string tipoDeUser { get; set; }
+        public string email { get; set; }
+        public int nif { get; set; }
+        public string nome { get; set; }
+        public int genero { get; set; }
+        public string data_nascimento { get; set; }
+        public string localidade { get; set; }
 
         public Rececionista(string email, int nif, string nome, int genero,
                string data_nascimento, string localidade)
         {
+            this.tipoDeUser = "Rececionista";
             this.email = email;
             this.nif = nif;
             this.nome = nome;
@@ -27,6 +29,7 @@ namespace UMFit_WebAPI.Models.UMFit_LN.Utilizadores
         {
             StringBuilder r = new StringBuilder();
 
+            r.Append(this.tipoDeUser + "\n");
             r.Append("\nEmail: " + this.email + ";\n");
             r.Append("Nif: " + this.nif + ";\n");
             r.Append("Nome: " + this.nome + ";\n");

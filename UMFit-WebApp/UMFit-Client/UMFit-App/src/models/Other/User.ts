@@ -3,6 +3,7 @@ export {}
 
 export class User {
 
+    tipoDeUser: string;
     email: string;
     nif: number;
     nome: string;
@@ -11,14 +12,16 @@ export class User {
     localidade: string;
     categoria: string;
 
-    constructor(email: string, 
+    constructor(usertype: string,
+                email: string, 
                 nif: number, 
                 nome: string,
                 genero: number,
                 data_nascimento: string,
                 localidade: string,
                 categoria: string) {
-
+        
+        this.tipoDeUser = usertype;
         this.email = email;
         this.nif = nif;
         this.nome = nome;
@@ -33,6 +36,7 @@ export class User {
 export function formatUser(user: any): User {
     
     return { 
+        tipoDeUser: user.tipoDeUser,
         email: user.email,
         nif: user.nif,
         nome: user.nome,
@@ -46,6 +50,7 @@ export function formatUser(user: any): User {
 export function getTestValueUser(): User {
 
     return {
+        tipoDeUser: "Cliente",
         email: "joseph.99.matt@umfit.com",
         nif: 123456789,
         nome: "Joseph Matt",

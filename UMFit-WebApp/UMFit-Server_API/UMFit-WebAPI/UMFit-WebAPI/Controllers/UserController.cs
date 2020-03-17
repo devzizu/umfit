@@ -17,7 +17,7 @@ namespace UMFit_WebAPI.Controllers
         private readonly UMFit_LN _system = new UMFit_LN();
 
         [HttpPost("logout")]
-        public ActionResult<string> Logout([Bind] UserDto userDto)
+        public ActionResult<string> Logout([Bind] UserAuthenticationDto userDto)
         {
             _system.logout(userDto.email);
 
@@ -25,7 +25,7 @@ namespace UMFit_WebAPI.Controllers
         }
 
         [HttpPost("status")]
-        public ActionResult<string> Status([Bind] UserDto userDto)
+        public ActionResult<string> Status([Bind] UserAuthenticationDto userDto)
         {
             var res = _system.isUserOnline(userDto.email);
             
@@ -33,11 +33,11 @@ namespace UMFit_WebAPI.Controllers
         }
         
         [HttpPost("authenticate")]
-        public ActionResult<InterfaceUtilizador> Authenticate([Bind] UserDto userDto)
+        public ActionResult<InterfaceUtilizador> Authenticate([Bind] UserAuthenticationDto userDto)
         {
             InterfaceUtilizador user = null;
             int typeOfUser = _system.TypeUser(userDto.email);
-
+            
             if (typeOfUser != -1)
             {
                 switch (typeOfUser)
@@ -67,7 +67,7 @@ namespace UMFit_WebAPI.Controllers
                     message = "Credentials are wrong..."
                 });
             }
-            
+
             return Ok(user);
         }
     }
