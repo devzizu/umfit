@@ -40,6 +40,7 @@ import Menu from './components/MenuHome';
 import About from './pages/About';
 import Contact from './pages/Contact';
 import UserProfile from './pages/UserProfile';
+import Evolucao from './pages/Evolucao';
 
 //---------------------------------------------------------------------------------------
 
@@ -53,10 +54,11 @@ class App extends React.Component {
     userLogged: User
   }
 
+
+  
   setLogged = (logged: boolean) => {
 
     if (logged === false) {
-
       logout(this.state.userLogged.email);      
       localStorage.clear();
     }
@@ -84,10 +86,12 @@ class App extends React.Component {
       menus: 'home',
       logged: false,
       loadingAPIcall: true,
+      //loadingAPIcall: false,
       userLogged: new User("", "", -1, "", -1, "", "", "")
     };
 
   }
+
 
   async componentDidMount() {
 
@@ -129,6 +133,7 @@ class App extends React.Component {
         }
 
       });
+
     }
 
   render() {
@@ -158,9 +163,13 @@ class App extends React.Component {
                       return <Home logged={logged} {...props} setLogged={this.setLogged} setUser={this.setUser} />;
     
                     }} />
+                    
                     <Route path="/about" component={About} exact={true} />
+                    
                     <Route path="/contact" component={Contact} exact={true} />                          
-    
+
+                    <Route path="/evolucao" component={Evolucao} exact={true} />                          
+
                     <Route path="/profile" component={(props: any) => {
                       
                       if (!logged) {
@@ -210,7 +219,6 @@ class Home extends React.Component<any> {
       </IonPage>
     );
   }
-
 };
 
 //---------------------------------------------------------------------------------------
@@ -220,6 +228,7 @@ class Profile extends React.Component<any> {
   state = {
     user: User
   }
+
 
   constructor(props: any) {
     super(props);
