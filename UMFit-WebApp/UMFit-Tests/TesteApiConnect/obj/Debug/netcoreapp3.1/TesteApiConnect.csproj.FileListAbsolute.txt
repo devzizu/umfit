@@ -28,3 +28,5 @@ C:\Users\Luis\Desktop\Documentos\Universidade\3º Ano\Semestre2\LI4\li4_umfit\UM
 C:\Users\Luis\Desktop\Documentos\Universidade\3º Ano\Semestre2\LI4\li4_umfit\UMFit-WebApp\UMFit-Tests\TesteApiConnect\obj\Debug\netcoreapp3.1\TesteApiConnect.csproj.CopyComplete
 C:\Users\Luis\Desktop\Documentos\Universidade\3º Ano\Semestre2\LI4\li4_umfit\UMFit-WebApp\UMFit-Tests\TesteApiConnect\obj\Debug\netcoreapp3.1\TesteApiConnect.dll
 C:\Users\Luis\Desktop\Documentos\Universidade\3º Ano\Semestre2\LI4\li4_umfit\UMFit-WebApp\UMFit-Tests\TesteApiConnect\obj\Debug\netcoreapp3.1\TesteApiConnect.pdb
+C:\Users\Luis\Desktop\Documentos\Universidade\3º Ano\Semestre2\LI4\li4_umfit\UMFit-WebApp\UMFit-Tests\TesteApiConnect\obj\Debug\netcoreapp3.1\TesteApiConnect.csproj.CoreCompileInputs.cache
+C:\Users\Luis\Desktop\Documentos\Universidade\3º Ano\Semestre2\LI4\li4_umfit\UMFit-WebApp\UMFit-Tests\TesteApiConnect\obj\Debug\netcoreapp3.1\TesteApiConnect.genruntimeconfig.cache

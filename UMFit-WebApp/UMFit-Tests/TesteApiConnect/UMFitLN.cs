@@ -7,7 +7,7 @@ namespace TesteApiConnect
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("LogIn...");
+            /*Console.WriteLine("LogIn...");
 
             Console.WriteLine("Enter the email:");
             string email = Console.ReadLine();
@@ -69,6 +69,29 @@ namespace TesteApiConnect
             {
                 Console.WriteLine("Email e/ou password incorreto(s)!");
             }
+            */
+
+            List<Avaliaçao> listaAv = AvaliaçaoDAO.GetAvaliaçoesRealizada();
+
+            int i = 0;
+
+            while (i < listaAv.Count)
+            {
+                Console.WriteLine(listaAv[i].ToString());
+                i++;
+            }
+
+            Console.WriteLine("Avaliações Totais: ");
+            i = 0;
+
+            listaAv = AvaliaçaoDAO.GetAvaliaçoes();
+
+            while (i < listaAv.Count)
+            {
+                Console.WriteLine(listaAv[i].ToString());
+                i++;
+            }
+
         }
     }
 }
