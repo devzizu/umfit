@@ -431,10 +431,7 @@ values (1, "a85729@alunos.uminho.pt");
 
 
 -- delete from UtilizadoresOnline u where u.email = "a83719@alunos.uminho.pt"; 
-<<<<<<< HEAD
-select * from Aula_Grupo;
-=======
 
 select * from UtilizadoresOnline;
 delete from UtilizadoresOnline;
->>>>>>> edb8e4098ffaea33a55689f2eb4b91f8a3b5d7df
+
