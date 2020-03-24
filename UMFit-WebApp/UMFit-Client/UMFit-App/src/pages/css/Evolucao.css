@@ -1,8 +1,31 @@
-#container {
-    width: 100%;
-    text-align:center;
- }
- 
- canvas {
-    display: inline;
- }
+.textWrapper {
+   text-align: center;
+}
+.lineChart{
+   display: flex;
+   margin-left: 0px;
+   align-content: right;
+}
+.grid{
+   display: flexbox;
+   align-items: center;
+--ion-grid-column-padding:        5px;
+--ion-grid-width-xs:              100%;
+--ion-grid-width-sm:              100%;
+--ion-grid-width-md:              100%;
+--ion-grid-width-lg:              100%;
+--ion-grid-width-xl:              100%;
+}
+
+.ion-content {
+   display: flex;
+   align-items: center;
+   align-content: center;
+   justify-content: center;
+}
+
+.SelectionMenuItem {
+   --background: rgb(243, 233, 219);
+   border-radius: 3px;
+   border-style: initial;
+}

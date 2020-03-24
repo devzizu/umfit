@@ -1,0 +1,13 @@
+.card-about {
+    font-family: 'Courier New', Courier, monospace;
+    color: black;
+    height: 40%;
+    background-color: rgb(245, 226, 214);
+}
+
+.info-text {
+    font-family: 'Courier New', Courier, monospace;
+    text-align: center;
+    height: 30px; 
+}
+

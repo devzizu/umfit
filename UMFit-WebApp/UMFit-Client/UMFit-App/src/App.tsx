@@ -53,8 +53,6 @@ class App extends React.Component {
     loadingAPIcall: boolean,
     userLogged: User
   }
-
-
   
   setLogged = (logged: boolean) => {
 
@@ -85,8 +83,8 @@ class App extends React.Component {
       selectedPage: '',
       menus: 'home',
       logged: false,
-      loadingAPIcall: true,
-      //loadingAPIcall: false,
+      //loadingAPIcall: true,
+      loadingAPIcall: false,
       userLogged: new User("", "", -1, "", -1, "", "", "")
     };
 
@@ -145,7 +143,7 @@ class App extends React.Component {
     return (
         <IonApp>
           {
-            this.state.loadingAPIcall ? <div></div> : (
+            this.state.loadingAPIcall  ?<div></div> : (
               <IonReactRouter>
             
               <IonSplitPane id="split-pane" contentId="main">
