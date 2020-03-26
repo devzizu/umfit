@@ -306,36 +306,39 @@ select * from Avaliaçao_Realizada ar, Avaliaçao_Agendada aa
 
 -- AVALIAÇAO REALIZADA -----------------------------------------------------------------------------------------
 insert into Avaliaçao_Realizada 
-values (1, 180, 79.0, 7.27, 68.3, 24.38, 12);
+values (1, 179, 83.0, 10.1, 70.2, 25.9, 12, 82.5, 84, 118.5, 93, 35, 34, 60.5, 60, 41, 40, 29, 28);	
 
 insert into Avaliaçao_Realizada 
-values (2, 180, 77.0, 8.50, 66.8, 22, 12);
+values (2, 180, 79.0, 8.50, 67.8, 24.4, 12, 81.5, 82.3, 117.5, 92.3, 35, 35, 60.8, 61, 41.5, 40.5, 29, 29);
 
 insert into Avaliaçao_Realizada 
-values (3, 179, 81.0, 7.27, 68.3, 24.38, 12);
+values (3, 180, 80.1, 7.87, 70.6, 24.7, 12, 81.4, 83.2, 118, 92.4, 35.7, 35.6, 61.5, 61.5, 42, 42, 30, 30.1);
 
 insert into Avaliaçao_Realizada 
-values (4, 180, 80.2, 7.00, 70.3, 24.38, 13);
+values (4, 181, 80.3, 7.00, 70.3, 24.72, 13, 81.6, 83.8, 118.5, 92.8, 35.9, 35.9, 61.7, 61.7, 42.4, 42.3, 30.6, 30.7);
 
 insert into Avaliaçao_Realizada 
-values (5, null, null, null, null, null, null);
+values (5, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
 
+select * from Avaliaçao_Realizada;
+delete from Avaliaçao_Agendada where idAvaliaçao = 1010101010;
+delete from Avaliaçao_Realizada where idAvaliaçao = 1010101010;
 
 -- AVALIAÇAO AGENDADA -----------------------------------------------------------------------------------------
 insert into Avaliaçao_Agendada
-values ("2020-03-01 14:00:00", "a89983@alunos.uminho.pt", "a83719@alunos.uminho.pt", 1);
+values ("2020-02-04 15:30:00", "a85227@alunos.uminho.pt", "a83719@alunos.uminho.pt", 1);
 
 insert into Avaliaçao_Agendada
-values ("2020-02-04 15:30:00", "a85227@alunos.uminho.pt", "a83719@alunos.uminho.pt", 2);
+values ("2020-02-28 14:30:00", "a85227@alunos.uminho.pt", "a83719@alunos.uminho.pt", 2);
 
 insert into Avaliaçao_Agendada
-values ("2020-02-08 15:30:00", "a85227@alunos.uminho.pt", "a83719@alunos.uminho.pt", 3);
+values ("2020-03-20 14:00:00", "a89983@alunos.uminho.pt", "a83719@alunos.uminho.pt", 3);
 
 insert into Avaliaçao_Agendada
-values ("2020-03-10 10:00:00", "a85227@alunos.uminho.pt", "a83719@alunos.uminho.pt", 4);
+values ("2020-04-08 10:00:00", "anaSILVa@hotmail.com", "a83719@alunos.uminho.pt", 4);
 
 insert into Avaliaçao_Agendada
-values ("2020-04-01 18:00:00", "a85227@alunos.uminho.pt", "a83719@alunos.uminho.pt", 5);
+values ("2020-04-30 18:00:00", "a85227@alunos.uminho.pt", "a83719@alunos.uminho.pt", 5);
 
 
 -- EXERCICIO -----------------------------------------------------------------------------------------
@@ -431,6 +434,9 @@ values (1, "a85729@alunos.uminho.pt");
 
 
 -- delete from UtilizadoresOnline u where u.email = "a83719@alunos.uminho.pt"; 
+
+select * from Aula_Grupo;
+
 
 select * from UtilizadoresOnline;
 delete from UtilizadoresOnline;

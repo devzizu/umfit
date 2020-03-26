@@ -70,11 +70,11 @@ namespace TesteApiConnect
                 Console.WriteLine("Email e/ou password incorreto(s)!");
             }
             */
-
+            
             List<Avaliaçao> listaAv = AvaliaçaoDAO.GetAvaliaçoesRealizada();
 
             int i = 0;
-
+            /*
             while (i < listaAv.Count)
             {
                 Console.WriteLine(listaAv[i].ToString());
@@ -91,7 +91,24 @@ namespace TesteApiConnect
                 Console.WriteLine(listaAv[i].ToString());
                 i++;
             }
+            
+            Avaliaçao av = new Avaliaçao(1010101010, "2020-09-09 09:09:00", "a85227@alunos.uminho.pt", "a83719@alunos.uminho.pt");
+            AvaliaçaoDAO.insertAvaliaçao(av);
+            
+            listaAv = AvaliaçaoDAO.GetAvaliaçoes();
 
+            Console.WriteLine("\nAvaliação inserida: \n");
+            Console.WriteLine(listaAv[listaAv.Count -1].ToString());
+            */
+
+            listaAv = AvaliaçaoDAO.GetAvaliaçao("a83719@alunos.uminho.pt");
+            i = 0;
+
+            while (i < listaAv.Count)
+            {
+                Console.WriteLine(listaAv[i].ToString());
+                i++;
+            }
         }
     }
 }

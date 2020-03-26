@@ -18,8 +18,9 @@ namespace TesteApiConnect
             {
                 connection.Open();
 
-                int altura = 0, peso = 0, idade_metabolica = 0;
-                float massa_gorda = 0, massa_magra = 0, imc = 0;
+                Perimetros p;
+                Composiçao_Corporal cc;
+
                 string data, instrutor, cliente;
 
                 string sqlCommand = "select * from Avaliaçao_Realizada ar, Avaliaçao_Agendada aa " +
@@ -35,25 +36,21 @@ namespace TesteApiConnect
 
                     if (!reader.IsDBNull(1))
                     {
-                        altura = reader.GetInt32(1);
-                        peso = reader.GetInt32(2);
-                        massa_gorda = reader.GetFloat(3);
-                        massa_magra = reader.GetFloat(4);
-                        imc = reader.GetFloat(5);
-                        idade_metabolica = reader.GetInt32(6);
+                        cc = new Composiçao_Corporal(reader.GetInt32(1), reader.GetInt32(2), reader.GetFloat(3), 
+                        reader.GetFloat(4), reader.GetFloat(5), reader.GetInt32(6));
 
-                        data = reader.GetString(7);
-                        instrutor = reader.GetString(8);
-                        cliente = reader.GetString(9);
+                        p = new Perimetros(reader.GetFloat(7), reader.GetFloat(8), reader.GetFloat(9), reader.GetFloat(10),
+                        reader.GetFloat(11), reader.GetFloat(12), reader.GetFloat(13), reader.GetFloat(14), reader.GetFloat(15),
+                        reader.GetFloat(16), reader.GetFloat(17), reader.GetFloat(18));
 
-                        Avaliaçao ava = new Avaliaçao(id, data, instrutor, cliente, altura, peso, massa_gorda,
-                            massa_magra, imc, idade_metabolica);
+                        data = reader.GetString(19);
+                        instrutor = reader.GetString(20);
+                        cliente = reader.GetString(21);
+
+                        Avaliaçao ava = new Avaliaçao(id, data, instrutor, cliente, cc, p);
 
                         r.Add(ava);
                     }
-
-                    altura = peso = idade_metabolica = 0;
-                    massa_gorda = massa_magra = imc = 0;
                 }
 
                 reader.Close();
@@ -77,8 +74,9 @@ namespace TesteApiConnect
             {
                 connection.Open();
 
-                int altura = 0, peso = 0, idade_metabolica = 0;
-                float massa_gorda = 0, massa_magra = 0, imc = 0;
+                Perimetros p;
+                Composiçao_Corporal cc;
+
                 string data, instrutor, cliente;
 
                 string sqlCommand = "select * from Avaliaçao_Realizada ar, Avaliaçao_Agendada aa " +
@@ -94,30 +92,92 @@ namespace TesteApiConnect
 
                     if (!reader.IsDBNull(1))
                     {
-                        altura = reader.GetInt32(1);
-                        peso = reader.GetInt32(2);
-                        massa_gorda = reader.GetFloat(3);
-                        massa_magra = reader.GetFloat(4);
-                        imc = reader.GetFloat(5);
-                        idade_metabolica = reader.GetInt32(6);
+                        cc = new Composiçao_Corporal(reader.GetInt32(1), reader.GetInt32(2), reader.GetFloat(3),
+                        reader.GetFloat(4), reader.GetFloat(5), reader.GetInt32(6));
+
+                        p = new Perimetros(reader.GetFloat(7), reader.GetFloat(8), reader.GetFloat(9), reader.GetFloat(10),
+                        reader.GetFloat(11), reader.GetFloat(12), reader.GetFloat(13), reader.GetFloat(14), reader.GetFloat(15),
+                        reader.GetFloat(16), reader.GetFloat(17), reader.GetFloat(18));
+                    }
+                    else
+                    {
+                        cc = new Composiçao_Corporal();
+                        p = new Perimetros();
                     }
 
-                    data = reader.GetString(7);
-                    instrutor = reader.GetString(8);
-                    cliente = reader.GetString(9);
+                    data = reader.GetString(19);
+                    instrutor = reader.GetString(20);
+                    cliente = reader.GetString(21);
 
-                    Avaliaçao ava = new Avaliaçao(id, data, instrutor, cliente, altura, peso, massa_gorda,
-                        massa_magra, imc, idade_metabolica);
+                    Avaliaçao ava = new Avaliaçao(id, data, instrutor, cliente, cc, p);
 
                     r.Add(ava);
-
-                    altura = peso = idade_metabolica = 0;
-                    massa_gorda = massa_magra = imc = 0;
                 }
 
                 reader.Close();
 
                 connection.Close();
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.ToString());
+            }
+
+            return r;
+        }
+
+        public static void insertAvaliaçao(Avaliaçao av)
+        {
+            try
+            {
+                connection.Open();
+
+                MySqlCommand command;
+                string sqlCommand;
+                bool isNull = true;
+
+                if (av.realizada)
+                {
+                    // foi realizado, logo não preenchemos os valores da tabela "Avaliaçao_Realizada" a null
+                    isNull = false;
+                }
+
+                sqlCommand = "insert into Avaliaçao_Realizada values (" + av.id + ", " + av.composiçao_Corporal.ToSql(isNull)
+                        + ", " + av.perimetros.ToSql(isNull) + ")";
+
+                command = new MySqlCommand(sqlCommand, connection);
+                command.ExecuteScalar();
+
+                sqlCommand = "insert into Avaliaçao_Agendada values ('" + av.data + "', '" + av.instrutor_email + "', '" + av.cliente_email
+                    + "', " + av.id + ")";
+
+                command = new MySqlCommand(sqlCommand, connection);
+                command.ExecuteScalar();
+
+                connection.Close();
+            }
+            catch(Exception e)
+            {
+                Console.WriteLine(e.ToString());
+            }
+        }
+
+        public static List<Avaliaçao> GetAvaliaçao(string emailCliente)
+        {
+            List<Avaliaçao> r = new List<Avaliaçao>();
+
+            try
+            {
+                List<Avaliaçao> listA = GetAvaliaçoes();
+                int i = 0;
+
+                while(i < listA.Count)
+                {
+                    if (listA[i].cliente_email.Equals(emailCliente))
+                        r.Add(listA[i]);
+                    i++;
+                }
+
             }
             catch (Exception e)
             {
