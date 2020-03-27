@@ -74,21 +74,35 @@ class Evolucao extends React.Component {
 
     async componentDidMount() {
 
-        await getEvolucao("token").then(
+        await getEvolucao("a83719@alunos.uminho.pt").then(
             res => res.json()            
         ).then(
         
             (jsonData) => {
 
+                console.log("JSON:");
+                console.log(jsonData);
+        
                 this.setState({
 
-                    peso: jsonData.pesos.map((elem: any) =>                        
-                        elem = Object.assign({}, elem, {data: new Date(elem.data), y: elem.peso})
+                    peso: jsonData.pesos.map((elem: any) => {
+                        
+                        var parts = elem.data.split("/");
+                        var dt = new Date (parseInt(parts[2], 10),
+                                           parseInt(parts[1], 10),
+                                           parseInt(parts[0], 10));
+                        return Object.assign({}, {data: dt, y: elem.registo});
+                    }                       
                     ),
-                    cintura: jsonData.cinturas.map((elem: any) =>                        
-                        elem = Object.assign({}, elem, {data: new Date(elem.data), y: elem.cintura})
-                    )
-                });
+                    cintura: jsonData.cinturas.map((elem: any) => {                        
+                        var parts = elem.data.split("/");
+                        var dt = new Date (parseInt(parts[2], 10),
+                                        parseInt(parts[1], 10),
+                                        parseInt(parts[0], 10));
+                        return Object.assign({}, {data: dt, y: elem.registo});
+                })
+                
+            });
 
             }   
         );
@@ -96,17 +110,20 @@ class Evolucao extends React.Component {
 
     render() {
         
+        console.log("Peso:");
+        console.log(this.state.peso);
+        console.log("Cintura:");
+        console.log(this.state.cintura);
+
         //----------------------------------------------------------------------
 
         const noLegend={ legend: { display: false} }; 
         
         //----------------------------------------------------------------------
 
-        console.log(this.state.peso);
-
         var xPeso: any[] = [], yPeso: number[] = [];
         this.state.peso.forEach((ref)=>{
-            xPeso.push(""+(ref.data.getMonth())+"/"+ref.data.getDay());
+            xPeso.push(""+ref.data.getDate()+"/"+(ref.data.getMonth()));
             yPeso.push(ref.y);
         });
         var dataPeso: any = JSON.parse(JSON.stringify(generalGraphSettings));
@@ -127,7 +144,7 @@ class Evolucao extends React.Component {
 
         var xCintura : any[] = [], yCintura: number[] = [];
         this.state.cintura.forEach((ref) => {
-            xCintura.push(""+(ref.data.getMonth())+"/"+ref.data.getDay());
+            xCintura.push(""+ref.data.getDate()+"/"+(ref.data.getMonth()));
             yCintura.push(ref.y);
         });
         var dataCintura: any = JSON.parse(JSON.stringify(generalGraphSettings));

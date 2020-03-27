@@ -14,34 +14,21 @@ namespace UMFit_WebAPI.Controllers
         private readonly UMFit_LN _system = new UMFit_LN();
 
         [HttpPost("evolucao")]
-        public ActionResult<string> Logout([Bind] UserAuthenticationDto userDto)
+        public ActionResult<string> Evolucao([Bind] UserAuthenticationDto userDto)
         {
-            var listPesos = new[]
-            {
-                new { Data = new DateTime(2020, 1, 1), Peso = 98.2},
-                new { Data = new DateTime(2020, 1, 1), Peso = 94.2},
-                new { Data = new DateTime(2020, 1, 1), Peso = 92.2},
-                new { Data = new DateTime(2020, 1, 1), Peso = 91.2},
-                new { Data = new DateTime(2020, 1, 1), Peso = 88.2},
-                new { Data = new DateTime(2020, 1, 1), Peso = 92.2},
-                new { Data = new DateTime(2020, 1, 1), Peso = 93.2}
-            }.ToList();
-            
-            var listCintura = new[]
-            {
-                new { Data = new DateTime(2020, 1, 1), Cintura = 110},
-                new { Data = new DateTime(2020, 1, 1), Cintura = 108},
-                new { Data = new DateTime(2020, 1, 1), Cintura = 108},
-                new { Data = new DateTime(2020, 1, 1), Cintura = 107},
-                new { Data = new DateTime(2020, 1, 1), Cintura = 108},
-                new { Data = new DateTime(2020, 1, 1), Cintura = 104},
-                new { Data = new DateTime(2020, 1, 1), Cintura = 103}
-            }.ToList();
 
+            var listaPesos = _system.Generate_Reg(userDto.email, 
+                                                              "peso", 
+                                                              true);
+            
+            var listaCinturas = _system.Generate_Reg(userDto.email, 
+                                                                 "cintura", 
+                                                              false);
+            
             var result = new
             {
-                Pesos = listPesos,
-                Cinturas = listCintura
+                Pesos = listaPesos,
+                Cinturas = listaCinturas
             };
             
             return Ok(result);

@@ -1,4 +1,4 @@
-/* 
+﻿/* 
  *  Esta classe implementa o acesso à Base de Dados para o acesso à tabela de Avaliações 
  * 
 */
@@ -268,4 +268,3 @@ namespace UMFit_WebAPI.Models.Data.DAO
         }
     }
 }
-

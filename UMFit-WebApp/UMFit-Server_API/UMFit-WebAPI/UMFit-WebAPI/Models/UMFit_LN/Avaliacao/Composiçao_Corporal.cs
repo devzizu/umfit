@@ -4,9 +4,9 @@
  */
 using System.Text;
 
-namespace TesteApiConnect
+namespace UMFit_WebAPI.Models.UMFit_LN.Avaliacao
 {
-    class Composiçao_Corporal
+    public class Composiçao_Corporal
     {
         public int altura { set; get; }
 

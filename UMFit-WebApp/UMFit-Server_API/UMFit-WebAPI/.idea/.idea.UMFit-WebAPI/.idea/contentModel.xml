@@ -17,13 +17,21 @@
         <e p="Models" t="Include">
           <e p="Data" t="Include">
             <e p="DAO" t="Include">
+              <e p="AvaliaçaoDAO.cs" t="Include" />
               <e p="UtilizadorDAO.cs" t="Include" />
             </e>
+            <e p="DataBaseConnector.cs" t="Include" />
           </e>
           <e p="Security" t="Include">
             <e p="CalculateHash.cs" t="Include" />
           </e>
           <e p="UMFit_LN" t="Include">
+            <e p="Avaliacao" t="Include">
+              <e p="Avaliaçao.cs" t="Include" />
+              <e p="Composiçao_Corporal.cs" t="Include" />
+              <e p="Perimetros.cs" t="Include" />
+              <e p="Registo_Avaliaçao.cs" t="Include" />
+            </e>
             <e p="UMFit_LN.cs" t="Include" />
             <e p="Utilizadores" t="Include">
               <e p="Cliente.cs" t="Include" />

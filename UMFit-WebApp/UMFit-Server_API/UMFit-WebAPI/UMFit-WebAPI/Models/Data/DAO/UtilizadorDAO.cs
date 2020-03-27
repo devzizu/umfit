@@ -10,19 +10,11 @@ namespace UMFit_WebAPI.Models.Data.DAO
 {
     public class UtilizadorDAO
     {
-        private static MySqlBaseConnectionStringBuilder builder = new MySqlConnectionStringBuilder
-        {
-            Server = "localhost",
-            UserID = "UMFit",
-            Password = "umfitli4",
-            Database = "UMFit_DB"
-        };
+        private MySqlConnection connection = new MySqlConnection(DataBaseConnector.builderLocalhost.ToString());        
 
         public int TypeUser(string email)
         {
             int typeUser = -1; // 0 - Cliente, 1 - Instrutor, 2 - Rececionista
-
-            MySqlConnection connection = new MySqlConnection(builder.ToString());
 
             try
             {
@@ -79,8 +71,6 @@ namespace UMFit_WebAPI.Models.Data.DAO
             int typeUser = -1; // 0 - Cliente, 1 - Instrutor, 2 - Rececionista
 
             string time_to_expire = "2022-03-11 20:00:00";
-
-            MySqlConnection connection = new MySqlConnection(builder.ToString());
 
             typeUser = TypeUser(email);
 
@@ -246,8 +236,6 @@ namespace UMFit_WebAPI.Models.Data.DAO
 
         public void LogOut(string email)
         {
-            MySqlConnection connection = new MySqlConnection(builder.ToString());
-
             connection.Open();
 
             string sqlCommand = "delete from UtilizadoresOnline where email = " + "'" + email + "'";
@@ -259,8 +247,6 @@ namespace UMFit_WebAPI.Models.Data.DAO
 
         public bool isUserOnline(string email)
         {
-            MySqlConnection connection = new MySqlConnection(builder.ToString());
-
             connection.Open();
 
             bool isOn = false;
