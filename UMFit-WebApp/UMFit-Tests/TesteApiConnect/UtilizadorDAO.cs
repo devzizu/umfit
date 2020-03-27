@@ -1,8 +1,5 @@
 ﻿using MySql.Data.MySqlClient;
 using System;
-using System.Collections.Generic;
-using System.Text;
-
 
 namespace TesteApiConnect
 {
@@ -74,15 +71,13 @@ namespace TesteApiConnect
             string nome, data_nascimento, localidade, categoria;
             int genero, nif;
 
-            int typeUser = -1; // 0 - Cliente, 1 - Instrutor, 2 - Rececionista
-
             string time_to_expire = "2020-03-11 20:00:00";
 
             MySqlConnection connection = new MySqlConnection(builder.ToString());
 
-            typeUser = TypeUser(email);
+            int typeUser = TypeUser(email); // 0 - Cliente, 1 - Instrutor, 2 - Rececionista
 
-            if(typeUser == -1)
+            if (typeUser == -1)
             {
                 return null;
             }

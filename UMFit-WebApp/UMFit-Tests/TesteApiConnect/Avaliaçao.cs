@@ -1,5 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿/*
+ * Classe que implementa uma Avaliação, seja ela Agendada ou realizada
+ */
 using System.Text;
 
 namespace TesteApiConnect
@@ -71,5 +72,86 @@ namespace TesteApiConnect
 
             return r.ToString();
         }
+
+        /*
+         * Retorna o parâmetro(peso, altura, imc, ...) consoante a string que recebe
+         * Esta string tem o mesmo nome que a variável
+         * Recebe também um bool para facilitar a pesquisa caso seja um Perímetro ou Composição Corporal
+         */
+        public float GetParam(string param, bool isCompCorp)
+        {
+            float r = 0;
+
+            if (isCompCorp)
+            {
+                switch (param)
+                {
+                    case "altura":
+                        r = this.composiçao_Corporal.altura;
+                        break;
+                    case "peso":
+                        r = this.composiçao_Corporal.peso;
+                        break;
+                    case "massa_gorda":
+                        r = this.composiçao_Corporal.massa_gorda;
+                        break;
+                    case "massa_magra":
+                        r = this.composiçao_Corporal.massa_magra;
+                        break;
+                    case "imc":
+                        r = this.composiçao_Corporal.imc;
+                        break;
+                    case "idade_metabolica":
+                        r = this.composiçao_Corporal.idade_metabolica;
+                        break;
+                }
+            }
+            else
+            {
+                switch (param)
+                {
+                    case "cintura":
+                        r = this.perimetros.cintura;
+                        break;
+                    case "abdomen":
+                        r = this.perimetros.abdomen;
+                        break;
+                    case "ombro":
+                        r = this.perimetros.ombro;
+                        break;
+                    case "torax":
+                        r = this.perimetros.torax;
+                        break;
+                    case "braço_dir":
+                        r = this.perimetros.braço_dir;
+                        break;
+                    case "braço_esq":
+                        r = this.perimetros.braço_esq;
+                        break;
+                    case "coxa_dir":
+                        r = this.perimetros.coxa_dir;
+                        break;
+                    case "coxa_esq":
+                        r = this.perimetros.coxa_esq;
+                        break;
+                    case "gemeo_dir":
+                        r = this.perimetros.gemeo_dir;
+                        break;
+                    case "gemeo_esq":
+                        r = this.perimetros.gemeo_esq;
+                        break;
+                    case "antebraço_dir":
+                        r = this.perimetros.antebraço_dir;
+                        break;
+                    case "antebraço_esq":
+                        r = this.perimetros.antebraço_esq;
+                        break;
+                }
+            }
+
+            return r;
+        }
+
+
     }
 }

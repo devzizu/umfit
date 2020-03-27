@@ -1,5 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
+﻿/*
+ * Classe Perímetros que guarda todos os atributos, mais propriamente,
+ * os perimetros relativos à Avaliação
+ */
 using System.Text;
 
 namespace TesteApiConnect

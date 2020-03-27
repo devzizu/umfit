@@ -1,5 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
+﻿/*
+ * Classe que guarda o Registo, bem como a data em que foi realizado
+ * relativo a uma avaliação
+ */
 using System.Text;
 
 namespace TesteApiConnect
@@ -15,6 +17,16 @@ namespace TesteApiConnect
         {
             this.registo = registo;
             this.data = data;
+        }
+
+        public override string ToString()
+        {
+            StringBuilder r = new StringBuilder();
+
+            r.Append("Registo: " + this.registo + "; ");
+            r.Append("Data: " + this.data + "; ");
+
+            return r.ToString();
         }
     }
 }

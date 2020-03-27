@@ -5,6 +5,29 @@ namespace TesteApiConnect
 {
     class UMFitLN
     {
+        /* Função que gera uma lista com parametros das avaliações do cliente em causa, associados à data da sua realização
+           A função recebe o email do cliente, o parâmetro pretendido (peso, altura, massa_magra,...) e um bool para indicar
+           que tipo de parâmetro é pretendido
+        */
+        public static List<Registo_Avaliaçao> Generate_Reg(string emailCliente, string param, bool isCompCorp)
+        {
+            List<Avaliaçao> listA = AvaliaçaoDAO.GetAvaliaçoesRealizadas(emailCliente);
+
+            List<Registo_Avaliaçao> reg = new List<Registo_Avaliaçao>();
+
+            Registo_Avaliaçao r;
+
+            for(int i = 0;  i < listA.Count; i++)
+            {
+                r = new Registo_Avaliaçao(listA[i].GetParam(param, isCompCorp), listA[i].data);
+                reg.Add(r);
+            }
+
+            return reg;
+        }
+        
+
+
         static void Main(string[] args)
         {
             /*Console.WriteLine("LogIn...");
@@ -71,7 +94,7 @@ namespace TesteApiConnect
             }
             */
             
-            List<Avaliaçao> listaAv = AvaliaçaoDAO.GetAvaliaçoesRealizada();
+            List<Avaliaçao> listaAv = AvaliaçaoDAO.GetAvaliaçoesRealizadas();
 
             int i = 0;
             /*
@@ -84,7 +107,7 @@ namespace TesteApiConnect
             Console.WriteLine("Avaliações Totais: ");
             i = 0;
 
-            listaAv = AvaliaçaoDAO.GetAvaliaçoes();
+            listaAv = AvaliaçaoDAO.GetTodasAvaliaçoes();
 
             while (i < listaAv.Count)
             {
@@ -95,19 +118,26 @@ namespace TesteApiConnect
             Avaliaçao av = new Avaliaçao(1010101010, "2020-09-09 09:09:00", "a85227@alunos.uminho.pt", "a83719@alunos.uminho.pt");
             AvaliaçaoDAO.insertAvaliaçao(av);
             
-            listaAv = AvaliaçaoDAO.GetAvaliaçoes();
+            listaAv = AvaliaçaoDAO.GetTodasAvaliaçoes();
 
             Console.WriteLine("\nAvaliação inserida: \n");
             Console.WriteLine(listaAv[listaAv.Count -1].ToString());
             */
 
-            listaAv = AvaliaçaoDAO.GetAvaliaçao("a83719@alunos.uminho.pt");
+            listaAv = AvaliaçaoDAO.GetAvaliaçoes("a83719@alunos.uminho.pt");
             i = 0;
 
             while (i < listaAv.Count)
             {
                 Console.WriteLine(listaAv[i].ToString());
                 i++;
+            }
+
+            List<Registo_Avaliaçao> reg = Generate_Reg("a83719@alunos.uminho.pt", "peso", true);
+
+            for(i = 0; i < reg.Count; i++)
+            {
+                Console.WriteLine(reg[i].ToString());
             }
         }
     }
