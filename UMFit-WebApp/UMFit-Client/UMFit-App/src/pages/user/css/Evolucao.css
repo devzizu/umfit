@@ -25,7 +25,12 @@
 }
 
 .SelectionMenuItem {
-   --background: rgb(243, 233, 219);
+   --background: rgb(238, 241, 237);
    border-radius: 3px;
    border-style: initial;
+}
+
+.SMlabel {
+   font-family: Verdana, Geneva, Tahoma, sans-serif;
+   font-weight: bold;
 }

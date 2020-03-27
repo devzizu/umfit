@@ -40,7 +40,7 @@ import Menu from './components/MenuHome';
 import About from './pages/About';
 import Contact from './pages/Contact';
 import UserProfile from './pages/UserProfile';
-import Evolucao from './pages/Evolucao';
+import Evolucao from './pages/user/EvolucaoPage/Evolucao';
 
 //---------------------------------------------------------------------------------------
 

@@ -1,16 +1,16 @@
 
 import React from "react";
-import { IonPage, IonHeader, IonToolbar, IonTitle, IonContent, IonCard, IonCardHeader, IonCardTitle,  IonGrid, IonRow, IonCol, IonList, IonLabel, IonItem, IonSelect, IonSelectOption } from "@ionic/react";
+import { IonPage, IonHeader, IonToolbar, IonTitle, IonContent, IonCard, IonCardHeader, IonCardTitle,  IonGrid, IonRow, IonCol, IonList, IonItem, IonSelect, IonSelectOption } from "@ionic/react";
 import{Line} from "react-chartjs-2";
 
-import "./css/Evolucao.css";
+import "../css/Evolucao.css";
 
 interface registoAvaliacao {
     data: Date,
     y: number
 }
 
-class Evolucao extends React.Component {
+class EvolucaoSAVE extends React.Component {
 
     state: {
         peso: Array<registoAvaliacao>
@@ -80,6 +80,19 @@ class Evolucao extends React.Component {
 
     render() {
         
+        const geral = { 
+            labels: [],
+            datasets: [{ 
+                fill: false, lineTension: 0.1,
+                backgroundColor: 'rgba(75,192,192,0.4)', borderColor: 'rgba(75,192,192,1)',
+                borderCapStyle: 'butt', borderDash: [], borderDashOffset: 0.0, borderJoinStyle: 'miter',
+                pointBorderColor: 'rgba(75,192,192,1)', pointBackgroundColor: '#fff',
+                pointBorderWidth: 1, pointHoverRadius: 5,
+                pointHoverBackgroundColor: 'rgba(75,192,192,1)', pointHoverBorderColor: 'rgba(220,220,220,1)',
+                pointHoverBorderWidth: 2, pointRadius: 1, pointHitRadius: 10, 
+                data: [] 
+            }]};
+
         //----------------------------------------------------------------------
         //Definição para todos os gráficos
 
@@ -89,39 +102,26 @@ class Evolucao extends React.Component {
         //Def. indiviual dos dados de cada gráfico
         //----------------------------------------------------------------------
 
-        //Compos. corporal => Graph. Peso 
+        //----------------------------------------------------------------------
+        //Compos. corporal => Graph. Peso (kg) 
         var xPeso: any[] = [], yPeso: number[] = [];
         const peso = this.state.peso;
         peso.forEach((ref)=>{
             xPeso.push(""+(ref.data.getMonth()+1)+"/"+ref.data.getDay());
             yPeso.push(ref.y);
-        }); 
-        const dataPeso={ 
+        });
+        const dataPeso = { 
             labels: xPeso,
-            datasets: [
-                {
-                fill: false,
-                lineTension: 0.1,
-                backgroundColor: 'rgba(75,192,192,0.4)',
-                borderColor: 'rgba(75,192,192,1)',
-                borderCapStyle: 'butt',
-                borderDash: [],
-                borderDashOffset: 0.0,
-                borderJoinStyle: 'miter',
-                pointBorderColor: 'rgba(75,192,192,1)',
-                pointBackgroundColor: '#fff',
-                pointBorderWidth: 1,
-                pointHoverRadius: 5,
-                pointHoverBackgroundColor: 'rgba(75,192,192,1)',
-                pointHoverBorderColor: 'rgba(220,220,220,1)',
-                pointHoverBorderWidth: 2,
-                pointRadius: 1,
-                pointHitRadius: 10,
-                data: yPeso
-                }
-            ]
-
-        };
+            datasets: [{ 
+                fill: false, lineTension: 0.1,
+                backgroundColor: 'rgba(75,192,192,0.4)', borderColor: 'rgba(75,192,192,1)',
+                borderCapStyle: 'butt', borderDash: [], borderDashOffset: 0.0, borderJoinStyle: 'miter',
+                pointBorderColor: 'rgba(75,192,192,1)', pointBackgroundColor: '#fff',
+                pointBorderWidth: 1, pointHoverRadius: 5,
+                pointHoverBackgroundColor: 'rgba(75,192,192,1)', pointHoverBorderColor: 'rgba(220,220,220,1)',
+                pointHoverBorderWidth: 2, pointRadius: 1, pointHitRadius: 10, 
+                data: yPeso 
+            }]};
 
         //----------------------------------------------------------------------
         //Compos. corporal => Graph. Massa Gorda (kg)
@@ -129,31 +129,18 @@ class Evolucao extends React.Component {
         var xMGorda : any[] = [], yMGorda: number[] = [];
         const mgorda = this.state.mGorda;
         mgorda.forEach((ref)=>{xMGorda.push(""+(ref.data.getMonth()+1)+"/"+ref.data.getDay());yMGorda.push(ref.y);}); 
-        const dataMGorda={
-            labels: xMGorda,
-            datasets: [
-                {
-                fill: false,
-                lineTension: 0.1,
-                backgroundColor: 'rgba(75,192,192,0.4)',
-                borderColor: 'rgba(75,192,192,1)',
-                borderCapStyle: 'butt',
-                borderDash: [],
-                borderDashOffset: 0.0,
-                borderJoinStyle: 'miter',
-                pointBorderColor: 'rgba(75,192,192,1)',
-                pointBackgroundColor: '#fff',
-                pointBorderWidth: 1,
-                pointHoverRadius: 5,
-                pointHoverBackgroundColor: 'rgba(75,192,192,1)',
-                pointHoverBorderColor: 'rgba(220,220,220,1)',
-                pointHoverBorderWidth: 2,
-                pointRadius: 1,
-                pointHitRadius: 10,
-                data: yMGorda
-                }
-            ] 
-        };
+        const dataMGorda = { 
+            labels: xPeso,
+            datasets: [{ 
+                fill: false, lineTension: 0.1,
+                backgroundColor: 'rgba(75,192,192,0.4)', borderColor: 'rgba(75,192,192,1)',
+                borderCapStyle: 'butt', borderDash: [], borderDashOffset: 0.0, borderJoinStyle: 'miter',
+                pointBorderColor: 'rgba(75,192,192,1)', pointBackgroundColor: '#fff',
+                pointBorderWidth: 1, pointHoverRadius: 5,
+                pointHoverBackgroundColor: 'rgba(75,192,192,1)', pointHoverBorderColor: 'rgba(220,220,220,1)',
+                pointHoverBorderWidth: 2, pointRadius: 1, pointHitRadius: 10, 
+                data: yMGorda 
+            }]};
 
         var menuOp = this.state.menuOpt;
         
@@ -187,14 +174,12 @@ class Evolucao extends React.Component {
 
                     <IonItem className="SelectionMenuItem">
     
-                        <IonLabel>Tipo de gráfico de evolução corporal:</IonLabel>
-
                             <IonSelect value={this.state.menuOpt} placeholder="Select One" onIonChange={
                                 e =>this.setState( {menuOpt:e.detail.value})
                             }>
 
-                                <IonSelectOption value="compoCorporalOption">Composição Corporal</IonSelectOption>
-                                <IonSelectOption value="perimCorporalOption">Perímetros corporais</IonSelectOption>
+                                <IonSelectOption value="compoCorporalOption"><div className="SMlabel">Composição corporal</div></IonSelectOption>
+                                <IonSelectOption value="perimCorporalOption"><div className="SMlabel">Perímetros corporais</div></IonSelectOption>
 
                             </IonSelect>
                     </IonItem>
@@ -222,6 +207,7 @@ class Evolucao extends React.Component {
                                         <React.Fragment>
                                             
                                             {/* Gráfico de Evolução do Peso */}
+
                                             <IonCol sizeXs="12" size-Sm ="12" sizeMd="6" sizeLg="6">
 
                                                 <IonCard className="titleCard">
@@ -238,6 +224,60 @@ class Evolucao extends React.Component {
 
                                             </IonCol>
                                             
+                                            {/* Gráfico de Evolução de Massa Gorda (Kg) */}
+
+                                            <IonCol sizeXs="12" size-Sm ="12" sizeMd="6" sizeLg="6">
+
+                                                <IonCard className="titleCard">
+
+                                                    <IonCardHeader>
+                                                        <IonCardTitle><div className="textWrapper">Massa Gorda (Kg)</div></IonCardTitle>
+                                                    </IonCardHeader>
+
+                                                </IonCard>
+
+                                            <div className="evoStats">
+                                                <Line ref="lineChart" data={dataMGorda} options={noLegend} />
+                                            </div>
+
+                                            </IonCol>
+
+                                            {/* Gráfico de Evolução de Massa Magra (Kg) */}
+
+                                            <IonCol sizeXs="12" size-Sm ="12" sizeMd="6" sizeLg="6">
+
+                                                <IonCard className="titleCard">
+
+                                                    <IonCardHeader>
+                                                        <IonCardTitle><div className="textWrapper">Massa Gorda (Kg)</div></IonCardTitle>
+                                                    </IonCardHeader>
+
+                                                </IonCard>
+
+                                            <div className="evoStats">
+                                                <Line ref="lineChart" data={dataMGorda} options={noLegend} />
+                                            </div>
+
+                                            </IonCol>
+
+                                            {/* Gráfico de Evolução de IMC */}
+
+                                            <IonCol sizeXs="12" size-Sm ="12" sizeMd="6" sizeLg="6">
+
+                                                <IonCard className="titleCard">
+
+                                                    <IonCardHeader>
+                                                        <IonCardTitle><div className="textWrapper">Massa Gorda (Kg)</div></IonCardTitle>
+                                                    </IonCardHeader>
+
+                                                </IonCard>
+
+                                            <div className="evoStats">
+                                                <Line ref="lineChart" data={dataMGorda} options={noLegend} />
+                                            </div>
+
+                                            </IonCol>
+
                                             {/* Gráfico de Evolução de Massa Gorda (Kg) */}
 
                                             <IonCol sizeXs="12" size-Sm ="12" sizeMd="6" sizeLg="6">
@@ -330,4 +370,4 @@ class Evolucao extends React.Component {
 
 }
 
-export default Evolucao;
+export default EvolucaoSAVE;

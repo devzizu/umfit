@@ -8,6 +8,7 @@
       <e p="UMFit-WebAPI" t="IncludeRecursive">
         <e p="Controllers" t="Include">
           <e p="ApiController.cs" t="Include" />
+          <e p="AvaliacaoController.cs" t="Include" />
           <e p="UserController.cs" t="Include" />
         </e>
         <e p="Dto" t="Include">
