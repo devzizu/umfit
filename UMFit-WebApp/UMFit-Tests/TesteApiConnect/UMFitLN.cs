@@ -139,6 +139,17 @@ namespace TesteApiConnect
             {
                 Console.WriteLine(reg[i].ToString());
             }
+
+            listaAv = AvaliaçaoDAO.GetAvaliaçoesRealizadas("a83719@alunos.uminho.pt");
+            i = 0;
+
+            while (i < listaAv.Count)
+            {
+                Console.WriteLine(listaAv[i].ToString());
+                i++;
+            }
+
+            
         }
     }
 }

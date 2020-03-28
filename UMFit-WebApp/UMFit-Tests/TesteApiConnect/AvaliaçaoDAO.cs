@@ -7,11 +7,10 @@
 using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
-using UMFit_WebAPI.Models.UMFit_LN.Avaliacao;
 
-namespace UMFit_WebAPI.Models.Data.DAO
+namespace TesteApiConnect
 {
-    public class AvaliaçaoDAO
+    class AvaliaçaoDAO
     {
         /*
          *  Instância que permite a conexão à Base de Dados da aplicação
@@ -20,73 +19,6 @@ namespace UMFit_WebAPI.Models.Data.DAO
          */
         private static MySqlConnection connection = new MySqlConnection(DataBaseConnector.builderLocalhost.ToString());
 
-        /*
-         *  Vai buscar todas as Avaliações Realizadas na base de dados
-         */
-        public static List<Avaliaçao> GetAvaliaçoesRealizadas()
-        {
-            List<Avaliaçao> r = new List<Avaliaçao>();
-
-            try
-            {
-                // Abre a conexão à Base de Dados
-                connection.Open();
-
-                Perimetros p;
-                Composiçao_Corporal cc;
-
-                string data, instrutor, cliente;
-
-                // Comando SQL utilizado para criar a classe Avaliaçao
-                string sqlCommand = "select * from Avaliaçao_Realizada ar, Avaliaçao_Agendada aa " +
-                    "where ar.idAvaliaçao = aa.idAvaliaçao";
-
-                MySqlCommand command = new MySqlCommand(sqlCommand, connection);
-
-                MySqlDataReader reader = command.ExecuteReader();
-
-                // Inicia a leitura do resultado do comando SQL
-                while(reader.Read())
-                {
-                    // Acede à posição(coluna) 0 do resultado SQL
-                    int id = reader.GetInt32(0);
-
-                    /* 
-                     * Caso o atributo "altura" (está na posição 1 do resultado do SQL) da Base de Dados seja null
-                     * é porque a Avaliação não foi realizada.
-                     * Por isso não adicionamos à lista
-                     */
-                    if (!reader.IsDBNull(1))
-                    {
-                        cc = new Composiçao_Corporal(reader.GetInt32(1), reader.GetFloat(2), reader.GetFloat(3), 
-                        reader.GetFloat(4), reader.GetFloat(5), reader.GetInt32(6));
-
-                        p = new Perimetros(reader.GetFloat(7), reader.GetFloat(8), reader.GetFloat(9), reader.GetFloat(10),
-                        reader.GetFloat(11), reader.GetFloat(12), reader.GetFloat(13), reader.GetFloat(14), reader.GetFloat(15),
-                        reader.GetFloat(16), reader.GetFloat(17), reader.GetFloat(18));
-
-                        data = reader.GetString(19);
-                        instrutor = reader.GetString(20);
-                        cliente = reader.GetString(21);
-
-                        Avaliaçao ava = new Avaliaçao(id, data, instrutor, cliente, cc, p);
-
-                        r.Add(ava);
-                    }
-                }
-
-                reader.Close();
-
-                // Fecha a conexão à Base de Dados
-                connection.Close();
-            }
-            catch(Exception e)
-            {
-                Console.WriteLine(e.ToString());
-            }
-
-            return r;
-        }
 
         // Vai buscar todas as Avaliações (realizadas ou não)
         public static List<Avaliaçao> GetTodasAvaliaçoes()
@@ -234,37 +166,207 @@ namespace UMFit_WebAPI.Models.Data.DAO
             return r;
         }
 
+
+        // -----------------------------------------------------------------------------------------------
+
         /*
-         * Função que dá return de uma lista com todas as Avaliações realizadas pelo cliente em causa
+         * Função geral que recebe um comando SQL e, a partir deste, retorna
+         * uma lista de Avaliações pretendidas
          */
-        public static List<Avaliaçao> GetAvaliaçoesRealizadas(string emailCliente)
+        public static List<Avaliaçao> GetListaAvR(string sqlCommand)
         {
-            List<Avaliaçao> r = new List<Avaliaçao>();
+            List<Avaliaçao> listAv = new List<Avaliaçao>();
 
             try
             {
-                /*
-                 * Fazemos get de todas as avaliações realizadas da Base de Dados
-                 */
-                List<Avaliaçao> listA = GetAvaliaçoesRealizadas();
+                // Abre a conexão à Base de Dados
+                connection.Open();
 
-                for(int i = 0;  i < listA.Count; i++)
+                Perimetros p;
+                Composiçao_Corporal cc;
+
+                string data, instrutor, cliente;
+
+                MySqlCommand command = new MySqlCommand(sqlCommand, connection);
+                MySqlDataReader reader = command.ExecuteReader();
+
+                Avaliaçao ava;
+
+                // Inicia a leitura do resultado do comando SQL
+                while (reader.Read())
                 {
-                    /*
-                     * Verifica se a avaliação realizada pertence ao cliente
-                     * Caso pertença, adiciona-a à lista de avaliações do cliente
+                    // Acede à posição(coluna) 0 do resultado SQL
+                    int id = reader.GetInt32(0);
+
+                    /* 
+                     * Caso o atributo "altura" (está na posição 1 do resultado do SQL) da Base de Dados seja null
+                     * é porque a Avaliação não foi realizada.
                      */
-                    if (listA[i].cliente_email.Equals(emailCliente))
-                        r.Add(listA[i]);
+                    if (!reader.IsDBNull(1))
+                    {
+                        cc = new Composiçao_Corporal(reader.GetInt32(1), reader.GetFloat(2), reader.GetFloat(3),
+                        reader.GetFloat(4), reader.GetFloat(5), reader.GetInt32(6));
+
+                        p = new Perimetros(reader.GetFloat(7), reader.GetFloat(8), reader.GetFloat(9), reader.GetFloat(10),
+                        reader.GetFloat(11), reader.GetFloat(12), reader.GetFloat(13), reader.GetFloat(14), reader.GetFloat(15),
+                        reader.GetFloat(16), reader.GetFloat(17), reader.GetFloat(18));
+
+                        data = reader.GetString(19);
+                        instrutor = reader.GetString(20);
+                        cliente = reader.GetString(21);
+
+                        ava = new Avaliaçao(id, data, instrutor, cliente, cc, p);
+
+                        listAv.Add(ava);
+                    }
                 }
 
+                reader.Close();
+
+                // Fecha a conexão à Base de Dados
+                connection.Close();
             }
             catch (Exception e)
             {
                 Console.WriteLine(e.ToString());
             }
 
-            return r;
+            return listAv;
+        }
+
+        /* 
+         * Função geral que recebe um comando SQL e, a partir deste, retorna
+         * a Avaliação pretendida
+         */
+        public static Avaliaçao GetAvaliaçaoR(string sqlCommand)
+        {
+            try
+            {
+                // Abre a conexão à Base de Dados
+                connection.Open();
+
+                Perimetros p;
+                Composiçao_Corporal cc;
+
+                string data, instrutor, cliente;
+
+                MySqlCommand command = new MySqlCommand(sqlCommand, connection);
+                MySqlDataReader reader = command.ExecuteReader();
+
+                // Inicia a leitura do resultado do comando SQL
+                while (reader.Read() && reader.HasRows)
+                {
+                    // Acede à posição(coluna) 0 do resultado SQL
+                    int id = reader.GetInt32(0);
+
+                    /* 
+                     * Caso o atributo "altura" (está na posição 1 do resultado do SQL) da Base de Dados seja null
+                     * é porque a Avaliação não foi realizada.
+                     */
+                    if (!reader.IsDBNull(1))
+                    {
+                        cc = new Composiçao_Corporal(reader.GetInt32(1), reader.GetFloat(2), reader.GetFloat(3),
+                        reader.GetFloat(4), reader.GetFloat(5), reader.GetInt32(6));
+
+                        p = new Perimetros(reader.GetFloat(7), reader.GetFloat(8), reader.GetFloat(9), reader.GetFloat(10),
+                        reader.GetFloat(11), reader.GetFloat(12), reader.GetFloat(13), reader.GetFloat(14), reader.GetFloat(15),
+                        reader.GetFloat(16), reader.GetFloat(17), reader.GetFloat(18));
+
+                        data = reader.GetString(19);
+                        instrutor = reader.GetString(20);
+                        cliente = reader.GetString(21);
+
+                        Avaliaçao ava = new Avaliaçao(id, data, instrutor, cliente, cc, p);
+
+                        reader.Close();
+
+                        // Fecha a conexão à Base de Dados
+                        connection.Close();
+
+                        // Podemos sair do ciclo while, visto que queremos a ultima realizada
+                        return ava;
+                    }
+                }
+
+                reader.Close();
+
+                // Fecha a conexão à Base de Dados
+                connection.Close();
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.ToString());
+            }
+
+            return null;
+        }
+
+
+        // -----------------------------------------------------------------------------------------------
+
+        /*
+         *  Vai buscar todas as Avaliações Realizadas na base de dados
+         */
+        public static List<Avaliaçao> GetAvaliaçoesRealizadas()
+        {
+            // Comando SQL utilizado para criar a classe Avaliaçao
+            string sqlCommand = "select * from Avaliaçao_Realizada ar, Avaliaçao_Agendada aa " +
+                "where ar.idAvaliaçao = aa.idAvaliaçao";
+
+            return GetListaAvR(sqlCommand);
+        }
+
+        /*
+        * Função que retorna a ultima Avaliação realizada por parte de um cliente
+        */
+        public static Avaliaçao GetUltAvaliaçaoR(string emailCliente)
+        {
+            // Comando SQL utilizado para criar a classe Avaliaçao
+            string sqlCommand = "select * from Avaliaçao_Realizada ar, Avaliaçao_Agendada aa " +
+                "where ar.idAvaliaçao = aa.idAvaliaçao and aa.Cliente_email = '" + emailCliente + "'"
+                + "order by aa.data desc";
+
+            return GetAvaliaçaoR(sqlCommand);
+        }
+
+        /*
+         * Função que retorna uma Avaliação dado o email de um Cliente e a data 
+         * em que foi realizada
+         */
+        public static Avaliaçao GetAvalRData(string emailCliente, string date)
+        {
+            // Comando SQL utilizado para criar a classe Avaliaçao
+            string sqlCommand = "select * from Avaliaçao_Realizada ar, Avaliaçao_Agendada aa " +
+                "where ar.idAvaliaçao = aa.idAvaliaçao and aa.Cliente_email = '" + emailCliente + "'"
+                + "and aa.data = '" + date + "'";
+
+            return GetAvaliaçaoR(sqlCommand);
+        }
+
+        /*
+         * Função que retorna a lista de Avaliaçõe realizadas do instrutor
+         */
+        public static List<Avaliaçao> GetAvalRInstr(string emailInstr)
+        {
+            // Comando SQL utilizado para criar a classe Avaliaçao
+            string sqlCommand = "select * from Avaliaçao_Realizada ar, Avaliaçao_Agendada aa " +
+                "where ar.idAvaliaçao = aa.idAvaliaçao and aa.Instrutor_email = '" + emailInstr + "'"
+                + "order by aa.data desc";
+
+            return GetListaAvR(sqlCommand);
+        }
+
+        /*
+         * Função que dá return de uma lista com todas as Avaliações realizadas pelo cliente em causa
+         */
+        public static List<Avaliaçao> GetAvalRCliente(string emailCliente)
+        {
+            // Comando SQL utilizado para criar a classe Avaliaçao
+            string sqlCommand = "select * from Avaliaçao_Realizada ar, Avaliaçao_Agendada aa " +
+                "where ar.idAvaliaçao = aa.idAvaliaçao and aa.Cliente_email = '" + emailCliente + "'"
+                + "order by aa.data desc";
+
+            return GetListaAvR(sqlCommand);
         }
     }
 }
