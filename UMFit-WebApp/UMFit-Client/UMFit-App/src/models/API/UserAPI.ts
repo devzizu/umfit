@@ -21,7 +21,7 @@ export async function authenticate (email: string, pass: string) {
     return res;
 }
 
-export function getUserStatus (email: string) {
+export function getUserStatus (token: string) {
 
     const res = fetch(baseURL + "/status", {
         method: 'post',
@@ -30,17 +30,16 @@ export function getUserStatus (email: string) {
             'Content-Type': 'application/json'
         },
         body: JSON.stringify({
-            email: email,
-            password: ""
+            token: token
         })
     });
 
     return res;
 }
 
-export function logout(email: string) {
+export function logout(token: string) {
 
-    console.log("Sending logout call with email " + email);
+    console.log("Sending logout call with email " + token);
 
     const res = fetch(baseURL + "/logout", {
         method: 'post',
@@ -49,8 +48,7 @@ export function logout(email: string) {
             'Content-Type': 'application/json'
         },
         body: JSON.stringify({
-            email: email,
-            password: ""
+            token: token
         })
     });
 

@@ -27,9 +27,9 @@ namespace UMFit_WebAPI.Models.UMFit_LN
             return utilizadoresDAO.TypeUser(email);
         }
 
-        public bool isUserOnline(string email)
+        public bool isUserOnline(string token)
         {
-            return utilizadoresDAO.isUserOnline(email);
+            return utilizadoresDAO.isUserOnline(token);
         }
 
         public void logout(string email)
@@ -57,6 +57,17 @@ namespace UMFit_WebAPI.Models.UMFit_LN
             }
 
             return reg;
+        }
+
+        public string getUserGivenToken(string validToken)
+        {
+
+            return utilizadoresDAO.getUserGivenToken(validToken);
+        }
+
+        public InterfaceUtilizador GetUser(string email)
+        {
+            return utilizadoresDAO.GetUser(email);
         }
     }
 }

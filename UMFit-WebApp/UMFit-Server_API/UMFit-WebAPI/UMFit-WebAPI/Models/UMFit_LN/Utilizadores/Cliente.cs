@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Text;
+using System.Text.Json;
 using UMFit_WebAPI.Models.UMFit_LN.Utilizadores.Interfaces;
 
 namespace UMFit_WebAPI.Models.UMFit_LN.Utilizadores
 {
+    [Serializable]
     public class Cliente : InterfaceUtilizador
     {
         public string tipoDeUser { get; set; }
@@ -44,6 +46,11 @@ namespace UMFit_WebAPI.Models.UMFit_LN.Utilizadores
             return r.ToString();
         }
 
+        public string ToJson()
+        {
+            return JsonSerializer.Serialize(this);
+        }
+        
         public string GetEmail()
         {
             return this.email;

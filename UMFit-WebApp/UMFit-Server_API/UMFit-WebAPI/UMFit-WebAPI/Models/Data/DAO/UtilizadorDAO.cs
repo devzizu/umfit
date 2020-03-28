@@ -1,7 +1,7 @@
 ﻿
 using MySql.Data.MySqlClient;
 using System;
-
+using Microsoft.Extensions.FileSystemGlobbing.Internal.PathSegments;
 using UMFit_WebAPI.Models.Security;
 using UMFit_WebAPI.Models.UMFit_LN.Utilizadores;
 using UMFit_WebAPI.Models.UMFit_LN.Utilizadores.Interfaces;
@@ -63,6 +63,148 @@ namespace UMFit_WebAPI.Models.Data.DAO
             return typeUser;
         }
 
+        public InterfaceUtilizador GetUser(string email)
+        {
+            string nome, data_nascimento, localidade, categoria;
+            int genero, nif;
+
+            int typeUser = -1; // 0 - Cliente, 1 - Instrutor, 2 - Rececionista
+
+            typeUser = TypeUser(email);
+
+            if(typeUser == -1)
+            {
+                return null;
+            }
+
+            try
+            {
+                connection.Open();
+
+                MySqlCommand command;
+                string sqlCommand;
+
+                switch (typeUser)
+                {
+                    // Cliente
+                    case 0: 
+                        {
+                            sqlCommand = "select * from Cliente c where c.email = " + "'" + email + "'";
+                            command = new MySqlCommand(sqlCommand, connection);
+
+                            MySqlDataReader reader = command.ExecuteReader();
+
+                            reader.Read();
+                            string hashUser = reader.GetString(3);
+
+                            // Get Nome
+                            nome = reader.GetString(2);
+
+                            // Get Nif
+                            nif = reader.GetInt32(1);
+
+                            // Get Genero
+                            genero = reader.GetInt16(5);
+
+                            // Get Data_nascimento
+                            data_nascimento = reader.GetString(4);
+
+                            // Get Localidade
+                            localidade = reader.GetString(7);
+
+                            // Get Categoria
+                            categoria = reader.GetString(6);
+
+                            reader.Close();
+
+                            Cliente user = new Cliente(email, nif, nome, genero, data_nascimento, localidade, categoria);
+
+                            connection.Close();
+
+                            return user;
+                        }
+
+
+                    // Instrutor
+                    case 1:
+                        {
+                            sqlCommand = "select * from Instrutor i where i.email = " + "'" + email + "'";
+                            command = new MySqlCommand(sqlCommand, connection);
+
+                            MySqlDataReader reader = command.ExecuteReader();
+
+                            reader.Read();
+                            string hashUser = reader.GetString(3);
+                                
+                            // Get Nome
+                            nome = reader.GetString(2);
+
+                            // Get Nif
+                            nif = reader.GetInt32(1);
+
+                            // Get Genero
+                            genero = reader.GetInt16(5);
+
+                            // Get Data_nascimento
+                            data_nascimento = reader.GetString(4);
+
+                            // Get Localidade
+                            localidade = reader.GetString(6);
+
+                            reader.Close();
+
+                            Instrutor user = new Instrutor(email, nif, nome, genero, data_nascimento, localidade);
+
+                            connection.Close();
+
+                            return user;
+                            }
+
+                    // Rececionista
+                    case 2:
+                        {
+                            sqlCommand = "select * from Rececionista r where r.email = " + "'" + email + "'";
+                            command = new MySqlCommand(sqlCommand, connection);
+
+                            MySqlDataReader reader = command.ExecuteReader();
+
+                            reader.Read();
+                            string hashUser = reader.GetString(3);
+
+                            // Get Nome
+                            nome = reader.GetString(2);
+
+                            // Get Nif
+                            nif = reader.GetInt32(1);
+
+                            // Get Genero
+                            genero = reader.GetInt16(5);
+
+                            // Get Data_nascimento
+                            data_nascimento = reader.GetString(4);
+
+                            // Get Localidade
+                            localidade = reader.GetString(6);
+
+                            reader.Close();
+
+                            Rececionista user = new Rececionista(email, nif, nome, genero, data_nascimento, localidade);
+
+                            connection.Close();
+
+                            return user;
+
+                        }
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.ToString());
+            }
+
+            return null;
+        }
+        
         public InterfaceUtilizador LogIn(string email, string passInserida)
         {
             string nome, data_nascimento, localidade, categoria;
@@ -245,26 +387,68 @@ namespace UMFit_WebAPI.Models.Data.DAO
             connection.Close();
         }
 
-        public bool isUserOnline(string email)
+        public bool isUserOnline(string token)
         {
             connection.Open();
-
-            bool isOn = false;
-
-            string sqlCommand = "select * from UtilizadoresOnline u where u.email = " + "'" + email + "'";
+            
+            string sqlCommand = "select data_expirar from UtilizadoresOnline where token = " + "'" + token + "'";
             MySqlCommand command = new MySqlCommand(sqlCommand, connection);
 
             object result = command.ExecuteScalar();
 
             if(result != null)
             {
-                isOn = true; 
+                DateTime dataExp = DateTime.Parse(Convert.ToString(result));
+                DateTime atual = DateTime.Now;
+
+                if (dataExp.CompareTo(atual) > 0)
+                { 
+                    connection.Close();
+                    return true;
+                }
+                else
+                { 
+                    connection.Close();
+                    return false;
+                }
             }
 
             connection.Close();
 
-            return isOn;
+            return false;
         }
 
+        public string getUserGivenToken(string token)
+        {
+
+            try
+            {
+                // Abre a conexão à Base de Dados
+                connection.Open();
+
+                MySqlCommand command;
+                string sqlCommand;
+
+                /*
+                 * Comando SQL para inserir uma Avaliação à tabela de avaliações realizadas
+                 */ 
+                sqlCommand = "select email from UtilizadoresOnline where token = " + "'" + token + "'";
+
+                command = new MySqlCommand(sqlCommand, connection);
+
+                string res_email = Convert.ToString(command.ExecuteScalar());
+
+                // Fecha a conexão à Base de Dados
+                connection.Close();
+
+                return res_email;
+            }
+            catch(Exception e)
+            {
+                Console.WriteLine(e.ToString());
+            }
+
+            return null;
+        }
     }
 }

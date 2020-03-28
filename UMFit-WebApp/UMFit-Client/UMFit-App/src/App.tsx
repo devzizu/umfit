@@ -44,6 +44,9 @@ import Evolucao from './pages/user/EvolucaoPage/Evolucao';
 
 //---------------------------------------------------------------------------------------
 
+
+//---------------------------------------------------------------------------------------
+
 class App extends React.Component {
 
   state: {
@@ -57,7 +60,12 @@ class App extends React.Component {
   setLogged = (logged: boolean) => {
 
     if (logged === false) {
-      logout(this.state.userLogged.email);      
+      
+      var lastToken = localStorage.getItem('token');
+
+      if (lastToken)
+        logout(lastToken);
+
       localStorage.clear();
     }
 
@@ -83,8 +91,8 @@ class App extends React.Component {
       selectedPage: '',
       menus: 'home',
       logged: false,
-      //loadingAPIcall: true,
-      loadingAPIcall: false,
+      loadingAPIcall: true,
+      //loadingAPIcall: false,
       userLogged: new User("", "", -1, "", -1, "", "", "")
     };
 
@@ -95,44 +103,49 @@ class App extends React.Component {
 
     console.log("com..DidMount() -> updating state...");
 
-    //await getUserStatus(this.state.userLogged.email)
-    //await getUserStatus("test")
+    var tokenFromStorage = localStorage.getItem('token');
 
-    var emailFromStorage = localStorage.getItem('email');
+    //existe token da sessao
+    if (tokenFromStorage != null) {
 
-    if (emailFromStorage === null) 
-      emailFromStorage = this.state.userLogged.email
-    else {
-      var userFromStorage = localStorage.getItem('user');
-      if (userFromStorage != null) {
-        this.setState({
-          userLogged: JSON.parse(userFromStorage)
-        });  
-      }
-    }
-
-    await getUserStatus(emailFromStorage)
-      .then(res => res.json())
-      .then((data) => {
+      await getUserStatus(tokenFromStorage)
+            .then(res => res.json())
+            .then((data) => {
 
         if (data.status === "online") {
+          
           this.setState({
             logged: true,
             menus: 'user',
-            loadingAPIcall: false
+            loadingAPIcall: false,
+            userLogged: data.user
           });
-        } else {
-          this.setState({
+        
+        //Token invalido
+        } else if (data.status === "offline") {
 
+          this.setState({
             logged: false,
             menus: 'home',
-            loadingAPIcall: false
+            loadingAPIcall: false,
+            userLogged: null,
           });
+        
         }
 
-      });
+      });   
 
+    } else { //Nao existe token no localstorage
+
+      this.setState({
+        logged: false,
+        menus: 'home',
+        loadingAPIcall: false,
+        userLogged: null,
+      });
+    
     }
+  }
 
   render() {
 
@@ -174,8 +187,25 @@ class App extends React.Component {
                         
                         return <Redirect to="/home" />;
                       }
-    
-                      return <Profile setLogged={this.setLogged} user={this.state.userLogged}/>;
+
+                      switch(this.state.userLogged.tipoDeUser) {
+
+                        case 'Cliente': 
+
+                          return <ProfileCliente setLogged={this.setLogged} user={this.state.userLogged}/>;
+
+                        case 'Treinador': 
+                
+                          return <ProfileTreinador setLogged={this.setLogged} user={this.state.userLogged}/>;
+
+                        case 'Funcionario': 
+                          
+                          return <ProfileFuncionario setLogged={this.setLogged} user={this.state.userLogged}/>;                          
+
+                        default: break;
+                      }
+
+                      return <ProfileCliente setLogged={this.setLogged} user={this.state.userLogged}/>;
     
                     }} />
     
@@ -221,7 +251,69 @@ class Home extends React.Component<any> {
 
 //---------------------------------------------------------------------------------------
 
-class Profile extends React.Component<any> {
+class ProfileCliente extends React.Component<any> {
+
+  state = {
+    user: User
+  }
+
+
+  constructor(props: any) {
+    super(props);
+    this.state = {
+      user: this.props.user
+    };
+  }
+
+  render() {
+
+    return(
+              
+        <IonRouterOutlet>
+
+          <Route path="/profile" render={() => {return <UserProfile user={this.state.user} />}} exact={true} />
+
+          <Route path="/profile/logout" component={() => {return <LogOut setLogged={this.props.setLogged}/>}} exact={true} />
+
+        </IonRouterOutlet>
+      
+    );    
+  }
+
+}
+
+class ProfileFuncionario extends React.Component<any> {
+
+  state = {
+    user: User
+  }
+
+
+  constructor(props: any) {
+    super(props);
+    this.state = {
+      user: this.props.user
+    };
+  }
+
+  render() {
+
+    return(
+              
+        <IonRouterOutlet>
+
+          <Route path="/profile" render={() => {return <UserProfile user={this.state.user} />}} exact={true} />
+
+          <Route path="/profile/logout" component={() => {return <LogOut setLogged={this.props.setLogged}/>}} exact={true} />
+
+        </IonRouterOutlet>
+      
+    );    
+  }
+
+}
+
+class ProfileTreinador extends React.Component<any> {
 
   state = {
     user: User
@@ -354,13 +446,12 @@ class LogInForm extends React.Component<any> {
                      
                       await json.then((value) => {
                           
-                          var user: User = value;
+                          localStorage.setItem('token', value.token);
+
+                          var user: User = value.user;
 
                           this.props.setLogged(true);
                           this.props.setUser(user);
-
-                          localStorage.setItem("email", user.email);
-                          localStorage.setItem("user", JSON.stringify(user));
 
                           //this.props.history.replace("/profile");
                       });

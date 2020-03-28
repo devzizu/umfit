@@ -1,5 +1,6 @@
 ﻿
 using System.Text;
+using System.Text.Json;
 using UMFit_WebAPI.Models.UMFit_LN.Utilizadores.Interfaces;
 
 namespace UMFit_WebAPI.Models.UMFit_LN.Utilizadores
@@ -44,6 +45,11 @@ namespace UMFit_WebAPI.Models.UMFit_LN.Utilizadores
         public string GetEmail()
         {
             return this.email;
+        }
+        
+        public string ToJson()
+        {
+            return JsonSerializer.Serialize(this);
         }
     }
 }

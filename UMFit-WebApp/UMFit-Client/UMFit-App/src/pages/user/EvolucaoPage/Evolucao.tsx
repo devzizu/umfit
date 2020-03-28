@@ -31,6 +31,7 @@ var pieGraphSettings = {
 	datasets: [{ data: [], backgroundColor: ['#36A2EB', '#FF6384'],
 		hoverBackgroundColor: [ '#36A2EB', '#FF6384' ] }]
 };
+
 */
 
 //----------------------------------------------------------------------

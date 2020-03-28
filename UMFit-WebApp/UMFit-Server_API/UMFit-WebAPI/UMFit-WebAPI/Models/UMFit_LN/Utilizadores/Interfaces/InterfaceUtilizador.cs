@@ -1,4 +1,6 @@
 ﻿
+using System;
+
 namespace UMFit_WebAPI.Models.UMFit_LN.Utilizadores.Interfaces
 {
     public interface InterfaceUtilizador
@@ -6,5 +8,7 @@ namespace UMFit_WebAPI.Models.UMFit_LN.Utilizadores.Interfaces
         public string GetEmail();
 
         public string ToString();
+
+        public string ToJson();
     }
 }
