@@ -52,7 +52,7 @@ values ("test", 99, "TesteUser",
 
 -- pass: passTeste
 insert into Instrutor 
-values ("a85227@aa85729@allunos.uminho.pt", 100, "João Azevedo", 
+values ("a85227@alunos.uminho.pt", 100, "João Azevedo", 
 		"52BBA69FCE7D58C7BD158821495F50355D6CA00D2403B764A42368DFFA84CE1A",
         "1999-10-15", 1, "Famalicão");
         

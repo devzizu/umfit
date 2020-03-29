@@ -16,9 +16,9 @@ namespace UMFit_WebAPI.Models.UMFit_LN
             //empty constructor
         }
 
-        public InterfaceUtilizador Authenticate(string userDtoEmail, string userDtoPassword)
+        public InterfaceUtilizador Authenticate(string userDtoEmail, string userDtoPassword,string token)
         {
-            return utilizadoresDAO.LogIn(userDtoEmail, userDtoPassword);
+            return utilizadoresDAO.LogIn(userDtoEmail, userDtoPassword, token);
         }
 
         public int TypeUser(string email)

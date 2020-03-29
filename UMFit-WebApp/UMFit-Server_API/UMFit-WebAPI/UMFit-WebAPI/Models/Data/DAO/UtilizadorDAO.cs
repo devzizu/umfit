@@ -205,7 +205,7 @@ namespace UMFit_WebAPI.Models.Data.DAO
             return null;
         }
         
-        public InterfaceUtilizador LogIn(string email, string passInserida)
+        public InterfaceUtilizador LogIn(string email, string passInserida, string token)
         {
             string nome, data_nascimento, localidade, categoria;
             int genero, nif;
@@ -226,6 +226,7 @@ namespace UMFit_WebAPI.Models.Data.DAO
                 connection.Open();
 
                 string hashPass = CalculateHash.GetHashString(passInserida);
+              
 
                 MySqlCommand command;
                 string sqlCommand;
@@ -268,7 +269,8 @@ namespace UMFit_WebAPI.Models.Data.DAO
                                 Cliente user = new Cliente(email, nif, nome, genero, data_nascimento, localidade, categoria);
 
                                 // Adicionar o Cliente à tabela de utilizadores online...
-                                sqlCommand = "insert into UtilizadoresOnline values ('" + email + "', '" + time_to_expire + "')";
+                                
+                                sqlCommand = "insert into UtilizadoresOnline values ('"+ email + "', '" + time_to_expire + "','"+token+ "')";
                                 command = new MySqlCommand(sqlCommand, connection);
                                 command.ExecuteScalar();
 
@@ -312,7 +314,7 @@ namespace UMFit_WebAPI.Models.Data.DAO
                                 Instrutor user = new Instrutor(email, nif, nome, genero, data_nascimento, localidade);
 
                                 // Adicionar o Cliente à tabela de utilizadores online...
-                                sqlCommand = "insert into UtilizadoresOnline values ('" + email + "', '" + time_to_expire + "')";
+                                sqlCommand = "insert into UtilizadoresOnline values ('"+ email + "', '" + time_to_expire + "','"+token+ "')";
                                 command = new MySqlCommand(sqlCommand, connection);
                                 command.ExecuteScalar();
 
@@ -356,7 +358,7 @@ namespace UMFit_WebAPI.Models.Data.DAO
                                 Rececionista user = new Rececionista(email, nif, nome, genero, data_nascimento, localidade);
 
                                 // Adicionar o Cliente à tabela de utilizadores online...
-                                sqlCommand = "insert into UtilizadoresOnline values ('" + email + "', '" + time_to_expire + "')";
+                                sqlCommand = "insert into UtilizadoresOnline values ('"+ email + "', '" + time_to_expire + "','"+token+ "')";
                                 command = new MySqlCommand(sqlCommand, connection);
                                 command.ExecuteScalar();
 
@@ -380,7 +382,7 @@ namespace UMFit_WebAPI.Models.Data.DAO
         {
             connection.Open();
 
-            string sqlCommand = "delete from UtilizadoresOnline where email = " + "'" + email + "'";
+            string sqlCommand = "delete from UtilizadoresOnline where token = " + "'" + email + "'";
             MySqlCommand command = new MySqlCommand(sqlCommand, connection);
 
             command.ExecuteScalar();
@@ -393,13 +395,13 @@ namespace UMFit_WebAPI.Models.Data.DAO
             
             string sqlCommand = "select data_expirar from UtilizadoresOnline where token = " + "'" + token + "'";
             MySqlCommand command = new MySqlCommand(sqlCommand, connection);
-
             object result = command.ExecuteScalar();
 
             if(result != null)
             {
                 DateTime dataExp = DateTime.Parse(Convert.ToString(result));
                 DateTime atual = DateTime.Now;
+          
 
                 if (dataExp.CompareTo(atual) > 0)
                 { 
