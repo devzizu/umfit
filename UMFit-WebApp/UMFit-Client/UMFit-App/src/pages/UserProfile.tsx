@@ -19,6 +19,7 @@ class UserProfile extends React.Component<any> {
     this.state = {
       user: this.props.user
     }
+
   }
 
   componentDidMount() {

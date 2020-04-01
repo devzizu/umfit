@@ -29,7 +29,7 @@ namespace UMFit_WebAPI.Controllers
 
             return Ok();
         }
-
+        
         [HttpPost("status")]
         public ActionResult<string> Status([FromBody] StringDto token)
         {

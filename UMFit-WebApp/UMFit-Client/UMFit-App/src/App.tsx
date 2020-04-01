@@ -1,6 +1,6 @@
 import React from 'react';
 import { Redirect, Route } from 'react-router-dom';
-import { IonApp, IonRouterOutlet, IonSplitPane, IonPage, IonHeader, IonToolbar, IonTitle, IonText, IonInput, IonButton, IonItem, IonCheckbox, IonLabel } from '@ionic/react';
+import { IonApp, IonRouterOutlet, IonSplitPane, IonPage, IonHeader, IonToolbar, IonTitle, IonText, IonInput, IonButton } from '@ionic/react';
 import { IonReactRouter } from '@ionic/react-router';
 
 /* Core CSS required for Ionic components to work properly */
@@ -57,7 +57,7 @@ class App extends React.Component {
     userLogged: User
   }
   
-  setLogged = (logged: boolean) => {
+  setLogged = (logged: boolean, user: User) => {
 
     if (logged === false) {
       
@@ -71,17 +71,11 @@ class App extends React.Component {
 
     this.setState({ 
       logged: logged, 
-      menus: logged ? 'user' : 'home'
+      menus: logged ? user.tipoDeUser : 'home',
+      userLogged: user
     });
 
   };
-
-  setUser = (user: User) => {
-
-    this.setState({
-      userLogged: user      
-    });
-  }
 
   constructor(props: any) {
     
@@ -104,7 +98,7 @@ class App extends React.Component {
     console.log("com..DidMount() -> updating state...");
 
     var tokenFromStorage = localStorage.getItem('token');
-
+    console.log("TOKEN = " + tokenFromStorage);
     //existe token da sessao
     if (tokenFromStorage != null) {
 
@@ -112,17 +106,19 @@ class App extends React.Component {
             .then(res => res.json())
             .then((data) => {
 
-        if (data.status === "online") {
+        const res = JSON.parse(data);
+
+        if (res.status === "online") {
           
           this.setState({
             logged: true,
-            menus: 'user',
+            menus: res.user.tipoDeUser,
             loadingAPIcall: false,
-            userLogged: data.user
+            userLogged: res.user
           });
         
         //Token invalido
-        } else if (data.status === "offline") {
+        } else if (res.status === "offline") {
 
           this.setState({
             logged: false,
@@ -152,6 +148,7 @@ class App extends React.Component {
     console.log("[...] Rendering App component...");
 
     var logged = this.state.logged;
+    var user = this.state.userLogged;
 
     return (
         <IonApp>
@@ -171,15 +168,14 @@ class App extends React.Component {
                         return <Redirect to="/profile" />;
                       } 
                       
-                      return <Home logged={logged} {...props} setLogged={this.setLogged} setUser={this.setUser} />;
+                      return <Home logged={logged} {...props} setLogged={this.setLogged}/>;
     
                     }} />
                     
                     <Route path="/about" component={About} exact={true} />
-                    
+                                        
                     <Route path="/contact" component={Contact} exact={true} />                          
 
-                    <Route path="/evolucao" component={Evolucao} exact={true} />                          
 
                     <Route path="/profile" component={(props: any) => {
                       
@@ -188,13 +184,13 @@ class App extends React.Component {
                         return <Redirect to="/home" />;
                       }
 
-                      switch(this.state.userLogged.tipoDeUser) {
+                      switch(user.tipoDeUser) {
 
                         case 'Cliente': 
 
                           return <ProfileCliente setLogged={this.setLogged} user={this.state.userLogged}/>;
 
-                        case 'Treinador': 
+                        case 'Instrutor': 
                 
                           return <ProfileTreinador setLogged={this.setLogged} user={this.state.userLogged}/>;
 
@@ -242,7 +238,7 @@ class Home extends React.Component<any> {
           </IonToolbar>
         </IonHeader>
 
-        <LogInForm logged={this.props.logged} history={this.props.history} setLogged={this.props.setLogged} setUser={this.props.setUser}/>
+        <LogInForm logged={this.props.logged} history={this.props.history} setLogged={this.props.setLogged}/>
 
       </IonPage>
     );
@@ -256,7 +252,6 @@ class ProfileCliente extends React.Component<any> {
   state = {
     user: User
   }
-
 
   constructor(props: any) {
     super(props);
@@ -273,7 +268,11 @@ class ProfileCliente extends React.Component<any> {
 
           <Route path="/profile" render={() => {return <UserProfile user={this.state.user} />}} exact={true} />
 
+          <Route path="/profile/evolucao" render={() => {return <Evolucao />}} exact={true} />
+
           <Route path="/profile/logout" component={() => {return <LogOut setLogged={this.props.setLogged}/>}} exact={true} />
+     
+          <Route path='*' exact={true} component={Component404} />
 
         </IonRouterOutlet>
       
@@ -306,6 +305,8 @@ class ProfileFuncionario extends React.Component<any> {
 
           <Route path="/profile/logout" component={() => {return <LogOut setLogged={this.props.setLogged}/>}} exact={true} />
 
+          <Route path='*' exact={true} component={Component404} />
+
         </IonRouterOutlet>
       
     );    
@@ -336,6 +337,8 @@ class ProfileTreinador extends React.Component<any> {
           <Route path="/profile" render={() => {return <UserProfile user={this.state.user} />}} exact={true} />
 
           <Route path="/profile/logout" component={() => {return <LogOut setLogged={this.props.setLogged}/>}} exact={true} />
+
+          <Route path='*' exact={true} component={Component404} />
 
         </IonRouterOutlet>
       
@@ -409,15 +412,6 @@ class LogInForm extends React.Component<any> {
 
           }}>
           </IonInput>
-          <br></br>
-          <IonItem>
-            <IonCheckbox color="primary" slot="start" onIonChange={(e) => {
-                this.setState({
-                  rememberMe: (e.target as HTMLInputElement).checked
-                });
-            }}></IonCheckbox>
-            <IonLabel>Remember me</IonLabel>
-          </IonItem>
       </div>
       <div>
       <IonButton expand="block" type="submit" id="login-button" onClick={async () => {
@@ -446,12 +440,15 @@ class LogInForm extends React.Component<any> {
                      
                       await json.then((value) => {
                           
-                          localStorage.setItem('token', value.token);
+                          const resValue = JSON.parse(value);
+                          
+                          localStorage.setItem('token', resValue.token);
 
-                          var user: User = value.user;
+                          var user: User = resValue.user;
 
-                          this.props.setLogged(true);
-                          this.props.setUser(user);
+                          console.log(user.tipoDeUser);
+
+                          this.props.setLogged(true, user);
 
                           //this.props.history.replace("/profile");
                       });
@@ -478,3 +475,26 @@ class LogInForm extends React.Component<any> {
 
   
 };
+
+
+class Component404 extends React.Component {
+
+  render() {
+
+    return (
+
+      <IonPage>
+
+
+        <IonHeader>
+          <IonToolbar color="primary">
+            <IonTitle id="page-title">404</IonTitle>
+          </IonToolbar>
+        </IonHeader>
+
+      </IonPage>
+
+    );
+
+  }
+}

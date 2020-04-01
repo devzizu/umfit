@@ -5775,19 +5775,19 @@
     ]
   },
   "packageFolders": {
-    "/home/hc/.nuget/packages/": {}
+    "/home/joao/.nuget/packages/": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/home/hc/Desktop/li4_umfit/UMFit-WebApp/UMFit-Server_API/UMFit-WebAPI/UMFit-WebAPI/UMFit-WebAPI.csproj",
+      "projectUniqueName": "/home/joao/Desktop/Projeto-LI4/li4_umfit/UMFit-WebApp/UMFit-Server_API/UMFit-WebAPI/UMFit-WebAPI/UMFit-WebAPI.csproj",
       "projectName": "UMFit-WebAPI",
-      "projectPath": "/home/hc/Desktop/li4_umfit/UMFit-WebApp/UMFit-Server_API/UMFit-WebAPI/UMFit-WebAPI/UMFit-WebAPI.csproj",
-      "packagesPath": "/home/hc/.nuget/packages/",
-      "outputPath": "/home/hc/Desktop/li4_umfit/UMFit-WebApp/UMFit-Server_API/UMFit-WebAPI/UMFit-WebAPI/obj/",
+      "projectPath": "/home/joao/Desktop/Projeto-LI4/li4_umfit/UMFit-WebApp/UMFit-Server_API/UMFit-WebAPI/UMFit-WebAPI/UMFit-WebAPI.csproj",
+      "packagesPath": "/home/joao/.nuget/packages/",
+      "outputPath": "/home/joao/Desktop/Projeto-LI4/li4_umfit/UMFit-WebApp/UMFit-Server_API/UMFit-WebAPI/UMFit-WebAPI/obj/",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "/home/hc/.config/NuGet/NuGet.Config"
+        "/home/joao/.config/NuGet/NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "netcoreapp3.1"

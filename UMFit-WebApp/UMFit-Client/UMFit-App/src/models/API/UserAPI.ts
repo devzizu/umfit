@@ -1,7 +1,7 @@
 
 export {}
 
-var baseURL: string = "http://192.168.1.18:5000/api/user";
+var baseURL: string = "http://192.168.1.67:5000/api/user";
 
 //Returns the user object in case login OK
 export async function authenticate (email: string, pass: string) {
@@ -30,7 +30,7 @@ export function getUserStatus (token: string) {
             'Content-Type': 'application/json'
         },
         body: JSON.stringify({
-            token: token
+            valueST: token
         })
     });
 
@@ -41,17 +41,14 @@ export function logout(token: string) {
 
     console.log("Sending logout call with email " + token);
 
-    const res = fetch(baseURL + "/logout", {
+    fetch(baseURL + "/logout", {
         method: 'post',
         headers: {
             'Accept': 'application/json',
             'Content-Type': 'application/json'
         },
         body: JSON.stringify({
-            token: token
+            valueST: token
         })
     });
-
-    res.then(res => res.json())
-        .then(data => console.log(data));
 }

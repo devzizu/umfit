@@ -440,7 +440,7 @@ select * from Aula_Grupo;
 
 select * from UtilizadoresOnline;
 
-insert into UtilizadoresOnline values("test", "2020-04-30", "token");
+insert into UtilizadoresOnline values("a83719@alunos.uminho.pt", "2020-04-30", "token");
 
 delete from UtilizadoresOnline;
 

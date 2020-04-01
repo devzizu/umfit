@@ -33,8 +33,7 @@
     width: 95%;
     margin: 0 !important;
     background-color: rgb(236, 185, 134);
-    display: flex;
-    justify-content: center;
+
 }
 
 .info-text-title {
@@ -48,4 +47,5 @@
     color: black;
     font-size: 16px;
     font-family: 'Courier New', Courier, monospace;
+    height: 200px;
 }

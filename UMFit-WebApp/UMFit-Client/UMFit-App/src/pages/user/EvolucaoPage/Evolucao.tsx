@@ -43,7 +43,7 @@ interface registoAvaliacao {
 
 //----------------------------------------------------------------------
 
-class Evolucao extends React.Component {
+class Evolucao extends React.Component<any> {
 
     state: {
 
@@ -75,7 +75,13 @@ class Evolucao extends React.Component {
 
     async componentDidMount() {
 
-        await getEvolucao("a83719@alunos.uminho.pt").then(
+        const token = localStorage.getItem('token');
+
+        if (!token) {
+            return;
+        }
+
+        await getEvolucao(token).then(
             res => res.json()            
         ).then(
         
