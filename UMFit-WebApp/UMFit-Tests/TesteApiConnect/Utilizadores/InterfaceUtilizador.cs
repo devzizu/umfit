@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using MySql.Data.MySqlClient;
 
 namespace TesteApiConnect
 {
@@ -9,5 +7,9 @@ namespace TesteApiConnect
         public string GetEmail();
 
         public string ToString();
+
+        public string ToSql(string hashPass);
+
+        public void IniParamSql(MySqlCommand command);
     }
 }

@@ -3,6 +3,7 @@
  * relativo a uma avaliação
  */
 using System.Text;
+using System;
 
 namespace TesteApiConnect
 {
@@ -11,9 +12,9 @@ namespace TesteApiConnect
         // O registo pode ser um valor de peso, altura, imc, ...
         public float registo { set; get; }
         // Data da avaliação do registo em causa
-        public string data { set; get; }
+        public  DateTime data { set; get; }
 
-        public Registo_Avaliaçao(float registo, string data)
+        public Registo_Avaliaçao(float registo, DateTime data)
         {
             this.registo = registo;
             this.data = data;
@@ -24,7 +25,7 @@ namespace TesteApiConnect
             StringBuilder r = new StringBuilder();
 
             r.Append("Registo: " + this.registo + "; ");
-            r.Append("Data: " + this.data + "; ");
+            r.Append("Data: " + this.data.ToString() + "; ");
 
             return r.ToString();
         }

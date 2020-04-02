@@ -2,6 +2,7 @@
  * Classe Perímetros que guarda todos os atributos, mais propriamente,
  * os perimetros relativos à Avaliação
  */
+using MySql.Data.MySqlClient;
 using System.Text;
 
 namespace TesteApiConnect
@@ -77,21 +78,60 @@ namespace TesteApiConnect
             }
             else
             {
-                r.Append(this.cintura + ", ");
-                r.Append(this.abdomen + ", ");
-                r.Append(this.ombro + ", ");
-                r.Append(this.torax + ", ");
-                r.Append(this.braço_dir + ", ");
-                r.Append(this.braço_esq + ", ");
-                r.Append(this.coxa_dir + ", ");
-                r.Append(this.coxa_esq + ", ");
-                r.Append(this.gemeo_dir + ", ");
-                r.Append(this.gemeo_esq + ", ");
-                r.Append(this.antebraço_dir + ", ");
-                r.Append(this.antebraço_esq);
+                r.Append("@CINTURA, ");
+                r.Append("@ABDOMEN, ");
+                r.Append("@OMBRO, ");
+                r.Append("@TORAX, ");
+                r.Append("@BRAÇO_DIR, ");
+                r.Append("@BRAÇO_ESQ, ");
+                r.Append("@COXA_DIR, ");
+                r.Append("@COXA_ESQ, ");
+                r.Append("@GEMEO_DIR, ");
+                r.Append("@GEMEO_ESQ, ");
+                r.Append("@ANTEBRAÇO_DIR, ");
+                r.Append("@ANTEBRAÇO_ESQ");
             }
 
             return r.ToString();
+        }
+
+        public void IniParamSql(MySqlCommand command)
+        {
+            command.Parameters.Add(new MySqlParameter("@CINTURA", MySqlDbType.Float));
+            command.Parameters["@CINTURA"].Value = this.cintura;
+
+            command.Parameters.Add(new MySqlParameter("@ABDOMEN", MySqlDbType.Float));
+            command.Parameters["@ABDOMEN"].Value = this.abdomen;
+
+            command.Parameters.Add(new MySqlParameter("@OMBRO", MySqlDbType.Float));
+            command.Parameters["@OMBRO"].Value = this.ombro;
+
+            command.Parameters.Add(new MySqlParameter("@TORAX", MySqlDbType.Float));
+            command.Parameters["@TORAX"].Value = this.torax;
+
+            command.Parameters.Add(new MySqlParameter("@BRAÇO_DIR", MySqlDbType.Float));
+            command.Parameters["@BRAÇO_DIR"].Value = this.braço_dir;
+
+            command.Parameters.Add(new MySqlParameter("@BRAÇO_ESQ", MySqlDbType.Float));
+            command.Parameters["@BRAÇO_ESQ"].Value = this.braço_esq;
+
+            command.Parameters.Add(new MySqlParameter("@COXA_DIR", MySqlDbType.Float));
+            command.Parameters["@COXA_DIR"].Value = this.coxa_dir;
+
+            command.Parameters.Add(new MySqlParameter("@COXA_ESQ", MySqlDbType.Float));
+            command.Parameters["@COXA_DIR"].Value = this.coxa_dir;
+
+            command.Parameters.Add(new MySqlParameter("@GEMEO_DIR", MySqlDbType.Float));
+            command.Parameters["@GEMEO_DIR"].Value = this.gemeo_dir;
+
+            command.Parameters.Add(new MySqlParameter("@GEMEO_ESQ", MySqlDbType.Float));
+            command.Parameters["@GEMEO_ESQ"].Value = this.gemeo_esq;
+
+            command.Parameters.Add(new MySqlParameter("@ANTEBRAÇO_DIR", MySqlDbType.Float));
+            command.Parameters["@ANTEBRAÇO_DIR"].Value = this.antebraço_dir;
+
+            command.Parameters.Add(new MySqlParameter("@ANTEBRAÇO_ESQ", MySqlDbType.Float));
+            command.Parameters["@ANTEBRAÇO_ESQ"].Value = this.antebraço_esq;
         }
 
         public override string ToString()

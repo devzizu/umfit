@@ -2,6 +2,7 @@
  * Classe Composiçao_Corporal que guarda todos os atributos, mais propriamente,
  * os perimetros relativos à Avaliação
  */
+using MySql.Data.MySqlClient;
 using System.Text;
 
 namespace TesteApiConnect
@@ -57,16 +58,38 @@ namespace TesteApiConnect
             }
             else
             {
-                r.Append(this.altura + ", ");
-                r.Append(this.peso + ", ");
-                r.Append(this.massa_gorda + ", ");
-                r.Append(this.massa_magra + ", ");
-                r.Append(this.imc + ", ");
-                r.Append(this.idade_metabolica + " ");
+                r.Append("@ALTURA, ");
+                r.Append("@PESO, ");
+                r.Append("@MASSA_GORDA, ");
+                r.Append("@MASSA_MAGRA, ");
+                r.Append("@IMC, ");
+                r.Append("@IDADE_METABOLICA");
             }
 
             return r.ToString();
         }
+
+        public void IniParamSql(MySqlCommand command)
+        {
+            command.Parameters.Add(new MySqlParameter("@ALTURA", MySqlDbType.Int32));
+            command.Parameters["@ALTURA"].Value = this.altura;
+
+            command.Parameters.Add(new MySqlParameter("@PESO", MySqlDbType.Float));
+            command.Parameters["@PESO"].Value = this.peso;
+
+            command.Parameters.Add(new MySqlParameter("@MASSA_GORDA", MySqlDbType.Float));
+            command.Parameters["@MASSA_GORDA"].Value = this.massa_gorda;
+
+            command.Parameters.Add(new MySqlParameter("@MASSA_MAGRA", MySqlDbType.Float));
+            command.Parameters["@MASSA_MAGRA"].Value = this.massa_magra;
+
+            command.Parameters.Add(new MySqlParameter("@IMC", MySqlDbType.Float));
+            command.Parameters["@IMC"].Value = this.imc;
+
+            command.Parameters.Add(new MySqlParameter("@IDADE_METABOLICA", MySqlDbType.Int32));
+            command.Parameters["@IDADE_METABOLICA"].Value = this.idade_metabolica;
+        }
+
 
         public override string ToString()
         {

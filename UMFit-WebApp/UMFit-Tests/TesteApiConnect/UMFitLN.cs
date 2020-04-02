@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using MySql.Data.MySqlClient;
 
 namespace TesteApiConnect
 {
@@ -11,7 +12,7 @@ namespace TesteApiConnect
         */
         public static List<Registo_Avaliaçao> Generate_Reg(string emailCliente, string param, bool isCompCorp)
         {
-            List<Avaliaçao> listA = AvaliaçaoDAO.GetAvaliaçoesRealizadas(emailCliente);
+            List<Avaliaçao> listA = AvaliaçaoDAO.GetAvalRCliente(emailCliente);
 
             List<Registo_Avaliaçao> reg = new List<Registo_Avaliaçao>();
 
@@ -124,32 +125,18 @@ namespace TesteApiConnect
             Console.WriteLine(listaAv[listaAv.Count -1].ToString());
             */
 
-            listaAv = AvaliaçaoDAO.GetAvaliaçoes("a83719@alunos.uminho.pt");
-            i = 0;
+            /*
+            Cliente user = new Cliente("test2Now", 99121212, "TesteUser",
+        0, "1999-09-19", "Famalicão", "Standard");
 
-            while (i < listaAv.Count)
-            {
-                Console.WriteLine(listaAv[i].ToString());
-                i++;
-            }
 
-            List<Registo_Avaliaçao> reg = Generate_Reg("a83719@alunos.uminho.pt", "peso", true);
+            UtilizadorDAO.InsertUser(user, 0,  "9F86D081884C7D659A2FEAA0C55AD015A3BF4F1B2B0B822CD15D6C15B0F00A08");
+            */
 
-            for(i = 0; i < reg.Count; i++)
-            {
-                Console.WriteLine(reg[i].ToString());
-            }
+            //UtilizadorDAO.TestSqlInject(99121212, "TesteWELELEL");
 
-            listaAv = AvaliaçaoDAO.GetAvaliaçoesRealizadas("a83719@alunos.uminho.pt");
-            i = 0;
+            UtilizadorDAO.TestSqlInject("test");
 
-            while (i < listaAv.Count)
-            {
-                Console.WriteLine(listaAv[i].ToString());
-                i++;
-            }
-
-            
         }
     }
 }

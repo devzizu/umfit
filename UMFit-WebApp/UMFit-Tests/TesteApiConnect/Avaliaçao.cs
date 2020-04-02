@@ -2,6 +2,7 @@
  * Classe que implementa uma Avaliação, seja ela Agendada ou realizada
  */
 using System.Text;
+using System;
 
 namespace TesteApiConnect
 {
@@ -9,7 +10,7 @@ namespace TesteApiConnect
     {
         public int id { set; get; }
 
-        public string data { set; get; }
+        public DateTime data { set; get; }
 
         public string instrutor_email { set; get; }
 
@@ -23,7 +24,7 @@ namespace TesteApiConnect
 
 
         // Cria uma Avaliação <Agendada> (tem os valores de composição corporal e perimetros a 0)
-        public Avaliaçao(int id, string data, string instrutor_email, string cliente_email)
+        public Avaliaçao(int id, DateTime data, string instrutor_email, string cliente_email)
         {
             this.id = id;
             this.data = data;
@@ -37,7 +38,7 @@ namespace TesteApiConnect
         }
 
         // Cria uma Avaliação <Realizada> 
-        public Avaliaçao(int id, string data, string instrutor_email, string cliente_email, 
+        public Avaliaçao(int id, DateTime data, string instrutor_email, string cliente_email, 
             Composiçao_Corporal cc, Perimetros p)
         {
             this.id = id;
@@ -64,7 +65,7 @@ namespace TesteApiConnect
             StringBuilder r = new StringBuilder();
 
             r.Append("\nId: " + this.id + ";\n");
-            r.Append("Data: " + this.data + ";\n");
+            r.Append("Data: " + this.data.ToString() + ";\n");
             r.Append("Instrutor: " + this.instrutor_email + ";\n");
             r.Append("Cliente: " + this.cliente_email + ";\n");
             r.Append(this.composiçao_Corporal.ToString());
@@ -148,10 +149,7 @@ namespace TesteApiConnect
                         break;
                 }
             }
-
             return r;
         }
-
-
     }
 }

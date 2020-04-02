@@ -5,19 +5,11 @@ namespace TesteApiConnect
 {
     class UtilizadorDAO
     {
-        private static MySqlBaseConnectionStringBuilder builder = new MySqlConnectionStringBuilder
-        {
-            Server = "localhost",
-            UserID = "UMFit",
-            Password = "umfitli4",
-            Database = "UMFit_DB"
-        };
+        private static MySqlConnection connection = new MySqlConnection(DataBaseConnector.builderLocalhost.ToString());
 
         public static int TypeUser(string email)
         {
             int typeUser = -1; // 0 - Cliente, 1 - Instrutor, 2 - Rececionista
-
-            MySqlConnection connection = new MySqlConnection(builder.ToString());
 
             try
             {
@@ -25,8 +17,12 @@ namespace TesteApiConnect
 
                 // Utilizador é Cliente, Instrutor ou Rececionista? --------------------------------------------
 
-                string sqlCommand = "select c.hashPass from Cliente c where c.email = " + "'" + email + "'";
+                string sqlCommand = "select hashPass from Cliente where email = @EMAIL";
                 MySqlCommand command = new MySqlCommand(sqlCommand, connection);
+
+                command.Parameters.Add(new MySqlParameter("@EMAIL", MySqlDbType.VarChar));
+                command.Parameters["@EMAIL"].Value = email;
+
                 object result = command.ExecuteScalar();
 
                 if (result != null)
@@ -35,8 +31,12 @@ namespace TesteApiConnect
                 }
                 else
                 {
-                    sqlCommand = "select i.hashPass from Instrutor i where i.email = " + "'" + email + "'";
+                    sqlCommand = "select hashPass from Instrutor where email = @EMAIL";
                     command = new MySqlCommand(sqlCommand, connection);
+
+                    command.Parameters.Add(new MySqlParameter("@EMAIL", MySqlDbType.VarChar));
+                    command.Parameters["@EMAIL"].Value = email;
+                    
                     result = command.ExecuteScalar();
 
                     if (result != null)
@@ -45,8 +45,12 @@ namespace TesteApiConnect
                     }
                     else
                     {
-                        sqlCommand = "select r.hashPass from Rececionista r where r.email = " + "'" + email + "'";
+                        sqlCommand = "select hashPass from Rececionista where email = @EMAIL";
                         command = new MySqlCommand(sqlCommand, connection);
+
+                        command.Parameters.Add(new MySqlParameter("@EMAIL", MySqlDbType.VarChar));
+                        command.Parameters["@EMAIL"].Value = email;
+
                         result = command.ExecuteScalar();
 
                         if (result != null)
@@ -66,16 +70,110 @@ namespace TesteApiConnect
             return typeUser;
         }
 
-        public static InterfaceUtilizador LogIn(string email, string passInserida)
+        public static InterfaceUtilizador GetUser(string email)
         {
-            string nome, data_nascimento, localidade, categoria;
-            int genero, nif;
-
-            string time_to_expire = "2020-03-11 20:00:00";
-
-            MySqlConnection connection = new MySqlConnection(builder.ToString());
-
             int typeUser = TypeUser(email); // 0 - Cliente, 1 - Instrutor, 2 - Rececionista
+
+            if (typeUser == -1)
+            {
+                return null;
+            }
+
+            try
+            {
+                connection.Open();
+
+                MySqlCommand command;
+                string sqlCommand;
+
+                switch (typeUser)
+                {
+                    // Cliente
+                    case 0:
+                        {
+                            sqlCommand = "select * from Cliente where email = @EMAIL";
+                            command = new MySqlCommand(sqlCommand, connection);
+
+                            command.Parameters.Add(new MySqlParameter("@EMAIL", MySqlDbType.VarChar));
+                            command.Parameters["@EMAIL"].Value = email;
+
+                            MySqlDataReader reader = command.ExecuteReader();
+
+                            reader.Read();
+
+                            Cliente user = new Cliente(email, reader.GetInt32(1), reader.GetString(2), reader.GetInt16(5),
+                                reader.GetDateTime(4), reader.GetString(7), reader.GetString(6));
+
+                            reader.Close();
+
+                            connection.Close();
+
+                            return user;
+                        }
+
+
+                    // Instrutor
+                    case 1:
+                        {
+                            sqlCommand = "select * from Instrutor where email = @EMAIL";
+                            command = new MySqlCommand(sqlCommand, connection);
+
+                            command.Parameters.Add(new MySqlParameter("@EMAIL", MySqlDbType.VarChar));
+                            command.Parameters["@EMAIL"].Value = email;
+
+                            MySqlDataReader reader = command.ExecuteReader();
+
+                            reader.Read();
+
+                            Instrutor user = new Instrutor(email, reader.GetInt32(1), reader.GetString(2),
+                                reader.GetInt16(5), reader.GetDateTime(4), reader.GetString(6));
+
+                            reader.Close();
+
+                            connection.Close();
+
+                            return user;
+                        }
+
+                    // Rececionista
+                    case 2:
+                        {
+                            sqlCommand = "select * from Rececionista where email = @EMAIL";
+                            command = new MySqlCommand(sqlCommand, connection);
+
+                            command.Parameters.Add(new MySqlParameter("@EMAIL", MySqlDbType.VarChar));
+                            command.Parameters["@EMAIL"].Value = email;
+
+                            MySqlDataReader reader = command.ExecuteReader();
+
+                            reader.Read();
+
+                            Rececionista user = new Rececionista(email, reader.GetInt32(1), reader.GetString(2), 
+                                reader.GetInt16(5), reader.GetDateTime(4), reader.GetString(6));
+
+                            reader.Close();
+
+                            connection.Close();
+
+                            return user;
+
+                        }
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.ToString());
+            }
+
+            return null;
+        }
+
+        public static InterfaceUtilizador LogIn(string email, string passInserida, string token)
+        {
+            DateTime today = DateTime.Now;
+            DateTime time_to_expire = today.AddDays(5);
+
+            int typeUser = TypeUser(email);  // 0 - Cliente, 1 - Instrutor, 2 - Rececionista
 
             if (typeUser == -1)
             {
@@ -94,10 +192,13 @@ namespace TesteApiConnect
                 switch (typeUser)
                 {
                     // Cliente
-                    case 0: 
+                    case 0:
                         {
-                            sqlCommand = "select * from Cliente c where c.email = " + "'" + email + "'";
+                            sqlCommand = "select * from Cliente where email = @EMAIL";
                             command = new MySqlCommand(sqlCommand, connection);
+
+                            command.Parameters.Add(new MySqlParameter("@EMAIL", MySqlDbType.VarChar));
+                            command.Parameters["@EMAIL"].Value = email;
 
                             MySqlDataReader reader = command.ExecuteReader();
 
@@ -106,45 +207,42 @@ namespace TesteApiConnect
 
                             if (hashUser.Equals(hashPass))
                             {
-                                // Get Nome
-                                nome = reader.GetString(2);
-
-                                // Get Nif
-                                nif = reader.GetInt32(1);
-
-                                // Get Genero
-                                genero = reader.GetInt16(5);
-
-                                // Get Data_nascimento
-                                data_nascimento = reader.GetString(4);
-
-                                // Get Localidade
-                                localidade = reader.GetString(7);
-
-                                // Get Categoria
-                                categoria = reader.GetString(6);
-
-                                reader.Close();
-
-                                Cliente user = new Cliente(email, nif, nome, genero, data_nascimento, localidade, categoria);
+                                Cliente user = new Cliente(email, reader.GetInt32(1), reader.GetString(2), reader.GetInt16(5),
+                                reader.GetDateTime(4), reader.GetString(7), reader.GetString(6));
 
                                 // Adicionar o Cliente à tabela de utilizadores online...
-                                sqlCommand = "insert into UtilizadoresOnline values ('" + email + "', '" + time_to_expire + "')";
+
+                                sqlCommand = "insert into UtilizadoresOnline values (@EMAIL, @TIME_TO_EXPIRE, @TOKEN)";
                                 command = new MySqlCommand(sqlCommand, connection);
+
+                                command.Parameters.Add(new MySqlParameter("@EMAIL", MySqlDbType.VarChar));
+                                command.Parameters["@EMAIL"].Value = email;
+
+                                command.Parameters.Add(new MySqlParameter("@TIME_TO_EXPIRE", MySqlDbType.DateTime));
+                                command.Parameters["@TIME_TO_EXPIRE"].Value = time_to_expire;
+
+                                command.Parameters.Add(new MySqlParameter("@TOKEN", MySqlDbType.VarChar));
+                                command.Parameters["@TOKEN"].Value = token;
+
                                 command.ExecuteScalar();
 
+                                reader.Close();
                                 connection.Close();
 
                                 return user;
                             }
+                            reader.Close();
                             break;
                         }
 
                     // Instrutor
                     case 1:
                         {
-                            sqlCommand = "select * from Instrutor i where i.email = " + "'" + email + "'";
+                            sqlCommand = "select * from Instrutor where email = @EMAIL";
                             command = new MySqlCommand(sqlCommand, connection);
+
+                            command.Parameters.Add(new MySqlParameter("@EMAIL", MySqlDbType.VarChar));
+                            command.Parameters["@EMAIL"].Value = email;
 
                             MySqlDataReader reader = command.ExecuteReader();
 
@@ -153,41 +251,37 @@ namespace TesteApiConnect
 
                             if (hashUser.Equals(hashPass))
                             {
-                                // Get Nome
-                                nome = reader.GetString(2);
-
-                                // Get Nif
-                                nif = reader.GetInt32(1);
-
-                                // Get Genero
-                                genero = reader.GetInt16(5);
-
-                                // Get Data_nascimento
-                                data_nascimento = reader.GetString(4);
-
-                                // Get Localidade
-                                localidade = reader.GetString(6);
-
-                                reader.Close();
-
-                                Instrutor user = new Instrutor(email, nif, nome, genero, data_nascimento, localidade);
+                                Instrutor user = new Instrutor(email, reader.GetInt32(1), reader.GetString(2),
+                                reader.GetInt16(5), reader.GetDateTime(4), reader.GetString(6));
 
                                 // Adicionar o Cliente à tabela de utilizadores online...
-                                sqlCommand = "insert into UtilizadoresOnline values ('" + email + "', '" + time_to_expire + "')";
+                                sqlCommand = "insert into UtilizadoresOnline values (@EMAIL, @TIME_TO_EXPIRE, @TOKEN)";
                                 command = new MySqlCommand(sqlCommand, connection);
+
+                                command.Parameters.Add(new MySqlParameter("@EMAIL", MySqlDbType.VarChar));
+                                command.Parameters["@EMAIL"].Value = email;
+
+                                command.Parameters.Add(new MySqlParameter("@TIME_TO_EXPIRE", MySqlDbType.DateTime));
+                                command.Parameters["@TIME_TO_EXPIRE"].Value = time_to_expire;
+
+                                command.Parameters.Add(new MySqlParameter("@TOKEN", MySqlDbType.VarChar));
+                                command.Parameters["@TOKEN"].Value = token;
+
                                 command.ExecuteScalar();
 
+                                reader.Close();
                                 connection.Close();
 
                                 return user;
                             }
+                            reader.Close();
                             break;
                         }
-                        
+
                     // Rececionista
                     case 2:
                         {
-                            sqlCommand = "select * from Rececionista r where r.email = " + "'" + email + "'";
+                            sqlCommand = "select * from Rececionista where email = @EMAIL";
                             command = new MySqlCommand(sqlCommand, connection);
 
                             MySqlDataReader reader = command.ExecuteReader();
@@ -197,34 +291,30 @@ namespace TesteApiConnect
 
                             if (hashUser.Equals(hashPass))
                             {
-                                // Get Nome
-                                nome = reader.GetString(2);
-
-                                // Get Nif
-                                nif = reader.GetInt32(1);
-
-                                // Get Genero
-                                genero = reader.GetInt16(5);
-
-                                // Get Data_nascimento
-                                data_nascimento = reader.GetString(4);
-
-                                // Get Localidade
-                                localidade = reader.GetString(6);
-
-                                reader.Close();
-
-                                Rececionista user = new Rececionista(email, nif, nome, genero, data_nascimento, localidade);
+                                Rececionista user = new Rececionista(email, reader.GetInt32(1), reader.GetString(2),
+                                reader.GetInt16(5), reader.GetDateTime(4), reader.GetString(6));
 
                                 // Adicionar o Cliente à tabela de utilizadores online...
-                                sqlCommand = "insert into UtilizadoresOnline values ('" + email + "', '" + time_to_expire + "')";
+                                sqlCommand = "insert into UtilizadoresOnline values (@EMAIL, @TIME_TO_EXPIRE, @TOKEN)";
                                 command = new MySqlCommand(sqlCommand, connection);
+
+                                command.Parameters.Add(new MySqlParameter("@EMAIL", MySqlDbType.VarChar));
+                                command.Parameters["@EMAIL"].Value = email;
+
+                                command.Parameters.Add(new MySqlParameter("@TIME_TO_EXPIRE", MySqlDbType.DateTime));
+                                command.Parameters["@TIME_TO_EXPIRE"].Value = time_to_expire;
+
+                                command.Parameters.Add(new MySqlParameter("@TOKEN", MySqlDbType.VarChar));
+                                command.Parameters["@TOKEN"].Value = token;
+
                                 command.ExecuteScalar();
 
+                                reader.Close();
                                 connection.Close();
 
                                 return user;
                             }
+                            reader.Close();
                             break;
                         }
                 }
@@ -237,40 +327,156 @@ namespace TesteApiConnect
             return null;
         }
 
-        public static void LogOut(string email)
-        {
-            MySqlConnection connection = new MySqlConnection(builder.ToString());
 
+        public static void LogOut(string token)
+        {
             connection.Open();
 
-            string sqlCommand = "delete from UtilizadoresOnline u where u.email = '" + email + "'";
+            string sqlCommand = "delete from UtilizadoresOnline where token = @TOKEN";
             MySqlCommand command = new MySqlCommand(sqlCommand, connection);
+
+            command.Parameters.Add(new MySqlParameter("@TOKEN", MySqlDbType.VarChar));
+            command.Parameters["@TOKEN"].Value = token;
 
             command.ExecuteScalar();
             connection.Close();
         }
 
-        public static bool isUserOnline(string email)
-        {
-            MySqlConnection connection = new MySqlConnection(builder.ToString());
 
+        public static bool IsUserOnline(string token)
+        {
             connection.Open();
 
-            bool isOn = false;
-
-            string sqlCommand = "select * from UtilizadoresOnline u where u.email = " + "'" + email + "'";
+            string sqlCommand = "select data_expirar from UtilizadoresOnline where token = @TOKEN";
             MySqlCommand command = new MySqlCommand(sqlCommand, connection);
+
+            command.Parameters.Add(new MySqlParameter("@TOKEN", MySqlDbType.VarChar));
+            command.Parameters["@TOKEN"].Value = token;
 
             object result = command.ExecuteScalar();
 
-            if(result != null)
+            if (result != null)
             {
-                isOn = true; 
+                DateTime dataExp = Convert.ToDateTime(result);
+                DateTime atual = DateTime.Now;
+
+                if (dataExp.CompareTo(atual) > 0)
+                {
+                    connection.Close();
+                    return true;
+                }
+                else
+                {
+                    connection.Close();
+                    return false;
+                }
             }
 
             connection.Close();
 
-            return isOn;
+            return false;
+        }
+
+        public string GetUserGivenToken(string token)
+        {
+            try
+            {
+                // Abre a conexão à Base de Dados
+                connection.Open();
+
+                string sqlCommand = "select email from UtilizadoresOnline where token = @TOKEN";
+                MySqlCommand command = new MySqlCommand(sqlCommand, connection);
+
+                command.Parameters.Add(new MySqlParameter("@TOKEN", MySqlDbType.VarChar));
+                command.Parameters["@TOKEN"].Value = token;
+
+                string res_email = Convert.ToString(command.ExecuteScalar());
+
+                // Fecha a conexão à Base de Dados
+                connection.Close();
+
+                return res_email;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.ToString());
+            }
+
+            return null;
+        }
+
+        /*
+         * Recebe a interface do utilizador, o tipo de utilizador(0, 1 ou 2), ou seja, 
+         * Cliente, Instrutor ou Rececionista
+         * e recebe a hash da password
+         */
+        public static void InsertUser(InterfaceUtilizador user, int type, string hashPass)
+        {
+            try
+            {
+                string sqlCommand;
+
+                connection.Open();
+
+                MySqlCommand command;
+
+                // 0 - Cliente, 1 - Instrutor, 2 - Rececionista
+                if (type == 0)
+                {
+                    Cliente u = (Cliente)user;
+
+                    sqlCommand = "insert into Cliente values(@EMAIL, @NIF, @NOME, @HASHPASS," +
+                        "@DATA_NASCIMENTO, @GENERO, @CATEGORIA, @LOCALIDADE)";
+
+                    command = new MySqlCommand(sqlCommand, connection);
+
+                    command.Parameters.Add(new MySqlParameter("@HASHPASS", MySqlDbType.VarChar));
+                    command.Parameters["@HASHPASS"].Value = hashPass;
+
+                    u.IniParamSql(command);
+                }
+                else if (type == 1)
+                {
+                    Instrutor u = (Instrutor)user;
+
+                    sqlCommand = "insert into Instrutor values(@EMAIL, @NIF, @NOME, @HASHPASS," +
+                        "@DATA_NASCIMENTO, @GENERO, @LOCALIDADE)";
+
+                    command = new MySqlCommand(sqlCommand, connection);
+
+                    command.Parameters.Add(new MySqlParameter("@HASHPASS", MySqlDbType.VarChar));
+                    command.Parameters["@HASHPASS"].Value = hashPass;
+
+                    u.IniParamSql(command);
+                }
+                else if (type == 2)
+                {
+                    Rececionista u = (Rececionista)user;
+
+                    sqlCommand = "insert into Rececionista values(@EMAIL, @NIF, @NOME, @HASHPASS," +
+                        "@DATA_NASCIMENTO, @GENERO, @LOCALIDADE)";
+
+                    command = new MySqlCommand(sqlCommand, connection);
+
+                    command.Parameters.Add(new MySqlParameter("@HASHPASS", MySqlDbType.VarChar));
+                    command.Parameters["@HASHPASS"].Value = hashPass;
+
+                    u.IniParamSql(command);
+                }
+                else
+                {
+                    connection.Close();
+                    return;
+                }
+
+                command.ExecuteScalar();
+
+                connection.Close();
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.ToString());
+            }
         }
 
     }
