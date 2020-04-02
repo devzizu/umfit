@@ -1,6 +1,6 @@
 import React from 'react';
 import { Redirect, Route } from 'react-router-dom';
-import { IonApp, IonRouterOutlet, IonSplitPane, IonPage, IonHeader, IonToolbar, IonTitle, IonText, IonInput, IonButton } from '@ionic/react';
+import { IonApp, IonRouterOutlet, IonSplitPane, IonPage, IonHeader, IonToolbar, IonTitle, IonText, IonInput, IonButton, IonCard, IonContent, IonCardContent, IonCardHeader } from '@ionic/react';
 import { IonReactRouter } from '@ionic/react-router';
 
 /* Core CSS required for Ionic components to work properly */
@@ -35,15 +35,13 @@ import sha256 from "fast-sha256";
 
 import './components/css/LogIn.css';
 import './pages/css/Home.css';
+import './pages/css/404.css';
 
 import Menu from './components/MenuHome';
 import About from './pages/About';
 import Contact from './pages/Contact';
 import UserProfile from './pages/UserProfile';
 import Evolucao from './pages/user/EvolucaoPage/Evolucao';
-
-//---------------------------------------------------------------------------------------
-
 
 //---------------------------------------------------------------------------------------
 
@@ -488,9 +486,24 @@ class Component404 extends React.Component {
 
         <IonHeader>
           <IonToolbar color="primary">
-            <IonTitle id="page-title">404</IonTitle>
+            <IonTitle id="page-title">404 - Página inexistente</IonTitle>
           </IonToolbar>
         </IonHeader>
+
+        <IonContent>
+
+            <IonCard className="wrapper">
+
+              <IonCardHeader className="card404">
+                <img src={require('./imgs/404_icon.png')} width="20%" height="250" alt="Loading..."/> 
+              </IonCardHeader>
+
+              <IonCardContent className="card404">
+                A página que está a tentar aceder foi removida ou não existe...saia do sistema e volte a tentar de novo.
+              </IonCardContent>
+          </IonCard>
+          
+        </IonContent>
 
       </IonPage>
 

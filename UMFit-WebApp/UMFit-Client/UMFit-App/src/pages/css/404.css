@@ -1,0 +1,9 @@
+
+.card404 {
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+    font-weight: bold;
+    font-size: 15px;
+    font-style: italic;
+}
