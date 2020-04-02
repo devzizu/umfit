@@ -94,18 +94,12 @@ class Evolucao extends React.Component<any> {
 
                     peso: jsonData.pesos.map((elem: any) => {
                         
-                        var parts = elem.data.split("/");
-                        var dt = new Date (parseInt(parts[2], 10),
-                                           parseInt(parts[1], 10),
-                                           parseInt(parts[0], 10));
+                        var dt = new Date (elem.data);
                         return Object.assign({}, {data: dt, y: elem.registo});
                     }                       
                     ),
                     cintura: jsonData.cinturas.map((elem: any) => {                        
-                        var parts = elem.data.split("/");
-                        var dt = new Date (parseInt(parts[2], 10),
-                                        parseInt(parts[1], 10),
-                                        parseInt(parts[0], 10));
+                        var dt = new Date (elem.data);
                         return Object.assign({}, {data: dt, y: elem.registo});
                 })
                 
@@ -130,7 +124,7 @@ class Evolucao extends React.Component<any> {
 
         var xPeso: any[] = [], yPeso: number[] = [];
         this.state.peso.forEach((ref)=>{
-            xPeso.push(""+ref.data.getDate()+"/"+(ref.data.getMonth()));
+            xPeso.push(""+ref.data.getDate()+"/"+(ref.data.getMonth()+1));
             yPeso.push(ref.y);
         });
         var dataPeso: any = JSON.parse(JSON.stringify(generalGraphSettings));
@@ -151,7 +145,7 @@ class Evolucao extends React.Component<any> {
 
         var xCintura : any[] = [], yCintura: number[] = [];
         this.state.cintura.forEach((ref) => {
-            xCintura.push(""+ref.data.getDate()+"/"+(ref.data.getMonth()));
+            xCintura.push(""+ref.data.getDate()+"/"+(ref.data.getMonth()+1));
             yCintura.push(ref.y);
         });
         var dataCintura: any = JSON.parse(JSON.stringify(generalGraphSettings));

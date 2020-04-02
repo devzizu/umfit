@@ -1,5 +1,4 @@
 
-using System;
 using System.Collections.Generic;
 using UMFit_WebAPI.Models.Data.DAO;
 using UMFit_WebAPI.Models.UMFit_LN.Avaliacao;
@@ -29,7 +28,7 @@ namespace UMFit_WebAPI.Models.UMFit_LN
 
         public bool isUserOnline(string token)
         {
-            return utilizadoresDAO.isUserOnline(token);
+            return utilizadoresDAO.IsUserOnline(token);
         }
 
         public void logout(string email)
@@ -44,7 +43,7 @@ namespace UMFit_WebAPI.Models.UMFit_LN
         */
         public List<Registo_Avaliaçao> Generate_Reg(string emailCliente, string param, bool isCompCorp)
         {
-            List<Avaliaçao> listA = AvaliaçaoDAO.GetAvaliaçoesRealizadas(emailCliente);
+            List<Avaliaçao> listA = AvaliaçaoDAO.GetAvalRCliente(emailCliente);
 
             List<Registo_Avaliaçao> reg = new List<Registo_Avaliaçao>();
 
@@ -62,12 +61,17 @@ namespace UMFit_WebAPI.Models.UMFit_LN
         public string getUserGivenToken(string validToken)
         {
 
-            return utilizadoresDAO.getUserGivenToken(validToken);
+            return utilizadoresDAO.GetUserGivenToken(validToken);
         }
 
         public InterfaceUtilizador GetUser(string email)
         {
             return utilizadoresDAO.GetUser(email);
+        }
+
+        public void RenovaToken(string token)
+        {
+            utilizadoresDAO.RenovaToken(token);
         }
     }
 }

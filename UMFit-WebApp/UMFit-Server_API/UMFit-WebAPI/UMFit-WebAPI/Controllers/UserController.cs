@@ -41,6 +41,8 @@ namespace UMFit_WebAPI.Controllers
             
             if (validToken)
             {
+                _system.RenovaToken(token.valueST);
+                
                 var email = _system.getUserGivenToken(token.valueST);
 
                 user = _system.GetUser(email);

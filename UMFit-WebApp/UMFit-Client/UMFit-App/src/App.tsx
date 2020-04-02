@@ -118,6 +118,8 @@ class App extends React.Component {
         //Token invalido
         } else if (res.status === "offline") {
 
+          localStorage.clear();
+
           this.setState({
             logged: false,
             menus: 'home',

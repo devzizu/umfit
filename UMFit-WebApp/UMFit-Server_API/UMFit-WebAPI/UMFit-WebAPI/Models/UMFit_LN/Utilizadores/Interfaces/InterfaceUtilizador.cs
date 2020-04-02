@@ -1,5 +1,5 @@
 ﻿
-using System;
+using MySql.Data.MySqlClient;
 
 namespace UMFit_WebAPI.Models.UMFit_LN.Utilizadores.Interfaces
 {
@@ -9,6 +9,9 @@ namespace UMFit_WebAPI.Models.UMFit_LN.Utilizadores.Interfaces
 
         public string ToString();
 
-        public string ToJson();
+        public string ToSql(string hashPass);
+
+        public void IniParamSql(MySqlCommand command);
+
     }
 }
