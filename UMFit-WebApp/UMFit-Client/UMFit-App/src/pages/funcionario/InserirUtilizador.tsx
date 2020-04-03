@@ -2,15 +2,31 @@
 import React from "react";
 
 import "../css/InserirUtilizador.css"
-import { IonPage, IonHeader, IonTitle, IonToolbar, IonContent, IonGrid, IonRow, IonCol, IonItem, IonLabel, IonInput, IonIcon, IonSelect, IonSelectOption, IonDatetime } from "@ionic/react";
-import { personOutline, mailOutline, cardOutline, locationOutline } from "ionicons/icons";
+import { IonPage, IonHeader, IonTitle, IonToolbar, IonContent, IonGrid, IonRow, IonCol, IonItem, IonLabel, IonInput, IonIcon, IonSelect, IonSelectOption, IonDatetime, IonText, IonButton } from "@ionic/react";
+import { personOutline, mailOutline, cardOutline, locationOutline, peopleCircleOutline, transgenderOutline, calendarOutline, codeWorkingOutline } from "ionicons/icons";
+import { User, getTestValueUser } from "../../models/Other/User";
+import sha256 from "fast-sha256";
 
 //---------------------------------------------------------------------------------------------------------------------------------
 
 class InserirUtilizador extends React.Component<any> {
 
     state: {
-        nome_completo: string
+        nome_completo: string,
+        email: string,
+        password: string,
+        localidade: string,
+        nif: string,
+        tipoDeSocio: string,
+        genero: string,
+        data_nascimento: string,
+        categoria: string
+    }
+
+    stateToAPI: {
+        token: string,
+        newUser: User,
+        passwordHash: string                
     }
 
     constructor(props: any) {
@@ -18,8 +34,83 @@ class InserirUtilizador extends React.Component<any> {
         super(props);
 
         this.state = {
-            nome_completo: ""
+            nome_completo: "",
+            email: "",
+            password: "",
+            localidade: "",
+            nif: "",
+            tipoDeSocio: "",
+            genero: "",
+            data_nascimento: "1999-02-20",
+            categoria: ""
         }
+
+        this.stateToAPI = {
+            token: "", 
+            newUser: getTestValueUser(),
+            passwordHash: ""
+        }  
+    }
+
+    createUserState() {
+
+        var genero = -2;
+        switch(this.state.genero) {
+            case "Masculino": genero = 1; break; 
+            case "Feminino":  genero = 0; break; 
+            default:          genero = -1; break; 
+        }
+
+        var categoria = "Não tem";
+        if (this.state.tipoDeSocio === "Cliente Premium") {
+            categoria = "Premium";
+        } else if (this.state.tipoDeSocio === "Cliente Standard") {
+            categoria = "Standard";
+        }
+
+        var user = new User(
+            this.state.tipoDeSocio,
+            this.state.email,
+            parseInt(this.state.nif),
+            this.state.nome_completo,
+            genero,
+            this.state.data_nascimento,
+            this.state.localidade,
+            categoria            
+        );
+
+        let pass_enc = new TextEncoder();
+        let encoded = pass_enc.encode(this.state.password);
+        let hash256 = Buffer.from(sha256(encoded)).toString('hex').toUpperCase();
+
+        var storageToken = localStorage.getItem('token');
+            
+        //FIXME
+        storageToken = "testToken";
+
+        if (storageToken) {
+
+            this.stateToAPI = {
+                token: storageToken, 
+                newUser: user,
+                passwordHash: hash256
+            }    
+        }
+
+        console.log(this.stateToAPI);
+    }
+
+    clearState() {
+        this.setState({
+            nome_completo: "",
+            email: "",
+            password: "",
+            localidade: "",
+            nif: "",
+            tipoDeSocio: "",
+            genero: "",
+            data_nascimento: "1999-02-20"
+        });        
     }
 
     render() {
@@ -47,35 +138,51 @@ class InserirUtilizador extends React.Component<any> {
                             <IonCol>
 
                                 <IonGrid>
-
+                                
                                     <IonRow>
 
                                         <IonCol className="FirstForm">
 
                                             <IonItem>
                                                 <IonIcon slot="start" icon={personOutline}></IonIcon>
-                                                <IonLabel position="floating">Nome Completo</IonLabel>
-                                                <IonInput required value={""}></IonInput>
+                                                <IonLabel position="floating">Nome Completo <IonText color="danger">*</IonText></IonLabel>
+                                                <IonInput required value={this.state.nome_completo} onIonChange={(e) => {
+                                                    this.setState({ nome_completo: (e.target as HTMLInputElement).value });
+                                                }}></IonInput>
                                             </IonItem>                                           
 
                                             <IonItem>
                                                 <IonIcon slot="start" icon={mailOutline}></IonIcon>
-                                                <IonLabel position="floating">E-Mail</IonLabel>
-                                                <IonInput required value={""}></IonInput>
+                                                <IonLabel position="floating">E-Mail <IonText color="danger">*</IonText></IonLabel>
+                                                <IonInput required value={this.state.email} onIonChange={(e) => {
+                                                    this.setState({ email: (e.target as HTMLInputElement).value });
+                                                }}></IonInput>
                                             </IonItem>                                           
 
                                             <IonItem>
+                                                <IonIcon slot="start" icon={codeWorkingOutline}></IonIcon>
+                                                <IonLabel position="floating">Definir a password <IonText color="danger">*</IonText></IonLabel>
+                                                <IonInput type="password" required value={this.state.password} onIonChange={(e) => {
+                                                    this.setState({ password: (e.target as HTMLInputElement).value });
+                                                }}></IonInput>
+                                            </IonItem>                                           
+ 
+                                            <IonItem>
                                                 <IonIcon slot="start" icon={locationOutline}></IonIcon>
-                                                <IonLabel position="floating">Localidade:</IonLabel>
-                                                <IonInput required value={""}></IonInput>
+                                                <IonLabel position="floating">Localidade</IonLabel>
+                                                <IonInput value={this.state.localidade} onIonChange={(e) => {
+                                                    this.setState({ localidade: (e.target as HTMLInputElement).value });
+                                                }}></IonInput>
                                             </IonItem>                                           
 
                                             <IonItem>
                                                 <IonIcon slot="start" icon={cardOutline}></IonIcon>
-                                                <IonLabel position="floating">Nif:</IonLabel>
-                                                <IonInput required value={""}></IonInput>
+                                                <IonLabel position="floating">Nif</IonLabel>
+                                                <IonInput value={this.state.nif} onIonChange={(e) => {
+                                                    this.setState({ nif: (e.target as HTMLInputElement).value });
+                                                }}></IonInput>
                                             </IonItem>                                           
-
+                                           
                                         </IonCol>
 
                                     </IonRow>
@@ -85,29 +192,52 @@ class InserirUtilizador extends React.Component<any> {
                                         <IonCol>
 
                                             <IonItem className="SelectUser">
+                                                <IonIcon slot="start" icon={peopleCircleOutline}></IonIcon>
                                                 <IonLabel>Tipo de sócio: </IonLabel>
-                                                <IonSelect value="notifications">
-                                                    <IonSelectOption value="01"><b>Cliente</b> Standard</IonSelectOption>
-                                                    <IonSelectOption value="02"><b>Cliente</b> Premium</IonSelectOption>
-                                                    <IonSelectOption value="03"><b>Cliente</b> Instrutor</IonSelectOption>
+                                                <IonSelect value={this.state.tipoDeSocio} onIonChange={(e) => this.setState({ tipoDeSocio: e.detail.value! })}>
+                                                    <IonSelectOption value="Cliente Standard">Cliente Standard</IonSelectOption>
+                                                    <IonSelectOption value="Cliente Premium">Cliente Premium</IonSelectOption>
+                                                    <IonSelectOption value="Instrutor">Instrutor</IonSelectOption>
+                                                    <IonSelectOption value="Rececionista">Rececionista</IonSelectOption>
                                                 </IonSelect>
+                                            </IonItem>
+
+                                            <IonItem className="SelectGender">
+                                                <IonIcon slot="start" icon={transgenderOutline}></IonIcon>
+                                                <IonLabel>Género: </IonLabel>
+                                                <IonSelect value={this.state.genero} onIonChange={(e) => this.setState({ genero: e.detail.value! })}>
+                                                    <IonSelectOption value="Masculino">Masculino</IonSelectOption>
+                                                    <IonSelectOption value="Feminino">Feminino</IonSelectOption>
+                                                    <IonSelectOption value="Não especificar">Não especificar</IonSelectOption>
+                                                </IonSelect>
+                                            </IonItem>
+                                            
+                                            <IonItem className="SelectDate">
+                                                <IonIcon slot="start" icon={calendarOutline}></IonIcon>
+                                                <IonLabel>Data de Nascimento:</IonLabel>
+                                                <IonDatetime value={this.state.data_nascimento} onIonChange={(e) => {this.setState({ data_nascimento: e.detail.value! })}}></IonDatetime>
+
                                             </IonItem>
 
                                         </IonCol>
 
                                     </IonRow>
 
-                                    <IonRow>
+                                    <IonRow className="buttonWrapper">
 
                                         <IonCol>
-                                            
-                                            <IonItem className="SelectDate">
+                                            <IonButton className="submitUser" expand="block" color="success" onClick={(event) => {
+                                                event.preventDefault();
+                                                alert("Tem a certeza que quer criar um novo Utilizador?");
+                                                this.createUserState();
 
-                                                <IonLabel>Data de Nasc.:</IonLabel>
-                                                <IonDatetime value="1999-02-20"></IonDatetime>
+                                            }}>Criar novo utilizador</IonButton>
+                                        </IonCol>
 
-                                            </IonItem>
-
+                                        <IonCol>
+                                            <IonButton className="clearForm" expand="block" color="light" onClick={() => {
+                                                this.clearState();
+                                            }}>Limpar formulário</IonButton>
                                         </IonCol>
 
                                     </IonRow>
