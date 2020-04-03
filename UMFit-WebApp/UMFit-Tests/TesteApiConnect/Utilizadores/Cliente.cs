@@ -6,7 +6,7 @@ namespace TesteApiConnect
 {
     class Cliente : InterfaceUtilizador
     {
-        public string tipoDeUser { set; get }
+        public string tipoDeUser { set; get; }
         public string email { get; set; }
         public int nif { get; set; }
         public string nome { get; set; }
@@ -49,6 +49,11 @@ namespace TesteApiConnect
             return this.email;
         }
 
+        public string GetLocalidade()
+        {
+            return this.localidade;
+        }
+
         public string ToSql(string hashPass)
         {
             StringBuilder r = new StringBuilder();
@@ -77,7 +82,7 @@ namespace TesteApiConnect
             command.Parameters["@NOME"].Value = this.nome;
 
             command.Parameters.Add(new MySqlParameter("@DATA_NASCIMENTO", MySqlDbType.DateTime));
-            command.Parameters["@DATA_NASCIMENTO"].Value = this.data_nascimento;
+            command.Parameters["@DATA_NASCIMENTO"].Value = this.data_nascimento.ToString("yyyy-MM-dd HH:mm:ss");
 
             command.Parameters.Add(new MySqlParameter("@GENERO", MySqlDbType.Int16));
             command.Parameters["@GENERO"].Value = this.genero;

@@ -226,7 +226,6 @@ namespace TesteApiConnect
                                 command.Parameters["@TOKEN"].Value = token;
 
                                 command.ExecuteScalar();
-
                                 
                                 connection.Close();
 
@@ -256,6 +255,7 @@ namespace TesteApiConnect
                                 reader.GetInt16(5), reader.GetDateTime(4), reader.GetString(6));
 
                                 reader.Close();
+                                
                                 // Adicionar o Cliente à tabela de utilizadores online...
                                 sqlCommand = "insert into UtilizadoresOnline values (@EMAIL, @TIME_TO_EXPIRE, @TOKEN)";
                                 command = new MySqlCommand(sqlCommand, connection);
@@ -296,6 +296,7 @@ namespace TesteApiConnect
                                 reader.GetInt16(5), reader.GetDateTime(4), reader.GetString(6));
 
                                 reader.Close();
+                               
                                 // Adicionar o Cliente à tabela de utilizadores online...
                                 sqlCommand = "insert into UtilizadoresOnline values (@EMAIL, @TIME_TO_EXPIRE, @TOKEN)";
                                 command = new MySqlCommand(sqlCommand, connection);
@@ -319,6 +320,7 @@ namespace TesteApiConnect
                             break;
                         }
                 }
+                connection.Close();
             }
             catch (Exception e)
             {
@@ -472,6 +474,213 @@ namespace TesteApiConnect
 
                 command.ExecuteScalar();
 
+                connection.Close();
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.ToString());
+            }
+        }
+
+        /*
+         * Função que remove um utilizador e devolve um bool, true caso tenha sido removido 
+         * ou false em caso contrario (não existe,...)
+         */
+        public static bool RemoveUser(string email, int type)
+        {
+            string sqlCommand;
+            MySqlCommand command;
+
+            bool r = false;
+
+            try
+            {
+                connection.Open();
+
+                if (type == 0)
+                {
+                    sqlCommand = "delete from Cliente where email = @EMAIL";
+                    command = new MySqlCommand(sqlCommand, connection);
+
+                    command.Parameters.Add(new MySqlParameter("@EMAIL", MySqlDbType.VarChar));
+                    command.Parameters["@EMAIL"].Value = email;
+
+                    command.ExecuteScalar();
+
+                    r = true;
+                }
+                if (type == 1)
+                {
+                    sqlCommand = "delete from Instrutor where email = @EMAIL";
+                    command = new MySqlCommand(sqlCommand, connection);
+
+                    command.Parameters.Add(new MySqlParameter("@EMAIL", MySqlDbType.VarChar));
+                    command.Parameters["@EMAIL"].Value = email;
+
+                    command.ExecuteScalar();
+
+                    r = true;
+                }
+                if (type == 2)
+                {
+                    sqlCommand = "delete from Rececionista where email = @EMAIL";
+                    command = new MySqlCommand(sqlCommand, connection);
+
+                    command.Parameters.Add(new MySqlParameter("@EMAIL", MySqlDbType.VarChar));
+                    command.Parameters["@EMAIL"].Value = email;
+
+                    command.ExecuteScalar();
+
+                    r = true;
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.ToString());
+            }
+
+            return r;
+        }
+
+
+        /*
+         * Caso a localidade não exista na base de dados, é necessário
+         * inserir na tabela do codigo postal
+         * Adicionamos como valor default para codigo posta o "0000",
+         * pois não temos maneira de saber qual o vervadeiro valor
+         */
+        public static void ExisteLocal(string local)
+        {
+            try
+            {
+                connection.Open();
+
+                string sqlCommand = "insert into Codigo_Postal (localidade, codigo_postal) " +
+                      "select * from (select @LOCALIDADE, @CODIGO_POSTAL) as tmp " +
+                      "where not exists ( select localidade from Codigo_Postal " +
+                      "where localidade = @LOCALIDADE) limit 1";
+
+                MySqlCommand command = new MySqlCommand(sqlCommand, connection);
+
+                command.Parameters.Add("@LOCALIDADE", MySqlDbType.VarChar);
+                command.Parameters["@LOCALIDADE"].Value = local;
+
+                command.Parameters.Add("@CODIGO_POSTAL", MySqlDbType.VarChar);
+                command.Parameters["@CODIGO_POSTAL"].Value = "0000";
+
+                command.ExecuteScalar();
+
+                connection.Close();
+            }
+            catch (MySqlException e)
+            {
+                Console.WriteLine(e.ToString());
+            }
+        }
+
+        public static void UpdateUser(InterfaceUtilizador user, int type, string hashPass)
+        {
+            try
+            {
+                MySqlCommand command;
+                string sqlCommand;
+
+                if (type == 0)
+                {
+                    Cliente u = (Cliente)user;
+                    sqlCommand = "update Cliente set hashPass = @HASHPASS, data_nascimento = @DATA_NASCIMENTO, " +
+                        "categoria = @CATEGORIA, localidade = @LOCALIDADE " +
+                        "where email = @EMAIL";
+
+                    /*
+                     * Verfica se a Localidade inserida existe.
+                     * Senão existir, adiciona à Base de Dados
+                     */ 
+                    ExisteLocal(user.GetLocalidade());
+
+                    connection.Open();
+                    
+                    command = new MySqlCommand(sqlCommand, connection);
+
+                    command.Parameters.Add("@HASHPASS", MySqlDbType.VarChar);
+                    command.Parameters["@HASHPASS"].Value = hashPass;
+
+                    command.Parameters.Add("@DATA_NASCIMENTO", MySqlDbType.DateTime);
+                    command.Parameters["@DATA_NASCIMENTO"].Value = u.data_nascimento.ToString("yyyy-MM-dd HH:mm:ss");
+
+                    command.Parameters.Add("@CATEGORIA", MySqlDbType.VarChar);
+                    command.Parameters["@CATEGORIA"].Value = u.categoria;
+
+                    command.Parameters.Add("@LOCALIDADE", MySqlDbType.VarChar);
+                    command.Parameters["@LOCALIDADE"].Value = u.localidade;
+
+                    command.Parameters.Add("@EMAIL", MySqlDbType.VarChar);
+                    command.Parameters["@EMAIL"].Value = u.email;
+
+                    command.ExecuteScalar();
+                }
+                else if (type == 1)
+                {
+                    Instrutor u = (Instrutor)user;
+                    sqlCommand = "update Instrutor set hashPass = @HASHPASS, data_nascimento = @DATA_NASCIMENTO, " +
+                        "localidade = @LOCALIDADE " +
+                        "where email = @EMAIL";
+
+                    /*
+                     * Verfica se a Localidade inserida existe.
+                     * Senão existir, adiciona à Base de Dados
+                     */
+                    ExisteLocal(user.GetLocalidade());
+
+                    connection.Open();
+
+                    command = new MySqlCommand(sqlCommand, connection);
+
+                    command.Parameters.Add("@HASHPASS", MySqlDbType.VarChar);
+                    command.Parameters["@HASHPASS"].Value = hashPass;
+
+                    command.Parameters.Add("@DATA_NASCIMENTO", MySqlDbType.DateTime);
+                    command.Parameters["@DATA_NASCIMENTO"].Value = u.data_nascimento.ToString("yyyy-MM-dd HH:mm:ss");
+
+                    command.Parameters.Add("@LOCALIDADE", MySqlDbType.VarChar);
+                    command.Parameters["@LOCALIDADE"].Value = u.localidade;
+
+                    command.Parameters.Add("@EMAIL", MySqlDbType.VarChar);
+                    command.Parameters["@EMAIL"].Value = u.email;
+
+                    command.ExecuteScalar();
+                }
+                else if (type == 2)
+                {
+                    Rececionista u = (Rececionista)user;
+                    sqlCommand = "update Rececionista set hashPass = @HASHPASS, data_nascimento = @DATA_NASCIMENTO, " +
+                        "localidade = @LOCALIDADE " +
+                        "where email = @EMAIL";
+
+                    /*
+                     * Verfica se a Localidade inserida existe.
+                     * Senão existir, adiciona à Base de Dados
+                     */
+                    ExisteLocal(user.GetLocalidade());
+
+                    connection.Open();
+
+                    command = new MySqlCommand(sqlCommand, connection);
+
+                    command.Parameters.Add("@HASHPASS", MySqlDbType.VarChar);
+                    command.Parameters["@HASHPASS"].Value = hashPass;
+
+                    command.Parameters.Add("@DATA_NASCIMENTO", MySqlDbType.DateTime);
+                    command.Parameters["@DATA_NASCIMENTO"].Value = u.data_nascimento.ToString("yyyy-MM-dd HH:mm:ss");
+
+                    command.Parameters.Add("@LOCALIDADE", MySqlDbType.VarChar);
+                    command.Parameters["@LOCALIDADE"].Value = u.localidade;
+
+                    command.Parameters.Add("@EMAIL", MySqlDbType.VarChar);
+                    command.Parameters["@EMAIL"].Value = u.email;
+
+                    command.ExecuteScalar();
+                }
                 connection.Close();
             }
             catch (Exception e)

@@ -124,20 +124,21 @@ namespace TesteApiConnect
             Console.WriteLine("\nAvaliação inserida: \n");
             Console.WriteLine(listaAv[listaAv.Count -1].ToString());
             */
+            DateTime date = DateTime.Parse("2020-09-19");
 
-            /*
-            Cliente user = new Cliente("test2Now", 99121212, "TesteUser",
-        0, "1999-09-19", "Famalicão", "Standard");
+            Console.WriteLine(date.ToString("yyyy-MM-dd HH:mm:ss"));
+
+            Cliente user = new Cliente("test", 99, "NOVO nome",
+        0, date, "Braga", "Standard");
 
 
-            UtilizadorDAO.InsertUser(user, 0,  "9F86D081884C7D659A2FEAA0C55AD015A3BF4F1B2B0B822CD15D6C15B0F00A08");
-            */
+            UtilizadorDAO.UpdateUser(user, 0, "9F86D081884C7D659A2FEAA0C55AD015A3BF4F1B2B0B822CD15D6C15B0F00A08");
+
 
             //UtilizadorDAO.TestSqlInject(99121212, "TesteWELELEL");
 
             //UtilizadorDAO.TestSqlInject("test");
 
-            
 
         }
     }

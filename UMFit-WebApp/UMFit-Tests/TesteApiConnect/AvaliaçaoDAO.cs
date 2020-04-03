@@ -118,19 +118,22 @@ namespace TesteApiConnect
                 /*
                  * Comando SQL para inserir uma Avaliação à tabela de avaliações agendadas
                  */
-                sqlCommand = "insert into Avaliaçao_Agendada values ( @DATA, @INSTRUTOR_EMAIL, " +
+                sqlCommand = "insert into Avaliaçao_Agendada values (@DATA, @INSTRUTOR_EMAIL, " +
                     "@CLIENTE_EMAIL, @ID)";
 
                 command = new MySqlCommand(sqlCommand, connection);
 
-                command.Parameters.Add(new MySqlParameter("@ID", MySqlDbType.Int32));
-                command.Parameters["@ID"].Value = av.id;
+                command.Parameters.Add(new MySqlParameter("@DATA", MySqlDbType.DateTime));
+                command.Parameters["@DATA"].Value = av.data.ToString("yyyy-MM-dd HH:mm:ss");
 
                 command.Parameters.Add(new MySqlParameter("@INSTRUTOR_EMAIL", MySqlDbType.VarChar));
                 command.Parameters["@INSTRUTOR_EMAIL"].Value = av.instrutor_email;
 
                 command.Parameters.Add(new MySqlParameter("@CLIENTE_EMAIL", MySqlDbType.VarChar));
                 command.Parameters["@CLIENTE_EMAIL"].Value = av.cliente_email;
+
+                command.Parameters.Add(new MySqlParameter("@ID", MySqlDbType.Int32));
+                command.Parameters["@ID"].Value = av.id;
 
                 command.ExecuteScalar();
 

@@ -11,5 +11,7 @@ namespace TesteApiConnect
         public string ToSql(string hashPass);
 
         public void IniParamSql(MySqlCommand command);
+
+        public string GetLocalidade();
     }
 }
