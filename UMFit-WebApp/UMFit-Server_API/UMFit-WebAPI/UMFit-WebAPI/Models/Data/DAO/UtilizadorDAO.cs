@@ -291,6 +291,9 @@ namespace UMFit_WebAPI.Models.Data.DAO
                             sqlCommand = "select * from Rececionista where email = @EMAIL";
                             command = new MySqlCommand(sqlCommand, connection);
 
+                            command.Parameters.Add(new MySqlParameter("@EMAIL", MySqlDbType.VarChar));
+                            command.Parameters["@EMAIL"].Value = email;
+
                             MySqlDataReader reader = command.ExecuteReader();
 
                             reader.Read();

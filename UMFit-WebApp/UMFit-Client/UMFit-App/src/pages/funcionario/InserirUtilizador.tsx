@@ -84,9 +84,6 @@ class InserirUtilizador extends React.Component<any> {
         let hash256 = Buffer.from(sha256(encoded)).toString('hex').toUpperCase();
 
         var storageToken = localStorage.getItem('token');
-            
-        //FIXME
-        storageToken = "testToken";
 
         if (storageToken) {
 

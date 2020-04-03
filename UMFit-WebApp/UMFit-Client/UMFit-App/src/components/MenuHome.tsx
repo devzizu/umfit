@@ -77,8 +77,8 @@ const appPagesFuncionario: AppPage[] = [
     mdIcon: personOutline
   },
   {
-    title: 'Editar Utilizadores',
-    url: '/profile/editusers',
+    title: 'Criar Utilizador',
+    url: '/profile/novoutilizador',
     iosIcon: personOutline,
     mdIcon: personOutline
   },
@@ -160,7 +160,7 @@ const Menu: React.FunctionComponent<MenuProps> = ({ selectedPage, menus }) => {
                           </IonMenuToggle>
                         )});
                         break;
-                      case 'Funcionario': 
+                      case 'Rececionista': 
                       menuElements = appPagesFuncionario.map((appPage, index) => {
                           return (
                             <IonMenuToggle key={index} autoHide={false}>

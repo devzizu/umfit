@@ -182,8 +182,6 @@ class App extends React.Component {
                     
                     {/* Routas de teste como públicas, dps remover */}
 
-                    <Route path="/inserir" component={InserirUtilizador} exact={true} />                          
-
                     {/* ------------------------------------------ */}
 
                     <Route path="/profile" component={(props: any) => {
@@ -203,7 +201,7 @@ class App extends React.Component {
                 
                           return <ProfileTreinador setLogged={this.setLogged} user={this.state.userLogged}/>;
 
-                        case 'Funcionario': 
+                        case 'Rececionista': 
                           
                           return <ProfileFuncionario setLogged={this.setLogged} user={this.state.userLogged}/>;                          
 
@@ -312,6 +310,8 @@ class ProfileFuncionario extends React.Component<any> {
 
           <Route path="/profile" render={() => {return <UserProfile user={this.state.user} />}} exact={true} />
 
+          <Route path="/profile/novoutilizador" component={InserirUtilizador} exact={true} />
+          
           <Route path="/profile/logout" component={() => {return <LogOut setLogged={this.props.setLogged}/>}} exact={true} />
 
           <Route path='*' exact={true} component={Component404} />
