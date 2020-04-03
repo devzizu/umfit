@@ -42,6 +42,7 @@ import About from './pages/About';
 import Contact from './pages/Contact';
 import UserProfile from './pages/UserProfile';
 import Evolucao from './pages/user/EvolucaoPage/Evolucao';
+import InserirUtilizador from './pages/funcionario/InserirUtilizador';
 
 //---------------------------------------------------------------------------------------
 
@@ -129,6 +130,9 @@ class App extends React.Component {
         
         }
 
+      }).catch(function(error) {
+
+        console.log(error);
       });   
 
     } else { //Nao existe token no localstorage
@@ -175,7 +179,12 @@ class App extends React.Component {
                     <Route path="/about" component={About} exact={true} />
                                         
                     <Route path="/contact" component={Contact} exact={true} />                          
+                    
+                    {/* Routas de teste como públicas, dps remover */}
 
+                    <Route path="/inserir" component={InserirUtilizador} exact={true} />                          
+
+                    {/* ------------------------------------------ */}
 
                     <Route path="/profile" component={(props: any) => {
                       
@@ -459,6 +468,9 @@ class LogInForm extends React.Component<any> {
                       alert("E-mail ou password incorretos...");
 
                   }
+              }).catch(function(error) {
+                
+                alert("Server is currently down... \n\n".concat("Error details: \n\n\t").concat(error));
               });
 
               //for debug

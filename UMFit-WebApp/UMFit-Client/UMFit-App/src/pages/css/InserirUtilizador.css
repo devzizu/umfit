@@ -1,0 +1,26 @@
+
+.PageContent {
+    --ion-background-color: white;
+}
+
+.PageGrid {
+    margin-top: 50px;
+}
+
+.Row1ProfilePic {
+    margin-left: 20px;
+}
+
+.FirstForm {
+    margin-right: 10%;
+}
+
+.SelectUser {
+    margin-top: 40px;
+    width: 40%;
+}
+
+.SelectDate {
+    margin-top: 40px;
+    width: 40%;
+}
