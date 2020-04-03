@@ -6,6 +6,7 @@ namespace TesteApiConnect
 {
     class Rececionista : InterfaceUtilizador
     {
+        public string tipoDeUser { get; set; }
         public string email { get; set; }
         public int nif { get; set; }
         public string nome { get; set; }
@@ -16,6 +17,7 @@ namespace TesteApiConnect
         public Rececionista(string email, int nif, string nome, int genero,
                DateTime data_nascimento, string localidade)
         {
+            this.tipoDeUser = "Cliente";
             this.email = email;
             this.nif = nif;
             this.nome = nome;
@@ -27,6 +29,7 @@ namespace TesteApiConnect
         {
             StringBuilder r = new StringBuilder();
 
+            r.Append(this.tipoDeUser + "\n");
             r.Append("\nEmail: " + this.email + ";\n");
             r.Append("Nif: " + this.nif + ";\n");
             r.Append("Nome: " + this.nome + ";\n");

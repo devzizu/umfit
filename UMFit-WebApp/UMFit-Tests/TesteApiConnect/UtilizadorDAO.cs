@@ -210,6 +210,7 @@ namespace TesteApiConnect
                                 Cliente user = new Cliente(email, reader.GetInt32(1), reader.GetString(2), reader.GetInt16(5),
                                 reader.GetDateTime(4), reader.GetString(7), reader.GetString(6));
 
+                                reader.Close();
                                 // Adicionar o Cliente à tabela de utilizadores online...
 
                                 sqlCommand = "insert into UtilizadoresOnline values (@EMAIL, @TIME_TO_EXPIRE, @TOKEN)";
@@ -226,7 +227,7 @@ namespace TesteApiConnect
 
                                 command.ExecuteScalar();
 
-                                reader.Close();
+                                
                                 connection.Close();
 
                                 return user;
@@ -254,6 +255,7 @@ namespace TesteApiConnect
                                 Instrutor user = new Instrutor(email, reader.GetInt32(1), reader.GetString(2),
                                 reader.GetInt16(5), reader.GetDateTime(4), reader.GetString(6));
 
+                                reader.Close();
                                 // Adicionar o Cliente à tabela de utilizadores online...
                                 sqlCommand = "insert into UtilizadoresOnline values (@EMAIL, @TIME_TO_EXPIRE, @TOKEN)";
                                 command = new MySqlCommand(sqlCommand, connection);
@@ -269,7 +271,6 @@ namespace TesteApiConnect
 
                                 command.ExecuteScalar();
 
-                                reader.Close();
                                 connection.Close();
 
                                 return user;
@@ -294,6 +295,7 @@ namespace TesteApiConnect
                                 Rececionista user = new Rececionista(email, reader.GetInt32(1), reader.GetString(2),
                                 reader.GetInt16(5), reader.GetDateTime(4), reader.GetString(6));
 
+                                reader.Close();
                                 // Adicionar o Cliente à tabela de utilizadores online...
                                 sqlCommand = "insert into UtilizadoresOnline values (@EMAIL, @TIME_TO_EXPIRE, @TOKEN)";
                                 command = new MySqlCommand(sqlCommand, connection);
@@ -309,7 +311,6 @@ namespace TesteApiConnect
 
                                 command.ExecuteScalar();
 
-                                reader.Close();
                                 connection.Close();
 
                                 return user;

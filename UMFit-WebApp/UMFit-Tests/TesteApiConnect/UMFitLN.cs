@@ -135,7 +135,9 @@ namespace TesteApiConnect
 
             //UtilizadorDAO.TestSqlInject(99121212, "TesteWELELEL");
 
-            UtilizadorDAO.TestSqlInject("test");
+            //UtilizadorDAO.TestSqlInject("test");
+
+            
 
         }
     }

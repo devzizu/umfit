@@ -361,7 +361,7 @@ namespace TesteApiConnect
         {
             // Comando SQL utilizado para criar a classe Avaliaçao
             string sqlCommand = "select * from Avaliaçao_Realizada ar, Avaliaçao_Agendada aa " +
-                "where ar.idAvaliaçao = aa.idAvaliaçao and aa.Cliente_email = @EMAILCLIENTE";
+                "where ar.idAvaliaçao = aa.idAvaliaçao and aa.Cliente_email = @EMAILCLIENTE ";
 
             MySqlCommand command = new MySqlCommand(sqlCommand, connection);
 
@@ -390,7 +390,7 @@ namespace TesteApiConnect
         {
             // Comando SQL utilizado para criar a classe Avaliaçao
             string sqlCommand = "select * from Avaliaçao_Realizada ar, Avaliaçao_Agendada aa " +
-                "where ar.idAvaliaçao = aa.idAvaliaçao and aa.Cliente_email = @EMAILCLIENTE"
+                "where ar.idAvaliaçao = aa.idAvaliaçao and aa.Cliente_email = @EMAILCLIENTE "
                 + "order by aa.data desc";
 
             MySqlCommand command = new MySqlCommand(sqlCommand, connection);
@@ -408,7 +408,7 @@ namespace TesteApiConnect
         {
             // Comando SQL utilizado para criar a classe Avaliaçao
             string sqlCommand = "select * from Avaliaçao_Realizada ar, Avaliaçao_Agendada aa " +
-                "where ar.idAvaliaçao = aa.idAvaliaçao and aa.Instrutor_email = @EMAILINSTRUTOR"
+                "where ar.idAvaliaçao = aa.idAvaliaçao and aa.Instrutor_email = @EMAILINSTRUTOR "
                 + "order by aa.data desc";
 
             MySqlCommand command = new MySqlCommand(sqlCommand, connection);
@@ -426,7 +426,7 @@ namespace TesteApiConnect
         {
             // Comando SQL utilizado para criar a classe Avaliaçao
             string sqlCommand = "select * from Avaliaçao_Realizada ar, Avaliaçao_Agendada aa " +
-                "where ar.idAvaliaçao = aa.idAvaliaçao and aa.Cliente_email = @EMAILCLIENTE"
+                "where ar.idAvaliaçao = aa.idAvaliaçao and aa.Cliente_email = @EMAILCLIENTE "
                 + "order by aa.data desc";
 
             MySqlCommand command = new MySqlCommand(sqlCommand, connection);
