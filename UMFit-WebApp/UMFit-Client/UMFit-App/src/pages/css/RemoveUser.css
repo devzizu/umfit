@@ -1,0 +1,16 @@
+.item{
+}
+.icon{
+    min-width: 15px;
+    margin-right: 15px;
+}
+.label{
+    min-width: 100px;
+    width: 25%;
+}
+.inheritBackground, .item .label{
+    background: inherit!important;
+}
+ion-item {
+    background:inherit !important;
+    }

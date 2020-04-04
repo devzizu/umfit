@@ -30,7 +30,7 @@ export class User {
         this.localidade = localidade;
         this.categoria = categoria;
     }
-}
+  }
 
 //Format the result from fetch Promise<any>
 export function formatUser(user: any): User {

@@ -6,6 +6,7 @@ using System.Text.Json;
 using System.Text.Json.Serialization;
 using Microsoft.AspNetCore.Mvc;
 using MySqlX.Serialization;
+using Newtonsoft.Json.Linq;
 using UMFit_WebAPI.Dto;
 using UMFit_WebAPI.Models.Data.DAO;
 using UMFit_WebAPI.Models.Security;
@@ -132,6 +133,79 @@ namespace UMFit_WebAPI.Controllers
                 .Append("}");
 
             return Ok(aEstePontoMaisValeCriarUmaClassSoParaEsteReturn.ToString());
+        }
+
+        [HttpPost("create")]
+        public ActionResult<string> InserirUtilizador([FromBody] dynamic json)
+        {
+
+            var res = JsonSerializer.Serialize( json);
+            var createUserObject = JObject.Parse(res);
+
+            var userJson = createUserObject.newUser;
+
+            InterfaceUtilizador user = null;
+            var tipo = -1;
+            
+            switch (Convert.ToString(userJson.tipoDeUser))
+            {
+                case "Cliente":
+                {
+                     user = new Cliente((string) userJson.email, 
+                         (int) Convert.ToInt32(userJson.nif), 
+                          (string) userJson.nome,
+                         (int) Convert.ToInt16(userJson.genero),
+                         (DateTime) Convert.ToDateTime(userJson.data_nascimento),
+                         (string) userJson.localidade,
+                         (string) userJson.categoria);
+                     tipo = 0;
+                     break;
+                }
+                case "Instrutor":
+                {
+                    user = new Instrutor((string) userJson.email, 
+                        (int) Convert.ToInt32(userJson.nif), 
+                        (string) userJson.nome,
+                        (int) Convert.ToInt16(userJson.genero),
+                        (DateTime) Convert.ToDateTime(userJson.data_nascimento),
+                        (string) userJson.localidade);
+                    
+                    tipo = 1;
+                    break;
+                }
+                case "Rececionista":
+                {
+                    user = new Rececionista((string) userJson.email, 
+                        (int) Convert.ToInt32(userJson.nif), 
+                        (string) userJson.nome,
+                        (int) Convert.ToInt16(userJson.genero),
+                        (DateTime) Convert.ToDateTime(userJson.data_nascimento),
+                        (string) userJson.localidade);
+
+                    
+                    tipo = 2;
+                    break;
+                }
+            }
+
+            var success = _system.createUser(user, tipo, (string) Convert.ToString(createUserObject.passwordHash));
+
+            return Ok(new
+            {
+                Success = success 
+            });
+        }
+
+        [HttpPost("emails")]
+        public ActionResult<string> GetEmails([FromBody] StringDto token)
+        {
+            
+            var emailsList = _system.GetAllEmails();
+
+            return Ok(new
+            {
+                users = emailsList
+            });
         }
     }
 }

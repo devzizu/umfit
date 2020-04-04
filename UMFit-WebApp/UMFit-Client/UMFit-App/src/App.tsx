@@ -43,6 +43,8 @@ import Contact from './pages/Contact';
 import UserProfile from './pages/UserProfile';
 import Evolucao from './pages/user/EvolucaoPage/Evolucao';
 import InserirUtilizador from './pages/funcionario/InserirUtilizador';
+import UpdateDetails from './pages/UpdateDetails';
+import RemoveUser from './pages/funcionario/RemoveUser';
 
 //---------------------------------------------------------------------------------------
 
@@ -256,7 +258,7 @@ class Home extends React.Component<any> {
 
 class ProfileCliente extends React.Component<any> {
 
-  state = {
+  state: {
     user: User
   }
 
@@ -277,6 +279,8 @@ class ProfileCliente extends React.Component<any> {
 
           <Route path="/profile/evolucao" render={() => {return <Evolucao />}} exact={true} />
 
+          <Route path="/profile/mydetails" component={UpdateDetails} exact={true} />
+
           <Route path="/profile/logout" component={() => {return <LogOut setLogged={this.props.setLogged}/>}} exact={true} />
      
           <Route path='*' exact={true} component={Component404} />
@@ -290,7 +294,7 @@ class ProfileCliente extends React.Component<any> {
 
 class ProfileFuncionario extends React.Component<any> {
 
-  state = {
+  state: {
     user: User
   }
 
@@ -302,6 +306,13 @@ class ProfileFuncionario extends React.Component<any> {
     };
   }
 
+  componentDidMount() {
+
+    this.setState({
+      user: this.props.user
+    });
+  }
+
   render() {
 
     return(
@@ -311,6 +322,10 @@ class ProfileFuncionario extends React.Component<any> {
           <Route path="/profile" render={() => {return <UserProfile user={this.state.user} />}} exact={true} />
 
           <Route path="/profile/novoutilizador" component={InserirUtilizador} exact={true} />
+
+          <Route path="/profile/remover" render={() => {return <RemoveUser email={this.state.user.email}/>}} exact={true} />
+
+          <Route path="/profile/mydetails" component={UpdateDetails} exact={true} />
           
           <Route path="/profile/logout" component={() => {return <LogOut setLogged={this.props.setLogged}/>}} exact={true} />
 
@@ -325,7 +340,7 @@ class ProfileFuncionario extends React.Component<any> {
 
 class ProfileTreinador extends React.Component<any> {
 
-  state = {
+  state: {
     user: User
   }
 
@@ -344,6 +359,8 @@ class ProfileTreinador extends React.Component<any> {
         <IonRouterOutlet>
 
           <Route path="/profile" render={() => {return <UserProfile user={this.state.user} />}} exact={true} />
+
+          <Route path="/profile/mydetails" component={UpdateDetails} exact={true} />
 
           <Route path="/profile/logout" component={() => {return <LogOut setLogged={this.props.setLogged}/>}} exact={true} />
 

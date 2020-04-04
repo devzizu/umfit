@@ -443,3 +443,11 @@ select * from UtilizadoresOnline;
 insert into UtilizadoresOnline values("a83719@alunos.uminho.pt", "2020-04-30", "token");
 
 delete from UtilizadoresOnline;
+
+select * from Cliente;
+select localidade from Codigo_Postal;
+delete from Cliente where email="test@xd";
+
+select * from Cliente join Rececionista using (email);
+
+

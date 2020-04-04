@@ -11,7 +11,7 @@ import {
 } from '@ionic/react';
 import React from 'react';
 import { RouteComponentProps, withRouter } from 'react-router-dom';
-import { logInOutline, helpCircleOutline, callOutline, logOutOutline, personOutline } from 'ionicons/icons';
+import { logInOutline, helpCircleOutline, callOutline, logOutOutline, personOutline, analyticsOutline, keyOutline, serverOutline, closeCircleOutline } from 'ionicons/icons';
 
 import './css/MenuHome.css';
 
@@ -56,10 +56,16 @@ const appPagesCliente: AppPage[] = [
     mdIcon: personOutline
   },
   {
+    title: 'Atualizar informações',
+    url: '/profile/mydetails',
+    iosIcon: keyOutline,
+    mdIcon: keyOutline
+  },
+  {
     title: 'Evolução',
     url: '/profile/evolucao',
-    iosIcon: personOutline,
-    mdIcon: personOutline
+    iosIcon: analyticsOutline,
+    mdIcon: analyticsOutline
   },
   {
     title: 'Log-Out',
@@ -77,10 +83,28 @@ const appPagesFuncionario: AppPage[] = [
     mdIcon: personOutline
   },
   {
+    title: 'Atualizar informações',
+    url: '/profile/mydetails',
+    iosIcon: keyOutline,
+    mdIcon: keyOutline
+  },
+  {
+    title: 'Gestão de Clientes',
+    url: '/profile/clientes',
+    iosIcon: serverOutline,
+    mdIcon: serverOutline
+  },
+  {
     title: 'Criar Utilizador',
     url: '/profile/novoutilizador',
     iosIcon: personOutline,
     mdIcon: personOutline
+  },
+  {
+    title: 'Remover Utilizador',
+    url: '/profile/remover',
+    iosIcon: closeCircleOutline,
+    mdIcon: closeCircleOutline
   },
   {
     title: 'Log-Out',
@@ -96,6 +120,12 @@ const appPagesTreinador: AppPage[] = [
     url: '/profile',
     iosIcon: personOutline,
     mdIcon: personOutline
+  },
+  {
+    title: 'Atualizar informações',
+    url: '/profile/mydetails',
+    iosIcon: keyOutline,
+    mdIcon: keyOutline
   },
   {
     title: 'As minhas aulas',

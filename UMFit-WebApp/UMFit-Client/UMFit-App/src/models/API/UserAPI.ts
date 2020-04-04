@@ -52,3 +52,70 @@ export function logout(token: string) {
         })
     });
 }
+
+export function createUserAPI(newUserObj: any) {
+
+    console.log("Sending call to create new User...");
+
+    const res = fetch(baseURL + "/create", {
+        method: 'post',
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(newUserObj)
+    });
+
+    return res;
+}
+
+export async function getAllUsers () {
+
+    const res = fetch(baseURL + "/emails", {
+        method: 'post',
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            valueST: localStorage.getItem("token")
+        })
+    });
+    
+
+    return res;
+}
+
+export function removeUser (email:string) {
+
+    const res = fetch(baseURL + "/remove", {
+        method: 'post',
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            valueST: localStorage.getItem("token"),
+            email:email
+        })
+    });
+
+    return res;
+}
+
+export function selectUser (email:string) {
+
+    const res = fetch(baseURL + "/select", {
+        method: 'post',
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            valueST: localStorage.getItem("token"),
+            email:email
+        })
+    });
+
+    return res;
+}

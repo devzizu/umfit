@@ -73,5 +73,15 @@ namespace UMFit_WebAPI.Models.UMFit_LN
         {
             utilizadoresDAO.RenovaToken(token);
         }
+
+        public bool createUser(InterfaceUtilizador user, int tipo, string passwordHash)
+        {
+            return utilizadoresDAO.InsertUser(user, tipo, passwordHash);   
+        }
+
+        public List<string> GetAllEmails()
+        {
+            return utilizadoresDAO.GetAllEmails();
+        }
     }
 }

@@ -6,6 +6,7 @@ import { IonPage, IonHeader, IonTitle, IonToolbar, IonContent, IonGrid, IonRow, 
 import { personOutline, mailOutline, cardOutline, locationOutline, peopleCircleOutline, transgenderOutline, calendarOutline, codeWorkingOutline } from "ionicons/icons";
 import { User, getTestValueUser } from "../../models/Other/User";
 import sha256 from "fast-sha256";
+import { createUserAPI } from "../../models/API/UserAPI";
 
 //---------------------------------------------------------------------------------------------------------------------------------
 
@@ -24,7 +25,6 @@ class InserirUtilizador extends React.Component<any> {
     }
 
     stateToAPI: {
-        token: string,
         newUser: User,
         passwordHash: string                
     }
@@ -46,7 +46,6 @@ class InserirUtilizador extends React.Component<any> {
         }
 
         this.stateToAPI = {
-            token: "", 
             newUser: getTestValueUser(),
             passwordHash: ""
         }  
@@ -62,14 +61,17 @@ class InserirUtilizador extends React.Component<any> {
         }
 
         var categoria = "Não tem";
+        var socio = this.state.tipoDeSocio;
         if (this.state.tipoDeSocio === "Cliente Premium") {
             categoria = "Premium";
+            socio = "Cliente";
         } else if (this.state.tipoDeSocio === "Cliente Standard") {
             categoria = "Standard";
+            socio = "Cliente";
         }
 
         var user = new User(
-            this.state.tipoDeSocio,
+            socio,
             this.state.email,
             parseInt(this.state.nif),
             this.state.nome_completo,
@@ -83,18 +85,22 @@ class InserirUtilizador extends React.Component<any> {
         let encoded = pass_enc.encode(this.state.password);
         let hash256 = Buffer.from(sha256(encoded)).toString('hex').toUpperCase();
 
-        var storageToken = localStorage.getItem('token');
+        this.stateToAPI = {
+            newUser: user,
+            passwordHash: hash256
+        }   
 
-        if (storageToken) {
+        createUserAPI(this.stateToAPI).then(
+            res => res.json()            
+        ).then(
+        
+            (jsonData) => {
 
-            this.stateToAPI = {
-                token: storageToken, 
-                newUser: user,
-                passwordHash: hash256
-            }    
-        }
-
-        console.log(this.stateToAPI);
+                console.log("Got json:");
+                console.log(jsonData);   
+            }
+        );
+    
     }
 
     clearState() {
@@ -136,6 +142,7 @@ class InserirUtilizador extends React.Component<any> {
 
                                 <IonGrid>
                                 
+                                <div className="separador"></div>
                                     <IonRow>
 
                                         <IonCol className="FirstForm">
@@ -184,8 +191,8 @@ class InserirUtilizador extends React.Component<any> {
 
                                     </IonRow>
 
+                                    <div className="separador"></div>
                                     <IonRow>
-
                                         <IonCol>
 
                                             <IonItem className="SelectUser">
@@ -219,6 +226,8 @@ class InserirUtilizador extends React.Component<any> {
                                         </IonCol>
 
                                     </IonRow>
+
+                                    <div className="separador"></div>
 
                                     <IonRow className="buttonWrapper">
 
