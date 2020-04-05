@@ -434,9 +434,8 @@ values (1, "a85729@alunos.uminho.pt");
 
 
 -- delete from UtilizadoresOnline u where u.email = "a83719@alunos.uminho.pt"; 
-
+/*
 select * from Aula_Grupo;
-
 
 select * from UtilizadoresOnline;
 
@@ -445,9 +444,11 @@ insert into UtilizadoresOnline values("a83719@alunos.uminho.pt", "2020-04-30", "
 delete from UtilizadoresOnline;
 
 select * from Cliente;
+
 select localidade from Codigo_Postal;
+
 delete from Cliente where email="test@xd";
 
 select * from Cliente join Rececionista using (email);
-
+*/
 

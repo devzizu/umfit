@@ -2,7 +2,7 @@
 import React from "react";
 
 import "../css/InserirUtilizador.css"
-import { IonPage, IonHeader, IonTitle, IonToolbar, IonContent, IonGrid, IonRow, IonCol, IonItem, IonLabel, IonInput, IonIcon, IonSelect, IonSelectOption, IonDatetime, IonText, IonButton } from "@ionic/react";
+import { IonPage, IonHeader, IonTitle, IonToolbar, IonContent, IonGrid, IonRow, IonCol, IonItem, IonLabel, IonInput, IonIcon, IonSelect, IonSelectOption, IonDatetime, IonText, IonButton, IonLoading } from "@ionic/react";
 import { personOutline, mailOutline, cardOutline, locationOutline, peopleCircleOutline, transgenderOutline, calendarOutline, codeWorkingOutline } from "ionicons/icons";
 import { User, getTestValueUser } from "../../models/Other/User";
 import sha256 from "fast-sha256";
@@ -21,7 +21,8 @@ class InserirUtilizador extends React.Component<any> {
         tipoDeSocio: string,
         genero: string,
         data_nascimento: string,
-        categoria: string
+        categoria: string,
+        loadingAPI: false
     }
 
     stateToAPI: {
@@ -42,7 +43,8 @@ class InserirUtilizador extends React.Component<any> {
             tipoDeSocio: "",
             genero: "",
             data_nascimento: "1999-02-20",
-            categoria: ""
+            categoria: "",
+            loadingAPI: false
         }
 
         this.stateToAPI = {
@@ -52,6 +54,10 @@ class InserirUtilizador extends React.Component<any> {
     }
 
     createUserState() {
+
+        this.setState({
+            loadingAPI: true
+        });
 
         var genero = -2;
         switch(this.state.genero) {
@@ -96,12 +102,15 @@ class InserirUtilizador extends React.Component<any> {
         
             (jsonData) => {
 
+                this.setState({
+                    loadingAPI: false
+                });
+        
                 console.log("Got json:");
                 console.log(jsonData);   
             }
         );
-    
-    }
+        }
 
     clearState() {
         this.setState({
@@ -120,11 +129,11 @@ class InserirUtilizador extends React.Component<any> {
         return(
             
             <IonPage>
-                
+
                 <IonHeader>
-                    <IonToolbar color="primary">
-                        <IonTitle id="page-title">Inserir um novo Utilizador</IonTitle>
-                    </IonToolbar>
+                <IonToolbar color="primary">
+                    <IonTitle id="page-title">Inserir um novo Utilizador</IonTitle>
+                </IonToolbar>
                 </IonHeader>
     
                 <IonContent className="PageContent">
@@ -158,7 +167,7 @@ class InserirUtilizador extends React.Component<any> {
                                             <IonItem>
                                                 <IonIcon slot="start" icon={mailOutline}></IonIcon>
                                                 <IonLabel position="floating">E-Mail <IonText color="danger">*</IonText></IonLabel>
-                                                <IonInput required value={this.state.email} onIonChange={(e) => {
+                                                <IonInput required type="email" value={this.state.email} onIonChange={(e) => {
                                                     this.setState({ email: (e.target as HTMLInputElement).value });
                                                 }}></IonInput>
                                             </IonItem>                                           
@@ -182,7 +191,7 @@ class InserirUtilizador extends React.Component<any> {
                                             <IonItem>
                                                 <IonIcon slot="start" icon={cardOutline}></IonIcon>
                                                 <IonLabel position="floating">Nif</IonLabel>
-                                                <IonInput value={this.state.nif} onIonChange={(e) => {
+                                                <IonInput type="number" value={this.state.nif} onIonChange={(e) => {
                                                     this.setState({ nif: (e.target as HTMLInputElement).value });
                                                 }}></IonInput>
                                             </IonItem>                                           
@@ -234,7 +243,6 @@ class InserirUtilizador extends React.Component<any> {
                                         <IonCol>
                                             <IonButton className="submitUser" expand="block" color="success" onClick={(event) => {
                                                 event.preventDefault();
-                                                alert("Tem a certeza que quer criar um novo Utilizador?");
                                                 this.createUserState();
 
                                             }}>Criar novo utilizador</IonButton>
@@ -254,6 +262,11 @@ class InserirUtilizador extends React.Component<any> {
                         </IonRow>
 
                     </IonGrid>
+
+                    <IonLoading
+                        isOpen={this.state.loadingAPI}
+                        message={'Please wait...'}
+                        />
 
                 </IonContent>
     

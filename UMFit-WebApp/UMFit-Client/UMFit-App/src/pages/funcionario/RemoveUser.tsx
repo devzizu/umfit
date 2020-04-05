@@ -150,8 +150,6 @@ class RemoveUser extends React.Component<any> {
         var selected= this.state.show_next;
         var renderList = this.state.render_next;
 
-                 
-        
         return(
             
             <IonPage>
