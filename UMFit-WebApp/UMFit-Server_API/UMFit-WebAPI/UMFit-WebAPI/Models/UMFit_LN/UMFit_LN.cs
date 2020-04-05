@@ -83,5 +83,10 @@ namespace UMFit_WebAPI.Models.UMFit_LN
         {
             return utilizadoresDAO.GetAllEmails();
         }
+
+        public void RemoveUser(string email,char type)
+        {
+            UtilizadorDAO.RemoveUser(email,type);
+        }
     }
 }

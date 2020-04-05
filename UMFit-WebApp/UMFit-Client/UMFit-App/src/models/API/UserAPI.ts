@@ -1,7 +1,7 @@
 
 export {}
 
-var baseURL: string = "http://192.168.1.67:5000/api/user";
+var baseURL: string = "http://192.168.1.18:5000/api/user";
 
 //Returns the user object in case login OK
 export async function authenticate (email: string, pass: string) {
@@ -86,7 +86,7 @@ export async function getAllUsers () {
     return res;
 }
 
-export function removeUser (email:string) {
+export function removeUser (email:string, type:string) {
 
     const res = fetch(baseURL + "/remove", {
         method: 'post',
@@ -96,7 +96,8 @@ export function removeUser (email:string) {
         },
         body: JSON.stringify({
             valueST: localStorage.getItem("token"),
-            email:email
+            email:email,
+            type:type
         })
     });
 

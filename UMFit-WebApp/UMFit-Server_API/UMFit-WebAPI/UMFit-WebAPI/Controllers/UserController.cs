@@ -207,5 +207,30 @@ namespace UMFit_WebAPI.Controllers
                 users = emailsList
             });
         }
+        [HttpPost("select")]
+        public ActionResult<string> SelectUser([FromBody] dynamic json)
+        {
+            var res = JsonSerializer.Serialize( json);
+            String email = JObject.Parse(res).GetValue("email").ToString();
+            InterfaceUtilizador u = _system.GetUser(email);
+            var user = new JObject();
+            user.Add("name",u.GetName());
+            user.Add("email", email);
+            
+            user.Add("cat",u.GetType().Name);
+            user.Add("localidade",u.GetLocalidade());
+            var ret = new JObject();
+            ret.Add("user",user);
+            return Ok(ret.ToString());
+        }
+        [HttpPost("remove")]
+        public ActionResult<string> RemoveUser([FromBody] dynamic json)
+        {
+            var res = JObject.Parse(JsonSerializer.Serialize(json));
+            String email =res.GetValue("email").ToString();
+            char type =res.GetValue("type").ToString()[0];
+            _system.RemoveUser(email,type);
+            return Ok();
+        }
     }
 }

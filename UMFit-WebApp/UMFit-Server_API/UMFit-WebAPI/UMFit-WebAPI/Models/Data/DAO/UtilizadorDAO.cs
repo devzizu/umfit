@@ -620,5 +620,72 @@ namespace UMFit_WebAPI.Models.Data.DAO
 
             return emailsList;
         }
+
+        public static void RemoveUser(string email,char type)
+        {
+            try
+            {
+                connection.Open();
+
+                string sqlCommand = "delete from UtilizadoresOnline where email = @EMAIL";
+                MySqlCommand command = new MySqlCommand(sqlCommand, connection);
+                command.Parameters.Add(new MySqlParameter("@EMAIL", MySqlDbType.VarChar));
+                command.Parameters["@EMAIL"].Value = email;
+                command.ExecuteScalar();
+                string table="";
+                switch (type)
+                {
+                    case 'C':{ table = "Cliente"; CascadeRemoveCliente(email,connection);  break;}
+                    case 'I':{table = "Instrutor"; CascadeRemoveInstrutor(email,connection); break;}
+                    case 'R':table = "Rececionista";break;
+                }
+                sqlCommand = "delete from "+ table +" where email = @EMAIL";
+                command = new MySqlCommand(sqlCommand, connection);
+                command.Parameters.Add(new MySqlParameter("@EMAIL", MySqlDbType.VarChar));
+                command.Parameters["@EMAIL"].Value = email;
+                
+                command.ExecuteScalar();
+                
+                
+
+
+
+            }
+            catch (Exception e){Console.WriteLine(e.ToString());}
+            finally{connection.Close();}
+         
+        }
+
+        private static void CascadeRemoveCliente(string email, MySqlConnection connection)
+        {    
+            DeleteTableOn("Avaliaçao_Agendada","Cliente_email",email,connection);
+            DeleteTableOn("Clientes_na_AulaGrupo","Cliente_email",email,connection);
+            DeleteTableOn("Cliente_no_EspaçoGinasio","Cliente_email",email,connection);    
+            DeleteTableOn("PlanoTreino_do_Cliente","Cliente_email",email,connection);
+            DeleteTableOn("PlanoAlimentar_do_Cliente","Cliente_email",email,connection);
+
+        }
+        
+        private static void CascadeRemoveInstrutor(string email, MySqlConnection connection)
+        {
+            DeleteTableOn("Clientes_na_AulaGrupo","Instrutor_email",email,connection);
+            DeleteTableOn("Aula_Grupo","Instrutor_email",email,connection);
+            DeleteTableOn("Avaliaçao_Agendada","Instrutor_email",email,connection);
+
+        }
+
+        private static void DeleteTableOn(String table,String param,String pValue,MySqlConnection connection)
+        {
+            string parameter ="@"+ param.ToUpper();
+            string sqlCommand = "delete from "+table+" where "+param+" = "+parameter;
+            MySqlCommand command = new MySqlCommand(sqlCommand, connection);
+            command.Parameters.Add(new MySqlParameter(parameter, MySqlDbType.VarChar));
+            command.Parameters[parameter].Value = pValue;
+            command.ExecuteScalar();
+            
+        }
+        
+        
+       
     }
 }

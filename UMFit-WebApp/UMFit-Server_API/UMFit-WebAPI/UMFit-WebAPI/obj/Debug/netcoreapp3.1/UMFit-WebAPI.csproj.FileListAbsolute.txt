@@ -67,3 +67,4 @@
 /home/hc/Desktop/li4_umfit/UMFit-WebApp/UMFit-Server_API/UMFit-WebAPI/UMFit-WebAPI/obj/Debug/netcoreapp3.1/UMFit-WebAPI.dll
 /home/hc/Desktop/li4_umfit/UMFit-WebApp/UMFit-Server_API/UMFit-WebAPI/UMFit-WebAPI/obj/Debug/netcoreapp3.1/UMFit-WebAPI.pdb
 /home/joao/Desktop/Projeto-LI4/li4_umfit/UMFit-WebApp/UMFit-Server_API/UMFit-WebAPI/UMFit-WebAPI/bin/Debug/netcoreapp3.1/Newtonsoft.Json.dll
+/home/hc/Desktop/li4_umfit/UMFit-WebApp/UMFit-Server_API/UMFit-WebAPI/UMFit-WebAPI/bin/Debug/netcoreapp3.1/Newtonsoft.Json.dll

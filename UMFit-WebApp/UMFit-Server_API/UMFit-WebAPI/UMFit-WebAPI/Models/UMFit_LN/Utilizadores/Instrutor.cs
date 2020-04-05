@@ -47,6 +47,14 @@ namespace UMFit_WebAPI.Models.UMFit_LN.Utilizadores
         {
             return this.email;
         }
+        public string GetName()
+        {
+            return this.nome;
+        }
+        public string GetLocalidade()
+        {
+            return this.localidade;
+        }
 
         public string ToSql(string hashPass)
         {

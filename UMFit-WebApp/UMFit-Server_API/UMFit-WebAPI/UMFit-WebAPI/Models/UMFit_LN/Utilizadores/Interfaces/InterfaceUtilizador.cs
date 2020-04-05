@@ -6,6 +6,9 @@ namespace UMFit_WebAPI.Models.UMFit_LN.Utilizadores.Interfaces
     public interface InterfaceUtilizador
     {
         public string GetEmail();
+        public string GetName();
+        public string GetLocalidade();
+
 
         public string ToString();
 

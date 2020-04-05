@@ -74,39 +74,42 @@ class RemoveUser extends React.Component<any> {
         })
     }
     selectUser(index:number):void{
-        var selection : SelectedUser;
+        var selection ={name:"", email:"", cat:"", localidade:"",index:index};
         var apiCall:UserBasicInfo = {name:"ByeBye", email:"net.net", cat:"Bot", localidade:"LocalHost"} ;
-        if(index===this.state.show_next.index) selection=noSelection; else{
-        if(!testing){
-            var res = selectUser(this.state.render_next[index]);
+        if(index===this.state.show_next.index) selection=noSelection; 
+        else{
+        
+        var res = selectUser(this.state.render_next[index]);
         res.then(
             async (value) =>{
                 if (value.status === 200) {              
                     var json = value.json();
-                    await json.then((value) => {
+                    await json.then((value) =>  {
                         const resValue = JSON.parse(value);
-                        apiCall = resValue.user;});
+                        console.log(resValue.user)
+                        selection = {name:resValue.user.name,
+                                    email:resValue.user.email,
+                                    cat:resValue.user.cat,
+                                    localidade:resValue.user.localidade,
+                                    index:index}
+                                    this.setState({show_next : selection})
+                        console.log("USer Selected");
+                    });
                 } else {
                     alert("REQUEST ERROR "+value.status);
                 }
             }).catch(function(error) {
               alert("Server is currently down... \n\n".concat("Error details: \n\n\t").concat(error));
             });
-        }
-    
-        selection = {name:apiCall.name, email:apiCall.email, cat:apiCall.cat, localidade:apiCall.localidade,index:index}
+        
     }
     
-        this.setState({
-            show_next : selection
-  
-        })
+        this.setState({show_next : selection})
+        console.log("END")
     }
 
     removeUser(email :string):void{
-        if(testing){console.log(email);alert("Utilizador Removido!");}
-            else{
-                var res = removeUser(email);
+        var res = removeUser(email,this.state.show_next.cat[0]);
         res.then(
             async (value) =>{
                 if (value.status === 200) {
@@ -118,7 +121,7 @@ class RemoveUser extends React.Component<any> {
               alert("Server is currently down... \n\n".concat("Error details: \n\n\t").concat(error));
             });
 
-            }
+            
         var clearSelect=noSelection;
         var renderBefore = this.state.lista_inicial;
         renderBefore.splice(renderBefore.indexOf(email),1);
@@ -187,12 +190,11 @@ class RemoveUser extends React.Component<any> {
                             <IonIcon icon={home} className="icon" ></IonIcon> 
                                 <IonLabel color="Dark">{selected.localidade}</IonLabel>
                             </IonItem>
-                            <IonItem>
-                                <IonButton color="danger" onClick={()=>this.removeUser(element)}>
-                                    REMOVER
-                                    
+                            
+                                <IonButton color="danger" expand="block" onClick={()=>this.removeUser(element)}>
+                                    REMOVER     
                                 </IonButton>
-                            </IonItem>  
+                              
                     </IonList>
                     </React.Fragment>
                     
