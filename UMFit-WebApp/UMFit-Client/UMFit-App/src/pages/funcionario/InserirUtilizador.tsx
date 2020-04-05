@@ -110,6 +110,8 @@ class InserirUtilizador extends React.Component<any> {
                 console.log(jsonData);   
             }
         );
+        alert("Criou um utilizador com sucesso!");
+        window.location.reload();
         }
 
     clearState() {

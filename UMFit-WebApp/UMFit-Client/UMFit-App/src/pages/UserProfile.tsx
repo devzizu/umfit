@@ -1,5 +1,5 @@
 
-import { IonPage, IonHeader, IonToolbar, IonTitle, IonContent, IonCard, IonCardHeader, IonCardTitle, IonCardSubtitle, IonCardContent, IonIcon } from "@ionic/react";
+import { IonPage, IonHeader, IonToolbar, IonTitle, IonContent, IonCard, IonCardHeader, IonCardTitle, IonCardSubtitle, IonIcon } from "@ionic/react";
 import React from "react";
 import { User } from "../models/Other/User";
 
@@ -66,15 +66,14 @@ class UserProfile extends React.Component<any> {
           </div>
 
           {/* ------------------------------------------------------------------------- */}
-
-          <div className="info-wrapper">
+          <div className="centrar">            
             <IonCard className="profile-personal-info-card">
 
               <IonCardHeader>
                 <IonCardTitle className="info-text-title">Informação pessoal:</IonCardTitle>
               </IonCardHeader>
 
-              <IonCardContent className="info-text">
+              <div className="info-text">
 
                   <IonIcon slot="start" icon={informationCircleOutline} />
                   <b>{ this.state.user.tipoDeUser}</b>
@@ -100,11 +99,10 @@ class UserProfile extends React.Component<any> {
                   <IonIcon slot="start" icon={cardOutline} />
                   <b> NIF:</b> {this.state.user.nif}
 
-              </IonCardContent>
+              </div>
 
             </IonCard>
           </div>
-
           </IonContent>
         </IonPage>
     );

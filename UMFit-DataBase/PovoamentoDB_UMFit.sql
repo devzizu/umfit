@@ -41,7 +41,7 @@ insert into Cliente
 values ("a85729@alunos.uminho.pt", 11, "Paulo Araújo", 
 		"52BBA69FCE7D58C7BD158821495F50355D6CA00D2403B764A42368DFFA84CE1A",
         "1999-09-28", 1, "Standard", "Famalicão");
-
+        
 insert into Cliente
 values ("test", 99, "TesteUser",
         "9F86D081884C7D659A2FEAA0C55AD015A3BF4F1B2B0B822CD15D6C15B0F00A08",
@@ -452,3 +452,4 @@ delete from Cliente where email="test@xd";
 select * from Cliente join Rececionista using (email);
 */
 
+delete from UtilizadoresOnline;

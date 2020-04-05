@@ -21,19 +21,15 @@
 
 .info-wrapper {
     height: 200px; 
-    display: flex; 
-    align-items: baseline; 
-    justify-content: center;
     margin-top: 30px;
 }
 
 .profile-personal-info-card {
     padding: 20px;
-    flex-direction: column;
     width: 95%;
     margin: 0 !important;
     background-color: rgb(236, 185, 134);
-
+    height: 250px;
 }
 
 .info-text-title {
@@ -48,4 +44,10 @@
     font-size: 16px;
     font-family: 'Courier New', Courier, monospace;
     height: 200px;
+    
+}
+
+.centrar {
+    display: flex;
+    justify-content: center;
 }

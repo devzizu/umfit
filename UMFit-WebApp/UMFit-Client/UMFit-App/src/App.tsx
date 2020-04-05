@@ -45,6 +45,7 @@ import Evolucao from './pages/user/EvolucaoPage/Evolucao';
 import InserirUtilizador from './pages/funcionario/InserirUtilizador';
 import UpdateDetails from './pages/UpdateDetails';
 import RemoveUser from './pages/funcionario/RemoveUser';
+import CriarPlanoTreino from './pages/instrutor/CriarPlanoTreino';
 
 //---------------------------------------------------------------------------------------
 
@@ -268,7 +269,14 @@ class ProfileCliente extends React.Component<any> {
       user: this.props.user
     };
   }
+  
+  componentDidMount() {
 
+    this.setState({
+      user: this.props.user
+    });
+  }
+  
   render() {
 
     return(
@@ -351,7 +359,14 @@ class ProfileTreinador extends React.Component<any> {
       user: this.props.user
     };
   }
+  
+  componentDidMount() {
 
+    this.setState({
+      user: this.props.user
+    });
+  }
+  
   render() {
 
     return(
@@ -361,6 +376,8 @@ class ProfileTreinador extends React.Component<any> {
           <Route path="/profile" render={() => {return <UserProfile user={this.state.user} />}} exact={true} />
 
           <Route path="/profile/mydetails" component={UpdateDetails} exact={true} />
+          
+          <Route path="/profile/planotreino" component={CriarPlanoTreino}  exact={true}/>
 
           <Route path="/profile/logout" component={() => {return <LogOut setLogged={this.props.setLogged}/>}} exact={true} />
 
