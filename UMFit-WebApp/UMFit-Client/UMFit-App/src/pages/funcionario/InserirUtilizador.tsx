@@ -120,11 +120,11 @@ class InserirUtilizador extends React.Component<any> {
         return(
             
             <IonPage>
-
+                
                 <IonHeader>
-                <IonToolbar color="primary">
-                    <IonTitle id="page-title">Inserir um novo Utilizador</IonTitle>
-                </IonToolbar>
+                    <IonToolbar color="primary">
+                        <IonTitle id="page-title">Inserir um novo Utilizador</IonTitle>
+                    </IonToolbar>
                 </IonHeader>
     
                 <IonContent className="PageContent">

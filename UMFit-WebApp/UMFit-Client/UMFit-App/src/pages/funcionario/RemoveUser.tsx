@@ -6,7 +6,7 @@ import{person,home,informationCircle,atCircle} from 'ionicons/icons'
 import { getAllUsers, selectUser, removeUser } from "../../models/API/UserAPI";
 
 
-const testing = true;
+//const testing = true;
 
 interface SelectedUser{
     index:number,
@@ -75,7 +75,7 @@ class RemoveUser extends React.Component<any> {
     }
     selectUser(index:number):void{
         var selection ={name:"", email:"", cat:"", localidade:"",index:index};
-        var apiCall:UserBasicInfo = {name:"ByeBye", email:"net.net", cat:"Bot", localidade:"LocalHost"} ;
+        //var apiCall:UserBasicInfo = {name:"ByeBye", email:"net.net", cat:"Bot", localidade:"LocalHost"} ;
         if(index===this.state.show_next.index) selection=noSelection; 
         else{
         

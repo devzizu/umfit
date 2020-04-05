@@ -3,22 +3,20 @@ import React from "react";
 
 import "./css/UpdateDetails.css"
 import { IonPage, IonHeader, IonTitle, IonToolbar, IonContent, IonGrid, IonRow, IonCol, IonItem, IonLabel, IonInput, IonIcon, IonSelect, IonSelectOption, IonDatetime, IonText, IonButton } from "@ionic/react";
-import { locationOutline, peopleCircleOutline, transgenderOutline, calendarOutline, codeWorkingOutline, buildOutline, closeOutline } from "ionicons/icons";
-//import sha256 from "fast-sha256";
-//import { getTestValueUser, User } from "../models/Other/User";
-import { createUserAPI } from "../models/API/UserAPI";
+import { peopleCircleOutline, transgenderOutline, calendarOutline, buildOutline, closeOutline } from "ionicons/icons";
+import sha256 from "fast-sha256";
 
 //---------------------------------------------------------------------------------------------------------------------------------
 
 class UpdateDetails extends React.Component<any> {
 
     state: {
-
         password: string,
         localidade: string
     }
 
     stateToAPI: {
+        userEmail: string,
         newPasswordHash: string,
         newLocalidade: string
     }
@@ -33,6 +31,7 @@ class UpdateDetails extends React.Component<any> {
         }
 
         this.stateToAPI = {
+            userEmail: "",
             newPasswordHash: "",
             newLocalidade: ""
         }  
@@ -40,18 +39,19 @@ class UpdateDetails extends React.Component<any> {
 
     createUpdateUserState() {
 
-        
-
-        //let pass_enc = new TextEncoder();
-        //let encoded = pass_enc.encode(this.state.password);
-        //let hash256 = Buffer.from(sha256(encoded)).toString('hex').toUpperCase();
+        let pass_enc = new TextEncoder();
+        let encoded = pass_enc.encode(this.state.password);
+        let hash256 = Buffer.from(sha256(encoded)).toString('hex').toUpperCase();
 
         this.stateToAPI = {
-            newPasswordHash: "",
-            newLocalidade: ""
+            userEmail: this.props.email,
+            newPasswordHash: hash256,
+            newLocalidade: this.state.localidade
         }   
 
-        createUserAPI(this.stateToAPI).then(
+        /*
+
+        updateUserDetailsAPI(this.stateToAPI).then(
             res => res.json()            
         ).then(
         
@@ -62,18 +62,16 @@ class UpdateDetails extends React.Component<any> {
             }
         );
     
+        */
+        
+        console.log(this.stateToAPI);
+
     }
 
     clearState() {
         this.setState({
-            nome_completo: "",
-            email: "",
             password: "",
-            localidade: "",
-            nif: "",
-            tipoDeSocio: "",
-            genero: "",
-            data_nascimento: "1999-02-20"
+            localidade: ""
         });        
     }
 
@@ -102,8 +100,9 @@ class UpdateDetails extends React.Component<any> {
                             <IonCol>
 
                                 <IonGrid>
-                                
+
                                 <div className="separador"></div>
+
                                     <IonRow>
 
                                         <IonCol className="FirstForm">
@@ -125,7 +124,6 @@ class UpdateDetails extends React.Component<any> {
                                             </IonItem>                                           
 
                                             <IonItem>
-                                                <IonIcon slot="start" icon={codeWorkingOutline}></IonIcon>
                                                 <IonIcon slot="start" icon={buildOutline}></IonIcon>
                                                 <IonLabel position="floating">Definir nova password</IonLabel>
                                                 <IonInput type="password" required value={this.state.password} onIonChange={(e) => {
@@ -134,7 +132,6 @@ class UpdateDetails extends React.Component<any> {
                                             </IonItem>                                           
  
                                             <IonItem>
-                                                <IonIcon slot="start" icon={locationOutline}></IonIcon>
                                                 <IonIcon slot="start" icon={buildOutline}></IonIcon>
                                                 <IonLabel position="floating">Nova Localidade</IonLabel>
                                                 <IonInput value={this.state.localidade} onIonChange={(e) => {
@@ -155,6 +152,7 @@ class UpdateDetails extends React.Component<any> {
                                     </IonRow>
 
                                     <div className="separador"></div>
+
                                     <IonRow>
                                         <IonCol>
 
@@ -200,10 +198,10 @@ class UpdateDetails extends React.Component<any> {
                                         <IonCol>
                                             <IonButton className="submitUser" expand="block" color="success" onClick={(event) => {
                                                 event.preventDefault();
-                                                alert("Tem a certeza que quer criar um novo Utilizador?");
-                                                //this.createUserState();
+                                                alert("Atualizar informações?");
+                                                this.createUpdateUserState();
 
-                                            }}>Criar novo utilizador</IonButton>
+                                            }}>Atualizar informações</IonButton>
                                         </IonCol>
 
                                         <IonCol>

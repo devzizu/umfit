@@ -14,7 +14,6 @@ const About: React.FC = () => {
           </IonToolbar>
         </IonHeader>
 
-
         <IonContent>
 
           <IonCardHeader>

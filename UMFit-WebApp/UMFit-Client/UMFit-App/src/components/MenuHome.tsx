@@ -11,7 +11,7 @@ import {
 } from '@ionic/react';
 import React from 'react';
 import { RouteComponentProps, withRouter } from 'react-router-dom';
-import { logInOutline, helpCircleOutline, callOutline, logOutOutline, personOutline, analyticsOutline, keyOutline, serverOutline, closeCircleOutline } from 'ionicons/icons';
+import { logInOutline, helpCircleOutline, callOutline, logOutOutline, personOutline, analyticsOutline, keyOutline, closeCircleOutline, addCircleOutline, buildOutline, documentTextOutline } from 'ionicons/icons';
 
 import './css/MenuHome.css';
 
@@ -56,7 +56,7 @@ const appPagesCliente: AppPage[] = [
     mdIcon: personOutline
   },
   {
-    title: 'Atualizar informações',
+    title: 'Atualizar perfil',
     url: '/profile/mydetails',
     iosIcon: keyOutline,
     mdIcon: keyOutline
@@ -83,22 +83,22 @@ const appPagesFuncionario: AppPage[] = [
     mdIcon: personOutline
   },
   {
-    title: 'Atualizar informações',
+    title: 'Atualizar perfil',
     url: '/profile/mydetails',
     iosIcon: keyOutline,
     mdIcon: keyOutline
   },
   {
-    title: 'Gestão de Clientes',
-    url: '/profile/clientes',
-    iosIcon: serverOutline,
-    mdIcon: serverOutline
-  },
-  {
     title: 'Criar Utilizador',
     url: '/profile/novoutilizador',
-    iosIcon: personOutline,
-    mdIcon: personOutline
+    iosIcon: addCircleOutline,
+    mdIcon: addCircleOutline
+  },
+  {
+    title: 'Editar Utilizador',
+    url: '/profile/clientes',
+    iosIcon: buildOutline,
+    mdIcon: buildOutline
   },
   {
     title: 'Remover Utilizador',
@@ -122,16 +122,16 @@ const appPagesTreinador: AppPage[] = [
     mdIcon: personOutline
   },
   {
-    title: 'Atualizar informações',
+    title: 'Atualizar perfil',
     url: '/profile/mydetails',
     iosIcon: keyOutline,
     mdIcon: keyOutline
   },
   {
-    title: 'As minhas aulas',
-    url: '/profile/aulas',
-    iosIcon: personOutline,
-    mdIcon: personOutline
+    title: 'Criar plano de treino',
+    url: '/profile/planotreino',
+    iosIcon: documentTextOutline,
+    mdIcon: documentTextOutline
   },  {
     title: 'Log-Out',
     url: '/profile/logout',
