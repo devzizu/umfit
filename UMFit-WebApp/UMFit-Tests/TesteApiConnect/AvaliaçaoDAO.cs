@@ -70,13 +70,15 @@ namespace TesteApiConnect
                 }
 
                 reader.Close();
-
-                // Fecha a conexão à Base de Dados
-                connection.Close();
             }
             catch (Exception e)
             {
                 Console.WriteLine(e.ToString());
+            }
+            finally
+            {
+                // Fecha a conexão à Base de Dados
+                connection.Close();
             }
 
             return r;
@@ -118,7 +120,7 @@ namespace TesteApiConnect
                 /*
                  * Comando SQL para inserir uma Avaliação à tabela de avaliações agendadas
                  */
-                sqlCommand = "insert into Avaliaçao_Agendada values (@DATA, @INSTRUTOR_EMAIL, " +
+                sqlCommand = "insert into Avaliaçao_Agendada values(@DATA, @INSTRUTOR_EMAIL, " +
                     "@CLIENTE_EMAIL, @ID)";
 
                 command = new MySqlCommand(sqlCommand, connection);
@@ -136,13 +138,15 @@ namespace TesteApiConnect
                 command.Parameters["@ID"].Value = av.id;
 
                 command.ExecuteScalar();
-
-                // Fecha a conexão à Base de Dados
-                connection.Close();
             }
             catch(Exception e)
             {
                 Console.WriteLine(e.ToString());
+            }
+            finally
+            {
+                // Fecha a conexão à Base de Dados
+                connection.Close();
             }
         }
 
@@ -159,18 +163,15 @@ namespace TesteApiConnect
                  * Vamos buscar todas as Avaliações sem referir o cliente
                  */
                 List<Avaliaçao> listA = GetTodasAvaliaçoes();
-                int i = 0;
 
-                while(i < listA.Count)
+                for(int i = 0;  i < listA.Count; i++)
                 {
                     /*
                      * Caso a avaliação pretença ao cliente, adicionamo-la à lista r
                      */
                     if (listA[i].cliente_email.Equals(emailCliente))
                         r.Add(listA[i]);
-                    i++;
                 }
-
             }
             catch (Exception e)
             {
@@ -235,13 +236,15 @@ namespace TesteApiConnect
                 }
 
                 reader.Close();
-
-                // Fecha a conexão à Base de Dados
-                connection.Close();
             }
             catch (Exception e)
             {
                 Console.WriteLine(e.ToString());
+            }
+            finally
+            {
+                // Fecha a conexão à Base de Dados
+                connection.Close();
             }
 
             return listAv;
@@ -253,6 +256,8 @@ namespace TesteApiConnect
          */
         public static Avaliaçao GenericAvaliaçaoR(MySqlCommand command)
         {
+            Avaliaçao ava = null;
+
             try
             {
                 // Abre a conexão à Base de Dados
@@ -282,29 +287,26 @@ namespace TesteApiConnect
                         reader.GetFloat(11), reader.GetFloat(12), reader.GetFloat(13), reader.GetFloat(14), reader.GetFloat(15),
                         reader.GetFloat(16), reader.GetFloat(17), reader.GetFloat(18));
 
-                        Avaliaçao ava = new Avaliaçao(id, reader.GetDateTime(19), reader.GetString(20), reader.GetString(21), cc, p);
+                        ava = new Avaliaçao(id, reader.GetDateTime(19), reader.GetString(20), reader.GetString(21), cc, p);
 
                         reader.Close();
-
-                        // Fecha a conexão à Base de Dados
-                        connection.Close();
-
-                        // Podemos sair do ciclo while, visto que queremos a ultima realizada
-                        return ava;
+                        break;
                     }
                 }
 
                 reader.Close();
-
-                // Fecha a conexão à Base de Dados
-                connection.Close();
             }
             catch (Exception e)
             {
                 Console.WriteLine(e.ToString());
             }
+            finally
+            {
+                // Fecha a conexão à Base de Dados
+                connection.Close();
+            }
 
-            return null;
+            return ava;
         }
 
         public static List<Avaliaçao> GenericListAvAgend(MySqlCommand command)
@@ -345,13 +347,15 @@ namespace TesteApiConnect
                 }
 
                 reader.Close();
-
-                // Fecha a conexão à Base de Dados
-                connection.Close();
             }
             catch (Exception e)
             {
                 Console.WriteLine(e.ToString());
+            }
+            finally
+            {
+                // Fecha a conexão à Base de Dados
+                connection.Close();
             }
 
             return listAv;

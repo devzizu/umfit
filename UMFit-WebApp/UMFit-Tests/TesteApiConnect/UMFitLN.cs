@@ -118,28 +118,44 @@ namespace TesteApiConnect
             
             Avaliaçao av = new Avaliaçao(1010101010, "2020-09-09 09:09:00", "a85227@alunos.uminho.pt", "a83719@alunos.uminho.pt");
             AvaliaçaoDAO.insertAvaliaçao(av);
-            
-            listaAv = AvaliaçaoDAO.GetTodasAvaliaçoes();
-
-            Console.WriteLine("\nAvaliação inserida: \n");
-            Console.WriteLine(listaAv[listaAv.Count -1].ToString());
             */
+            listaAv = AvaliaçaoDAO.GetAvalRCliente("a83719@alunos.uminho.pt");
+            i = 0;
+            while (i < listaAv.Count)
+            {
+                Console.WriteLine(listaAv[i].ToString());
+                i++;
+            }
+            
             DateTime date = DateTime.Parse("2020-09-19");
 
-            Console.WriteLine(date.ToString("yyyy-MM-dd HH:mm:ss"));
+            //Console.WriteLine(date.ToString("yyyy-MM-dd HH:mm:ss"));
 
             Cliente user = new Cliente("test", 99, "NOVO nome",
         0, date, "Braga", "Standard");
 
 
-            UtilizadorDAO.UpdateUser(user, 0, "9F86D081884C7D659A2FEAA0C55AD015A3BF4F1B2B0B822CD15D6C15B0F00A08");
+            //UtilizadorDAO.UpdateUser(user, 0, "9F86D081884C7D659A2FEAA0C55AD015A3BF4F1B2B0B822CD15D6C15B0F00A08");
 
 
             //UtilizadorDAO.TestSqlInject(99121212, "TesteWELELEL");
 
             //UtilizadorDAO.TestSqlInject("test");
 
+            /*InterfaceUtilizador u = UtilizadorDAO.LogIn("test", "9F86D081884C7D659A2FEAA0C55AD015A3BF4F1B2B0B822CD15D6C15B0F00A08", "token");
+            if (u != null)
+                Console.WriteLine(u.ToString());
+            else
+                Console.WriteLine("Pass errada");
+              */  
 
+            /*List<AulaGrupo> l = AulaGrupoDAO.GetAulasDia("Segunda");
+
+            for(i = 0; i < l.Count; i++)
+            {
+                Console.WriteLine(l[i].ToString());
+            }
+            */
         }
     }
 }
