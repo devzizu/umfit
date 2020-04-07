@@ -2,7 +2,7 @@ import React from "react";
 
 import "../css/RemoveUser.css"
 import { IonPage, IonHeader, IonTitle, IonToolbar, IonContent, IonItem, IonLabel, IonSearchbar, IonList, IonIcon, IonButton } from "@ionic/react";
-import{person,home,informationCircle,atCircle} from 'ionicons/icons'
+import{person,home,informationCircle,atCircle, closeCircleSharp} from 'ionicons/icons'
 import { getAllUsers, selectUser, removeUser } from "../../models/API/UserAPI";
 
 
@@ -157,11 +157,14 @@ class RemoveUser extends React.Component<any> {
 
                 <IonHeader>
                 <IonToolbar color="primary">
-                    <IonTitle id="page-title">Remover um Utilizador</IonTitle>
+                <IonTitle id="page-title">
+                        <IonIcon className="icon" icon ={closeCircleSharp}></IonIcon>
+                        Remover um Utilizador
+                    </IonTitle>
                 </IonToolbar>
                 </IonHeader>
                 <IonToolbar>
-                <IonSearchbar value={this.state.query} onIonChange={e => this.setQuery(e.detail.value!)} placeholder="Email">
+                <IonSearchbar value={this.state.query} onIonChange={e => this.setQuery(e.detail.value!)} placeholder="Email do utilizador...">
                 </IonSearchbar>
                 </IonToolbar>
     

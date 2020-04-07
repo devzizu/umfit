@@ -69,6 +69,22 @@ export function createUserAPI(newUserObj: any) {
     return res;
 }
 
+export async function updateUserDetailsAPI(newUserObj: any) {
+
+    console.log("Sending call to create new User...");
+
+    const res = fetch(baseURL + "/update", {
+        method: 'post',
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(newUserObj)
+    });
+
+    return res;
+}
+
 export async function getAllUsers () {
 
     const res = fetch(baseURL + "/emails", {

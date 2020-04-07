@@ -88,5 +88,10 @@ namespace UMFit_WebAPI.Models.UMFit_LN
         {
             UtilizadorDAO.RemoveUser(email,type);
         }
+
+        public void UpdateUser(InterfaceUtilizador user, in int typeOfUser, string passHash)
+        {
+            utilizadoresDAO.UpdateUser(user, typeOfUser, passHash);
+        }
     }
 }

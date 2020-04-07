@@ -5,6 +5,7 @@ import "./css/UpdateDetails.css"
 import { IonPage, IonHeader, IonTitle, IonToolbar, IonContent, IonGrid, IonRow, IonCol, IonItem, IonLabel, IonInput, IonIcon, IonSelect, IonSelectOption, IonDatetime, IonText, IonButton } from "@ionic/react";
 import { peopleCircleOutline, transgenderOutline, calendarOutline, buildOutline, closeOutline } from "ionicons/icons";
 import sha256 from "fast-sha256";
+import { updateUserDetailsAPI } from "../models/API/UserAPI";
 
 //---------------------------------------------------------------------------------------------------------------------------------
 
@@ -49,23 +50,18 @@ class UpdateDetails extends React.Component<any> {
             newLocalidade: this.state.localidade
         }   
 
-        /*
-
         updateUserDetailsAPI(this.stateToAPI).then(
             res => res.json()            
         ).then(
         
             (jsonData) => {
 
-                console.log("Got json:");
+                console.log("Got this json from update:");
                 console.log(jsonData);   
             }
         );
-    
-        */
         
-        console.log(this.stateToAPI);
-
+        window.location.reload();
     }
 
     clearState() {

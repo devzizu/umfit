@@ -685,7 +685,119 @@ namespace UMFit_WebAPI.Models.Data.DAO
             
         }
         
-        
+        public void UpdateUser(InterfaceUtilizador user, int type, string hashPass)
+        {
+            try
+            {
+                MySqlCommand command;
+                string sqlCommand;
+
+                if (type == 0)
+                {
+                    Cliente u = (Cliente)user;
+                    sqlCommand = "update Cliente set hashPass = @HASHPASS, data_nascimento = @DATA_NASCIMENTO, " +
+                        "categoria = @CATEGORIA, localidade = @LOCALIDADE " +
+                        "where email = @EMAIL";
+
+                    /*
+                     * Verfica se a Localidade inserida existe.
+                     * Senão existir, adiciona à Base de Dados
+                     */ 
+                    ExisteLocal(user.GetLocalidade());
+
+                    connection.Open();
+                    
+                    command = new MySqlCommand(sqlCommand, connection);
+
+                    command.Parameters.Add("@HASHPASS", MySqlDbType.VarChar);
+                    command.Parameters["@HASHPASS"].Value = hashPass;
+
+                    command.Parameters.Add("@DATA_NASCIMENTO", MySqlDbType.DateTime);
+                    command.Parameters["@DATA_NASCIMENTO"].Value = u.data_nascimento.ToString("yyyy-MM-dd HH:mm:ss");
+
+                    command.Parameters.Add("@CATEGORIA", MySqlDbType.VarChar);
+                    command.Parameters["@CATEGORIA"].Value = u.categoria;
+
+                    command.Parameters.Add("@LOCALIDADE", MySqlDbType.VarChar);
+                    command.Parameters["@LOCALIDADE"].Value = u.localidade;
+
+                    command.Parameters.Add("@EMAIL", MySqlDbType.VarChar);
+                    command.Parameters["@EMAIL"].Value = u.email;
+
+                    command.ExecuteScalar();
+                }
+                else if (type == 1)
+                {
+                    Instrutor u = (Instrutor)user;
+                    sqlCommand = "update Instrutor set hashPass = @HASHPASS, data_nascimento = @DATA_NASCIMENTO, " +
+                        "localidade = @LOCALIDADE " +
+                        "where email = @EMAIL";
+
+                    /*
+                     * Verfica se a Localidade inserida existe.
+                     * Senão existir, adiciona à Base de Dados
+                     */
+                    ExisteLocal(user.GetLocalidade());
+
+                    connection.Open();
+
+                    command = new MySqlCommand(sqlCommand, connection);
+
+                    command.Parameters.Add("@HASHPASS", MySqlDbType.VarChar);
+                    command.Parameters["@HASHPASS"].Value = hashPass;
+
+                    command.Parameters.Add("@DATA_NASCIMENTO", MySqlDbType.DateTime);
+                    command.Parameters["@DATA_NASCIMENTO"].Value = u.data_nascimento.ToString("yyyy-MM-dd HH:mm:ss");
+
+                    command.Parameters.Add("@LOCALIDADE", MySqlDbType.VarChar);
+                    command.Parameters["@LOCALIDADE"].Value = u.localidade;
+
+                    command.Parameters.Add("@EMAIL", MySqlDbType.VarChar);
+                    command.Parameters["@EMAIL"].Value = u.email;
+
+                    command.ExecuteScalar();
+                }
+                else if (type == 2)
+                {
+                    Rececionista u = (Rececionista)user;
+                    sqlCommand = "update Rececionista set hashPass = @HASHPASS, data_nascimento = @DATA_NASCIMENTO, " +
+                        "localidade = @LOCALIDADE " +
+                        "where email = @EMAIL";
+
+                    /*
+                     * Verfica se a Localidade inserida existe.
+                     * Senão existir, adiciona à Base de Dados
+                     */
+                    ExisteLocal(user.GetLocalidade());
+
+                    connection.Open();
+
+                    command = new MySqlCommand(sqlCommand, connection);
+
+                    command.Parameters.Add("@HASHPASS", MySqlDbType.VarChar);
+                    command.Parameters["@HASHPASS"].Value = hashPass;
+
+                    command.Parameters.Add("@DATA_NASCIMENTO", MySqlDbType.DateTime);
+                    command.Parameters["@DATA_NASCIMENTO"].Value = u.data_nascimento.ToString("yyyy-MM-dd HH:mm:ss");
+
+                    command.Parameters.Add("@LOCALIDADE", MySqlDbType.VarChar);
+                    command.Parameters["@LOCALIDADE"].Value = u.localidade;
+
+                    command.Parameters.Add("@EMAIL", MySqlDbType.VarChar);
+                    command.Parameters["@EMAIL"].Value = u.email;
+
+                    command.ExecuteScalar();
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.ToString());
+            }
+            finally
+            {
+                connection.Close();
+            }
+        }
        
     }
 }

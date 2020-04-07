@@ -90,19 +90,19 @@ const appPagesFuncionario: AppPage[] = [
   },
   {
     title: 'Criar Utilizador',
-    url: '/profile/novoutilizador',
+    url: '/profile/novouser',
     iosIcon: addCircleOutline,
     mdIcon: addCircleOutline
   },
   {
     title: 'Editar Utilizador',
-    url: '/profile/clientes',
+    url: '/profile/editaruser',
     iosIcon: buildOutline,
     mdIcon: buildOutline
   },
   {
     title: 'Remover Utilizador',
-    url: '/profile/remover',
+    url: '/profile/removeruser',
     iosIcon: closeCircleOutline,
     mdIcon: closeCircleOutline
   },

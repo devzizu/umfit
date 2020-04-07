@@ -196,6 +196,51 @@ namespace UMFit_WebAPI.Controllers
             });
         }
 
+        [HttpPost("update")]
+        public ActionResult<string> AtualizarUtilizador([FromBody] dynamic json)
+        {
+
+            var res = JsonSerializer.Serialize( json);
+            var createUserObject = JObject.Parse(res);
+
+            string email = (string) createUserObject.userEmail;
+            string passHash = (string) createUserObject.newPasswordHash;
+            string localidadeNova = (string) createUserObject.newLocalidade;
+            
+            InterfaceUtilizador user = null;
+            int typeOfUser = _system.TypeUser(email);
+
+            if (typeOfUser != -1)
+            {
+                switch (typeOfUser)
+                {
+                    case 0:
+                    {
+                        user = (Cliente) _system.GetUser(email);
+                        ((Cliente) user).localidade = localidadeNova;
+                        break;
+                    }
+                    case 1:
+                    {
+                        user = (Instrutor) _system.GetUser(email);
+                        ((Instrutor) user).localidade = localidadeNova;
+                        break;
+                    }
+                    case 2:
+                    {
+                        user = (Rececionista) _system.GetUser(email);
+                        ((Rececionista) user).localidade = localidadeNova;
+                        break;
+                    }
+                }
+
+            }
+
+            _system.UpdateUser(user, typeOfUser, passHash);
+            
+            return Ok();
+        }
+
         [HttpPost("emails")]
         public ActionResult<string> GetEmails([FromBody] StringDto token)
         {
