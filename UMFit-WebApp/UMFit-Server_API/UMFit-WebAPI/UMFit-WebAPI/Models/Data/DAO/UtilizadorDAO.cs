@@ -445,8 +445,9 @@ namespace UMFit_WebAPI.Models.Data.DAO
 
                     sqlCommand = "insert into Cliente (email, nif, nome, hashpass, data_nascimento, " +
                         "genero, categoria, localidade) " +
-                        "select * from (select @EMAIL, @NIF, @NOME, @HASHPASS," +
-                        "@DATA_NASCIMENTO, @GENERO, @CATEGORIA, @LOCALIDADE) as tmp " +
+                        "select * from (select @EMAIL as em, @NIF as ni, @NOME as nom, @HASHPASS as hashp," + 
+                        "@DATA_NASCIMENTO as dat, @GENERO as gen, @CATEGORIA as cat, @LOCALIDADE as loc" +
+                        ") as tmp " +
                         "where not exists (select email from Cliente " +
                         "where email = @EMAIL or nif = @NIF) limit 1";
 
@@ -466,11 +467,12 @@ namespace UMFit_WebAPI.Models.Data.DAO
                     connection.Open();
 
                     sqlCommand = "insert into Instrutor (email, nif, nome, hashpass, data_nascimento, " +
-                        "genero, localidade) " +
-                        "select * from (select @EMAIL, @NIF, @NOME, @HASHPASS," +
-                        "@DATA_NASCIMENTO, @GENERO, @LOCALIDADE) as tmp " +
-                        "where not exists (select email from Instrutor " +
-                        "where email = @EMAIL or nif = @NIF) limit 1";
+                                 "genero, localidade) " +
+                                 "select * from (select @EMAIL as em, @NIF as ni, @NOME as nom, @HASHPASS as hashp," + 
+                                 "@DATA_NASCIMENTO as dat, @GENERO as gen, @LOCALIDADE as loc" +
+                                 ") as tmp " +
+                                 "where not exists (select email from Instrutor " +
+                                 "where email = @EMAIL or nif = @NIF) limit 1";
 
                     command = new MySqlCommand(sqlCommand, connection);
 
@@ -488,11 +490,12 @@ namespace UMFit_WebAPI.Models.Data.DAO
                     connection.Open();
 
                     sqlCommand = "insert into Rececionista (email, nif, nome, hashpass, data_nascimento, " +
-                        "genero, localidade) " +
-                        "select * from (select @EMAIL, @NIF, @NOME, @HASHPASS," +
-                        "@DATA_NASCIMENTO, @GENERO, @LOCALIDADE) as tmp " +
-                        "where not exists (select email from Rececionista " +
-                        "where email = @EMAIL or nif = @NIF) limit 1";
+                                 "genero, localidade) " +
+                                 "select * from (select @EMAIL as em, @NIF as ni, @NOME as nom, @HASHPASS as hashp," + 
+                                 "@DATA_NASCIMENTO as dat, @GENERO as gen, @LOCALIDADE as loc" +
+                                 ") as tmp " +
+                                 "where not exists (select email from Rececionista " +
+                                 "where email = @EMAIL or nif = @NIF) limit 1";
 
                     command = new MySqlCommand(sqlCommand, connection);
 
@@ -529,7 +532,7 @@ namespace UMFit_WebAPI.Models.Data.DAO
                 connection.Open();
 
                 string sqlCommand = "insert into Codigo_Postal (localidade, codigo_postal) " +
-                                    "select * from (select @LOCALIDADE, @CODIGO_POSTAL) as tmp " +
+                                    "select * from (select @LOCALIDADE as loc, @CODIGO_POSTAL as cod) as tmp " +
                                     "where not exists ( select localidade from Codigo_Postal " +
                                     "where localidade = @LOCALIDADE) limit 1";
 

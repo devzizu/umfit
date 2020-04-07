@@ -452,4 +452,7 @@ delete from Cliente where email="test@xd";
 select * from Cliente join Rececionista using (email);
 */
 
+select localidade from Codigo_Postal;
+
+
 delete from UtilizadoresOnline;

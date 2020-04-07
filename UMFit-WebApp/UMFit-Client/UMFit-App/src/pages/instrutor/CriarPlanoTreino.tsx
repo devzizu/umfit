@@ -364,7 +364,7 @@ class CriarPlanoTreino extends React.Component<any>{
             <div className="separador"></div>
 
             <IonCard className="card-left">
-                <IonText className="text-title">Lista de ecercícios selecionados:</IonText>            
+                <IonText className="text-title">Lista de exercícios selecionados:</IonText>            
             </IonCard>                        
                          
             <IonGrid className="grid-exercicios">
