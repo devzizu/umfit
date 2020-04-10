@@ -264,6 +264,7 @@ namespace UMFit_WebAPI.Controllers
             
             user.Add("cat",u.GetType().Name);
             user.Add("localidade",u.GetLocalidade());
+            if(u.GetType().Name=="Cliente") user.Add("categoria","Cliente " + ((Cliente)u).categoria);
             var ret = new JObject();
             ret.Add("user",user);
             return Ok(ret.ToString());
@@ -277,5 +278,30 @@ namespace UMFit_WebAPI.Controllers
             _system.RemoveUser(email,type);
             return Ok();
         }
+        [HttpPost("emailsC")]
+        public ActionResult<string> GetClientEmails([FromBody] StringDto token)
+        {
+            
+            var emailsList = _system.GetUserEmails();
+
+            return Ok(new
+            {
+                users = emailsList
+            });
+        }
+        [HttpPost("updateCat")]
+        public ActionResult<string> AtualizarCat([FromBody] dynamic json)
+        {
+            var received = JObject.Parse(JsonSerializer.Serialize( json));
+
+            string email = (string) received.userEmail;
+            string newTipo = (string) received.tipo;
+
+            int typeOfUser = _system.TypeUser(email);
+            if (typeOfUser != 0) return NotFound("Não existe categoria num " + ((typeOfUser==1)? "Instrutor": (typeOfUser==2? "Treinador" :"Utilizador Invalido") ) );
+            _system.UpdateClientCat(email, newTipo.Remove(0, "Cliente ".Length));
+            return Ok();
+        }
+        
     }
 }

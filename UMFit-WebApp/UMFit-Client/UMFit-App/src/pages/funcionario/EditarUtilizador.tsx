@@ -3,7 +3,7 @@ import React from "react";
 import "../css/RemoveUser.css"
 import { IonPage, IonHeader, IonTitle, IonToolbar, IonContent, IonItem, IonLabel, IonSearchbar, IonList, IonIcon, IonButton, IonSelectOption, IonSelect } from "@ionic/react";
 import{person,informationCircle,atCircle, buildOutline} from 'ionicons/icons'
-import { getAllUsers, selectUser, removeUser } from "../../models/API/UserAPI";
+import { selectUser,updateUserCat, getAllClients } from "../../models/API/UserAPI";
 
 
 //const testing = true;
@@ -23,8 +23,7 @@ class RemoveUser extends React.Component<any> {
         query:string,
         lista_inicial:string[],
         render_next:string[],
-        show_next:SelectedUser,
-        userNewCategory: string
+        show_next:SelectedUser
     }
 
     constructor(props: any) {
@@ -35,8 +34,7 @@ class RemoveUser extends React.Component<any> {
             query : "",
             lista_inicial: [],
             render_next: [],
-            show_next :noSelection,
-            userNewCategory: ""
+            show_next :noSelection
         }
     }
 
@@ -44,7 +42,7 @@ class RemoveUser extends React.Component<any> {
         
         var init:string[]=["Email1","email2","oogle.1","gloogloog.2","net.net","yeet@3","3.@yeet",];
         
-        await getAllUsers()
+        await getAllClients()
         .then(
             async (value) =>{
                 if (value.status === 200) {              
@@ -52,7 +50,6 @@ class RemoveUser extends React.Component<any> {
                     var json = value.json();
 
                     await json.then((value) => {
-                        console.log(value);
                         init= value.users;
                     });
                
@@ -63,7 +60,6 @@ class RemoveUser extends React.Component<any> {
               alert("Server is currently down... \n\n".concat("Error details: \n\n\t").concat(error));
             });
     
-        init.splice(init.indexOf(this.props.email), 1);
 
         this.setState({
             lista_inicial: init,
@@ -89,10 +85,9 @@ class RemoveUser extends React.Component<any> {
                         console.log(resValue.user)
                         selection = {name:resValue.user.name,
                                     email:resValue.user.email,
-                                    cat:resValue.user.cat,
+                                    cat:resValue.user.categoria,
                                     index:index}
-                                    this.setState({show_next : selection})
-                        console.log("USer Selected");
+                        this.setState({show_next : selection})
                     });
                 } else {
                     alert("REQUEST ERROR "+value.status);
@@ -104,41 +99,26 @@ class RemoveUser extends React.Component<any> {
     }
     
         this.setState({show_next : selection})
-        console.log("END")
     }
 
-    removeUser(email :string):void{
-        var res = removeUser(email,this.state.show_next.cat[0]);
-        res.then(
-            async (value) =>{
-                if (value.status === 200) {
-                    alert("Utilizador Removido!")
-                } else {
-                    alert("REQUEST ERROR "+value.status);
-                }
-            }).catch(function(error) {
-              alert("Server is currently down... \n\n".concat("Error details: \n\n\t").concat(error));
-            });
-
-            
-        var clearSelect=noSelection;
-        var renderBefore = this.state.lista_inicial;
-        renderBefore.splice(renderBefore.indexOf(email),1);
-        this.setState({
-            show_next:clearSelect,
-            lista_inicial:renderBefore,
-        })
-        this.setQuery(this.state.query)
+    setCat(e : any){
+        e.stopPropagation();
+        var tmp =this.state.show_next;
+        tmp.cat=e.detail.value!;
+        this.setState({ show_next: tmp })
     }
 
     editarUser(email: string) {
-        
-        console.log(this.state.userNewCategory);
+        var send = this.state.show_next;
+        var receive = updateUserCat({userEmail: send.email,tipo : send.cat });
+        receive.then(
+            async (value) =>{
+                if (value.status !== 200) alert("REQUEST ERROR : "+value.status);
+            }
+        )
     }
 
     setQuery(stringSearch: any) {
-
-        
         var resultado = this.state.lista_inicial
             .filter(function(value){return value.toLowerCase().indexOf(stringSearch.toLowerCase()) >= 0;});
         this.setState({
@@ -147,8 +127,6 @@ class RemoveUser extends React.Component<any> {
             render_next: resultado,
             show_next:noSelection
         })
-         
-    
     }
     render() {
 
@@ -182,27 +160,18 @@ class RemoveUser extends React.Component<any> {
                     {selected.index===index?
                     <React.Fragment >
                     <IonLabel color="primary" >{element}</IonLabel>
-                    <IonList lines="none" className="inheritBackground" >
+                    <IonList className="inlist" lines="none"  >
                             <IonItem className="inheritBackground" >
                             <IonIcon icon={person} className="icon" ></IonIcon>
                             <IonLabel color="primary" className="inheritBackground">{selected.name}</IonLabel>
                             </IonItem>
-    
-                            <IonItem className="inheritBackground">
-                            <IonIcon icon={informationCircle} className="icon"></IonIcon> 
-                                <IonLabel color="Dark">{selected.cat}</IonLabel>
-                            </IonItem>
-                        
+
                             <IonItem>
-                                
-                                <IonIcon slot="start" icon={informationCircle}></IonIcon>
-                                <IonLabel>Tipo de sócio: </IonLabel>
-                                
-                                <IonSelect value={selected.cat} onIonChange={(e) => this.setState({ userNewCategory: e.detail.value! })}>
-                                    <IonSelectOption value="Cliente Standard">Cliente Standard</IonSelectOption>
-                                    <IonSelectOption value="Cliente Premium">Cliente Premium</IonSelectOption>
-                                    <IonSelectOption value="Instrutor">Instrutor</IonSelectOption>
-                                    <IonSelectOption value="Rececionista">Rececionista</IonSelectOption>
+                                <IonIcon className ="icon" icon={informationCircle}></IonIcon>
+                                <IonLabel>Tipo de sócio: </IonLabel>    
+                                <IonSelect value={selected.cat} onClick={(e)=> e.stopPropagation()} onIonChange={(e) =>this.setCat(e)}>
+                                    <IonSelectOption value="Cliente Standard">Standard</IonSelectOption>
+                                    <IonSelectOption value="Cliente Premium">Premium</IonSelectOption>
                                 </IonSelect>
 
                             </IonItem>

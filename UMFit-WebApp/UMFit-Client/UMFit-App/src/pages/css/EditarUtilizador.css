@@ -6,7 +6,7 @@
 }
 .label{
     min-width: 100px;
-    width: 25%;
+    width: 40%;
 }
 .inheritBackground, .item .label{
     background: inherit!important;
@@ -14,3 +14,6 @@
 ion-item {
     background:inherit !important;
     }
+.inlist{
+    min-width: 50% !important;
+}

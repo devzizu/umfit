@@ -93,5 +93,15 @@ namespace UMFit_WebAPI.Models.UMFit_LN
         {
             utilizadoresDAO.UpdateUser(user, typeOfUser, passHash);
         }
+
+        public void UpdateClientCat(string email, string cat)
+        {
+            utilizadoresDAO.UpdateCat(email, cat);
+        }
+
+        public List<string> GetUserEmails()
+        {
+            return utilizadoresDAO.GetUserEmails();
+        }
     }
 }

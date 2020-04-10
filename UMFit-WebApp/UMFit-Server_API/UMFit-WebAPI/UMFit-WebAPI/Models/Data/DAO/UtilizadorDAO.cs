@@ -801,6 +801,58 @@ namespace UMFit_WebAPI.Models.Data.DAO
                 connection.Close();
             }
         }
-       
+
+        public void UpdateCat(string email, string cat)
+        {
+            try
+            {   connection.Open();
+                MySqlCommand command;
+                string sqlCommand;
+
+                    sqlCommand = "update Cliente set categoria = @CATEGORIA where email = @EMAIL";
+                    
+                    command = new MySqlCommand(sqlCommand, connection);
+
+                    command.Parameters.Add("@CATEGORIA", MySqlDbType.VarChar);
+                    command.Parameters["@CATEGORIA"].Value = cat;
+
+                    command.Parameters.Add("@EMAIL", MySqlDbType.VarChar);
+                    command.Parameters["@EMAIL"].Value = email;
+
+                    command.ExecuteScalar();
+            }
+            catch(Exception e) {Console.WriteLine(e.ToString());}
+            finally {connection.Close();}
+        }
+
+        public List<string> GetUserEmails()
+        {
+
+            List<string> emailsList = new List<string>();
+
+            try
+            {
+                connection.Open();
+                string sqlCommand = "select email from Cliente ";
+                MySqlCommand cmd = new MySqlCommand(sqlCommand, connection);
+                MySqlDataReader reader = cmd.ExecuteReader();
+                while (reader.Read())
+                {
+                    emailsList.Add(reader.GetString(0));
+                }
+                
+                reader.Close();
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.ToString());
+            }
+            finally
+            {
+                connection.Close();
+            }
+
+            return emailsList;
+        }
     }
 }
