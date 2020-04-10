@@ -1,0 +1,128 @@
+.card-search{
+
+    box-shadow: none;
+    display: flex;
+    justify-content: left;
+    margin-left: 10%;
+}
+
+.search-content{
+
+    font-family: 'Courier New', Courier, monospace;
+    text-align: center;
+    font-size: 20px; 
+}
+
+.search-bar{
+ 
+    background: rgb(245, 226, 214);
+    width: 100%;
+    height: 125px;
+}
+
+.info-text {
+    font-family: 'Courier New', Courier, monospace;
+    text-align: center;
+    height: 30px; 
+}
+
+.text-title{
+
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 20px; 
+}
+
+.card-center{
+
+    box-shadow: none;
+    display: flex;
+    justify-content: left;
+    margin-left: 10%;
+}
+
+.card-left{
+
+    box-shadow: none;
+    display: flex;
+    justify-content: left;
+    margin-left: 5%;
+    padding: 2.5%;
+}
+
+.layout-selecao-mails{
+
+    margin-left: 10%;
+    margin-right: 10%;
+}
+
+.layout-selecao-refeicoes{
+    
+    margin-left: 10%;
+    margin-right: 10%;
+}
+
+.distancia-horizontal{
+
+    margin-left: 2.5%;
+}
+
+.grid-exercicios{
+
+    margin-left: 10%;
+    margin-right: 10%;
+    justify-content: center;
+    --ion-grid-padding: 0;
+}
+
+.background-orange{
+
+    background: rgb(245, 226, 214);
+    border-style: solid;
+    border-color: rgb(243, 173, 129);
+}
+
+.espaco-vertical-search{
+
+    margin-bottom: 2.5%;
+}
+
+.comprimento-lista-mails{
+
+
+    height: 175px;
+}
+
+.descricao-plano{
+
+    width: 85%;
+}
+
+.separador{
+    
+    margin-top: 2.5%;
+    border: 1px solid rgb(246, 199, 167);
+    margin-bottom: 2.5%;
+    margin-left: 5%;
+    margin-right: 5%;
+ }
+
+ .botao{
+
+    margin-top: 15%;
+    margin-bottom: 10%;
+}
+
+.botao-adicioanr-refeicao{
+
+    display: flex;
+    justify-content: left;
+    margin-top: 5%;
+    margin-left: 30%;
+    margin-right: 30%;
+}
+
+.border-color{
+
+    border-style: solid;
+    border-color: rgb(243, 173, 129);
+}

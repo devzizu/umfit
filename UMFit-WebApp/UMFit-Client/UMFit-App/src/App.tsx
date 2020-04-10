@@ -47,6 +47,7 @@ import UpdateDetails from './pages/UpdateDetails';
 import RemoveUser from './pages/funcionario/RemoveUser';
 import EditarUtilizador from './pages/funcionario/EditarUtilizador';
 import CriarPlanoTreino from './pages/instrutor/CriarPlanoTreino';
+import CriarPlanoAlimentar from './pages/instrutor/CriarPlanoAlimentar';
 
 //---------------------------------------------------------------------------------------
 
@@ -381,6 +382,8 @@ class ProfileTreinador extends React.Component<any> {
           <Route path="/profile/mydetails" render={() => {return <UpdateDetails email={this.state.user.email} />}} exact={true} />
           
           <Route path="/profile/planotreino" component={CriarPlanoTreino}  exact={true}/>
+
+          <Route path="/profile/planoalimentar" component={CriarPlanoAlimentar}  exact={true}/>
 
           <Route path="/profile/logout" component={() => {return <LogOut setLogged={this.props.setLogged}/>}} exact={true} />
 
