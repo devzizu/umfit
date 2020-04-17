@@ -1,0 +1,31 @@
+
+.selectDayOfWeek_Item {
+    --ion-background-color: rgb(211, 154, 101);
+    font-size: 20px;
+    border-radius: 5px;
+
+    color: rgb(255, 255, 255);
+
+}
+
+.AulaDia_CardWrapper {
+    width: 94%;
+    border-style: solid;
+    border-color: black;
+    margin-left: 2%;
+    margin-right: 2%;
+    --background: rgb(255, 255, 255);
+}
+
+.AulaDia_CardTitle {
+    font-weight: bold;
+}
+
+.PageContent {
+    --background: rgb(255, 255, 255);
+}
+
+.aulaImage {
+    max-width: 60%;
+    height: auto;
+}

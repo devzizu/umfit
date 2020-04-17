@@ -109,3 +109,11 @@
     margin-top: 15%;
     margin-bottom: 10%;
 }
+
+.quarterWidth{
+    max-width: 25% !important;
+}
+
+.minquarterWidth{
+    min-width: 27% !important;
+}

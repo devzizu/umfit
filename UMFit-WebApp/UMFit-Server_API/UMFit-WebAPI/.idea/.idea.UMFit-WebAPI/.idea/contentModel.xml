@@ -1,14 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ContentModelStore">
+    <e p="$APPLICATION_CONFIG_DIR$/consoles/db" t="IncludeRecursive" />
     <e p="$APPLICATION_CONFIG_DIR$/scratches" t="IncludeRecursive" />
     <e p="$USER_HOME$/.Rider2019.3/system/extResources" t="IncludeRecursive" />
-    <e p="$USER_HOME$/.Rider2019.3/system/resharper-host/local/Transient/ReSharperHost/v193/SolutionCaches/_UMFit-WebAPI.-1312475956.00" t="ExcludeRecursive" />
+    <e p="$USER_HOME$/.Rider2019.3/system/resharper-host/local/Transient/ReSharperHost/v193/SolutionCaches/_UMFit-WebAPI.1491286518.00" t="ExcludeRecursive" />
     <e p="$PROJECT_DIR$" t="IncludeFlat">
       <e p="UMFit-WebAPI" t="IncludeRecursive">
         <e p="Controllers" t="Include">
           <e p="ApiController.cs" t="Include" />
+          <e p="AulaGrupoController.cs" t="Include" />
           <e p="AvaliacaoController.cs" t="Include" />
+          <e p="PlanoAlimentarController.cs" t="Include" />
+          <e p="PlanoTreinoController.cs" t="Include" />
           <e p="UserController.cs" t="Include" />
         </e>
         <e p="Dto" t="Include">
@@ -18,6 +22,7 @@
         <e p="Models" t="Include">
           <e p="Data" t="Include">
             <e p="DAO" t="Include">
+              <e p="AulaGrupoDAO.cs" t="Include" />
               <e p="AvaliaçaoDAO.cs" t="Include" />
               <e p="UtilizadorDAO.cs" t="Include" />
             </e>
@@ -27,12 +32,16 @@
             <e p="CalculateHash.cs" t="Include" />
           </e>
           <e p="UMFit_LN" t="Include">
+            <e p="Aulas" t="Include">
+              <e p="AulaGrupo.cs" t="Include" />
+            </e>
             <e p="Avaliacao" t="Include">
               <e p="Avaliaçao.cs" t="Include" />
               <e p="Composiçao_Corporal.cs" t="Include" />
               <e p="Perimetros.cs" t="Include" />
               <e p="Registo_Avaliaçao.cs" t="Include" />
             </e>
+            <e p="Planos" t="Include" />
             <e p="UMFit_LN.cs" t="Include" />
             <e p="Utilizadores" t="Include">
               <e p="Cliente.cs" t="Include" />

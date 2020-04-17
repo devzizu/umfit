@@ -11,7 +11,7 @@ import {
 } from '@ionic/react';
 import React from 'react';
 import { RouteComponentProps, withRouter } from 'react-router-dom';
-import { logInOutline, helpCircleOutline, callOutline, logOutOutline, personOutline, analyticsOutline, keyOutline, closeCircleOutline, addCircleOutline, buildOutline, documentTextOutline, pizzaOutline } from 'ionicons/icons';
+import { logInOutline, helpCircleOutline, callOutline, logOutOutline, personOutline, analyticsOutline, keyOutline, closeCircleOutline, addCircleOutline, buildOutline, documentTextOutline, pizzaOutline, calendarOutline } from 'ionicons/icons';
 
 import './css/MenuHome.css';
 
@@ -56,6 +56,12 @@ const appPagesCliente: AppPage[] = [
     mdIcon: personOutline
   },
   {
+    title: 'Plano de Aulas',
+    url: '/profile/planoaulas',
+    iosIcon: calendarOutline,
+    mdIcon: calendarOutline
+  },
+  {
     title: 'Atualizar perfil',
     url: '/profile/mydetails',
     iosIcon: keyOutline,
@@ -81,6 +87,12 @@ const appPagesFuncionario: AppPage[] = [
     url: '/profile',
     iosIcon: personOutline,
     mdIcon: personOutline
+  },
+  {
+    title: 'Plano de Aulas',
+    url: '/profile/planoaulas',
+    iosIcon: calendarOutline,
+    mdIcon: calendarOutline
   },
   {
     title: 'Atualizar perfil',
@@ -120,6 +132,12 @@ const appPagesTreinador: AppPage[] = [
     url: '/profile',
     iosIcon: personOutline,
     mdIcon: personOutline
+  },
+  {
+    title: 'Plano de Aulas',
+    url: '/profile/planoaulas',
+    iosIcon: calendarOutline,
+    mdIcon: calendarOutline
   },
   {
     title: 'Atualizar perfil',

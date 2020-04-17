@@ -41,13 +41,12 @@ insert into Cliente
 values ("a85729@alunos.uminho.pt", 11, "Paulo Araújo", 
 		"52BBA69FCE7D58C7BD158821495F50355D6CA00D2403B764A42368DFFA84CE1A",
         "1999-09-28", 1, "Standard", "Famalicão");
-        
+
 insert into Cliente
 values ("test", 99, "TesteUser",
         "9F86D081884C7D659A2FEAA0C55AD015A3BF4F1B2B0B822CD15D6C15B0F00A08",
-        "1999-09-19", 1, "Standard", "Famalicão");     
-		
-        
+        "1999-09-19", 1, "Standard", "Famalicão");
+
 -- INSTRUTORES -----------------------------------------------------------------------------------------
 
 -- pass: passTeste
@@ -104,195 +103,195 @@ values ("a83719@alunos.uminho.pt", "Sala de Musculação");
 
 -- Segunda 
 insert into Aula_Grupo 
-values (1, "2020-03-23 08:00:00", "Cross Trainning", 0, 30, "1h:00m", "Moderado",
+values (1, "08:00:00", "Segunda", "Cross Trainning", 0, 30, "1h:00m", "Moderado",
 "a85227@alunos.uminho.pt", "Sala 1 de aulas de grupo");
 
 insert into Aula_Grupo
-values (2, "2020-03-23 09:00:00", "Yoga", 0, 20, "1h:00m", "Não definido",
+values (2, "09:00:00", "Segunda", "Yoga", 0, 20, "1h:00m", "Não definido",
 "mariCst@gmail.com", "Sala 2 de aulas de grupo"); 
 
 insert into Aula_Grupo
-values (3, "2020-03-23 10:00:00", "Funcional", 0, 30, "0h:30m", "Moderado",
+values (3, "10:00:00", "Segunda", "Funcional", 0, 30, "0h:30m", "Moderado",
 "a89983@alunos.uminho.pt", "Sala 1 de aulas de grupo");
 
 insert into Aula_Grupo
-values (4, "2020-03-23 10:30:00", "Local", 0, 30, "0h:30m", "Fácil",
+values (4, "10:30:00", "Segunda", "Local", 0, 30, "0h:30m", "Fácil",
 "a85227@alunos.uminho.pt", "Sala 1 de aulas de grupo");
 
 insert into Aula_Grupo
-values (5, "2020-03-23 15:30:00", "Cycling", 0, 30, "1h:00m", "Difícil",
+values (5, "15:30:00", "Segunda", "Cycling", 0, 30, "1h:00m", "Difícil",
 "a85227@alunos.uminho.pt", "Sala 1 de aulas de grupo");
 
 insert into Aula_Grupo
-values (6, "2020-03-23 16:30:00", "Salsa", 0, 20, "0h:30m", "Não definido",
+values (6, "16:30:00", "Segunda", "Salsa", 0, 20, "0h:30m", "Não definido",
 "anaSILVa@hotmail.com", "Sala 2 de aulas de grupo");
 
 insert into Aula_Grupo
-values (7, "2020-03-23 17:00:00", "Local", 0, 30, "1h:00m", "Não definido",
+values (7, "17:00:00", "Segunda", "Local", 0, 30, "1h:00m", "Não definido",
 "anaSILVa@hotmail.com", "Sala 1 de aulas de grupo");
 
 insert into Aula_Grupo
-values (8, "2020-03-23 18:00:00", "Pilates", 0, 20, "1h:00m", "Moderado",
+values (8, "18:00:00", "Segunda", "Pilates", 0, 20, "1h:00m", "Moderado",
 "anaSILVa@hotmail.com", "Sala 2 de aulas de grupo");
 
 insert into Aula_Grupo
-values (9, "2020-03-23 18:30:00", "Jump", 0, 30, "0h:30m", "Fácil",
+values (9, "18:30:00", "Segunda", "Jump", 0, 30, "0h:30m", "Fácil",
 "a89983@alunos.uminho.pt", "Sala 1 de aulas de grupo");
 
 insert into Aula_Grupo
-values (10, "2020-03-23 19:00:00", "Kickboxing", 0, 30, "1h:00m", "Moderado",
+values (10, "19:00:00", "Segunda", "Kickboxing", 0, 30, "1h:00m", "Moderado",
 "joseCarv@gmail.com", "Sala 1 de aulas de grupo");
 
 -- Terça 
 insert into Aula_Grupo
-values (11, "2020-03-24 07:30:00", "Cycling", 0, 30, "1h:00m", "Difícil",
+values (11, "07:30:00", "Terça", "Cycling", 0, 30, "1h:00m", "Difícil",
 "joseCarv@gmail.com", "Sala 1 de aulas de grupo");
 
 insert into Aula_Grupo
-values (12, "2020-03-24 09:00:00", "Pilates", 0, 30, "1h:00m", "Não definido",
+values (12, "09:00:00", "Terça", "Pilates", 0, 30, "1h:00m", "Não definido",
 "mariCst@gmail.com", "Sala 1 de aulas de grupo");
 
 insert into Aula_Grupo
-values (12, "2020-03-24 10:00:00", "TRX", 0, 30, "0h:30m", "Não definido",
+values (12, "10:00:00", "Terça", "TRX", 0, 30, "0h:30m", "Não definido",
 "a89983@alunos.uminho.pt", "Sala 1 de aulas de grupo");
 
 insert into Aula_Grupo
-values (12, "2020-03-24 11:30:00", "Natação", 0, 20, "1h:00m", "Moderado",
+values (12, "11:30:00", "Terça", "Natação", 0, 20, "1h:00m", "Moderado",
 "anaSILVa@hotmail.com", "Piscina");
 
 insert into Aula_Grupo
-values (13, "2020-03-24 15:30:00", "Yoga", 0, 20, "0h:30m", "Não definido",
+values (13, "15:30:00", "Terça", "Yoga", 0, 20, "0h:30m", "Não definido",
 "mariCst@gmail.com", "Sala 2 de aulas de grupo");
 
 insert into Aula_Grupo
-values (14, "2020-03-24 16:30:00", "Cycling", 0, 30, "0h:30m", "Moderado",
+values (14, "16:30:00", "Terça", "Cycling", 0, 30, "0h:30m", "Moderado",
 "a85227@alunos.uminho.pt", "Sala 1 de aulas de grupo");
 
 insert into Aula_Grupo
-values (15, "2020-03-24 17:00:00", "G.A.P.", 0, 30, "0h:30m", "Não definido",
+values (15, "17:00:00", "Terça", "G.A.P.", 0, 30, "0h:30m", "Não definido",
 "a85227@alunos.uminho.pt", "Sala 1 de aulas de grupo");
 
 insert into Aula_Grupo
-values (16, "2020-03-24 17:30:00", "Dance Workout", 0, 20, "0h:30m", "Não definido",
+values (16, "17:30:00", "Terça", "Dance Workout", 0, 20, "0h:30m", "Não definido",
 "anaSILVa@hotmail.com", "Sala 2 de aulas de grupo");
 
 insert into Aula_Grupo
-values (17, "2020-03-24 18:00:00", "Pilates", 0, 30, "0h:30m", "Não definido",
+values (17, "18:00:00", "Terça", "Pilates", 0, 30, "0h:30m", "Não definido",
 "joseCarv@gmail.com", "Sala 1 de aulas de grupo");
 
 insert into Aula_Grupo
-values (18, "2020-03-24 18:30:00", "Aerolocal", 0, 30, "1h:00m", "Não definido",
+values (18, "18:30:00", "Terça", "Aerolocal", 0, 30, "1h:00m", "Não definido",
 "a89983@alunos.uminho.pt", "Sala 1 de aulas de grupo");
 
 insert into Aula_Grupo
-values (19, "2020-03-24 19:30:00", "Cycling", 0, 30, "1h:00m", "Moderado",
+values (19, "19:30:00", "Terça", "Cycling", 0, 30, "1h:00m", "Moderado",
 "mariCst@gmail.com", "Sala 1 de aulas de grupo");
 
 -- Quarta
 insert into Aula_Grupo
-values (20, "2020-03-25 08:00:00", "Local", 0, 30, "1h:00m", "Moderado",
+values (20, "08:00:00", "Quarta", "Local", 0, 30, "1h:00m", "Moderado",
 "mariCst@gmail.com", "Sala 1 de aulas de grupo");
 
 insert into Aula_Grupo
-values (21, "2020-03-25 09:00:00", "Cycling", 0, 30, "1h:00m", "Fácil",
+values (21, "09:00:00", "Quarta", "Cycling", 0, 30, "1h:00m", "Fácil",
 "a89983@alunos.uminho.pt", "Sala 1 de aulas de grupo");
 
 insert into Aula_Grupo
-values (22, "2020-03-25 10:00:00", "G.A.P.", 0, 30, "1h:00m", "Não definido",
+values (22, "10:00:00", "Quarta", "G.A.P.", 0, 30, "1h:00m", "Não definido",
 "a85227@alunos.uminho.pt", "Sala 1 de aulas de grupo");
 
 insert into Aula_Grupo
-values (23, "2020-03-25 15:30:00", "Cross Training", 0, 30, "1h:00m", "Não definido",
+values (23, "15:30:00", "Quarta", "Cross Training", 0, 30, "1h:00m", "Não definido",
 "anaSILVa@hotmail.com", "Sala 1 de aulas de grupo");
 
 insert into Aula_Grupo
-values (24, "2020-03-25 16:30:00", "Jump", 0, 30, "0h:30m", "Não definido",
+values (24, "16:30:00", "Quarta", "Jump", 0, 30, "0h:30m", "Não definido",
 "joseCarv@gmail.com", "Sala 1 de aulas de grupo");
 
 insert into Aula_Grupo
-values (25, "2020-03-25 17:00:00", "Steel Tonic", 0, 30, "1h:00m", "Moderado",
+values (25, "17:00:00", "Quarta", "Steel Tonic", 0, 30, "1h:00m", "Moderado",
 "mariCst@gmail.com", "Sala 1 de aulas de grupo");
 
 insert into Aula_Grupo
-values (26, "2020-03-25 18:00:00", "Natação", 0, 20, "1h:00m", "Moderado",
+values (26, "18:00:00", "Quarta", "Natação", 0, 20, "1h:00m", "Moderado",
 "a85227@alunos.uminho.pt", "Piscina");
 
 insert into Aula_Grupo
-values (27, "2020-03-25 19:30:00", "TRX", 0, 30, "1h:00m", "Moderado",
+values (27, "19:30:00", "Quarta", "TRX", 0, 30, "1h:00m", "Moderado",
 "mariCst@gmail.com", "Sala 1 de aulas de grupo");
 
 -- Quinta
 insert into Aula_Grupo
-values (28, "2020-03-26 07:30:00", "Local", 0, 30, "1h:00m", "Fácil",
+values (28, "07:30:00", "Quinta", "Local", 0, 30, "1h:00m", "Fácil",
 "joseCarv@gmail.com", "Sala 1 de aulas de grupo");
 
 insert into Aula_Grupo
-values (29, "2020-03-26 08:00:00", "Pilates", 0, 20, "1h:00m", "Não definido",
+values (29, "08:00:00", "Quinta", "Pilates", 0, 20, "1h:00m", "Não definido",
 "anaSILVa@hotmail.com", "Sala 2 de aulas de grupo");
 
 insert into Aula_Grupo
-values (30, "2020-03-26 09:00:00", "G.A.P.", 0, 30, "1h:00m", "Não definido",
+values (30, "09:00:00", "Quinta", "G.A.P.", 0, 30, "1h:00m", "Não definido",
 "a89983@alunos.uminho.pt", "Sala 1 de aulas de grupo");
 
 insert into Aula_Grupo
-values (31, "2020-03-26 10:00:00", "Pilates", 0, 20, "0h:30m", "Não definido",
+values (31, "10:00:00", "Quinta", "Pilates", 0, 20, "0h:30m", "Não definido",
 "anaSILVa@hotmail.com", "Sala 2 de aulas de grupo");
 
 insert into Aula_Grupo
-values (32, "2020-03-26 15:00:00", "Zumba", 0, 30, "1h:00m", "Fácil",
+values (32, "15:00:00", "Quinta", "Zumba", 0, 30, "1h:00m", "Fácil",
 "mariCst@gmail.com", "Sala 1 de aulas de grupo");
 
 insert into Aula_Grupo
-values (33, "2020-03-26 17:30:00", "TRX", 0, 30, "1h:00m", "Fácil",
+values (33, "17:30:00", "Quinta", "TRX", 0, 30, "1h:00m", "Fácil",
 "mariCst@gmail.com", "Sala 1 de aulas de grupo");
 
 insert into Aula_Grupo
-values (34, "2020-03-26 17:30:00", "Cycling", 0, 30, "1h:00m", "Difícil",
+values (34, "17:30:00", "Quinta", "Cycling", 0, 30, "1h:00m", "Difícil",
 "a85227@alunos.uminho.pt", "Sala 1 de aulas de grupo");
 
 insert into Aula_Grupo
-values (35, "2020-03-26 18:30:00", "Aerolocal", 0, 30, "1h:00m", "Moderado",
+values (35, "18:30:00", "Quinta", "Aerolocal", 0, 30, "1h:00m", "Moderado",
 "mariCst@gmail.com", "Sala 1 de aulas de grupo");
 
 -- Sexta
 insert into Aula_Grupo
-values (36, "2020-03-27 07:30:00", "Local", 0, 30, "1h:00m", "Fácil",
+values (36, "07:30:00", "Sexta", "Local", 0, 30, "1h:00m", "Fácil",
 "joseCarv@gmail.com", "Sala 1 de aulas de grupo");
 
 insert into Aula_Grupo
-values (37, "2020-03-27 08:00:00", "Pilates", 0, 20, "1h:00m", "Não definido",
+values (37, "08:00:00", "Sexta", "Pilates", 0, 20, "1h:00m", "Não definido",
 "anaSILVa@hotmail.com", "Sala 2 de aulas de grupo");
 
 insert into Aula_Grupo
-values (38, "2020-03-27 09:00:00", "Natação", 0, 20, "1h:00m", "Não definido",
+values (38, "09:00:00", "Sexta", "Natação", 0, 20, "1h:00m", "Não definido",
 "a89983@alunos.uminho.pt", "Piscina");
 
 insert into Aula_Grupo
-values (39, "2020-03-27 10:00:00", "Pilates", 0, 20, "0h:30m", "Não definido",
+values (39, "10:00:00", "Sexta", "Pilates", 0, 20, "0h:30m", "Não definido",
 "anaSILVa@hotmail.com", "Sala 2 de aulas de grupo");
 
 insert into Aula_Grupo
-values (40, "2020-03-27 15:00:00", "Zumba", 0, 30, "1h:00m", "Fácil",
+values (40, "15:00:00", "Sexta", "Zumba", 0, 30, "1h:00m", "Fácil",
 "mariCst@gmail.com", "Sala 1 de aulas de grupo");
 
 insert into Aula_Grupo
-values (41, "2020-03-27 17:30:00", "TRX", 0, 30, "1h:00m", "Fácil",
+values (41, "17:30:00", "Sexta", "TRX", 0, 30, "1h:00m", "Fácil",
 "mariCst@gmail.com", "Sala 1 de aulas de grupo");
 
 insert into Aula_Grupo
-values (42, "2020-03-27 17:30:00", "Cycling", 0, 30, "1h:00m", "Difícil",
+values (42, "17:30:00", "Sexta", "Cycling", 0, 30, "1h:00m", "Difícil",
 "a85227@alunos.uminho.pt", "Sala 1 de aulas de grupo");
 
 insert into Aula_Grupo
-values (43, "2020-03-27 18:30:00", "Aerolocal", 0, 30, "1h:00m", "Moderado",
+values (43, "18:30:00", "Sexta", "Aerolocal", 0, 30, "1h:00m", "Moderado",
 "mariCst@gmail.com", "Sala 1 de aulas de grupo");
 
 insert into Aula_Grupo
-values (44, "2020-03-27 19:30:00", "Jump", 0, 30, "0h:30m", "Moderado",
+values (44, "19:30:00", "Sexta", "Jump", 0, 30, "0h:30m", "Moderado",
 "joseCarv@gmail.com", "Sala 1 de aulas de grupo");
 
 insert into Aula_Grupo
-values (44, "2020-03-27 20:00:00", "Yoga", 0, 20, "0h:30m", "Fácil",
+values (44, "20:00:00", "Sexta", "Yoga", 0, 20, "0h:30m", "Fácil",
 "a89983@alunos.uminho.pt", "Sala 2 de aulas de grupo");
 
 
@@ -320,6 +319,10 @@ values (4, 181, 80.3, 7.00, 70.3, 24.72, 13, 81.6, 83.8, 118.5, 92.8, 35.9, 35.9
 insert into Avaliaçao_Realizada 
 values (5, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
 
+select * from Avaliaçao_Realizada;
+delete from Avaliaçao_Agendada where idAvaliaçao = 1010101010;
+delete from Avaliaçao_Realizada where idAvaliaçao = 1010101010;
+
 -- AVALIAÇAO AGENDADA -----------------------------------------------------------------------------------------
 insert into Avaliaçao_Agendada
 values ("2020-02-04 15:30:00", "a85227@alunos.uminho.pt", "a83719@alunos.uminho.pt", 1);
@@ -336,44 +339,42 @@ values ("2020-04-08 10:00:00", "anaSILVa@hotmail.com", "a83719@alunos.uminho.pt"
 insert into Avaliaçao_Agendada
 values ("2020-04-30 18:00:00", "a85227@alunos.uminho.pt", "a83719@alunos.uminho.pt", 5);
 
-select * from Avaliaçao_Realizada;
-delete from Avaliaçao_Agendada where idAvaliaçao = 1010101010;
-delete from Avaliaçao_Realizada where idAvaliaçao = 1010101010;
+select * from Aula_Grupo;
 
 -- EXERCICIO -----------------------------------------------------------------------------------------
 insert into Exercicio 
-values (1, "Elevações", "3x");
+values (1, "Elevações", 3, 3);
 
 insert into Exercicio 
-values (2, "Puxada", "12-10-8");
+values (2, "Puxada", 12, 3);
 
 insert into Exercicio 
-values (3, "Remada curvada", "12-10-8");
+values (3, "Remada curvada", 12, 3);
 
 insert into Exercicio 
-values (4, "Remada unilateral", "(12-12)x3");
+values (4, "Remada unilateral", 12, 3);
 
 insert into Exercicio 
-values (5, "Remada alta na polia", "12-10-8");
+values (5, "Remada alta na polia", 12, 3);
 
 insert into Exercicio 
-values (6, "Trícept pega junta", "12-10-8");
+values (6, "Trícept pega junta", 12, 3);
 
 insert into Exercicio 
-values (7, "Trícept polia unilateral", "(12-12)x3");
+values (7, "Trícept polia unilateral", 12 ,3);
 
 insert into Exercicio 
-values (8, "Afundos no banco", "12x3");
+values (8, "Afundos no banco", 12, 3);
 
 insert into Exercicio 
-values (9, "Abdominal Tesoura", "20 rep");
+values (9, "Abdominal Tesoura", 20, 4);
 
 insert into Exercicio 
-values (10, "Crunch na fit-ball", "12x3");
+values (10, "Crunch na fit-ball", 12, 3);
 
 -- PLANO TREINO -----------------------------------------------------------------------------------------
 insert into Plano_Treino 
-values (1, "Treino A - Trícept e Costas", "2020-01-01", "2020-04-01", "Trícept e Costas", "1 vez por semana");
+values (1, "Treino A - Trícept e Costas", "2020-08-01", "Trícept e Costas", "1 vez por semana");
 
 
 -- PLANO TREINO DO CLIENTE -----------------------------------------------------------------------------------------
@@ -419,7 +420,7 @@ values (1, "Pequeno Almoço", "1 x Pão com fiambre ou queijo; 1 x Café; 1 x Co
 
 -- PLANO ALIMENTAR -----------------------------------------------------------------------------------------
 insert into Plano_Alimentar 
-values (1, "Plano alimentar para ganhar peso", " 6 vezes por semana", 3, "2020-04-01", "2020-09-01");
+values (1, "Plano alimentar para ganhar peso", "6 vezes por semana", 3, "2020-09-01");
 
 
 -- PLANO ALIMENTAR REFEIÇOES -----------------------------------------------------------------------------------------
@@ -433,25 +434,12 @@ values (1, "a85729@alunos.uminho.pt");
 
 
 -- delete from UtilizadoresOnline u where u.email = "a83719@alunos.uminho.pt"; 
-/*
+
 select * from Aula_Grupo;
+
 
 select * from UtilizadoresOnline;
 
 insert into UtilizadoresOnline values("a83719@alunos.uminho.pt", "2020-04-30", "token");
-
-delete from UtilizadoresOnline;
-
-select * from Cliente;
-
-select localidade from Codigo_Postal;
-
-delete from Cliente where email="test@xd";
-
-select * from Cliente join Rececionista using (email);
-*/
-
-select localidade from  Codigo_Postal;
-
 
 delete from UtilizadoresOnline;

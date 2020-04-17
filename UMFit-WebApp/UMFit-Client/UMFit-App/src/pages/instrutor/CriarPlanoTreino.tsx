@@ -1,9 +1,11 @@
 
 import React from "react";
-import { IonPage, IonHeader, IonToolbar, IonTitle, IonFooter, IonContent, IonCard, IonCardContent, IonSearchbar, IonInput, IonItem, IonList, IonText, IonLabel, IonRadio, IonRadioGroup, IonButton, IonIcon, IonRow, IonCol, IonGrid} from "@ionic/react";
+import { IonPage, IonHeader, IonToolbar, IonTitle, IonFooter, IonContent, IonCard, IonCardContent, IonSearchbar, IonInput, IonItem, IonList, IonText, IonLabel, IonRadio, IonRadioGroup, IonButton, IonIcon, IonRow, IonCol, IonGrid, IonDatetime} from "@ionic/react";
 import "../css/CriarPlanoTreino.css"
 import {addCircleSharp, closeCircleSharp, addOutline, trashOutline } from "ionicons/icons";
 import { PlanoTreino, Exercicio } from "../../models/Other/PlanoTreino";
+import { getAllClients } from "../../models/API/UserAPI";
+import { getListaExercicios, setPlanoTreino } from "../../models/API/PlanoTreinoAPI";
 
 class CriarPlanoTreino extends React.Component<any>{
 
@@ -13,6 +15,8 @@ class CriarPlanoTreino extends React.Component<any>{
         tipo_treino: string
         grup_muscular: string
         frequencia: string
+        data_inicio:string
+        data_fim:string
 
         lista_mails_inicial: Array<string>
         mail_inserido: string
@@ -39,6 +43,9 @@ class CriarPlanoTreino extends React.Component<any>{
             tipo_treino: "",
             grup_muscular: "",
             frequencia: "",
+            data_inicio:"",
+            data_fim:"",
+    
 
             lista_mails_inicial: new Array<string>(),
             mail_inserido: "",
@@ -57,7 +64,7 @@ class CriarPlanoTreino extends React.Component<any>{
                 nm_series: ""
             },
 
-            planotreino : new PlanoTreino("","","","", new Array<Exercicio>())
+            planotreino : new PlanoTreino("","","","","","", new Array<Exercicio>())
 
         }        
     }
@@ -165,23 +172,72 @@ class CriarPlanoTreino extends React.Component<any>{
         var pt: PlanoTreino = new PlanoTreino(  this.state.nome_treino, 
                                                 this.state.tipo_treino, 
                                                 this.state.grup_muscular, 
-                                                this.state.frequencia, 
-                                                this.state.lista_ex_selecionados)
+                                                this.state.frequencia,
+                                                this.state.data_inicio,
+                                                this.state.data_fim, 
+                                                this.state.lista_ex_selecionados
+                                                
+                                                )
 
         var resultado = {
 
             email: this.state.user_mail,
             planotreino: pt
         }
-        
+        setPlanoTreino(resultado).then(
+            async (value: any) =>{
+                if (value.status === 200){ 
+                    alert("Plano Adicionado!")
+                }});
+
         console.log(resultado)
     }
 
     componentDidMount(){
-    
-        this.setState({lista_ex_inicial: ["Supino Reto","Supino Inclinado","Supino Declinado","Supino c/halters","Pack Deck","Aberturas","Cross-Over","Flexoes","Tricep Francês","Barra à Testa","Afundos","Bicep Curl","Bicep Martelo","Bicep Concentrado","Bicep c/barra","Elevaçoes"]});    
-        this.setState({lista_mails_inicial: ["paulo.280999@gmail.com", "firmino.100999@gmail.com", "amelia.280999@gmail.com", "dillaz.280999@gmail.com", "bispo.280999@gmail.com", "nbc.280999@gmail.com"]})
-        
+        var emails =  ["paulo.280999@gmail.com", "firmino.100999@gmail.com", "amelia.280999@gmail.com", "dillaz.280999@gmail.com", "bispo.280999@gmail.com", "nbc.280999@gmail.com"];
+        getAllClients().then(
+            async (value) =>{
+                if (value.status === 200) {              
+                    
+                    var json = value.json();
+
+                    await json.then((value) => {
+                        console.log(value);
+                        emails= value.users;
+                        this.setState({lista_mails_inicial:emails})
+                    });
+               
+                    } else {
+                    alert("REQUEST ERROR "+value.status);
+                }
+            })
+            .catch(function(error) {
+              alert("Server is currently down... \n\n".concat("Error details: \n\n\t").concat(error));
+            });
+        var exercicios :string[] = [""];
+         getListaExercicios().then(
+            async (value) =>{
+                if (value.status === 200) {              
+                    
+                    var json = value.json();
+                    
+
+                await  json.then((value : any) => {
+                        console.log(value);
+                        exercicios = JSON.parse(value).exercicios;
+                        this.setState({lista_ex_inicial: exercicios});  
+                    });
+               
+                    } else {
+                    alert("REQUEST ERROR "+value.status);
+                }
+            })
+            .catch(function(error) {
+              alert("Server is currently down... \n\n".concat("Error details: \n\n\t").concat(error));
+            });
+
+          
+
     }
     
 
@@ -291,6 +347,14 @@ class CriarPlanoTreino extends React.Component<any>{
                         <IonLabel class="ion-text-wrap">Frequência Recomendada: </IonLabel>
                         <IonInput value={this.state.frequencia} onIonChange={e => {this.setFreq(e.detail.value)}}/>
                     </IonItem>
+                    <IonItem>
+                                                <IonLabel class="ion-text-wrap" className="quarterWidth">  Data de Inicio:</IonLabel>
+                                                <IonDatetime className="minquarterWidth" value={this.state.data_inicio} onIonChange={(e) => {this.setState({ data_inicio: e.detail.value! })}}></IonDatetime>
+
+                                               
+                                                <IonLabel class="ion-text-wrap" className="quarterWidth">  Data de Fim:</IonLabel>
+                                                <IonDatetime className="minquarterWidth" value={this.state.data_fim} onIonChange={(e) => {this.setState({ data_fim: e.detail.value! })}}></IonDatetime>
+                                            </IonItem>
                 </IonList> 
             </IonCard>
             

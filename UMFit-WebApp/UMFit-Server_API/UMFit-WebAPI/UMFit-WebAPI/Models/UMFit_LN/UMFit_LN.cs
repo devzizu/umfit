@@ -1,6 +1,7 @@
 
 using System.Collections.Generic;
 using UMFit_WebAPI.Models.Data.DAO;
+using UMFit_WebAPI.Models.UMFit_LN.Aulas;
 using UMFit_WebAPI.Models.UMFit_LN.Avaliacao;
 using UMFit_WebAPI.Models.UMFit_LN.Utilizadores.Interfaces;
 
@@ -9,6 +10,7 @@ namespace UMFit_WebAPI.Models.UMFit_LN
     public class UMFit_LN
     {
         private readonly UtilizadorDAO utilizadoresDAO = new UtilizadorDAO();
+        private readonly AulaGrupoDAO aulaGrupoDAO = new AulaGrupoDAO();
         
         public UMFit_LN()
         {
@@ -102,6 +104,11 @@ namespace UMFit_WebAPI.Models.UMFit_LN
         public List<string> GetUserEmails()
         {
             return utilizadoresDAO.GetUserEmails();
+        }
+
+        public List<AulaGrupo> GetAulasDia(string dia)
+        {
+            return aulaGrupoDAO.GetAulasDia(dia);
         }
     }
 }

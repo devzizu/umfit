@@ -1,9 +1,11 @@
 
 import React from "react";
-import { IonPage, IonHeader, IonToolbar, IonTitle, IonFooter, IonContent, IonCard, IonCardContent, IonSearchbar, IonInput, IonItem, IonList, IonText, IonLabel, IonRadio, IonRadioGroup, IonButton, IonIcon, IonRow, IonCol, IonGrid, IonTextarea} from "@ionic/react";
+import { IonPage, IonHeader, IonToolbar, IonTitle, IonFooter, IonContent, IonCard, IonCardContent, IonSearchbar, IonInput, IonItem, IonList, IonText, IonLabel, IonRadio, IonRadioGroup, IonButton, IonIcon, IonRow, IonCol, IonGrid, IonTextarea, IonDatetime} from "@ionic/react";
 import "../css/CriarPlanoAlimentar.css"
 import {addCircleSharp, closeCircleSharp, addOutline, trashOutline } from "ionicons/icons";
 import { PlanoAlimentar, Refeicao } from '../../models/Other/PlanoAlimentar';
+import { getAllClients } from "../../models/API/UserAPI";
+import { getListaRefeicoes, setPlanoAlimentar } from "../../models/API/PlanoAlimentarAPI";
 
 class CriarPlanoAlimentar extends React.Component<any>{
 
@@ -12,6 +14,8 @@ class CriarPlanoAlimentar extends React.Component<any>{
         nome_plano_alimentar: string
         refeicoes_livres: string
         frequencia: string
+        data_inicio:string
+        data_fim:string
 
         lista_mails_inicial: Array<string>
         mail_inserido: string
@@ -37,6 +41,8 @@ class CriarPlanoAlimentar extends React.Component<any>{
             nome_plano_alimentar: "",
             refeicoes_livres: "",
             frequencia: "",
+            data_inicio: "",
+            data_fim: "",
 
             lista_mails_inicial: new Array<string>(),
             mail_inserido: "",
@@ -54,7 +60,7 @@ class CriarPlanoAlimentar extends React.Component<any>{
                 descricao: ""
             },
 
-            planoAlimentar : new PlanoAlimentar("","","", new Array<Refeicao>())
+            planoAlimentar : new PlanoAlimentar("","","","","", new Array<Refeicao>())
 
         }        
     }
@@ -143,7 +149,9 @@ class CriarPlanoAlimentar extends React.Component<any>{
 
         var pa: PlanoAlimentar = new PlanoAlimentar(  this.state.nome_plano_alimentar,
                                                       this.state.refeicoes_livres, 
-                                                      this.state.frequencia, 
+                                                      this.state.frequencia,
+                                                      this.state.data_inicio,
+                                                      this.state.data_fim, 
                                                       this.state.lista_refeicoes_selecionados)
 
         var resultado = {
@@ -151,15 +159,57 @@ class CriarPlanoAlimentar extends React.Component<any>{
             email: this.state.user_mail,
             planoAlimentar: pa
         }
-        
+        setPlanoAlimentar(resultado).then(
+            async (value: any) =>{
+                if (value.status === 200){ 
+                    alert("Plano Adicionado!")
+                }});
         console.log(resultado)
     }
 
     componentDidMount(){
-    
-        this.setState({lista_refeicoes_inicial: ["Pequeno-Almoço","Almoço","Lanche","Jantar"]});    
-        this.setState({lista_mails_inicial: ["paulo.280999@gmail.com", "firmino.100999@gmail.com", "amelia.280999@gmail.com", "dillaz.280999@gmail.com", "bispo.280999@gmail.com", "nbc.280999@gmail.com"]})
+        var  refeicoes:string[] =  [""];
+        var  emails:string[] =  [""];
+
+        getAllClients().then(
+            async (value) =>{
+                if (value.status === 200) {              
+                    
+                    var json = value.json();
+
+                    await json.then((value) => {
+                        emails = value.users;
+                        this.setState({lista_mails_inicial:emails})
+                    });
+               
+                    } else {
+                    alert("REQUEST ERROR "+value.status);
+                }
+            })
+            .catch(function(error) {
+              alert("Server is currently down... \n\n".concat("Error details: \n\n\t").concat(error));
+            });
+
+        getListaRefeicoes().then(
+           async (value) =>{
+               if (value.status === 200) {                             
+                   var json = value.json();
+               await  json.then((value : any) => {
+                       console.log(value);
+                       refeicoes = JSON.parse(value).refeicoes;
+                       this.setState({lista_refeicoes_inicial: refeicoes});  
+                   });
+              
+                   } else {
+                   alert("REQUEST ERROR "+value.status);
+               }
+           })
+           .catch(function(error) {
+             alert("Server is currently down... \n\n".concat("Error details: \n\n\t").concat(error));
+           });
         
+
+
     }
     
 
@@ -262,6 +312,14 @@ class CriarPlanoAlimentar extends React.Component<any>{
                         <IonLabel class="ion-text-wrap">Refeicoes Livres: </IonLabel>
                         <IonInput value={this.state.refeicoes_livres} onIonChange={e => {this.setRefLiv(e.detail.value)}}/>
                     </IonItem>
+                    <IonItem>
+                                                <IonLabel class="ion-text-wrap" className="quarterWidth">  Data de Inicio:</IonLabel>
+                                                <IonDatetime className="minquarterWidth" value={this.state.data_inicio} onIonChange={(e) => {this.setState({ dataInicio: e.detail.value! })}}></IonDatetime>
+
+                                               
+                                                <IonLabel class="ion-text-wrap" className="quarterWidth">  Data de Fim:</IonLabel>
+                                                <IonDatetime className="minquarterWidth" value={this.state.data_fim} onIonChange={(e) => {this.setState({ dataFim: e.detail.value! })}}></IonDatetime>
+                    </IonItem>
 
                 </IonList> 
             </IonCard>
@@ -279,7 +337,7 @@ class CriarPlanoAlimentar extends React.Component<any>{
                         <IonSearchbar className="background-orange"
                                 value={this.state.nome_refeicao} 
                                 onIonChange={e => this.setSearchExercicio(e.detail.value!)}
-                                placeholder="nome do exercicicio"></IonSearchbar>
+                                placeholder="nome da refeição"></IonSearchbar>
                         </IonToolbar>
                     
                 </IonRow>

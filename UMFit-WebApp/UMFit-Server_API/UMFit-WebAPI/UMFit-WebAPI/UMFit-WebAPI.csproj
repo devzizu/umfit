@@ -10,5 +10,14 @@
       <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Compile Remove="Models\UMFit_LN\PlanoTreino.cs" />
+      <Compile Remove="Models\UMFit_LN\Planos\PlanoTreino.cs" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="Models\UMFit_LN\Planos" />
+    </ItemGroup>
+
 
 </Project>
