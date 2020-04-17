@@ -48,6 +48,7 @@ import RemoveUser from './pages/funcionario/RemoveUser';
 import EditarUtilizador from './pages/funcionario/EditarUtilizador';
 import CriarPlanoTreino from './pages/instrutor/CriarPlanoTreino';
 import CriarPlanoAlimentar from './pages/instrutor/CriarPlanoAlimentar';
+import CriarAvaliacao from './pages/instrutor/CriarAvaliacao';
 
 //---------------------------------------------------------------------------------------
 
@@ -182,8 +183,10 @@ class App extends React.Component {
                     }} />
                     
                     <Route path="/about" component={About} exact={true} />
-                                        
-                    <Route path="/contact" component={Contact} exact={true} />                          
+
+                    <Route path="/contact" component={CriarAvaliacao} exact={true} />    
+                             
+                    {/*<Route path="/contact" component={Contact} exact={true} />*/}                          
                     
                     {/* Routas de teste como públicas, dps remover */}
 
