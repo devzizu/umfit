@@ -1,6 +1,6 @@
 export {}
 
-var baseURL: string = "http://192.168.1.77:5000/api/planotreino";
+var baseURL: string = "http://192.168.1.67:5000/api/planotreino";
 
 export async function getListaExercicios () {
 

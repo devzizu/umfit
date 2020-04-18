@@ -1,15 +1,15 @@
 
 import React from "react";
 import { IonPage, IonHeader, IonToolbar, IonTitle, IonFooter, IonContent, IonCard, IonCardContent, IonText, IonLabel, IonRow, IonCol, IonGrid, IonList, IonRadioGroup, IonItem, IonRadio, IonSearchbar} from "@ionic/react";
-import "./css/UltimaAvaliacaoInstrutor.css"
+import "../css/UltimaAvaliacaoInstrutor.css"
 import{Pie} from "react-chartjs-2";
 
-var magro = require("../imgs/magro.png") 
-var normal = require("../imgs/normal.png") 
-var acima_do_peso = require("../imgs/acima_do_peso.png")
-var obeso = require("../imgs/obeso.png")
-var obesidade_morbida = require("../imgs/obesidade_morbida.png")
-var perfil = require('../imgs/perfil_pic.png')
+var magro = require("../../imgs/avaliacao/magro.png") 
+var normal = require("../../imgs/avaliacao/normal.png") 
+var acima_do_peso = require("../../imgs/avaliacao/acima_do_peso.png")
+var obeso = require("../../imgs/avaliacao/obeso.png")
+var obesidade_morbida = require("../../imgs/avaliacao/obesidade_morbida.png")
+var perfil = require('../../imgs/perfil_pic.png')
 
 var pieGraphSettings = {
 	labels: [],

@@ -49,7 +49,8 @@ import EditarUtilizador from './pages/funcionario/EditarUtilizador';
 import CriarPlanoTreino from './pages/instrutor/CriarPlanoTreino';
 import CriarPlanoAlimentar from './pages/instrutor/CriarPlanoAlimentar';
 import ConsultarAulasGrupo from './pages/ConsultarAulasGrupo';
-//import UltimaAvaliacao from './pages/user/UltimaAvaliacao';
+import UltimaAvaliacao from './pages/user/UltimaAvaliacao';
+import UltimaAvaliacaoInstrutor from './pages/instrutor/UltimaAvaliacaoInstrutor';
 
 //---------------------------------------------------------------------------------------
 
@@ -295,9 +296,7 @@ class ProfileCliente extends React.Component<any> {
 
           <Route path="/profile/planoaulas" component={ConsultarAulasGrupo} exact={true} />
 
-          {/*
-            <Route path="/profile/avaliacao" component={UltimaAvaliacao} exact={true} />
-          */}
+          <Route path="/profile/ultimaavaliacao" component={UltimaAvaliacao} exact={true} />
 
           <Route path="/profile/logout" component={() => {return <LogOut setLogged={this.props.setLogged}/>}} exact={true} />
      
@@ -392,7 +391,11 @@ class ProfileTreinador extends React.Component<any> {
           <Route path="/profile/planotreino" component={CriarPlanoTreino}  exact={true}/>
 
           <Route path="/profile/planoalimentar" component={CriarPlanoAlimentar}  exact={true}/>
+
           <Route path="/profile/planoaulas" component={ConsultarAulasGrupo} exact={true} />
+
+          <Route path="/profile/avaliacaocliente" component={UltimaAvaliacaoInstrutor} exact={true} />
+
           <Route path="/profile/logout" component={() => {return <LogOut setLogged={this.props.setLogged}/>}} exact={true} />
 
           <Route path='*' exact={true} component={Component404} />

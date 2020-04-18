@@ -1,7 +1,7 @@
 
 export {}
 
-var baseURL: string = "http://192.168.1.77:5000/api/avaliacao";
+var baseURL: string = "http://192.168.1.67:5000/api/avaliacao";
 
 export function getEvolucao (token: string) {
 

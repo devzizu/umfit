@@ -75,7 +75,7 @@ const appPagesCliente: AppPage[] = [
   },
   {
     title: 'Última Avaliação',
-    url: '/profile/avaliacao',
+    url: '/profile/ultimaavaliacao',
     iosIcon: analyticsOutline,
     mdIcon: analyticsOutline
   },
@@ -165,7 +165,7 @@ const appPagesTreinador: AppPage[] = [
   },
   {
     title: 'Consultar Avaliação de Cliente',
-    url: '/profile/avaliacao',
+    url: '/profile/avaliacaocliente',
     iosIcon: analyticsOutline,
     mdIcon: analyticsOutline
   },

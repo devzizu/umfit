@@ -4,12 +4,12 @@ import { IonPage, IonHeader, IonToolbar, IonTitle, IonFooter, IonContent, IonCar
 import "./css/UltimaAvaliacao.css"
 import{Pie} from "react-chartjs-2";
 
-var magro = require("../imgs/magro.png") 
-var normal = require("../imgs/normal.png") 
-var acima_do_peso = require("../imgs/acima_do_peso.png")
-var obeso = require("../imgs/obeso.png")
-var obesidade_morbida = require("../imgs/obesidade_morbida.png")
-var perfil = require('../imgs/perfil_pic.png')
+var magro = require("../../imgs/avaliacao/magro.png") 
+var normal = require("../../imgs/avaliacao/normal.png") 
+var acima_do_peso = require("../../imgs/avaliacao/acima_do_peso.png")
+var obeso = require("../../imgs/avaliacao/obeso.png")
+var obesidade_morbida = require("../../imgs/avaliacao/obesidade_morbida.png")
+var perfil = require('../../imgs/perfil_pic.png')
 
 var pieGraphSettings = {
 	labels: [],
@@ -48,7 +48,7 @@ interface Avaliacao{
 }
         
 const avalicao_inicial: Avaliacao = {data_avaliacao: "", instrutor_mail: "", instrutor_nome: "",
-                                    altura: 0, peso: 0, idade_metabolica: 0, imc: 0, massa_gorda: 0, massa_magra:0, massa_gorda_img: magro,
+                                    altura: 0, peso: 100, idade_metabolica: 0, imc: 0, massa_gorda: 20, massa_magra:70, massa_gorda_img: magro,
                                     cintura: 0, abdomen: 0, ombro: 0, torax: 0, braco_direito: 0, braco_esquerdo: 0, coxa_direita: 0, coxa_esquerda: 0, gemeo_direito: 0, gemeo_esquerdo: 0, antebraco_direito: 0, antebraco_esquerdo: 0,
                                     comentario: ""}
 
