@@ -5,11 +5,12 @@ import "./css/ConsultarAulasGrupo.css"
 
 import { IonPage, IonHeader, IonTitle, IonToolbar, IonContent, IonIcon, IonRow, IonGrid, IonItem, IonLabel, IonSelect, IonSelectOption, IonCol, IonCard, IonCardHeader, IonCardSubtitle, IonCardTitle } from "@ionic/react";
 import { calendarOutline, bodyOutline, timerOutline, sendOutline, informationOutline } from "ionicons/icons";
+import { getPlanoSemanalAulas } from "../models/API/AulaGrupoAPI";
 
 //---------------------------------------------------------------------------------------------------------------------------------
 
 interface AulaGrupo {
-    hora: Date,
+    hora: string,
     dia: string,
     nome: string,
     lotacao_atual: number,
@@ -17,26 +18,23 @@ interface AulaGrupo {
     duracao: string,
     dificuldade: string,
     instrutor_email: string,
-    espaço_ginasio: string
+    espaco_ginasio: string
 }
 
-var diasDaSemana: string[] = ["Segunda", "Terça", "Quarta", "Quinta", "Sexta", "Sábado", "Domingo"];
+var diasDaSemana: string[] = ["Segunda", "Terca", "Quarta", "Quinta", "Sexta", "Sábado", "Domingo"];
 
 var CyclingIMG = require('../imgs/aulas/cycling.png');
-
-//---------------------------------------------------------------------------------------------------------------------------------
-
-var AulaTestObject: AulaGrupo = {
-    hora: new Date(), //Empty constructor gives the current date
-    dia: "Segunda-feira",
-    nome: "Cycling",
-    lotacao_atual: 12,
-    lotacao_max: 30,
-    duracao: "1h30m",
-    dificuldade: "Médio",
-    instrutor_email: "jose.ne.personal@umfit.com",
-    espaço_ginasio: "Salão A"
-}
+var PilatesIMG = require('../imgs/aulas/pilates.png');
+var CrossTrainingIMG = require('../imgs/aulas/cross-training.png');
+var FuncionalIMG = require('../imgs/aulas/funcional.png');
+var JumpIMG = require('../imgs/aulas/jump.png');
+var KickboxingIMG = require('../imgs/aulas/kickboxing.png');
+var SalsaIMG = require('../imgs/aulas/salsa.png');
+var YogaIMG = require('../imgs/aulas/Yoga.png');
+var LocalIMG = require('../imgs/aulas/local.png');
+var TrxIMG = require('../imgs/aulas/trx.png');
+var ZumbaIMG = require('../imgs/aulas/zumba.png');
+var NatacaoIMG = require('../imgs/aulas/natacao.png');
 
 //---------------------------------------------------------------------------------------------------------------------------------
 
@@ -57,37 +55,39 @@ class ConsultarAulasGrupo extends React.Component<any> {
         }
     }
 
-    componentDidMount() {
+    async componentDidMount() {
 
-        //-------------------------------------------------------------------
-        //Test code to generate AulaGrupo[][]
+        const res = await getPlanoSemanalAulas();
+
+        const json = res.json();
 
         var planoAulasSemanalTest: Map<string, AulaGrupo[]> = new Map();
-        var aulasDoDia           : AulaGrupo[]   = [];
-    
-        for(var i = 0; i < 8; i++) { //8 per day
 
-            var aulaDiff: AulaGrupo = JSON.parse(JSON.stringify(AulaTestObject));
-            var dataHoraNow = new Date();
-            aulaDiff.hora = new Date(dataHoraNow.setHours(dataHoraNow.getHours() + i));
+        json.then((data) => {
 
-            aulasDoDia.push(aulaDiff);
-        } 
-        for(i = 0; i < 7; i++) { //7 days a week
-            planoAulasSemanalTest.set(diasDaSemana[i], aulasDoDia);
-        }
+            var resultObj = JSON.parse(data);
+                       
+            for (var i = 0; i < diasDaSemana.length; i++) {
 
-        //-------------------------------------------------------------------
+                let diaString = diasDaSemana[i];
+                var diaAulas: AulaGrupo[] = resultObj[diaString];
+                
+                planoAulasSemanalTest.set(diaString, diaAulas);
+            }
 
-        this.setState({
-           
-            planoAulasSemanal: planoAulasSemanalTest,
-            
-            //Current day of week as a string
-            diaSelecionado: diasDaSemana[(new Date()).getDay() - 1]
+            var ususalSearchDay = diasDaSemana[(new Date()).getDay() - 1];
 
+            if (ususalSearchDay === "Sábado" || ususalSearchDay === "Domingo") {
+                ususalSearchDay = "Segunda";
+            }
+
+            this.setState({
+                planoAulasSemanal: planoAulasSemanalTest,
+                diaSelecionado: ususalSearchDay
+            });
         });
 
+        //-------------------------------------------------------------------
     }
 
     render() {
@@ -134,14 +134,13 @@ class ConsultarAulasGrupo extends React.Component<any> {
                     </IonGrid>
 
                         <IonGrid>
-                        {
+                        { this.state.planoAulasSemanal.size > 0 ? ( 
                             this.state.planoAulasSemanal.get(this.state.diaSelecionado)?.map(
                                 aulaDoDia => {
                                     return (
-                                        
-                                    <IonRow>
+                                    <IonRow key={aulaDoDia.hora}>
 
-                                        <IonCard key={aulaDoDia.hora.toLocaleTimeString()} className="AulaDia_CardWrapper">
+                                        <IonCard key={aulaDoDia.hora} className="AulaDia_CardWrapper">
                                                     
                                             <IonCardHeader>
 
@@ -151,7 +150,7 @@ class ConsultarAulasGrupo extends React.Component<any> {
 
                                                     <IonCol className="ion-align-self-start">                                                    
                                                         
-                                                        <IonCardTitle className="AulaDia_CardTitle">{aulaDoDia.nome} | {aulaDoDia.duracao}</IonCardTitle>
+                                                        <IonCardTitle className="AulaDia_CardTitle">{aulaDoDia.nome} | {aulaDoDia.hora}</IonCardTitle>
                                                         <br></br>
                                                         <IonCardSubtitle>Dificuldade: {aulaDoDia.dificuldade}</IonCardSubtitle>
                                                         
@@ -172,7 +171,7 @@ class ConsultarAulasGrupo extends React.Component<any> {
                                                         <IonItem>
                                                             <IonIcon icon={sendOutline}></IonIcon>
                                                             <b>&nbsp;&nbsp;</b>
-                                                            <IonLabel><b>Espaço: </b>{aulaDoDia.espaço_ginasio}</IonLabel>
+                                                            <IonLabel><b>Espaço: </b>{aulaDoDia.espaco_ginasio}</IonLabel>
                                                         </IonItem>
 
                                                         <IonItem>
@@ -186,7 +185,24 @@ class ConsultarAulasGrupo extends React.Component<any> {
                                                     <IonCol></IonCol><IonCol></IonCol>
                                                     
                                                     <IonCol className="ion-align-self-end">
-                                                        <img className="aulaImage" src={CyclingIMG} alt="Loading..."/>
+                                                    {(() => {
+                                                        switch(aulaDoDia.nome) {
+
+                                                            case 'Cycling': return <img className="aulaImage" src={CyclingIMG} alt="Loading..."/>;
+                                                            case 'Pilates': return <img className="aulaImage" src={PilatesIMG} alt="Loading..."/>;
+                                                            case 'Cross Training': return <img className="aulaImage" src={CrossTrainingIMG} alt="Loading..."/>;
+                                                            case 'Local': return <img className="aulaImage" src={LocalIMG} alt="Loading..."/>;
+                                                            case 'Jump': return <img className="aulaImage" src={JumpIMG} alt="Loading..."/>;
+                                                            case 'Kickboxing': return <img className="aulaImage" src={KickboxingIMG} alt="Loading..."/>;
+                                                            case 'Funcional': return <img className="aulaImage" src={FuncionalIMG} alt="Loading..."/>;
+                                                            case 'Salsa': return <img className="aulaImage" src={SalsaIMG} alt="Loading..."/>;
+                                                            case 'Yoga': return <img className="aulaImage" src={YogaIMG} alt="Loading..."/>;
+                                                            case 'Zumba': return <img className="aulaImage" src={ZumbaIMG} alt="Loading..."/>;
+                                                            case 'TRX': return <img className="aulaImage" src={TrxIMG} alt="Loading..."/>;
+                                                            case 'Natação': return <img className="aulaImage" src={NatacaoIMG} alt="Loading..."/>;
+                                                        
+                                                        }
+                                                    })()}
                                                     </IonCol>
 
                                                 </IonRow>
@@ -200,7 +216,7 @@ class ConsultarAulasGrupo extends React.Component<any> {
                                     </IonRow>
                                     );
                                 }
-                            )
+                            )) : <div>nao ha aulas</div>
                         }
                         </IonGrid>
 

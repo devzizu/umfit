@@ -74,6 +74,12 @@ const appPagesCliente: AppPage[] = [
     mdIcon: analyticsOutline
   },
   {
+    title: 'Última Avaliação',
+    url: '/profile/avaliacao',
+    iosIcon: analyticsOutline,
+    mdIcon: analyticsOutline
+  },
+  {
     title: 'Log-Out',
     url: '/profile/logout',
     iosIcon: logOutOutline,
@@ -156,7 +162,13 @@ const appPagesTreinador: AppPage[] = [
     url: '/profile/planoalimentar',
     iosIcon: pizzaOutline,
     mdIcon: pizzaOutline
-  },  
+  },
+  {
+    title: 'Consultar Avaliação de Cliente',
+    url: '/profile/avaliacao',
+    iosIcon: analyticsOutline,
+    mdIcon: analyticsOutline
+  },
   {
     title: 'Log-Out',
     url: '/profile/logout',

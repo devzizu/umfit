@@ -27,7 +27,7 @@ namespace UMFit_WebAPI.Controllers
             sendJson.Add("Quarta", DiaToJson(_system.GetAulasDia("Quarta")));
             sendJson.Add("Quinta", DiaToJson(_system.GetAulasDia("Quinta")));
             sendJson.Add("Sexta", DiaToJson(_system.GetAulasDia("Sexta")));
-            Console.WriteLine(sendJson.ToString());
+            
             return (Ok(
                 sendJson.ToString()
             ));
@@ -39,9 +39,12 @@ namespace UMFit_WebAPI.Controllers
             JObject iter = new JObject();
             foreach (var e in dia)
             {
-                iter.Add("minutos", e.hora.TotalMinutes);
+                iter.Add("hora", e.hora.Hours + "h" + e.hora.Minutes);
+                iter.Add("dia", e.dia);
+                iter.Add("nome", e.nome);
                 iter.Add("lotacao_atual", e.lotaçao_Atual);
                 iter.Add("lotacao_max", e.lotaçao_Max);
+                iter.Add("duracao", e.duraçao);
                 iter.Add("dificuldade", e.dificuldade);
                 iter.Add("instrutor_email", e.instrutor_email);
                 iter.Add("espaco_ginasio", e.espaço_ginasio);

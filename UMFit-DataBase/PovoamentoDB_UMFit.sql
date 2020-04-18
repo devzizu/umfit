@@ -103,7 +103,7 @@ values ("a83719@alunos.uminho.pt", "Sala de Musculação");
 
 -- Segunda 
 insert into Aula_Grupo 
-values (1, "08:00:00", "Segunda", "Cross Trainning", 0, 30, "1h:00m", "Moderado",
+values (1, "08:00:00", "Segunda", "Cross Training", 0, 30, "1h:00m", "Moderado",
 "a85227@alunos.uminho.pt", "Sala 1 de aulas de grupo");
 
 insert into Aula_Grupo
@@ -127,7 +127,7 @@ values (6, "16:30:00", "Segunda", "Salsa", 0, 20, "0h:30m", "Não definido",
 "anaSILVa@hotmail.com", "Sala 2 de aulas de grupo");
 
 insert into Aula_Grupo
-values (7, "17:00:00", "Segunda", "Local", 0, 30, "1h:00m", "Não definido",
+values (7, "17:00:00", "Segunda", "Zumba", 0, 30, "1h:00m", "Não definido",
 "anaSILVa@hotmail.com", "Sala 1 de aulas de grupo");
 
 insert into Aula_Grupo
@@ -168,11 +168,11 @@ values (14, "16:30:00", "Terça", "Cycling", 0, 30, "0h:30m", "Moderado",
 "a85227@alunos.uminho.pt", "Sala 1 de aulas de grupo");
 
 insert into Aula_Grupo
-values (15, "17:00:00", "Terça", "G.A.P.", 0, 30, "0h:30m", "Não definido",
+values (15, "17:00:00", "Terça", "Cycling", 0, 30, "0h:30m", "Não definido",
 "a85227@alunos.uminho.pt", "Sala 1 de aulas de grupo");
 
 insert into Aula_Grupo
-values (16, "17:30:00", "Terça", "Dance Workout", 0, 20, "0h:30m", "Não definido",
+values (16, "17:30:00", "Terça", "Salsa", 0, 20, "0h:30m", "Não definido",
 "anaSILVa@hotmail.com", "Sala 2 de aulas de grupo");
 
 insert into Aula_Grupo
@@ -180,7 +180,7 @@ values (17, "18:00:00", "Terça", "Pilates", 0, 30, "0h:30m", "Não definido",
 "joseCarv@gmail.com", "Sala 1 de aulas de grupo");
 
 insert into Aula_Grupo
-values (18, "18:30:00", "Terça", "Aerolocal", 0, 30, "1h:00m", "Não definido",
+values (18, "18:30:00", "Terça", "Local", 0, 30, "1h:00m", "Não definido",
 "a89983@alunos.uminho.pt", "Sala 1 de aulas de grupo");
 
 insert into Aula_Grupo
@@ -193,11 +193,11 @@ values (20, "08:00:00", "Quarta", "Local", 0, 30, "1h:00m", "Moderado",
 "mariCst@gmail.com", "Sala 1 de aulas de grupo");
 
 insert into Aula_Grupo
-values (21, "09:00:00", "Quarta", "Cycling", 0, 30, "1h:00m", "Fácil",
+values (21, "09:00:00", "Quarta", "TRX", 0, 30, "1h:00m", "Fácil",
 "a89983@alunos.uminho.pt", "Sala 1 de aulas de grupo");
 
 insert into Aula_Grupo
-values (22, "10:00:00", "Quarta", "G.A.P.", 0, 30, "1h:00m", "Não definido",
+values (22, "10:00:00", "Quarta", "Funcional", 0, 30, "1h:00m", "Não definido",
 "a85227@alunos.uminho.pt", "Sala 1 de aulas de grupo");
 
 insert into Aula_Grupo
@@ -209,7 +209,7 @@ values (24, "16:30:00", "Quarta", "Jump", 0, 30, "0h:30m", "Não definido",
 "joseCarv@gmail.com", "Sala 1 de aulas de grupo");
 
 insert into Aula_Grupo
-values (25, "17:00:00", "Quarta", "Steel Tonic", 0, 30, "1h:00m", "Moderado",
+values (25, "17:00:00", "Quarta", "TRX", 0, 30, "1h:00m", "Moderado",
 "mariCst@gmail.com", "Sala 1 de aulas de grupo");
 
 insert into Aula_Grupo
@@ -217,7 +217,7 @@ values (26, "18:00:00", "Quarta", "Natação", 0, 20, "1h:00m", "Moderado",
 "a85227@alunos.uminho.pt", "Piscina");
 
 insert into Aula_Grupo
-values (27, "19:30:00", "Quarta", "TRX", 0, 30, "1h:00m", "Moderado",
+values (27, "19:30:00", "Quarta", "Zumba", 0, 30, "1h:00m", "Moderado",
 "mariCst@gmail.com", "Sala 1 de aulas de grupo");
 
 -- Quinta
@@ -230,11 +230,11 @@ values (29, "08:00:00", "Quinta", "Pilates", 0, 20, "1h:00m", "Não definido",
 "anaSILVa@hotmail.com", "Sala 2 de aulas de grupo");
 
 insert into Aula_Grupo
-values (30, "09:00:00", "Quinta", "G.A.P.", 0, 30, "1h:00m", "Não definido",
+values (30, "09:00:00", "Quinta", "Funcional", 0, 30, "1h:00m", "Não definido",
 "a89983@alunos.uminho.pt", "Sala 1 de aulas de grupo");
 
 insert into Aula_Grupo
-values (31, "10:00:00", "Quinta", "Pilates", 0, 20, "0h:30m", "Não definido",
+values (31, "10:00:00", "Quinta", "Salsa", 0, 20, "0h:30m", "Não definido",
 "anaSILVa@hotmail.com", "Sala 2 de aulas de grupo");
 
 insert into Aula_Grupo
@@ -250,7 +250,7 @@ values (34, "17:30:00", "Quinta", "Cycling", 0, 30, "1h:00m", "Difícil",
 "a85227@alunos.uminho.pt", "Sala 1 de aulas de grupo");
 
 insert into Aula_Grupo
-values (35, "18:30:00", "Quinta", "Aerolocal", 0, 30, "1h:00m", "Moderado",
+values (35, "18:30:00", "Quinta", "Local", 0, 30, "1h:00m", "Moderado",
 "mariCst@gmail.com", "Sala 1 de aulas de grupo");
 
 -- Sexta
@@ -271,7 +271,7 @@ values (39, "10:00:00", "Sexta", "Pilates", 0, 20, "0h:30m", "Não definido",
 "anaSILVa@hotmail.com", "Sala 2 de aulas de grupo");
 
 insert into Aula_Grupo
-values (40, "15:00:00", "Sexta", "Zumba", 0, 30, "1h:00m", "Fácil",
+values (40, "15:00:00", "Sexta", "Salsa", 0, 30, "1h:00m", "Fácil",
 "mariCst@gmail.com", "Sala 1 de aulas de grupo");
 
 insert into Aula_Grupo
@@ -283,7 +283,7 @@ values (42, "17:30:00", "Sexta", "Cycling", 0, 30, "1h:00m", "Difícil",
 "a85227@alunos.uminho.pt", "Sala 1 de aulas de grupo");
 
 insert into Aula_Grupo
-values (43, "18:30:00", "Sexta", "Aerolocal", 0, 30, "1h:00m", "Moderado",
+values (43, "18:30:00", "Sexta", "Funcional", 0, 30, "1h:00m", "Moderado",
 "mariCst@gmail.com", "Sala 1 de aulas de grupo");
 
 insert into Aula_Grupo
