@@ -75,11 +75,14 @@ class ConsultarAulasGrupo extends React.Component<any> {
                 planoAulasSemanalTest.set(diaString, diaAulas);
             }
 
+            var day = (new Date()).getDay() - 1;
             var ususalSearchDay = diasDaSemana[(new Date()).getDay() - 1];
-
-            if (ususalSearchDay === "Sábado" || ususalSearchDay === "Domingo") {
+            var notUsual: Set<String> = new Set(["Sábado", "Domingo"]);
+            if (notUsual.has(ususalSearchDay) || day === -1) {
                 ususalSearchDay = "Segunda";
             }
+
+            console.log("::: " + ((new Date()).getDay() - 1));
 
             this.setState({
                 planoAulasSemanal: planoAulasSemanalTest,

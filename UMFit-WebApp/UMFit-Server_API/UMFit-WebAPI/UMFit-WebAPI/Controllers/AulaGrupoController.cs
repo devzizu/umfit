@@ -21,7 +21,7 @@ namespace UMFit_WebAPI.Controllers
         public ActionResult<string> Aulas()
         {
             JObject sendJson = new JObject();
-            List<AulaGrupo> tst;
+            //List<AulaGrupo> tst;
             sendJson.Add("Segunda",DiaToJson(_system.GetAulasDia("Segunda")));
             sendJson.Add("Terca", DiaToJson(_system.GetAulasDia("Terca")));
             sendJson.Add("Quarta", DiaToJson(_system.GetAulasDia("Quarta")));
