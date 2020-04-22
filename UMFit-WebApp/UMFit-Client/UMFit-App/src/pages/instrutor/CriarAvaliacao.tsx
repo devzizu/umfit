@@ -3,16 +3,14 @@ import React from "react";
 import { IonPage, IonHeader, IonToolbar, IonTitle, IonFooter, IonContent, IonCard, IonCardContent, IonSearchbar, IonInput, IonItem, IonList, IonText, IonLabel, IonRadio, IonRadioGroup, IonButton, IonIcon, IonRow, IonCol, IonGrid} from "@ionic/react";
 import "../css/CriarAvaliacao.css"
 import {addCircleSharp, closeCircleSharp, addOutline, trashOutline } from "ionicons/icons";
-import { Avaliacao, Exercicio } from "../../models/Other/Avaliacao";
+import { Avaliacao, ComposicaoCorporal, Perimetros } from "../../models/Other/Avaliacao";
 
-class CriarPlanoTreino extends React.Component<any>{
+class CriarAvaliacao extends React.Component<any>{
 
     state: {
-        
-        nome_treino: string
-        tipo_treino: string
-        grup_muscular: string
-        frequencia: string
+
+        composicao_corporal: ComposicaoCorporal
+        perimetros: Perimetros
 
         lista_mails_inicial: Array<string>
         mail_inserido: string
@@ -20,25 +18,38 @@ class CriarPlanoTreino extends React.Component<any>{
         user_mail: string
         user_nome: string
 
-        lista_ex_inicial: Array<string>
-        lista_ex_selecionados: Array<Exercicio>
-
-        nome_exercicio: string
-        exercicio: Exercicio
-        
         avaliacao: Avaliacao
     }
 
     constructor(props: any) {
 
         super(props);
-    
+
         this.state = {
 
-            nome_treino: "",
-            tipo_treino: "",
-            grup_muscular: "",
-            frequencia: "",
+            composicao_corporal: {
+                peso: "",
+                altura: "",
+                imc: "",
+                idade_metabolica: "",
+                massa_magra: "",
+                massa_gorda: ""
+            },
+
+            perimetros: {
+                cintura: "",
+                abdomen: "",
+                ombro: "",
+                torax: "",
+                braco_dir: "",
+                braco_esq: "",
+                coxa_dir: "",
+                coxa_esq: "",
+                gemeo_dir: "",
+                gemeo_esq: "",
+                antebraco_dir: "",
+                antebraco_esq: ""
+            },
 
             lista_mails_inicial: new Array<string>(),
             mail_inserido: "",
@@ -46,20 +57,10 @@ class CriarPlanoTreino extends React.Component<any>{
             user_mail: "",
             user_nome: "",
 
-            lista_ex_inicial: new Array<string>(),
-            lista_ex_selecionados: new Array<Exercicio>(),
+            avaliacao : new Avaliacao(  new ComposicaoCorporal("","","","","",""),
+                                        new Perimetros("","","","","","","","","","","",""))
 
-            nome_exercicio: "",
-
-            exercicio: {
-                nome: "",
-                nm_repeticoes: "", 
-                nm_series: ""
-            },
-
-            avaliacao : new Avaliacao("","","","", new Array<Exercicio>())
-
-        }        
+        }
     }
 
     setUserMail(mail: any){
@@ -67,63 +68,77 @@ class CriarPlanoTreino extends React.Component<any>{
         this.setState({user_mail: mail})
     }
 
-    setNomeTreino(nome: any){
+    setPesoCC(peso: any){
 
-        this.setState({nome_treino: nome})
+        this.setState({composicao_corporal: Object.assign(this.state.composicao_corporal,{peso: peso})})
     }
 
-    setTipo(tip: any) {
-        this.setState({tipo_treino: tip})
-    }
-    
-    setGrpMu(grp: any) {
-        this.setState({grup_muscular: grp})
-    }
-    
-    setFreq(freq: any) {
-        this.setState({frequencia: freq})
+    setAlturaCC(altura: any) {
+        this.setState({composicao_corporal: Object.assign(this.state.composicao_corporal,{altura: altura})})
     }
 
-    setNovoEx(string: string){
-
-        this.setState({exercicio: Object.assign(this.state.exercicio,{nome: string})})
- 
+    setImcCC(imc: any) {
+        this.setState({composicao_corporal: Object.assign(this.state.composicao_corporal,{imc: imc})})
     }
 
-    setNomeEx(nome: any){
-
-        this.setState({botao_premido: true})
-        this.setState({exercicio: Object.assign(this.state.exercicio,{nome: nome})})
+    setIdadeMetabolicaCC(idadeMeta: any) {
+        this.setState({composicao_corporal: Object.assign(this.state.composicao_corporal,{idade_metabolica: idadeMeta})})
     }
 
-    setRepeticoesEx(nr_reps: any){
-
-        this.setState({exercicio: Object.assign(this.state.exercicio,{nm_repeticoes: nr_reps})})
+    setMassaMagraCC(massa: any){
+        this.setState({composicao_corporal: Object.assign(this.state.composicao_corporal,{massa_magra: massa})})
     }
 
-    setSeriesEx(nr_sers: any){
-
-        this.setState({exercicio: Object.assign(this.state.exercicio,{nm_series: nr_sers})})
+    setMassaGordaCC(massa: any){
+        this.setState({composicao_corporal: Object.assign(this.state.composicao_corporal,{massa_gorda: massa})})
     }
 
-    addExercicio(){
-
-        console.log("ADICIONEI EXERCICIO")
-        var list_ex = JSON.parse(JSON.stringify(this.state.lista_ex_selecionados))
-
-        var Exercicio = JSON.parse(JSON.stringify(this.state.exercicio))
-
-        list_ex.push(Exercicio)
-        this.setState({lista_ex_selecionados: list_ex})
+    setCinturaP(cintura: any){
+        this.setState({perimetros: Object.assign(this.state.perimetros,{cintura: cintura})})
     }
 
-    rmExercico(indice : any){
+    setAbdomenP(abdomen: any){
+        this.setState({perimetros: Object.assign(this.state.perimetros,{abdomen: abdomen})})
+    }
 
-        var list_ex = JSON.parse(JSON.stringify(this.state.lista_ex_selecionados))
+    setOmbroP(ombro: any){
+        this.setState({perimetros: Object.assign(this.state.perimetros,{ombro: ombro})})
+    }
 
-        list_ex.splice(indice, 1)
+    setToraxP(torax: any){
+        this.setState({perimetros: Object.assign(this.state.perimetros,{torax: torax})})
+    }
 
-        this.setState({lista_ex_selecionados: list_ex})
+    setBracoDirP(braco: any){
+        this.setState({perimetros: Object.assign(this.state.perimetros,{braco_dir: braco})})
+    }
+
+    setBracoEsqP(braco: any){
+        this.setState({perimetros: Object.assign(this.state.perimetros,{braco_esq: braco})})
+    }
+
+    setCoxaDirP(coxa: any){
+        this.setState({perimetros: Object.assign(this.state.perimetros,{coxa_dir: coxa})})
+    }
+
+    setCoxaEsqP(coxa: any){
+        this.setState({perimetros: Object.assign(this.state.perimetros,{coxa_esq: coxa})})
+    }
+
+    setGemeoDirP(gemeo: any){
+        this.setState({perimetros: Object.assign(this.state.perimetros,{gemeo_dir: gemeo})})
+    }
+
+    setGemeoEsqP(gemeo: any){
+        this.setState({perimetros: Object.assign(this.state.perimetros,{gemeo_esq: gemeo})})
+    }
+
+    setAntebracoDirP(antebraco: any){
+        this.setState({perimetros: Object.assign(this.state.perimetros,{antebraco_dir: antebraco})})
+    }
+
+    setAntebracoEsqP(antebraco: any){
+        this.setState({perimetros: Object.assign(this.state.perimetros,{antebraco_esq: antebraco})})
     }
 
     setSearchMail(stringSearch: any){
@@ -131,86 +146,80 @@ class CriarPlanoTreino extends React.Component<any>{
         this.setState({mail_inserido: stringSearch})
     }
 
-    setSearchExercicio(stringSearch: any) {
-        
-        this.setState({nome_exercicio: stringSearch})
-
-    }      
-
-    limparPlanoTreino(){
+    limparAvaliacao(){
 
 
 
         this.setState({
 
-            nome_treino: "",
-            tipo_treino: "",
-            grup_muscular: "",
-            frequencia: "",
+            composicao_corporal: {
+                peso: "",
+                altura: "",
+                imc: "",
+                idade_metabolica: "",
+                massa_magra: "",
+                massa_gorda: ""
+            },
 
-            lista_ex_selecionados: new Array<Exercicio>(),
-
-            nome_exercicio: "",
-
-            exercicio: {
-                nome: "",
-                nm_repeticoes: "", 
-                nm_series: ""
+            perimetros: {
+                cintura: "",
+                abdomen: "",
+                ombro: "",
+                torax: "",
+                braco_dir: "",
+                braco_esq: "",
+                coxa_dir: "",
+                coxa_esq: "",
+                gemeo_dir: "",
+                gemeo_esq: "",
+                antebraco_dir: "",
+                antebraco_esq: ""
             }
         })
     }
 
-    addPlanoTreino(){
+    addAvaliacao(){
 
-        var pt: Avaliacao = new Avaliacao(  this.state.nome_treino, 
-                                                this.state.tipo_treino, 
-                                                this.state.grup_muscular, 
-                                                this.state.frequencia, 
-                                                this.state.lista_ex_selecionados)
+        var pt: Avaliacao = new Avaliacao(  this.state.composicao_corporal,
+                                                this.state.perimetros)
 
         var resultado = {
 
             email: this.state.user_mail,
-            planotreino: pt
+            avaliacao_cliente: pt
         }
-        
+
         console.log(resultado)
     }
 
     componentDidMount(){
-    
-        this.setState({lista_ex_inicial: ["Supino Reto","Supino Inclinado","Supino Declinado","Supino c/halters","Pack Deck","Aberturas","Cross-Over","Flexoes","Tricep Francês","Barra à Testa","Afundos","Bicep Curl","Bicep Martelo","Bicep Concentrado","Bicep c/barra","Elevaçoes"]});    
+
+        this.setState({lista_ex_inicial: ["Supino Reto","Supino Inclinado","Supino Declinado","Supino c/halters","Pack Deck","Aberturas","Cross-Over","Flexoes","Tricep Francês","Barra à Testa","Afundos","Bicep Curl","Bicep Martelo","Bicep Concentrado","Bicep c/barra","Elevaçoes"]});
         this.setState({lista_mails_inicial: ["paulo.280999@gmail.com", "firmino.100999@gmail.com", "amelia.280999@gmail.com", "dillaz.280999@gmail.com", "bispo.280999@gmail.com", "nbc.280999@gmail.com"]})
-        
+
     }
-    
+
 
     render(){
-    
-    const query = this.state.nome_exercicio
+
     const mail = this.state.mail_inserido
-    
-    var lista_ex_resultado = this.state.lista_ex_inicial.filter(function(value){
-        return value.toLowerCase().indexOf(query.toLowerCase()) >= 0;})    
 
     var lista_mails_resultado = this.state.lista_mails_inicial.filter(function(value){
-        return value.toLowerCase().indexOf(mail.toLowerCase()) >= 0;})    
+        return value.toLowerCase().indexOf(mail.toLowerCase()) >= 0;})
 
-    console.log(this.state.exercicio.nome)
-    
     return(
       <IonPage>
 
         <IonHeader>
           <IonToolbar color="primary">
-            <IonTitle id="page-title">Criar Avaliação</IonTitle>
+            <IonTitle className="title" id="page-title">Criar Avaliação</IonTitle>
           </IonToolbar>
         </IonHeader>
 
         <IonContent>
 
             <IonCard className="card-left">
-                <IonText className="text-title">Email:</IonText>            
+                <IonText className="text-title">Email:</IonText>
             </IonCard>
 
             <IonGrid className="layout-selecao-mails">
@@ -218,8 +227,8 @@ class CriarPlanoTreino extends React.Component<any>{
                 <IonRow >
                     <IonCol>
                         <IonSearchbar className="background-orange"
-                                    placeholder="email do cliente" 
-                                    value={this.state.mail_inserido} 
+                                    placeholder="email do cliente"
+                                    value={this.state.mail_inserido}
                                     onIonChange={e => this.setSearchMail(e.detail.value!)}>
                         </IonSearchbar>
                     </IonCol>
@@ -237,22 +246,22 @@ class CriarPlanoTreino extends React.Component<any>{
                                                         <IonLabel class="ion-text-wrap">{s}</IonLabel>
                                                         <IonRadio value={s} slot="end"/>
                                                     </IonItem>)
-                                            })      
-                                    }  
+                                            })
+                                    }
                                 </IonRadioGroup>
                             </IonList>
                         </IonContent>
                     </IonCol>
                 </IonRow>
 
-            </IonGrid>      
-            
+            </IonGrid>
+
             <div className="separador"></div>
 
             <IonCard className="card-left">
-                <IonText className="text-title">Utilizador Selecionado:</IonText>            
+                <IonText className="text-title">Utilizador Selecionado:</IonText>
             </IonCard>
-            
+
             <IonCard className="card-left">
                 <img src={require('../../imgs/perfil_pic.png')} width="100" height="100" alt="Loading..."/>
                 <IonCardContent>
@@ -262,70 +271,137 @@ class CriarPlanoTreino extends React.Component<any>{
                     <b>Email:</b> {this.state.user_mail}
                 </IonCardContent>
             </IonCard>
-        
+
             <div className="separador"></div>
 
             <IonCard className="card-left">
-                <IonText className="text-title">Inserir dados para avaliação:</IonText>            
+                <IonText className="text-title">Inserir dados para avaliação:</IonText>
             </IonCard>
 
+            <IonCard className="card-left">
+                <IonText className="text-title">Composição Corporal</IonText>
+            </IonCard>
 
-            <IonCard className="card-center"> 
-                <IonList className="descricao-plano">
+            <IonCard className="card-center">
+                <IonList className="descricao-avaliacao">
                     <IonItem >
-                        <IonLabel class="ion-text-wrap">Nome: </IonLabel>
-                        <IonInput value={this.state.nome_treino} onIonChange={e => {this.setNomeTreino(e.detail.value)}}/>
+                        <IonLabel class="ion-text-wrap">Peso: </IonLabel>
+                        <IonInput value={this.state.composicao_corporal.peso} onIonChange={e => {this.setPesoCC(e.detail.value)}}/>
                     </IonItem>
 
                     <IonItem>
-                        <IonLabel class="ion-text-wrap">Tipo: </IonLabel>
-                        <IonInput value={this.state.tipo_treino} onIonChange={e => {this.setTipo(e.detail.value)}}/>
+                        <IonLabel class="ion-text-wrap">Altura: </IonLabel>
+                        <IonInput value={this.state.composicao_corporal.altura} onIonChange={e => {this.setAlturaCC(e.detail.value)}}/>
                     </IonItem>
 
                     <IonItem>
-                        <IonLabel class="ion-text-wrap">Grupos Musculares: </IonLabel>
-                        <IonInput value={this.state.grup_muscular} onIonChange={e => {this.setGrpMu(e.detail.value)}}/>
+                        <IonLabel class="ion-text-wrap">IMC: </IonLabel>
+                        <IonInput value={this.state.composicao_corporal.imc} onIonChange={e => {this.setImcCC(e.detail.value)}}/>
                     </IonItem>
 
                     <IonItem>
-                        <IonLabel class="ion-text-wrap">Frequência Recomendada: </IonLabel>
-                        <IonInput value={this.state.frequencia} onIonChange={e => {this.setFreq(e.detail.value)}}/>
+                        <IonLabel class="ion-text-wrap">Idade Metabólica: </IonLabel>
+                        <IonInput value={this.state.composicao_corporal.idade_metabolica} onIonChange={e => {this.setIdadeMetabolicaCC(e.detail.value)}}/>
                     </IonItem>
-                </IonList> 
+
+                    <IonItem>
+                        <IonLabel class="ion-text-wrap">Massa Magra: </IonLabel>
+                        <IonInput value={this.state.composicao_corporal.massa_magra} onIonChange={e => {this.setMassaMagraCC(e.detail.value)}}/>
+                    </IonItem>
+                    <IonItem>
+                        <IonLabel class="ion-text-wrap">Massa Gorda: </IonLabel>
+                        <IonInput value={this.state.composicao_corporal.massa_gorda} onIonChange={e => {this.setMassaGordaCC(e.detail.value)}}/>
+                    </IonItem>
+                </IonList>
             </IonCard>
-            
-            <div className="separador"></div>
 
             <IonCard className="card-left">
-                <IonText className="text-title">Seleção de Exercícios:</IonText>            
+                <IonText className="text-title">Perimetros</IonText>
             </IonCard>
-            
-            <div className="separador"></div>           
 
-            <IonGrid className="grid-exercicios">
+            <IonCard className="card-center">
+                <IonList className="descricao-avaliacao">
+                    <IonItem >
+                        <IonLabel class="ion-text-wrap">Cintura: </IonLabel>
+                        <IonInput value={this.state.perimetros.cintura} onIonChange={e => {this.setCinturaP(e.detail.value)}}/>
+                    </IonItem>
+
+                    <IonItem>
+                        <IonLabel class="ion-text-wrap">Abdomen: </IonLabel>
+                        <IonInput value={this.state.perimetros.abdomen} onIonChange={e => {this.setAbdomenP(e.detail.value)}}/>
+                    </IonItem>
+
+                    <IonItem>
+                        <IonLabel class="ion-text-wrap">Ombro: </IonLabel>
+                        <IonInput value={this.state.perimetros.ombro} onIonChange={e => {this.setOmbroP(e.detail.value)}}/>
+                    </IonItem>
+
+                    <IonItem>
+                        <IonLabel class="ion-text-wrap">Torax: </IonLabel>
+                        <IonInput value={this.state.perimetros.torax} onIonChange={e => {this.setToraxP(e.detail.value)}}/>
+                    </IonItem>
+
+                    <IonItem>
+                        <IonLabel class="ion-text-wrap">Braço Direito: </IonLabel>
+                        <IonInput value={this.state.perimetros.braco_dir} onIonChange={e => {this.setBracoDirP(e.detail.value)}}/>
+                    </IonItem>
+                    <IonItem>
+                        <IonLabel class="ion-text-wrap">Braço Esquerdo: </IonLabel>
+                        <IonInput value={this.state.perimetros.braco_esq} onIonChange={e => {this.setBracoEsqP(e.detail.value)}}/>
+                    </IonItem>
+                    <IonItem>
+                        <IonLabel class="ion-text-wrap">Coxa Direita: </IonLabel>
+                        <IonInput value={this.state.perimetros.coxa_dir} onIonChange={e => {this.setCoxaDirP(e.detail.value)}}/>
+                    </IonItem>
+                    <IonItem>
+                        <IonLabel class="ion-text-wrap">Coxa Esquerda: </IonLabel>
+                        <IonInput value={this.state.perimetros.coxa_esq} onIonChange={e => {this.setCoxaEsqP(e.detail.value)}}/>
+                    </IonItem>
+                    <IonItem>
+                        <IonLabel class="ion-text-wrap">Gemeo Direito: </IonLabel>
+                        <IonInput value={this.state.perimetros.gemeo_dir} onIonChange={e => {this.setGemeoDirP(e.detail.value)}}/>
+                    </IonItem>
+                    <IonItem>
+                        <IonLabel class="ion-text-wrap">Gemeo Esquerdo: </IonLabel>
+                        <IonInput value={this.state.perimetros.gemeo_esq} onIonChange={e => {this.setGemeoEsqP(e.detail.value)}}/>
+                    </IonItem>
+                    <IonItem>
+                        <IonLabel class="ion-text-wrap">Antebraço Direito: </IonLabel>
+                        <IonInput value={this.state.perimetros.antebraco_dir} onIonChange={e => {this.setAntebracoDirP(e.detail.value)}}/>
+                    </IonItem>
+                    <IonItem>
+                        <IonLabel class="ion-text-wrap">Antebraço Esquerdo: </IonLabel>
+                        <IonInput value={this.state.perimetros.antebraco_esq} onIonChange={e => {this.setAntebracoEsqP(e.detail.value)}}/>
+                    </IonItem>
+                </IonList>
+            </IonCard>
+
+            <div className="separador"></div>
+
+            <IonGrid className="grid-avaliacao">
                 <IonRow>
 
                     <IonCol>
-                            <IonButton size="large" className="botao" color= "success" onClick={async () => {this.limparPlanoTreino.call(this)}}>
+                            <IonButton size="large" className="botao" color= "success" onClick={async () => {this.limparAvaliacao.call(this)}}>
                                 <IonText> Limpar Avaliação</IonText>
                                 <IonIcon slot="icon-only" icon={trashOutline}/>
                             </IonButton>
                     </IonCol>
 
                     <IonCol>
-                        
-                            <IonButton size="large" className="botao" onClick={async () => {this.addPlanoTreino.call(this)}}>
+
+                            <IonButton size="large" className="botao" onClick={async () => {this.addAvaliacao.call(this)}}>
                                 <IonText> Adicionar Avaliação</IonText>
                                 <IonIcon slot="icon-only" icon={addOutline}/>
                             </IonButton>
-                       
+
                     </IonCol>
-                    
+
                 </IonRow>
             </IonGrid>
 
         </IonContent>
- 
+
         <IonFooter class="ion-no-border">
             <IonContent className="info-text"> © UMFit - 2020</IonContent>
         </IonFooter>
@@ -333,8 +409,7 @@ class CriarPlanoTreino extends React.Component<any>{
       </IonPage>
     );
     }
-    
+
 }
 
-export default CriarPlanoTreino;
-
+export default CriarAvaliacao;
