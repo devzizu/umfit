@@ -1,0 +1,88 @@
+.separador{
+    
+    margin-top: 2.5%;
+    border: 1px solid rgb(246, 199, 167);
+    margin-bottom: 2.5%;
+    margin-left: 5%;
+    margin-right: 5%;
+ }
+ 
+.margens{
+
+    margin-left: 2.5%;
+    margin-right: 2.5%;
+}
+
+.margens-exercicio{
+
+    margin-left: 5%;
+    margin-right: 5%;
+}
+
+.background-orange{
+
+    background: rgb(245, 226, 214);
+}
+
+.background-white{
+
+    background: rgb(255, 255, 255);
+}
+
+.nome-treino{
+
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 30px; 
+}
+
+.nome-exercicio{
+
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 25px; 
+}
+
+.text-title{
+
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 20px; 
+}
+
+.margens-centrar{
+
+    margin-top: 5%;
+
+    text-align: center;
+}
+
+
+.margens-nomes{
+
+    padding: 2.5%;
+}
+
+.botao{
+
+    margin-top: 7.5%;
+}
+
+.esq{
+
+    text-align: left;
+    margin-left: 5%;
+}
+
+.dir{
+
+    text-align: right;
+    margin-right: 5%;
+}
+
+.card-exercicio{
+
+    background: rgb(255, 255, 255);
+    border-style: solid;
+    border-color: black;
+    margin-bottom: 2.5%;
+    width: 90%;
+    margin-left: 5%;
+}

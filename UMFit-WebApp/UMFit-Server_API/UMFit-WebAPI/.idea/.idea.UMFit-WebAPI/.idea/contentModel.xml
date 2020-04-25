@@ -24,6 +24,8 @@
               <e p="AulaGrupo.cs" t="Include" />
               <e p="AulaGrupoDAO.cs" t="Include" />
               <e p="AvaliaçaoDAO.cs" t="Include" />
+              <e p="PlanoAlimentarDAO.cs" t="Include" />
+              <e p="PlanoTreinoDAO.cs" t="Include" />
               <e p="UtilizadorDAO.cs" t="Include" />
             </e>
             <e p="DataBaseConnector.cs" t="Include" />
@@ -41,7 +43,16 @@
               <e p="Perimetros.cs" t="Include" />
               <e p="Registo_Avaliaçao.cs" t="Include" />
             </e>
-            <e p="Planos" t="Include" />
+            <e p="Planos" t="Include">
+              <e p="PlanoAlimentar" t="Include">
+                <e p="PlanoAlimentar.cs" t="Include" />
+                <e p="Refeicao.cs" t="Include" />
+              </e>
+              <e p="PlanoTreino" t="Include">
+                <e p="Exercicio.cs" t="Include" />
+                <e p="PlanoTreino.cs" t="Include" />
+              </e>
+            </e>
             <e p="UMFit_LN.cs" t="Include" />
             <e p="Utilizadores" t="Include">
               <e p="Cliente.cs" t="Include" />

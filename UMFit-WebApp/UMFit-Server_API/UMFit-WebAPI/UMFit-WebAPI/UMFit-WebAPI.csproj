@@ -15,9 +15,5 @@
       <Compile Remove="Models\UMFit_LN\Planos\PlanoTreino.cs" />
     </ItemGroup>
 
-    <ItemGroup>
-      <Folder Include="Models\UMFit_LN\Planos" />
-    </ItemGroup>
-
 
 </Project>

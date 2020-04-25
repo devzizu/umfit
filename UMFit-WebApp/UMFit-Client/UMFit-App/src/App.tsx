@@ -51,6 +51,7 @@ import CriarPlanoAlimentar from './pages/instrutor/CriarPlanoAlimentar';
 import ConsultarAulasGrupo from './pages/ConsultarAulasGrupo';
 import UltimaAvaliacao from './pages/user/UltimaAvaliacao';
 import UltimaAvaliacaoInstrutor from './pages/instrutor/UltimaAvaliacaoInstrutor';
+import ShowPlanoTreino from './pages/user/ShowPlanoTreino';
 
 //---------------------------------------------------------------------------------------
 
@@ -297,6 +298,8 @@ class ProfileCliente extends React.Component<any> {
           <Route path="/profile/planoaulas" component={ConsultarAulasGrupo} exact={true} />
 
           <Route path="/profile/ultimaavaliacao" component={UltimaAvaliacao} exact={true} />
+
+          <Route path="/profile/planostreino" component={ShowPlanoTreino} exact={true} />
 
           <Route path="/profile/logout" component={() => {return <LogOut setLogged={this.props.setLogged}/>}} exact={true} />
      

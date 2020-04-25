@@ -11,7 +11,7 @@ import {
 } from '@ionic/react';
 import React from 'react';
 import { RouteComponentProps, withRouter } from 'react-router-dom';
-import { logInOutline, helpCircleOutline, callOutline, logOutOutline, personOutline, analyticsOutline, keyOutline, closeCircleOutline, addCircleOutline, buildOutline, documentTextOutline, pizzaOutline, calendarOutline } from 'ionicons/icons';
+import { logInOutline, helpCircleOutline, callOutline, logOutOutline, personOutline, analyticsOutline, keyOutline, closeCircleOutline, addCircleOutline, buildOutline, documentTextOutline, pizzaOutline, calendarOutline, documentsOutline, barbellOutline } from 'ionicons/icons';
 
 import './css/MenuHome.css';
 
@@ -76,8 +76,14 @@ const appPagesCliente: AppPage[] = [
   {
     title: 'Última Avaliação',
     url: '/profile/ultimaavaliacao',
-    iosIcon: analyticsOutline,
-    mdIcon: analyticsOutline
+    iosIcon: documentTextOutline,
+    mdIcon: documentTextOutline
+  },
+  {
+    title: 'Meus planos de treino',
+    url: '/profile/planostreino',
+    iosIcon: documentsOutline,
+    mdIcon: documentsOutline
   },
   {
     title: 'Log-Out',
@@ -154,8 +160,8 @@ const appPagesTreinador: AppPage[] = [
   {
     title: 'Criar plano de treino',
     url: '/profile/planotreino',
-    iosIcon: documentTextOutline,
-    mdIcon: documentTextOutline
+    iosIcon: barbellOutline,
+    mdIcon: barbellOutline
   },
   {
     title: 'Criar plano alimentar',
