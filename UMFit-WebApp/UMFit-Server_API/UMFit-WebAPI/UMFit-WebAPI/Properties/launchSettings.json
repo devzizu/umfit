@@ -19,7 +19,7 @@
     },
     "UMFit_WebAPI": {
       "commandName": "Project",
-      "launchBrowser": true,
+      "launchBrowser": false,
       "launchUrl": "api",
       "applicationUrl": "http://0.0.0.0:5000",
       "environmentVariables": {

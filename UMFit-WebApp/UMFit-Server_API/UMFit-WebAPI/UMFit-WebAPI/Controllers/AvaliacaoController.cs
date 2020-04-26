@@ -4,6 +4,8 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using UMFit_WebAPI.Dto;
 using UMFit_WebAPI.Models.UMFit_LN;
 using UMFit_WebAPI.Models.UMFit_LN.Avaliacao;
@@ -47,5 +49,26 @@ namespace UMFit_WebAPI.Controllers
  
             return Ok(result);
         }
-   }
+
+        [HttpPost("last")]
+        public ActionResult<string> UltimaAvaliacao([FromBody] StringDto token){
+            string email=token.valueST;
+            Avaliaçao av = _system.GetUltAvaliaçaoR(email);
+            
+            if (av == null) return BadRequest("Utilizador ainda não tem Avaliaçoes");
+            
+            JObject job = JObject.Parse(JsonConvert.SerializeObject(av));
+            var nome = _system.GetUser(email).GetName();
+            //---------------- Patch
+            job.Remove("id");
+            job.Remove("realizada");
+            job.Remove("instrutor_email");
+            job.Add("comentario", " ");
+            job.Add("massa_gorda_img"," ");
+            job.Add("cliente_nome",nome);
+            //------------
+            return Ok(job.ToString());
+        }
+
+    }
 }

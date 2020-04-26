@@ -103,7 +103,7 @@ namespace UMFit_WebAPI.Models.Data.DAO
                 /*
                  * Comando SQL para inserir uma Avaliação à tabela de avaliações realizadas
                  */ 
-                sqlCommand = "insert into Avaliaçao_Realizada values (@ID, " + av.composiçao_Corporal.ToSql(isNull)
+                sqlCommand = "insert into Avaliaçao_Realizada values (@ID, " + av.composicao_corporal.ToSql(isNull)
                         + ", " + av.perimetros.ToSql(isNull) + ")";
 
                 command = new MySqlCommand(sqlCommand, connection);
@@ -111,7 +111,7 @@ namespace UMFit_WebAPI.Models.Data.DAO
                 command.Parameters.Add(new MySqlParameter("@ID", MySqlDbType.Int32));
                 command.Parameters["@ID"].Value = av.id;
 
-                av.composiçao_Corporal.IniParamSql(command);
+                av.composicao_corporal.IniParamSql(command);
                 av.perimetros.IniParamSql(command);
 
                 command.ExecuteScalar();
@@ -387,7 +387,7 @@ namespace UMFit_WebAPI.Models.Data.DAO
         /*
         * Função que retorna a ultima Avaliação realizada por parte de um cliente
         */
-        public static Avaliaçao GetUltAvaliaçaoR(string emailCliente)
+        public Avaliaçao GetUltAvaliaçaoR(string emailCliente)
         {
             // Comando SQL utilizado para criar a classe Avaliaçao
             string sqlCommand = "select * from Avaliaçao_Realizada ar, Avaliaçao_Agendada aa " +

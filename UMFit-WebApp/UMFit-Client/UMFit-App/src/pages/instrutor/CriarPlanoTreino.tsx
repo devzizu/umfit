@@ -1,11 +1,11 @@
 
+import { IonButton, IonCard, IonCardContent, IonCol, IonContent, IonDatetime, IonFooter, IonGrid, IonHeader, IonIcon, IonInput, IonItem, IonLabel, IonList, IonPage, IonRadio, IonRadioGroup, IonRow, IonSearchbar, IonText, IonTitle, IonToolbar } from "@ionic/react";
+import { addCircleSharp, addOutline, closeCircleSharp, trashOutline } from "ionicons/icons";
 import React from "react";
-import { IonPage, IonHeader, IonToolbar, IonTitle, IonFooter, IonContent, IonCard, IonCardContent, IonSearchbar, IonInput, IonItem, IonList, IonText, IonLabel, IonRadio, IonRadioGroup, IonButton, IonIcon, IonRow, IonCol, IonGrid, IonDatetime} from "@ionic/react";
-import "../css/CriarPlanoTreino.css"
-import {addCircleSharp, closeCircleSharp, addOutline, trashOutline } from "ionicons/icons";
-import { PlanoTreino, Exercicio } from "../../models/Other/PlanoTreino";
-import { getAllClients } from "../../models/API/UserAPI";
 import { getListaExercicios, setPlanoTreino } from "../../models/API/PlanoTreinoAPI";
+import { getAllClients, selectUser } from "../../models/API/UserAPI";
+import { Exercicio, PlanoTreino } from "../../models/Other/PlanoTreino";
+import "../css/CriarPlanoTreino.css";
 
 class CriarPlanoTreino extends React.Component<any>{
 
@@ -64,14 +64,22 @@ class CriarPlanoTreino extends React.Component<any>{
                 nm_series: ""
             },
 
-            planotreino : new PlanoTreino("","","","","","", new Array<Exercicio>())
+            planotreino : new PlanoTreino("","","","","", new Array<Exercicio>())
 
         }        
     }
 
-    setUserMail(mail: any){
+    async setUserMail(mail: any){
+        var user = await selectUser(mail);
+        user.json().then(
+            (json)=>{
+                var user =  JSON.parse(json);
+                this.setState({user_nome : user.user.name,user_mail: mail})
+            }
+        )
 
-        this.setState({user_mail: mail})
+        
+
     }
 
     setNomeTreino(nome: any){
@@ -173,10 +181,8 @@ class CriarPlanoTreino extends React.Component<any>{
                                                 this.state.tipo_treino, 
                                                 this.state.grup_muscular, 
                                                 this.state.frequencia,
-                                                this.state.data_inicio,
                                                 this.state.data_fim, 
                                                 this.state.lista_ex_selecionados
-                                                
                                                 )
 
         var resultado = {
@@ -186,16 +192,17 @@ class CriarPlanoTreino extends React.Component<any>{
         }
         setPlanoTreino(resultado).then(
             async (value: any) =>{
-                if (value.status === 200){ 
-                    alert("Plano Adicionado!")
+                switch (value.status){
+                    case 200 : alert("Plano Adicionado!");break;
+                    case 400 : alert("Verifique se os campos estão válidos"); break;
                 }});
 
         console.log(resultado)
     }
 
-    componentDidMount(){
-        var emails =  ["paulo.280999@gmail.com", "firmino.100999@gmail.com", "amelia.280999@gmail.com", "dillaz.280999@gmail.com", "bispo.280999@gmail.com", "nbc.280999@gmail.com"];
-        getAllClients().then(
+   async componentDidMount(){
+        var emails : string[];
+        await getAllClients().then(
             async (value) =>{
                 if (value.status === 200) {              
                     
@@ -312,7 +319,7 @@ class CriarPlanoTreino extends React.Component<any>{
             <IonCard className="card-left">
                 <img src={require('../../imgs/perfil_pic.png')} width="100" height="100" alt="Loading..."/>
                 <IonCardContent>
-                    <b>Nome:</b> {this.state.user_mail.substring(0, this.state.user_mail.indexOf('@'))}
+                    <b>Nome:</b> {this.state.user_nome}
                     <br></br>
                     <br></br>
                     <b>Email:</b> {this.state.user_mail}
@@ -348,10 +355,7 @@ class CriarPlanoTreino extends React.Component<any>{
                         <IonInput value={this.state.frequencia} onIonChange={e => {this.setFreq(e.detail.value)}}/>
                     </IonItem>
                     <IonItem>
-                                                <IonLabel class="ion-text-wrap" className="quarterWidth">  Data de Inicio:</IonLabel>
-                                                <IonDatetime className="minquarterWidth" value={this.state.data_inicio} onIonChange={(e) => {this.setState({ data_inicio: e.detail.value! })}}></IonDatetime>
-
-                                               
+                                          
                                                 <IonLabel class="ion-text-wrap" className="quarterWidth">  Data de Fim:</IonLabel>
                                                 <IonDatetime className="minquarterWidth" value={this.state.data_fim} onIonChange={(e) => {this.setState({ data_fim: e.detail.value! })}}></IonDatetime>
                                             </IonItem>

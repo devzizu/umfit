@@ -4,6 +4,8 @@
  */
 using System.Text;
 using MySql.Data.MySqlClient;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
 namespace UMFit_WebAPI.Models.UMFit_LN.Avaliacao
 {

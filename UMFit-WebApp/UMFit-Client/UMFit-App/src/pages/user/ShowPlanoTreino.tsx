@@ -150,7 +150,6 @@ const peito: PlanoTreino = {
     tipo: "Hipertrofia",
     grupos_musculares: "Peito",
     frequencia: "2/semana",
-    data_inicio: "",
     data_fim: "",
     lista_exercicios: [Supino_Normal_Halters, Pack_Deck, Afundos, Peito_Press_Maquina]
 }
@@ -161,7 +160,6 @@ const tricep: PlanoTreino = {
     tipo: "Hipertrofia",
     grupos_musculares: "Tricep",
     frequencia: "2/semana",
-    data_inicio: "",
     data_fim: "",
     lista_exercicios: [Tricep_Corda, Tricep_Frances_Barra, Tricep_KickBack_Corda, Afundos]
 }
@@ -172,7 +170,6 @@ const costas: PlanoTreino = {
     tipo: "Hipertrofia",
     grupos_musculares: "Costas",
     frequencia: "2/semana",
-    data_inicio: "",
     data_fim: "",
     lista_exercicios: [Costas_Maquina, Costas_Pushada, Elevacoes_Barra, Serrote_Sentado]
 }
@@ -183,7 +180,6 @@ const pernas: PlanoTreino = {
     tipo: "Hipertrofia",
     grupos_musculares: "Pernas",
     frequencia: "2/semana",
-    data_inicio: "",
     data_fim: "",
     lista_exercicios: [Agachamento_Frontal, Agachamento_Halter, Agachamento_Normal_Barra,Cadeira_Adutora, Cadeira_Extensora]
 }
@@ -214,7 +210,7 @@ class ShowPlanoTreino extends React.Component<any>{
                 tipo: "",
                 grupos_musculares: "",
                 frequencia: "",
-                data_inicio: "",
+
                 data_fim: "",
                 lista_exercicios: []
             },

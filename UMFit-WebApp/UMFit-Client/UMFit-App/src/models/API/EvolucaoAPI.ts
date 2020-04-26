@@ -1,7 +1,7 @@
 
 export {}
 
-var baseURL: string = "http://192.168.1.67:5000/api/avaliacao";
+var baseURL: string = "http://192.168.1.18:5000/api/avaliacao";
 
 export function getEvolucao (token: string) {
 
@@ -13,6 +13,21 @@ export function getEvolucao (token: string) {
         },
         body: JSON.stringify({
             valueST: token
+        })
+    });
+
+    return res;
+}
+
+export function getLastAvaliacao(email : string){
+    var res = fetch(baseURL + "/last", {
+        method: 'post',
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            valueST: email
         })
     });
 

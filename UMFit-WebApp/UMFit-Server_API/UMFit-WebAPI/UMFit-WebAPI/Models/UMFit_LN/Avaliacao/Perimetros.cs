@@ -4,6 +4,7 @@
  */
 using System.Text;
 using MySql.Data.MySqlClient;
+using Newtonsoft.Json.Linq;
 
 namespace UMFit_WebAPI.Models.UMFit_LN.Avaliacao
 {
@@ -154,5 +155,9 @@ namespace UMFit_WebAPI.Models.UMFit_LN.Avaliacao
             return r.ToString();
         }
 
+        public JToken ToJSON()
+        {
+            return new JObject(this);
+        }
     }
 }

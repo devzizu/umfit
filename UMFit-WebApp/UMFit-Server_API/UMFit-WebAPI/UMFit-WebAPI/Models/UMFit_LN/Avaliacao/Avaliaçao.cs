@@ -4,6 +4,8 @@
 
 using System;
 using System.Text;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
 namespace UMFit_WebAPI.Models.UMFit_LN.Avaliacao
 {
@@ -19,7 +21,7 @@ namespace UMFit_WebAPI.Models.UMFit_LN.Avaliacao
 
         public bool realizada { set; get; }
 
-        public Composiçao_Corporal composiçao_Corporal;
+        public Composiçao_Corporal composicao_corporal;
 
         public Perimetros perimetros;
 
@@ -34,7 +36,7 @@ namespace UMFit_WebAPI.Models.UMFit_LN.Avaliacao
 
             this.realizada = false;
 
-            this.composiçao_Corporal = new Composiçao_Corporal();
+            this.composicao_corporal = new Composiçao_Corporal();
             this.perimetros = new Perimetros();
         }
 
@@ -49,7 +51,7 @@ namespace UMFit_WebAPI.Models.UMFit_LN.Avaliacao
 
             this.realizada = true;
 
-            this.composiçao_Corporal = cc;
+            this.composicao_corporal = cc;
             this.perimetros = p;
         }
 
@@ -57,7 +59,7 @@ namespace UMFit_WebAPI.Models.UMFit_LN.Avaliacao
         public void FoiRealizada(Composiçao_Corporal cc, Perimetros p)
         {
             this.realizada = true;
-            this.composiçao_Corporal = cc;
+            this.composicao_corporal = cc;
             this.perimetros = p;
         }
 
@@ -69,11 +71,13 @@ namespace UMFit_WebAPI.Models.UMFit_LN.Avaliacao
             r.Append("Data: " + this.data.ToString() + ";\n");
             r.Append("Instrutor: " + this.instrutor_email + ";\n");
             r.Append("Cliente: " + this.cliente_email + ";\n");
-            r.Append(this.composiçao_Corporal.ToString());
+            r.Append(this.composicao_corporal.ToString());
             r.Append(this.perimetros.ToString());
 
             return r.ToString();
         }
+        
+        
 
         /*
          * Retorna o parâmetro(peso, altura, imc, ...) consoante a string que recebe
@@ -89,22 +93,22 @@ namespace UMFit_WebAPI.Models.UMFit_LN.Avaliacao
                 switch (param)
                 {
                     case "altura":
-                        r = this.composiçao_Corporal.altura;
+                        r = this.composicao_corporal.altura;
                         break;
                     case "peso":
-                        r = this.composiçao_Corporal.peso;
+                        r = this.composicao_corporal.peso;
                         break;
                     case "massa_gorda":
-                        r = this.composiçao_Corporal.massa_gorda;
+                        r = this.composicao_corporal.massa_gorda;
                         break;
                     case "massa_magra":
-                        r = this.composiçao_Corporal.massa_magra;
+                        r = this.composicao_corporal.massa_magra;
                         break;
                     case "imc":
-                        r = this.composiçao_Corporal.imc;
+                        r = this.composicao_corporal.imc;
                         break;
                     case "idade_metabolica":
-                        r = this.composiçao_Corporal.idade_metabolica;
+                        r = this.composicao_corporal.idade_metabolica;
                         break;
                 }
             }
