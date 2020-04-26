@@ -3,7 +3,7 @@ import React from "react";
 import { IonPage, IonHeader, IonToolbar, IonTitle, IonFooter, IonContent, IonCard, IonCardContent, IonText, IonLabel, IonRow, IonCol, IonGrid, IonList, IonRadioGroup, IonItem, IonRadio, IonSearchbar} from "@ionic/react";
 import "../css/UltimaAvaliacaoInstrutor.css"
 import{Pie} from "react-chartjs-2";
-import { getAllClients, selectUser } from "../../models/API/UserAPI";
+import { getAllClients } from "../../models/API/UserAPI";
 import { getLastAvaliacao } from "../../models/API/EvolucaoAPI";
 
 var magro = require("../../imgs/avaliacao/magro.png") 
@@ -26,7 +26,6 @@ interface Avaliacao{
         cliente_email: string
         composicao_corporal : Composicao_corporal
         perimetros : Perimetros
-        massa_gorda_img: string
         comentario:string
     }
 interface Composicao_corporal{
@@ -43,19 +42,19 @@ interface Perimetros{
         abdomen: number
         ombro: number
         torax: number
-        braco_direito: number
-        braco_esquerdo: number
-        coxa_direita: number
-        coxa_esquerda: number
-        gemeo_direito: number
-        gemeo_esquerdo: number
-        antebraco_direito: number
-        antebraco_esquerdo: number
+        braço_dir: number
+        braço_esq: number
+        coxa_dir: number
+        coxa_esq: number
+        gemeo_dir: number
+        gemeo_esq: number
+        antebraço_dir: number
+        antebraço_esq: number
 }
         
-const avalicao_inicial: Avaliacao = {data: "", cliente_email: "", cliente_nome: "", massa_gorda_img: "magro",
+const avalicao_inicial: Avaliacao = {data: "s/ seleção", cliente_email: "s/ seleção", cliente_nome: "s/ seleção", 
                                     composicao_corporal :{altura: 0, peso: 0, idade_metabolica: 0, imc: 0, massa_gorda: 0, massa_magra:0},
-                                    perimetros: {cintura: 0, abdomen: 0, ombro: 0, torax: 0, braco_direito: 0, braco_esquerdo: 0, coxa_direita: 0, coxa_esquerda: 0, gemeo_direito: 0, gemeo_esquerdo: 0, antebraco_direito: 0, antebraco_esquerdo: 0},
+                                    perimetros: {cintura: 0, abdomen: 0, ombro: 0, torax: 0, braço_dir: 0, braço_esq: 0, coxa_dir: 0, coxa_esq: 0, gemeo_dir: 0, gemeo_esq: 0, antebraço_dir: 0, antebraço_esq: 0},
                                     comentario: ""}
 
 class UltimaAvaliacaoInstrutor extends React.Component<any>{
@@ -69,6 +68,8 @@ class UltimaAvaliacaoInstrutor extends React.Component<any>{
 
         user_mail: string
         user_nome: string
+
+        massa_gorda_img: any
     }
 
     constructor(props: any) {
@@ -83,7 +84,8 @@ class UltimaAvaliacaoInstrutor extends React.Component<any>{
             mail_inserido: "",
     
             user_mail: "",
-            user_nome: ""
+            user_nome: "",
+            massa_gorda_img: magro
         }        
     }
 
@@ -100,23 +102,23 @@ class UltimaAvaliacaoInstrutor extends React.Component<any>{
 
     stringMassaGorda(){
 
-        if(this.state.avaliacao.composicao_corporal.massa_gorda < 18.5){
+        if(this.state.avaliacao.composicao_corporal.imc < 18.5){
             return "Magro"
              
         }
-        else if(this.state.avaliacao.composicao_corporal.massa_gorda >= 18.5 &&  this.state.avaliacao.composicao_corporal.massa_gorda < 25){
+        else if(this.state.avaliacao.composicao_corporal.imc >= 18.5 &&  this.state.avaliacao.composicao_corporal.imc < 25){
             return "Normal"
              
         }
-        else if(this.state.avaliacao.composicao_corporal.massa_gorda >= 25 &&  this.state.avaliacao.composicao_corporal.massa_gorda < 30){
+        else if(this.state.avaliacao.composicao_corporal.imc >= 25 &&  this.state.avaliacao.composicao_corporal.imc < 30){
             return "Acima do Peso"
               
         }
-        else if(this.state.avaliacao.composicao_corporal.massa_gorda >= 30 &&  this.state.avaliacao.composicao_corporal.massa_gorda < 35){
+        else if(this.state.avaliacao.composicao_corporal.imc >= 30 &&  this.state.avaliacao.composicao_corporal.imc < 35){
             return "Obeso"
              
         }
-        else if(this.state.avaliacao.composicao_corporal.massa_gorda >= 35){
+        else if(this.state.avaliacao.composicao_corporal.imc >= 35){
             return "Obesidade Morbida"
              
         }
@@ -124,21 +126,21 @@ class UltimaAvaliacaoInstrutor extends React.Component<any>{
 
     imgMassaGorda(){
 
-        if(this.state.avaliacao.composicao_corporal.massa_gorda < 18.5){
-            return magro
+        if(this.state.avaliacao.composicao_corporal.imc < 18.5){
+            this.setState({massa_gorda_img:magro});
         }
-        else if(this.state.avaliacao.composicao_corporal.massa_gorda >= 18.5 &&  this.state.avaliacao.composicao_corporal.massa_gorda < 25){
-            return normal
+        else if(this.state.avaliacao.composicao_corporal.imc >= 18.5 &&  this.state.avaliacao.composicao_corporal.imc < 25){
+            this.setState({massa_gorda_img:normal});
         }
-        else if(this.state.avaliacao.composicao_corporal.massa_gorda >= 25 &&  this.state.avaliacao.composicao_corporal.massa_gorda < 30){
-            return acima_do_peso
+        else if(this.state.avaliacao.composicao_corporal.imc >= 25 &&  this.state.avaliacao.composicao_corporal.imc < 30){
+            this.setState({massa_gorda_img:acima_do_peso});
         }
-        else if(this.state.avaliacao.composicao_corporal.massa_gorda >= 30 &&  this.state.avaliacao.composicao_corporal.massa_gorda < 35){
-            return obeso
-        }
-        else if(this.state.avaliacao.composicao_corporal.massa_gorda >= 35){
-            return obesidade_morbida
-        }
+        else if(this.state.avaliacao.composicao_corporal.imc >= 30 &&  this.state.avaliacao.composicao_corporal.imc < 35){
+            this.setState({massa_gorda_img:obeso});
+            }
+        else if(this.state.avaliacao.composicao_corporal.imc >= 35){
+            this.setState({massa_gorda_img:obesidade_morbida});
+            }
     } 
 
     setSearchMail(stringSearch: any){
@@ -147,10 +149,9 @@ class UltimaAvaliacaoInstrutor extends React.Component<any>{
     }
 
    async setUserMail(mail: any){
-        var aval : string = ""; 
-        var user;
+
         //User sem avaliaçoes patch
-        if(mail=="") return;
+        if(mail==="") return;
         await getLastAvaliacao(mail).then(
             async (value) =>{
                 //User sem avaliaçoes guarda
@@ -159,11 +160,13 @@ class UltimaAvaliacaoInstrutor extends React.Component<any>{
                     alert("Utilizador ainda não tem Avaliaçoes");
             }
                 if (value.status === 200) {              
-                   user = value.json().then(
+                   value.json().then(
                     (json)=>{
                         var avaliacao =  JSON.parse(json);
                         console.log(json);
                         this.setState({avaliacao: avaliacao,user_mail: avaliacao.cliente_email,user_nome :avaliacao.cliente_nome})    
+                        console.log(this.state.avaliacao.composicao_corporal.massa_gorda);
+                        this.imgMassaGorda();
                     }
                 )}}
         )
@@ -200,7 +203,7 @@ class UltimaAvaliacaoInstrutor extends React.Component<any>{
 
         <IonHeader>
           <IonToolbar color="primary">
-            <IonTitle id="page-title">Ultima Avaliacao</IonTitle>
+            <IonTitle id="page-title">Última Avaliação do Cliente</IonTitle>
           </IonToolbar>
         </IonHeader>
 
@@ -300,7 +303,7 @@ class UltimaAvaliacaoInstrutor extends React.Component<any>{
                             </IonRow>
 
                             <IonRow>
-                                <IonCardContent><img src={this.imgMassaGorda()} height="350px" alt="Loading..."/></IonCardContent>
+                                <IonCardContent><img src={this.state.massa_gorda_img} height="350px" alt="Loading..."/></IonCardContent>
                             </IonRow>
 
                         </IonCol>
@@ -426,7 +429,7 @@ class UltimaAvaliacaoInstrutor extends React.Component<any>{
                         </IonCol>
                         
                         <IonCol className="search-content">
-                            <IonLabel>{this.state.avaliacao.perimetros.braco_direito}</IonLabel>
+                            <IonLabel>{this.state.avaliacao.perimetros.braço_dir}</IonLabel>
                     </IonCol>
 
                     </IonRow>
@@ -442,7 +445,7 @@ class UltimaAvaliacaoInstrutor extends React.Component<any>{
                         </IonCol>
                         
                         <IonCol className="search-content">
-                            <IonLabel>{this.state.avaliacao.perimetros.braco_esquerdo}</IonLabel>
+                            <IonLabel>{this.state.avaliacao.perimetros.braço_esq}</IonLabel>
                     </IonCol>
 
                     </IonRow>
@@ -458,7 +461,7 @@ class UltimaAvaliacaoInstrutor extends React.Component<any>{
                         </IonCol>
                         
                         <IonCol className="search-content">
-                            <IonLabel>{this.state.avaliacao.perimetros.coxa_direita}</IonLabel>
+                            <IonLabel>{this.state.avaliacao.perimetros.coxa_dir}</IonLabel>
                     </IonCol>
 
                     </IonRow>
@@ -474,7 +477,7 @@ class UltimaAvaliacaoInstrutor extends React.Component<any>{
                         </IonCol>
                         
                         <IonCol className="search-content">
-                            <IonLabel>{this.state.avaliacao.perimetros.coxa_esquerda}</IonLabel>
+                            <IonLabel>{this.state.avaliacao.perimetros.coxa_esq}</IonLabel>
                     </IonCol>
 
                     </IonRow>
@@ -490,7 +493,7 @@ class UltimaAvaliacaoInstrutor extends React.Component<any>{
                         </IonCol>
                         
                         <IonCol className="search-content">
-                            <IonLabel>{this.state.avaliacao.perimetros.gemeo_direito}</IonLabel>
+                            <IonLabel>{this.state.avaliacao.perimetros.gemeo_dir}</IonLabel>
                     </IonCol>
 
                     </IonRow>
@@ -506,7 +509,7 @@ class UltimaAvaliacaoInstrutor extends React.Component<any>{
                         </IonCol>
                         
                         <IonCol className="search-content">
-                            <IonLabel>{this.state.avaliacao.perimetros.gemeo_esquerdo}</IonLabel>
+                            <IonLabel>{this.state.avaliacao.perimetros.gemeo_esq}</IonLabel>
                     </IonCol>
 
                     </IonRow>
@@ -522,7 +525,7 @@ class UltimaAvaliacaoInstrutor extends React.Component<any>{
                         </IonCol>
                         
                         <IonCol className="search-content">
-                            <IonLabel>{this.state.avaliacao.perimetros.antebraco_direito}</IonLabel>
+                            <IonLabel>{this.state.avaliacao.perimetros.antebraço_dir}</IonLabel>
                     </IonCol>
 
                     </IonRow>
@@ -538,7 +541,7 @@ class UltimaAvaliacaoInstrutor extends React.Component<any>{
                         </IonCol>
                         
                         <IonCol className="search-content">
-                            <IonLabel>{this.state.avaliacao.perimetros.antebraco_esquerdo}</IonLabel>
+                            <IonLabel>{this.state.avaliacao.perimetros.antebraço_esq}</IonLabel>
                     </IonCol>
 
                     </IonRow>

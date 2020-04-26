@@ -1,7 +1,8 @@
+import IP_ADDR from "./API_DEFAULTS";
 
 export {}
 
-var baseURL: string = "http://192.168.1.18:5000/api/user";
+var baseURL: string = "http://" + IP_ADDR + ":5000/api/user";
 
 //Returns the user object in case login OK
 export async function authenticate (email: string, pass: string) {

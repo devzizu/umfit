@@ -266,7 +266,7 @@ class CriarPlanoTreino extends React.Component<any>{
 
         <IonHeader>
           <IonToolbar color="primary">
-            <IonTitle id="page-title">Criar Plano Treino</IonTitle>
+            <IonTitle id="page-title">Novo Plano de Treino</IonTitle>
           </IonToolbar>
         </IonHeader>
 

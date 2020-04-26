@@ -297,7 +297,7 @@ class ProfileCliente extends React.Component<any> {
 
           <Route path="/profile/planoaulas" component={ConsultarAulasGrupo} exact={true} />
 
-          <Route path="/profile/ultimaavaliacao" component={UltimaAvaliacao} exact={true} />
+          <Route path="/profile/ultimaavaliacao" render={() => {return <UltimaAvaliacao user={this.state.user}/>}} exact={true} />
 
           <Route path="/profile/planostreino" component={ShowPlanoTreino} exact={true} />
 

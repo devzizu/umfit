@@ -1,7 +1,8 @@
+import IP_ADDR from "./API_DEFAULTS";
 
 export {}
 
-var baseURL: string = "http://192.168.1.18:5000/api/aulagrupo";
+var baseURL: string = "http://" + IP_ADDR + ":5000/api/aulagrupo";
 
 export function getPlanoSemanalAulas () {
 
