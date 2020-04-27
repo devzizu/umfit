@@ -26,7 +26,7 @@ namespace UMFit_WebAPI.Models.Data.DAO
 
                 while (reader.Read() && reader.HasRows)
                 {
-                    AulaGrupo aula = new AulaGrupo(reader.GetInt16(0), reader.GetTimeSpan(1), reader.GetString(2),
+                    AulaGrupo aula = new AulaGrupo(reader.GetTimeSpan(1), reader.GetString(2),
                         reader.GetString(3), reader.GetInt16(4), reader.GetInt16(5), reader.GetString(6),
                         reader.GetString(7), reader.GetString(8), reader.GetString(9));
 
@@ -87,7 +87,9 @@ namespace UMFit_WebAPI.Models.Data.DAO
             {
                 connection.Open();
 
-                string sqlCommand = "insert into Aula_Grupo values(" + aula.ToSql() + ")";
+                string sqlCommand = "insert into Aula_Grupo (hora, dia, nome, lotaçao_Atual," +
+                                    " lotaçao_Max, duraçao, dificuldade, Instrutor_email, Espaço_Ginasio)" +
+                                    " values(" + aula.ToSql() + ")";
 
                 MySqlCommand command = new MySqlCommand(sqlCommand, connection);
 

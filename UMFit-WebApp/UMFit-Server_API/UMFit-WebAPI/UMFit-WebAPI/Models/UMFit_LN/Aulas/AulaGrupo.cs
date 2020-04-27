@@ -7,7 +7,6 @@ namespace UMFit_WebAPI.Models.UMFit_LN.Aulas
 {
     public class AulaGrupo
     {
-        public int id { get; set; }
         public TimeSpan hora { get; set; }
         public string dia { get; set; }
         public string nome { get; set; }
@@ -18,10 +17,9 @@ namespace UMFit_WebAPI.Models.UMFit_LN.Aulas
         public string instrutor_email { get; set; }
         public string espaço_ginasio { get; set; }
 
-        public AulaGrupo(int id, TimeSpan hora, string dia, string nome, int lotaçao_Atual, int lotaçao_Max,
+        public AulaGrupo(TimeSpan hora, string dia, string nome, int lotaçao_Atual, int lotaçao_Max,
             string duraçao, string dificuldade, string instrutor_email, string espaço_ginasio)
         {
-            this.id = id;
             this.hora = hora;
             this.dia = dia;
             this.nome = nome;
@@ -37,7 +35,6 @@ namespace UMFit_WebAPI.Models.UMFit_LN.Aulas
         {
             StringBuilder r = new StringBuilder();
 
-            r.Append("Id: " + this.id + "\n");
             r.Append("Hora: " + this.hora.ToString() + "\n");
             r.Append("Dia: " + this.dia + "\n");
             r.Append("Nome: " + this.nome + "\n");
@@ -55,7 +52,6 @@ namespace UMFit_WebAPI.Models.UMFit_LN.Aulas
         {
             StringBuilder r = new StringBuilder();
 
-            r.Append("@ID, ");
             r.Append("@HORA, ");
             r.Append("@DIA, ");
             r.Append("@NOME, ");
@@ -71,9 +67,6 @@ namespace UMFit_WebAPI.Models.UMFit_LN.Aulas
 
         public void InitParam(MySqlCommand command)
         {
-            command.Parameters.Add("@ID", MySqlDbType.Int16);
-            command.Parameters["@ID"].Value = this.id;
-
             command.Parameters.Add("@HORA", MySqlDbType.Time);
             command.Parameters["@HORA"].Value = this.hora;
 

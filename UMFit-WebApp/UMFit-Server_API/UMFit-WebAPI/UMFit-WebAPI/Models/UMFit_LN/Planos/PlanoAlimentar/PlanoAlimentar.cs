@@ -51,7 +51,7 @@ namespace UMFit_WebAPI.Models.UMFit_LN.Planos.PlanoAlimentar
             r.Append("@NOME, ");
             r.Append("@FREQ, ");
             r.Append("@NREFEIÇOES_LIVRES, ");
-            r.Append("@DATA_FIM, ");
+            r.Append("@DATA_FIM");
 
             return r.ToString();
         }

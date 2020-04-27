@@ -182,7 +182,7 @@ class UltimaAvaliacao extends React.Component<any>{
 
         <IonHeader>
           <IonToolbar color="primary">
-            <IonTitle id="page-title">Ultima Avaliacao</IonTitle>
+            <IonTitle id="page-title">Última Avaliação</IonTitle>
           </IonToolbar>
         </IonHeader>
 

@@ -1,5 +1,5 @@
 use UMFit_DB;
-
+select * from Refeiçao;
 -- NOTAS
 -- Género é definido por um inteiro. 0 no caso de ser feminino e 1 caso seja masculino;
 -- A categoria do cliente tem os seguintes valores possiveis: Standard, Premium;
@@ -537,34 +537,25 @@ select * from Aula_Grupo;
 
 -- EXERCICIO -----------------------------------------------------------------------------------------
 insert into Exercicio 
-values (1, "Elevações", 3, 3);
+values (1, "Elevações na Barra", 3, 3);
 
 insert into Exercicio 
-values (2, "Puxada", 12, 3);
+values (2, "Pushada", 12, 3);
 
 insert into Exercicio 
-values (3, "Remada curvada", 12, 3);
+values (3, "Serrote", 12, 3);
 
 insert into Exercicio 
-values (4, "Remada unilateral", 12, 3);
+values (4, "Máquina de Costas", 12, 3);
 
 insert into Exercicio 
-values (5, "Remada alta na polia", 12, 3);
+values (5, "Cadeira Adutora", 12, 3);
 
 insert into Exercicio 
-values (6, "Trícept pega junta", 12, 3);
+values (6, "Agachamento c/ Halter", 12, 3);
 
 insert into Exercicio 
-values (7, "Trícept polia unilateral", 12 ,3);
-
-insert into Exercicio 
-values (8, "Afundos no banco", 12, 3);
-
-insert into Exercicio 
-values (9, "Abdominal Tesoura", 20, 4);
-
-insert into Exercicio 
-values (10, "Crunch na fit-ball", 12, 3);
+values (7, "Agachamento Frontal", 12 ,3);
 
 -- PLANO TREINO -----------------------------------------------------------------------------------------
 insert into Plano_Treino 
@@ -597,15 +588,6 @@ values (6, 1);
 
 insert into Exercicio_do_Plano_Treino
 values (7, 1);
-
-insert into Exercicio_do_Plano_Treino
-values (8, 1);
-
-insert into Exercicio_do_Plano_Treino
-values (9, 1);
-
-insert into Exercicio_do_Plano_Treino
-values (10, 1);
 
 -- REFEIÇAO -----------------------------------------------------------------------------------------
 insert into Refeiçao

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UMFit_WebAPI.Models.Data.DAO;
 using UMFit_WebAPI.Models.UMFit_LN.Aulas;
 using UMFit_WebAPI.Models.UMFit_LN.Avaliacao;
+using UMFit_WebAPI.Models.UMFit_LN.Planos.PlanoAlimentar;
 using UMFit_WebAPI.Models.UMFit_LN.Planos.PlanoTreino;
 using UMFit_WebAPI.Models.UMFit_LN.Utilizadores.Interfaces;
 
@@ -14,6 +15,7 @@ namespace UMFit_WebAPI.Models.UMFit_LN
         private readonly AulaGrupoDAO aulaGrupoDAO = new AulaGrupoDAO();
         private readonly PlanoTreinoDAO planoTreinoDAO = new PlanoTreinoDAO();
         private readonly AvaliaçaoDAO avaliaçaoDAO = new AvaliaçaoDAO();
+        private readonly PlanoAlimentarDAO planoAlimentarDao = new PlanoAlimentarDAO();
         
         public UMFit_LN()
         {
@@ -122,6 +124,16 @@ namespace UMFit_WebAPI.Models.UMFit_LN
         public Avaliaçao GetUltAvaliaçaoR(string email)
         {
          return avaliaçaoDAO.GetUltAvaliaçaoR( email);
+        }
+        
+        public bool AddPlanoAlimentar(PlanoAlimentar pa)
+        {
+            return planoAlimentarDao.InsertPlanoAlimentar(pa);
+        }
+        
+        public List<PlanoTreino> GetPlanosTreino(string mail)
+        {
+            return planoTreinoDAO.GetPlanoTreino(mail);
         }
     }
 }

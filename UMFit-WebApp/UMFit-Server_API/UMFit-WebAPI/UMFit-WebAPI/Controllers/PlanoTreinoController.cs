@@ -1,12 +1,14 @@
 using System;
 using System.Collections.Generic;
-using System.Text.Json;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using Org.BouncyCastle.Utilities;
 using Renci.SshNet.Common;
+using UMFit_WebAPI.Dto;
 using UMFit_WebAPI.Models.UMFit_LN;
 using UMFit_WebAPI.Models.UMFit_LN.Planos.PlanoTreino;
+using JsonSerializer = System.Text.Json.JsonSerializer;
 
 
 namespace UMFit_WebAPI.Controllers
@@ -73,13 +75,14 @@ namespace UMFit_WebAPI.Controllers
             return (ret);
         }
         
-        
-        
-        
-        
-        
-        
-        
-        
+        [HttpPost("consultar")]
+        public ActionResult<string> GetPlanosTreino([FromBody] StringDto emailWrapper)
+        {
+            string email = emailWrapper.valueST;
+            
+            List<PlanoTreino> planosList = _system.GetPlanosTreino(email);
+            
+            return Ok(planosList);
+        }
     }
 }

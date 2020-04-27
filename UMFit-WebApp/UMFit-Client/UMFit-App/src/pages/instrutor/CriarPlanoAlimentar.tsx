@@ -14,7 +14,6 @@ class CriarPlanoAlimentar extends React.Component<any>{
         nome_plano_alimentar: string
         refeicoes_livres: string
         frequencia: string
-        data_inicio:string
         data_fim:string
 
         lista_mails_inicial: Array<string>
@@ -41,7 +40,6 @@ class CriarPlanoAlimentar extends React.Component<any>{
             nome_plano_alimentar: "",
             refeicoes_livres: "",
             frequencia: "",
-            data_inicio: "",
             data_fim: "",
 
             lista_mails_inicial: new Array<string>(),
@@ -60,7 +58,7 @@ class CriarPlanoAlimentar extends React.Component<any>{
                 descricao: ""
             },
 
-            planoAlimentar : new PlanoAlimentar("","","","","", new Array<Refeicao>())
+            planoAlimentar : new PlanoAlimentar("","","","",new Array<Refeicao>())
 
         }        
     }
@@ -150,7 +148,6 @@ class CriarPlanoAlimentar extends React.Component<any>{
         var pa: PlanoAlimentar = new PlanoAlimentar(  this.state.nome_plano_alimentar,
                                                       this.state.refeicoes_livres, 
                                                       this.state.frequencia,
-                                                      this.state.data_inicio,
                                                       this.state.data_fim, 
                                                       this.state.lista_refeicoes_selecionados)
 
@@ -161,8 +158,9 @@ class CriarPlanoAlimentar extends React.Component<any>{
         }
         setPlanoAlimentar(resultado).then(
             async (value: any) =>{
-                if (value.status === 200){ 
-                    alert("Plano Adicionado!")
+                switch (value.status){
+                    case 200 : alert("Plano Adicionado!");break;
+                    case 400 : alert("Verifique se os campos estão válidos"); break;
                 }});
         console.log(resultado)
     }
@@ -313,12 +311,9 @@ class CriarPlanoAlimentar extends React.Component<any>{
                         <IonInput value={this.state.refeicoes_livres} onIonChange={e => {this.setRefLiv(e.detail.value)}}/>
                     </IonItem>
                     <IonItem>
-                                                <IonLabel class="ion-text-wrap" className="quarterWidth">  Data de Inicio:</IonLabel>
-                                                <IonDatetime className="minquarterWidth" value={this.state.data_inicio} onIonChange={(e) => {this.setState({ dataInicio: e.detail.value! })}}></IonDatetime>
+                        <IonLabel class="ion-text-wrap" className="quarterWidth">  Data de Fim:</IonLabel>
+                        <IonDatetime className="minquarterWidth" value={this.state.data_fim} onIonChange={(e) => {this.setState({ data_fim: e.detail.value! })}}></IonDatetime>
 
-                                               
-                                                <IonLabel class="ion-text-wrap" className="quarterWidth">  Data de Fim:</IonLabel>
-                                                <IonDatetime className="minquarterWidth" value={this.state.data_fim} onIonChange={(e) => {this.setState({ dataFim: e.detail.value! })}}></IonDatetime>
                     </IonItem>
 
                 </IonList> 

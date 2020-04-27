@@ -299,7 +299,7 @@ class ProfileCliente extends React.Component<any> {
 
           <Route path="/profile/ultimaavaliacao" render={() => {return <UltimaAvaliacao user={this.state.user}/>}} exact={true} />
 
-          <Route path="/profile/planostreino" component={ShowPlanoTreino} exact={true} />
+          <Route path="/profile/planostreino" render={() => {return <ShowPlanoTreino user={this.state.user}/>}} exact={true} />
 
           <Route path="/profile/logout" component={() => {return <LogOut setLogged={this.props.setLogged}/>}} exact={true} />
      

@@ -21,7 +21,6 @@
         <e p="Models" t="Include">
           <e p="Data" t="Include">
             <e p="DAO" t="Include">
-              <e p="AulaGrupo.cs" t="Include" />
               <e p="AulaGrupoDAO.cs" t="Include" />
               <e p="AvaliaçaoDAO.cs" t="Include" />
               <e p="PlanoAlimentarDAO.cs" t="Include" />

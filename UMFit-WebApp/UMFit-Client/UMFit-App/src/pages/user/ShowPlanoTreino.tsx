@@ -4,6 +4,8 @@ import { IonPage, IonHeader, IonToolbar, IonTitle, IonFooter, IonContent, IonCar
 import "./css/ShowPlanoTreino.css"
 import { caretForwardOutline, barbellOutline, hourglassOutline, informationOutline } from "ionicons/icons";
 import { Exercicio, PlanoTreino } from "../../models/Other/PlanoTreino";
+import { User } from "../../models/Other/User";
+import { getPlanosTreino } from "../../models/API/PlanoTreinoAPI";
 
 //Pernas imgs
 var agachamento_frontal = require("../../imgs/exercicios/Agachamento_Frontal.png") 
@@ -196,6 +198,7 @@ class ShowPlanoTreino extends React.Component<any>{
         exercicio_atual: Exercicio
         indice_plano: number
         lista_plano_treino: Array<PlanoTreino>
+        user: User
     }
 
     constructor(props: any) {
@@ -220,7 +223,9 @@ class ShowPlanoTreino extends React.Component<any>{
                 nm_series: ""
             },
             indice_plano: 0,
-            lista_plano_treino: [peito,costas,pernas, tricep]
+            lista_plano_treino: [peito,costas,pernas, tricep],
+
+            user: this.props.user
 
         }        
     }
@@ -277,6 +282,51 @@ class ShowPlanoTreino extends React.Component<any>{
         }
     }
 
+    async componentDidMount(){
+
+
+        await getPlanosTreino(this.state.user.email).then(
+
+            async (value: any) =>{
+                if (value.status === 200) {
+
+                    var json = value.json();
+
+                    await json.then((value: any[]) => {
+
+                        var resultList: PlanoTreino[] = [];
+
+                        for (var i = 0; i < value.length; i++) {
+
+                            var exerciciosList = value[i].exercicios;
+
+                            var planoRes: any = Object.assign(value[i], {lista_exercicios: exerciciosList, grupos_musculares: value[i].grupo_muscular, tipo: "esqueceram-se de mim"});
+                            delete planoRes.exercicios;
+                            delete planoRes.grupo_muscular;
+                            
+                            planoRes.lista_exercicios.map((exe: any) => {
+                                
+                                var newExerc = Object.assign(exe, {nm_repeticoes: exe.repetiçoes, nm_series: exe.series});
+                                delete newExerc.repetiçoes;
+                                delete newExerc.series;
+                                return("ok");
+                            });
+
+                            resultList.push(planoRes);
+                        }
+                        //console.log(resultList);
+                        this.setState({lista_plano_treino: resultList});
+
+                    });
+
+                    } else {
+                    alert("REQUEST ERROR "+value.status);
+                }
+            })
+            .catch(function(error: any) {
+              alert("Server is currently down... \n\n".concat("Error details: \n\n\t").concat(error));
+            });
+    }
 
     render(){
 
@@ -359,7 +409,7 @@ class ShowPlanoTreino extends React.Component<any>{
                         <IonCol>
                         <div className="margens-nomes">
                         <IonItem className="background-orange"><IonIcon icon={hourglassOutline}></IonIcon><b>&nbsp;</b>
-                        <IonLabel className="text-title"><b>FrequÊncia:</b> {this.state.lista_plano_treino[this.state.indice_plano].frequencia}</IonLabel>
+                        <IonLabel className="text-title"><b>Frequência:</b> {this.state.lista_plano_treino[this.state.indice_plano].frequencia}</IonLabel>
                         
                         </IonItem>
                         </div>
@@ -376,32 +426,32 @@ class ShowPlanoTreino extends React.Component<any>{
 
                     {
                         this.state.lista_plano_treino[this.state.indice_plano].lista_exercicios.map((s, i) => (
-                <IonCard className="card-exercicio">
+                <IonCard key={i} className="card-exercicio">
 
                     <IonRow>
                     
                         <IonCol>  
 
                             <IonRow className="margens-nomes"> 
-                                <IonLabel className="nome-exercicio"><b>{this.state.lista_plano_treino[this.state.indice_plano].lista_exercicios[i].nome}</b></IonLabel>
+                                <IonLabel className="nome-exercicio"><b>{s.nome}</b></IonLabel>
                             </IonRow> 
                             
                             <IonRow className="margens-nomes"> 
                                 <IonItem><IonIcon icon={informationOutline}></IonIcon><b>&nbsp;</b>
-                                <IonLabel className="text-title"><b>Número de Repetições:</b> {this.state.lista_plano_treino[this.state.indice_plano].lista_exercicios[i].nm_repeticoes}</IonLabel>                        
+                                <IonLabel className="text-title"><b>Número de Repetições:</b> {s.nm_repeticoes}</IonLabel>                        
                                 </IonItem>
                             </IonRow>  
 
                             <IonRow className="margens-nomes"> 
                             <IonItem><IonIcon icon={informationOutline}></IonIcon><b>&nbsp;</b>
-                                <IonLabel className="text-title"><b>Número de Séries:</b> {this.state.lista_plano_treino[this.state.indice_plano].lista_exercicios[i].nm_series}</IonLabel>                        
+                                <IonLabel className="text-title"><b>Número de Séries:</b> {s.nm_series}</IonLabel>                        
                                 </IonItem>
                             </IonRow> 
 
                         </IonCol>
 
                         <IonCol>
-                            <img alt="a carregar..." src={this.exercicioToImagem(this.state.lista_plano_treino[this.state.indice_plano].lista_exercicios[i].nome)}></img>
+                            <img alt="a carregar..." src={this.exercicioToImagem(s.nome)}></img>
                         </IonCol>
 
                     </IonRow>
