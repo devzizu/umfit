@@ -52,6 +52,7 @@ import ConsultarAulasGrupo from './pages/ConsultarAulasGrupo';
 import UltimaAvaliacao from './pages/user/UltimaAvaliacao';
 import UltimaAvaliacaoInstrutor from './pages/instrutor/UltimaAvaliacaoInstrutor';
 import ShowPlanoTreino from './pages/user/ShowPlanoTreino';
+import CriarAvaliacao from './pages/instrutor/CriarAvaliacao';
 
 //---------------------------------------------------------------------------------------
 
@@ -399,6 +400,8 @@ class ProfileTreinador extends React.Component<any> {
 
           <Route path="/profile/avaliacaocliente" component={UltimaAvaliacaoInstrutor} exact={true} />
 
+          <Route path="/profile/criaravaliacao" render={() => { return <CriarAvaliacao user={this.state.user} /> } } exact={true} />
+
           <Route path="/profile/logout" component={() => {return <LogOut setLogged={this.props.setLogged}/>}} exact={true} />
 
           <Route path='*' exact={true} component={Component404} />
@@ -446,12 +449,13 @@ class LogInForm extends React.Component<any> {
   render() {
 
     return (
-      
+
       <div id="login-form">
           <div id="Logo"></div>
           <div id="phrase">
               <IonText>O teu ginásio da UMinho...</IonText>
           </div>
+    
       <div id="input-form">
           <br></br>
           <IonInput required type="email" id="email-input" placeholder="E-Mail"

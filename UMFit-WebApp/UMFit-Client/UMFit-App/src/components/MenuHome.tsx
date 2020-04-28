@@ -170,6 +170,12 @@ const appPagesTreinador: AppPage[] = [
     mdIcon: pizzaOutline
   },
   {
+    title: 'Criar avaliação',
+    url: '/profile/criaravaliacao',
+    iosIcon: calendarOutline,
+    mdIcon: calendarOutline
+  },
+  {
     title: 'Consultar Avaliação de Cliente',
     url: '/profile/avaliacaocliente',
     iosIcon: analyticsOutline,

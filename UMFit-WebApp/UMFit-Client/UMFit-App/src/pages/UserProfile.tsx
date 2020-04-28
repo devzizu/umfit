@@ -1,5 +1,5 @@
 
-import { IonPage, IonHeader, IonToolbar, IonTitle, IonContent, IonCard, IonCardHeader, IonCardTitle, IonCardSubtitle, IonIcon } from "@ionic/react";
+import { IonPage, IonHeader, IonToolbar, IonTitle, IonContent, IonCard, IonCardHeader, IonCardTitle, IonCardSubtitle, IonIcon, IonGrid, IonRow, IonCol, IonCardContent } from "@ionic/react";
 import React from "react";
 import { User } from "../models/Other/User";
 
@@ -49,60 +49,92 @@ class UserProfile extends React.Component<any> {
         
         <IonContent>
 
-          {/* ------------------------------------------------------------------------- */}
-
-          <div className="card-wrapper">
-            <IonCard className="profile-info-card">
-
-              <IonCardHeader>
-
-                <img src={require('../imgs/perfil_pic.png')} width="100" height="100" alt="Loading..."/>
-                <IonCardSubtitle>{this.state.user.categoria}</IonCardSubtitle>
-                <IonCardTitle>{this.state.user.nome}</IonCardTitle>
-
-              </IonCardHeader>
-
-            </IonCard>
-          </div>
+        <IonGrid>
 
           {/* ------------------------------------------------------------------------- */}
-          <div className="centrar">            
-            <IonCard className="profile-personal-info-card">
 
-              <IonCardHeader>
-                <IonCardTitle className="info-text-title">Informação pessoal:</IonCardTitle>
-              </IonCardHeader>
+            <IonRow>
 
-              <div className="info-text">
+              <IonCol>
 
-                  <IonIcon slot="start" icon={informationCircleOutline} />
-                  <b>{ this.state.user.tipoDeUser}</b>
-                  <br></br>
-                  <br></br>
-                  <IonIcon slot="start" icon={mailOutline} />
-                  <b> E-Mail:</b> {this.state.user.email}
-                  <br></br>
-                  {
-                    this.state.user.genero === 1 ?
-                    <IonIcon slot="start" icon={maleOutline} />
-                    :
-                    <IonIcon slot="start" icon={femaleOutline} />
-                  }
-                  <b> Género:</b> {this.state.user.genero===1 ? "Masculino" : "Feminino"}
-                  <br></br>
-                  <IonIcon slot="start" icon={locationOutline} />
-                  <b> Localidade:</b> {this.state.user.localidade}
-                  <br></br>
-                  <IonIcon slot="start" icon={calendarOutline} />
-                  <b> Data de Nascimento:</b> {this.state.user.data_nascimento}
-                  <br></br>
-                  <IonIcon slot="start" icon={cardOutline} />
-                  <b> NIF:</b> {this.state.user.nif}
+                <IonCard>
 
-              </div>
+                  <IonCardHeader className="cardFirst">
 
-            </IonCard>
-          </div>
+                    <img className="profilePic" src={require('../imgs/perfil_pic.png')} alt="Loading..."/>
+                    
+                    <IonCardSubtitle>{this.state.user.categoria}</IonCardSubtitle>
+                    <IonCardTitle>{this.state.user.nome}</IonCardTitle>
+
+                  </IonCardHeader>
+
+
+                </IonCard>
+
+              </IonCol>
+
+            </IonRow>
+
+            <IonRow>
+
+                <IonCol>
+
+                    <IonCard className="cardSecond">
+
+                      <IonCardContent>
+
+                          <IonIcon slot="start" icon={informationCircleOutline} />
+                        <b>&nbsp;</b><b>Tipo de utilizador: </b>{this.state.user.tipoDeUser}
+                        <br></br>
+                        <br></br>
+                        <IonIcon slot="start" icon={mailOutline} />
+                        <b> E-Mail:</b> {this.state.user.email}
+                        <br></br>
+                        {
+                          this.state.user.genero === 1 ?
+                          <IonIcon slot="start" icon={maleOutline} />
+                          :
+                          <IonIcon slot="start" icon={femaleOutline} />
+                        }
+                        <b> Género:</b> {this.state.user.genero===1 ? "Masculino" : "Feminino"}
+                        <br></br>
+                        <IonIcon slot="start" icon={locationOutline} />
+                        <b> Localidade:</b> {this.state.user.localidade}
+                        <br></br>
+                        <IonIcon slot="start" icon={calendarOutline} />
+                        <b> Data de Nascimento:</b> {this.state.user.data_nascimento}
+                        <br></br>
+                        <IonIcon slot="start" icon={cardOutline} />
+                        <b> NIF:</b> {this.state.user.nif}
+
+                      </IonCardContent>
+
+                    </IonCard>
+
+                </IonCol>
+
+            </IonRow>
+            
+          {/* ------------------------------------------------------------------------- */}
+          <IonRow>
+
+            <IonCol>
+
+                <IonCard className="cardSecond">
+
+                  <IonCardContent>
+
+                      (more info soon...)
+
+                  </IonCardContent>
+
+                </IonCard>
+
+            </IonCol>
+
+            </IonRow>          
+          </IonGrid>
+
           </IonContent>
         </IonPage>
     );
@@ -115,20 +147,3 @@ class UserProfile extends React.Component<any> {
 
 export default UserProfile;
 
-const Avaliacoes: React.FC = () => {
-  return(
-    <IonPage>
-          
-          <IonHeader>
-              <IonToolbar color="primary">
-                <IonTitle id="page-title">Avaliacoes</IonTitle>
-              </IonToolbar>
-          </IonHeader>
-      
-
-      </IonPage>
-  );
-}
-
-
-export {Avaliacoes};

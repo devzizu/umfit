@@ -22,7 +22,8 @@ namespace UMFit_WebAPI.Models.Data.DAO
 
 
         // Vai buscar todas as Avaliações (realizadas ou não)
-        public static List<Avaliaçao> GetTodasAvaliaçoes()
+        // Vai buscar todas as Avaliações (realizadas ou não)
+        public List<Avaliaçao> GetTodasAvaliaçoes()
         {
             List<Avaliaçao> r = new List<Avaliaçao>();
 
@@ -44,8 +45,6 @@ namespace UMFit_WebAPI.Models.Data.DAO
 
                 while (reader.Read())
                 {
-                    int id = reader.GetInt32(0);
-
                     if (!reader.IsDBNull(1))
                     {
                         cc = new Composiçao_Corporal(reader.GetInt32(1), reader.GetFloat(2), reader.GetFloat(3),
@@ -65,25 +64,88 @@ namespace UMFit_WebAPI.Models.Data.DAO
                         p = new Perimetros();
                     }
 
-                    Avaliaçao ava = new Avaliaçao(id, reader.GetDateTime(19), reader.GetString(20), reader.GetString(21), cc, p);
+                    Avaliaçao ava = new Avaliaçao(reader.GetDateTime(19), reader.GetString(20), reader.GetString(21), cc, p);
 
                     r.Add(ava);
                 }
 
                 reader.Close();
-
-                // Fecha a conexão à Base de Dados
-                connection.Close();
             }
             catch (Exception e)
             {
                 Console.WriteLine(e.ToString());
             }
+            finally
+            {
+                // Fecha a conexão à Base de Dados
+                connection.Close();
+            }
 
             return r;
         }
+        public bool UpdateAvaliaçaoRealizada(Avaliaçao av)
+        {
+            bool r = false;
+            try
+            {
+                // Abre a conexão à Base de Dados
+                connection.Open();
 
-        public static void InsertAvaliaçao(Avaliaçao av)
+                MySqlCommand command;
+                string sqlCommand;
+
+                sqlCommand = "select idAvaliaçao from Avaliaçao_Agendada where Cliente_email = @CLIENTE_EMAIL and "
+                    + "Instrutor_email = @INSTRUTOR_EMAIL and data = @DATA";
+                command = new MySqlCommand(sqlCommand, connection);
+
+                command = new MySqlCommand(sqlCommand, connection);
+
+                command.Parameters.Add(new MySqlParameter("@CLIENTE_EMAIL", MySqlDbType.VarChar));
+                command.Parameters["@CLIENTE_EMAIL"].Value = av.cliente_email;
+
+                command.Parameters.Add(new MySqlParameter("@INSTRUTOR_EMAIL", MySqlDbType.VarChar));
+                command.Parameters["@INSTRUTOR_EMAIL"].Value = av.instrutor_email;
+
+                command.Parameters.Add(new MySqlParameter("@DATA", MySqlDbType.DateTime));
+                command.Parameters["@DATA"].Value = av.data;
+                
+                
+                int id = Convert.ToInt32(command.ExecuteScalar());
+
+                sqlCommand = "update Avaliaçao_Realizada " +
+                             "set altura = @ALTURA, peso = @PESO, massa_Gorda = @MASSA_GORDA, " +
+                             "massa_Magra = @MASSA_MAGRA, imc = @IMC, idade_Metabolica = @IDADE_METABOLICA, " +
+                             "cintura = @CINTURA, abdomen = @ABDOMEN, ombro = @OMBRO, torax = @TORAX, " +
+                             " braço_direito = @BRAÇO_DIR, braço_esquerdo = @BRAÇO_ESQ, coxa_direita = @COXA_DIR, " +
+                             "coxa_esquerda = @COXA_ESQ, gemeo_direito = @GEMEO_DIR, " +
+                             "gemeo_esquerdo = @GEMEO_ESQ, antebraço_direito = @ANTEBRAÇO_DIR, antebraço_esquerdo = @ANTEBRAÇO_ESQ " +
+                             "where idAvaliaçao = @ID";
+
+                command = new MySqlCommand(sqlCommand, connection);
+
+                av.composiçao_Corporal.IniParamSql(command);
+                av.perimetros.IniParamSql(command);
+
+                command.Parameters.Add(new MySqlParameter("@ID", MySqlDbType.Int32));
+                command.Parameters["@ID"].Value = id;
+                
+                if (command.ExecuteNonQuery() > 0)
+                    r = true;
+
+            }
+            catch(Exception e)
+            {
+                Console.WriteLine(e.ToString());
+            }
+            finally
+            {
+                // Fecha a conexão à Base de Dados
+                connection.Close();
+            }
+
+            return r;
+        }
+        public void InsertAvaliaçao(Avaliaçao av)
         {
             try
             {
@@ -102,30 +164,34 @@ namespace UMFit_WebAPI.Models.Data.DAO
 
                 /*
                  * Comando SQL para inserir uma Avaliação à tabela de avaliações realizadas
-                 */ 
-                sqlCommand = "insert into Avaliaçao_Realizada values (@ID, " + av.composicao_corporal.ToSql(isNull)
+                 */
+                sqlCommand = "insert into Avaliaçao_Realizada (altura, peso, massa_Gorda, " +
+                    "massa_Magra, imc, idade_Metabolica, cintura, abdomen, ombro, torax," +
+                    " braço_direito, braço_esquerdo, coxa_direita, coxa_esquerda, gemeo_direito, " +
+                    "gemeo_esquerdo, antebraço_direito, antebraço_esquerdo) " +
+                    "values(" + av.composiçao_Corporal.ToSql(isNull)
                         + ", " + av.perimetros.ToSql(isNull) + ")";
 
                 command = new MySqlCommand(sqlCommand, connection);
 
-                command.Parameters.Add(new MySqlParameter("@ID", MySqlDbType.Int32));
-                command.Parameters["@ID"].Value = av.id;
-
-                av.composicao_corporal.IniParamSql(command);
+                av.composiçao_Corporal.IniParamSql(command);
                 av.perimetros.IniParamSql(command);
 
                 command.ExecuteScalar();
 
+                command = new MySqlCommand("select LAST_INSERT_ID()", connection);
+                int idAva = Convert.ToInt32(command.ExecuteScalar());
+
                 /*
                  * Comando SQL para inserir uma Avaliação à tabela de avaliações agendadas
                  */
-                sqlCommand = "insert into Avaliaçao_Agendada values ( @DATA, @INSTRUTOR_EMAIL, " +
+                sqlCommand = "insert into Avaliaçao_Agendada values(@DATA, @INSTRUTOR_EMAIL, " +
                     "@CLIENTE_EMAIL, @ID)";
 
                 command = new MySqlCommand(sqlCommand, connection);
 
-                command.Parameters.Add(new MySqlParameter("@ID", MySqlDbType.Int32));
-                command.Parameters["@ID"].Value = av.id;
+                command.Parameters.Add(new MySqlParameter("@DATA", MySqlDbType.DateTime));
+                command.Parameters["@DATA"].Value = av.data.ToString("yyyy-MM-dd HH:mm:ss");
 
                 command.Parameters.Add(new MySqlParameter("@INSTRUTOR_EMAIL", MySqlDbType.VarChar));
                 command.Parameters["@INSTRUTOR_EMAIL"].Value = av.instrutor_email;
@@ -133,21 +199,26 @@ namespace UMFit_WebAPI.Models.Data.DAO
                 command.Parameters.Add(new MySqlParameter("@CLIENTE_EMAIL", MySqlDbType.VarChar));
                 command.Parameters["@CLIENTE_EMAIL"].Value = av.cliente_email;
 
-                command.ExecuteScalar();
+                command.Parameters.Add(new MySqlParameter("@ID", MySqlDbType.Int32));
+                command.Parameters["@ID"].Value = idAva;
 
-                // Fecha a conexão à Base de Dados
-                connection.Close();
+                command.ExecuteScalar();
             }
             catch(Exception e)
             {
                 Console.WriteLine(e.ToString());
+            }
+            finally
+            {
+                // Fecha a conexão à Base de Dados
+                connection.Close();
             }
         }
 
         /*
          * Função que dá return à lista de Avaliações do cliente pretendido
          */
-        public static List<Avaliaçao> GetAvaliaçoes(string emailCliente)
+        public List<Avaliaçao> GetAvaliaçoes(string emailCliente)
         {
             List<Avaliaçao> r = new List<Avaliaçao>();
 
@@ -157,18 +228,15 @@ namespace UMFit_WebAPI.Models.Data.DAO
                  * Vamos buscar todas as Avaliações sem referir o cliente
                  */
                 List<Avaliaçao> listA = GetTodasAvaliaçoes();
-                int i = 0;
 
-                while(i < listA.Count)
+                for(int i = 0;  i < listA.Count; i++)
                 {
                     /*
                      * Caso a avaliação pretença ao cliente, adicionamo-la à lista r
                      */
                     if (listA[i].cliente_email.Equals(emailCliente))
                         r.Add(listA[i]);
-                    i++;
                 }
-
             }
             catch (Exception e)
             {
@@ -191,7 +259,7 @@ namespace UMFit_WebAPI.Models.Data.DAO
          * Função geral que recebe um comando SQL e, a partir deste, retorna
          * uma lista de Avaliações pretendidas
          */
-        public static List<Avaliaçao> GenericListaAvR(MySqlCommand command) 
+        public List<Avaliaçao> GenericListaAvR(MySqlCommand command) 
         {
             List<Avaliaçao> listAv = new List<Avaliaçao>();
 
@@ -210,9 +278,6 @@ namespace UMFit_WebAPI.Models.Data.DAO
                 // Inicia a leitura do resultado do comando SQL
                 while (reader.Read())
                 {
-                    // Acede à posição(coluna) 0 do resultado SQL
-                    int id = reader.GetInt32(0);
-
                     /* 
                      * Caso o atributo "altura" (está na posição 1 do resultado do SQL) da Base de Dados seja null
                      * é porque a Avaliação não foi realizada.
@@ -226,20 +291,22 @@ namespace UMFit_WebAPI.Models.Data.DAO
                         reader.GetFloat(11), reader.GetFloat(12), reader.GetFloat(13), reader.GetFloat(14), reader.GetFloat(15),
                         reader.GetFloat(16), reader.GetFloat(17), reader.GetFloat(18));
 
-                        ava = new Avaliaçao(id, reader.GetDateTime(19), reader.GetString(20), reader.GetString(21), cc, p);
+                        ava = new Avaliaçao(reader.GetDateTime(19), reader.GetString(20), reader.GetString(21), cc, p);
 
                         listAv.Add(ava);
                     }
                 }
 
                 reader.Close();
-
-                // Fecha a conexão à Base de Dados
-                connection.Close();
             }
             catch (Exception e)
             {
                 Console.WriteLine(e.ToString());
+            }
+            finally
+            {
+                // Fecha a conexão à Base de Dados
+                connection.Close();
             }
 
             return listAv;
@@ -249,8 +316,10 @@ namespace UMFit_WebAPI.Models.Data.DAO
          * Função geral que recebe um comando SQL e, a partir deste, retorna
          * a Avaliação pretendida
          */
-        public static Avaliaçao GenericAvaliaçaoR(MySqlCommand command)
+        public Avaliaçao GenericAvaliaçaoR(MySqlCommand command)
         {
+            Avaliaçao ava = null;
+
             try
             {
                 // Abre a conexão à Base de Dados
@@ -264,9 +333,6 @@ namespace UMFit_WebAPI.Models.Data.DAO
                 // Inicia a leitura do resultado do comando SQL
                 while (reader.Read() && reader.HasRows)
                 {
-                    // Acede à posição(coluna) 0 do resultado SQL
-                    int id = reader.GetInt32(0);
-
                     /* 
                      * Caso o atributo "altura" (está na posição 1 do resultado do SQL) da Base de Dados seja null
                      * é porque a Avaliação não foi realizada.
@@ -280,32 +346,29 @@ namespace UMFit_WebAPI.Models.Data.DAO
                         reader.GetFloat(11), reader.GetFloat(12), reader.GetFloat(13), reader.GetFloat(14), reader.GetFloat(15),
                         reader.GetFloat(16), reader.GetFloat(17), reader.GetFloat(18));
 
-                        Avaliaçao ava = new Avaliaçao(id, reader.GetDateTime(19), reader.GetString(20), reader.GetString(21), cc, p);
+                        ava = new Avaliaçao(reader.GetDateTime(19), reader.GetString(20), reader.GetString(21), cc, p);
 
                         reader.Close();
-
-                        // Fecha a conexão à Base de Dados
-                        connection.Close();
-
-                        // Podemos sair do ciclo while, visto que queremos a ultima realizada
-                        return ava;
+                        break;
                     }
                 }
 
                 reader.Close();
-
-                // Fecha a conexão à Base de Dados
-                connection.Close();
             }
             catch (Exception e)
             {
                 Console.WriteLine(e.ToString());
             }
+            finally
+            {
+                // Fecha a conexão à Base de Dados
+                connection.Close();
+            }
 
-            return null;
+            return ava;
         }
 
-        public static List<Avaliaçao> GenericListAvAgend(MySqlCommand command)
+        public List<Avaliaçao> GenericListAvAgend(MySqlCommand command)
         {
             List<Avaliaçao> listAv = new List<Avaliaçao>();
 
@@ -324,9 +387,6 @@ namespace UMFit_WebAPI.Models.Data.DAO
                 // Inicia a leitura do resultado do comando SQL
                 while (reader.Read())
                 {
-                    // Acede à posição(coluna) 0 do resultado SQL
-                    int id = reader.GetInt32(0);
-
                     /* 
                      * Caso o atributo "altura" (está na posição 1 do resultado do SQL) da Base de Dados seja null
                      * é porque a Avaliação não foi realizada.
@@ -336,20 +396,22 @@ namespace UMFit_WebAPI.Models.Data.DAO
                         cc = new Composiçao_Corporal();
                         p = new Perimetros();
 
-                        ava = new Avaliaçao(id, reader.GetDateTime(19), reader.GetString(20), reader.GetString(21), cc, p);
+                        ava = new Avaliaçao(reader.GetDateTime(19), reader.GetString(20), reader.GetString(21), cc, p);
 
                         listAv.Add(ava);
                     }
                 }
 
                 reader.Close();
-
-                // Fecha a conexão à Base de Dados
-                connection.Close();
             }
             catch (Exception e)
             {
                 Console.WriteLine(e.ToString());
+            }
+            finally
+            {
+                // Fecha a conexão à Base de Dados
+                connection.Close();
             }
 
             return listAv;
@@ -358,11 +420,11 @@ namespace UMFit_WebAPI.Models.Data.DAO
 
         // -----------------------------------------------------------------------------------------------
 
-        public static List<Avaliaçao> GetAvaAgendCli(string emailCliente)
+        public List<Avaliaçao> GetAvaAgendCli(string emailCliente)
         {
             // Comando SQL utilizado para criar a classe Avaliaçao
             string sqlCommand = "select * from Avaliaçao_Realizada ar, Avaliaçao_Agendada aa " +
-                "where ar.idAvaliaçao = aa.idAvaliaçao and aa.Cliente_email = @EMAILCLIENTE";
+                "where ar.idAvaliaçao = aa.idAvaliaçao and aa.Cliente_email = @EMAILCLIENTE ";
 
             MySqlCommand command = new MySqlCommand(sqlCommand, connection);
 
@@ -373,7 +435,7 @@ namespace UMFit_WebAPI.Models.Data.DAO
         /*
          *  Vai buscar todas as Avaliações Realizadas na base de dados
          */
-        public static List<Avaliaçao> GetAvaliaçoesRealizadas()
+        public List<Avaliaçao> GetAvaliaçoesRealizadas()
         {
             // Comando SQL utilizado para criar a classe Avaliaçao
             string sqlCommand = "select * from Avaliaçao_Realizada ar, Avaliaçao_Agendada aa " +
@@ -405,7 +467,7 @@ namespace UMFit_WebAPI.Models.Data.DAO
         /*
          * Função que retorna a lista de Avaliaçõe realizadas do instrutor
          */
-        public static List<Avaliaçao> GetAvalRInstr(string emailInstr)
+        public List<Avaliaçao> GetAvalRInstr(string emailInstr)
         {
             // Comando SQL utilizado para criar a classe Avaliaçao
             string sqlCommand = "select * from Avaliaçao_Realizada ar, Avaliaçao_Agendada aa " +
@@ -423,12 +485,12 @@ namespace UMFit_WebAPI.Models.Data.DAO
         /*
          * Função que dá return de uma lista com todas as Avaliações realizadas pelo cliente em causa
          */
-        public static List<Avaliaçao> GetAvalRCliente(string emailCliente)
+        public List<Avaliaçao> GetAvalRCliente(string emailCliente)
         {
             // Comando SQL utilizado para criar a classe Avaliaçao
             string sqlCommand = "select * from Avaliaçao_Realizada ar, Avaliaçao_Agendada aa " +
                 "where ar.idAvaliaçao = aa.idAvaliaçao and aa.Cliente_email = @EMAILCLIENTE "
-                + "order by aa.data asc";
+                + "order by aa.data desc";
 
             MySqlCommand command = new MySqlCommand(sqlCommand, connection);
 

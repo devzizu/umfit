@@ -50,7 +50,7 @@ namespace UMFit_WebAPI.Models.UMFit_LN
         */
         public List<Registo_Avaliaçao> Generate_Reg(string emailCliente, string param, bool isCompCorp)
         {
-            List<Avaliaçao> listA = AvaliaçaoDAO.GetAvalRCliente(emailCliente);
+            List<Avaliaçao> listA = avaliaçaoDAO.GetAvalRCliente(emailCliente);
 
             List<Registo_Avaliaçao> reg = new List<Registo_Avaliaçao>();
 
@@ -134,6 +134,11 @@ namespace UMFit_WebAPI.Models.UMFit_LN
         public List<PlanoTreino> GetPlanosTreino(string mail)
         {
             return planoTreinoDAO.GetPlanoTreino(mail);
+        }
+        
+        public bool AddAvaliacao(Avaliaçao av)
+        {
+            return avaliaçaoDAO.UpdateAvaliaçaoRealizada(av);
         }
     }
 }

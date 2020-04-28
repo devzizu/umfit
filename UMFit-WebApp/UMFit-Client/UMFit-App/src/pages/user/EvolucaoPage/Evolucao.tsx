@@ -40,7 +40,9 @@ interface registoAvaliacao {
     data: Date,
     y: number
 }
-
+const customActionSheetOptions = {
+    header: 'Gráfico de Evolução'
+};
 //----------------------------------------------------------------------
 
 class Evolucao extends React.Component<any> {
@@ -187,12 +189,12 @@ class Evolucao extends React.Component<any> {
 
                     <IonItem className="SelectionMenuItem">
     
-                            <IonSelect value={this.state.menuOpt} placeholder="Select One" onIonChange={
+                            <IonSelect interfaceOptions={customActionSheetOptions} value={this.state.menuOpt} placeholder="Select One" onIonChange={
                                 e =>this.setState( {menuOpt:e.detail.value})
                             }>
 
-                                <IonSelectOption value="compoCorporalOption"><div className="SMlabel">Composição corporal</div></IonSelectOption>
-                                <IonSelectOption value="perimCorporalOption"><div className="SMlabel">Perímetros corporais</div></IonSelectOption>
+                                <IonSelectOption value="compoCorporalOption">Composição corporal</IonSelectOption>
+                                <IonSelectOption value="perimCorporalOption">Perímetros corporais</IonSelectOption>
 
                             </IonSelect>
                     </IonItem>
@@ -228,6 +230,23 @@ class Evolucao extends React.Component<any> {
                                                     <IonCardHeader>
                                                         <IonCardTitle><div className="textWrapper">Peso</div></IonCardTitle>
                                                         <IonCardSubtitle><div className="textWrapper">(em Kg)</div></IonCardSubtitle>
+                                                    </IonCardHeader>
+
+                                                </IonCard>
+
+                                                <div className="evoStats">
+                                                    <Line ref="lineChart" data={dataPeso} options={noLegend} />
+                                                </div>
+
+                                            </IonCol>
+
+                                            <IonCol sizeXs="12" size-Sm ="12" sizeMd="6" sizeLg="6">
+
+                                                <IonCard className="titleCard">
+
+                                                    <IonCardHeader>
+                                                        <IonCardTitle><div className="textWrapper">IMC</div></IonCardTitle>
+                                                        <IonCardSubtitle><div className="textWrapper">(Índice)</div></IonCardSubtitle>
                                                     </IonCardHeader>
 
                                                 </IonCard>

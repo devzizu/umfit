@@ -11,7 +11,6 @@ var normal = require("../../imgs/avaliacao/normal.png")
 var acima_do_peso = require("../../imgs/avaliacao/acima_do_peso.png")
 var obeso = require("../../imgs/avaliacao/obeso.png")
 var obesidade_morbida = require("../../imgs/avaliacao/obesidade_morbida.png")
-var perfil = require('../../imgs/perfil_pic.png')
 
 var pieGraphSettings = {
 	labels: [],
@@ -247,323 +246,331 @@ class UltimaAvaliacaoInstrutor extends React.Component<any>{
 
             </IonGrid>      
 
-            <div className="separador"></div>
+
+            <IonGrid>
+
+<div className="separador"></div>
+    <IonRow>
 
             <IonCard className="card-left">
-                <IonText className="text-title">Dados da realização:</IonText>            
-            </IonCard>
 
 
-            <IonCard className="card-left">
-                
-                <img src={perfil} width="100" height="100" alt="Loading..."/>
-                
                 <IonCardContent>
                         
-                        <IonRow><IonLabel className="text-title"> <b> Data realização: </b> {this.state.avaliacao.data} </IonLabel></IonRow>
-                        <IonRow><IonLabel className="text-title"> <b> Nome Cliente: </b> {this.state.avaliacao.cliente_nome}</IonLabel></IonRow>
-                        <IonRow><IonLabel className="text-title"> <b> Mail Cliente: </b> {this.state.avaliacao.cliente_email} </IonLabel></IonRow>
+                        <IonLabel className="text-title">Detalhes:</IonLabel>            
+                        <br></br>
+                        <br></br>
+                        <IonLabel > <b> Data realização: </b> {this.state.avaliacao.data} </IonLabel>
+                        <br></br>
+                        <IonLabel> <b> Nome Cliente: </b> {this.state.avaliacao.cliente_nome}</IonLabel>
+                        <br></br>
+                        <IonLabel> <b> Mail Cliente: </b> {this.state.avaliacao.cliente_email} </IonLabel>
                     
                 </IonCardContent>
 
             </IonCard>
 
-            <div className="separador"></div>
 
-            <IonCard className="card-left">
-                <IonText className="text-title">Composição Corporal:</IonText>            
-            </IonCard>
+    </IonRow>
 
-            <IonGrid className="margens">
+</IonGrid>
 
-                <IonCard  className="background-orange">
-                    <IonRow className="margem-vertical-labels">
 
-                        <IonCol>
-                            <IonLabel className="info-text"><b>Altura: </b> {this.state.avaliacao.composicao_corporal.altura} cm</IonLabel>
-                        </IonCol>
+    <div className="separador"></div>
 
-                        <IonCol>
-                            <IonLabel className="info-text"><b>Peso: </b> {this.state.avaliacao.composicao_corporal.peso} kg</IonLabel>
-                        </IonCol>
+    <IonCard className="card-left">
+        <IonText className="text-title">Composição Corporal:</IonText>            
+    </IonCard>
 
-                        <IonCol>
-                            <IonLabel className="info-text"><b>Idade Metabólica: </b> {this.state.avaliacao.composicao_corporal.idade_metabolica} anos</IonLabel>
-                        </IonCol>
+    <IonGrid className="margens">
 
+        <IonCard  className="background-orange">
+            <IonRow className="margem-vertical-labels">
+
+                <IonCol>
+                    <IonLabel className="info-text"><b>Altura: </b> {this.state.avaliacao.composicao_corporal.altura} cm</IonLabel>
+                </IonCol>
+
+                <IonCol>
+                    <IonLabel className="info-text"><b>Peso: </b> {this.state.avaliacao.composicao_corporal.peso} kg</IonLabel>
+                </IonCol>
+
+                <IonCol>
+                    <IonLabel className="info-text"><b>Idade Metabólica: </b> {this.state.avaliacao.composicao_corporal.idade_metabolica} anos</IonLabel>
+                </IonCol>
+
+            </IonRow>
+        </IonCard>
+        
+        <IonCard className="card-imc">
+            <IonRow className="margem-vertical-labels">
+                <IonCol>
+
+                    <IonRow>
+                        <IonLabel className="info-text"><b>IMC: </b> {this.state.avaliacao.composicao_corporal.imc}</IonLabel >
                     </IonRow>
-                </IonCard>
+
+                    <IonRow>
+                        <IonCardContent><img className="imcImage" src={this.state.massa_gorda_img} alt="Loading..."/></IonCardContent>
+                    </IonRow>
+
+                </IonCol>
+            </IonRow>
+        </IonCard>
+        
+        <IonCard className="background-orange">
+            <IonGrid no-padding className="centrar-graficos">
+                <IonRow >
+                    <IonCol className="margem">
+                    <Pie width={200} height={200} options={{ maintainAspectRatio: false ,responsive:false }} data={data_massa_kg}/>
+
+                    </IonCol>
+
+                    
+                    <IonCol className="margem">
+                    <Pie width={200} height={200} options={{ maintainAspectRatio: false ,responsive:false }} data={data_massa_perc}/>
+
+                    </IonCol>
                 
-                <IonCard className="card-imc">
-                    <IonRow className="margem-vertical-labels">
-                        <IonCol>
+                </IonRow>
 
-                            <IonRow>
-                                <IonLabel className="info-text"><b>IMC: </b> {this.state.avaliacao.composicao_corporal.imc}</IonLabel >
-                            </IonRow>
+                </IonGrid>            
+        </IonCard>            
+                    
 
-                            <IonRow>
-                                <IonCardContent><img src={this.state.massa_gorda_img} height="350px" alt="Loading..."/></IonCardContent>
-                            </IonRow>
+    </IonGrid>
 
-                        </IonCol>
-                    </IonRow>
-                </IonCard>
+    <div className="separador"></div>
+
+    <IonCard className="card-left">
+        <IonText className="text-title">Perimetros:</IonText>            
+    </IonCard>
+
+    <IonGrid className="margens">
+
+        <IonCard className="background-lista"> 
+            <IonCardContent className="border-color">
+                <IonRow>
+
+                    <IonCol className="search-content">
+                        <IonLabel class="ion-text-wrap"><b>Perimetro</b></IonLabel>
+                    </IonCol>
+
+                    <IonCol className="search-content">
+                        <IonLabel class="ion-text-wrap"><b>Valor(cm)</b></IonLabel>
+                    </IonCol>
+
+                </IonRow>
+            </IonCardContent>
+        </IonCard>
+        
+        <IonCard>
+            <IonCardContent className="border-color">
+            <IonRow>
+
+                <IonCol className="search-content">
+                    <IonLabel>Cintura</IonLabel>   
+                </IonCol>
                 
-                <IonCard className="background-orange">
-                    <IonGrid no-padding className="centrar-graficos">
-                        <IonRow >
-                            <IonCol className="margem">
-                            <Pie width={200} height={200} options={{ maintainAspectRatio: false ,responsive:false }} data={data_massa_kg}/>
+                <IonCol className="search-content">
+                    <IonLabel>{this.state.avaliacao.perimetros.cintura}</IonLabel>
+            </IonCol>
 
-                            </IonCol>
+            </IonRow>
+            </IonCardContent>
+        </IonCard>
 
-                            
-                            <IonCol className="margem">
-                            <Pie width={200} height={200} options={{ maintainAspectRatio: false ,responsive:false }} data={data_massa_perc}/>
+        <IonCard>
+            <IonCardContent className="border-color">
+            <IonRow>
 
-                            </IonCol>
-                        
-                        </IonRow>
-
-                        </IonGrid>            
-                </IonCard>            
-                            
-
-            </IonGrid>
-
-            <div className="separador"></div>
-
-            <IonCard className="card-left">
-                <IonText className="text-title">Perimetros:</IonText>            
-            </IonCard>
-
-            <IonGrid className="margens">
-
-                <IonCard className="background-lista"> 
-                    <IonCardContent className="border-color">
-                        <IonRow>
-
-                            <IonCol className="search-content">
-                                <IonLabel class="ion-text-wrap"><b>Perimetro</b></IonLabel>
-                            </IonCol>
-
-                            <IonCol className="search-content">
-                                <IonLabel class="ion-text-wrap"><b>Valor(cm)</b></IonLabel>
-                            </IonCol>
-
-                        </IonRow>
-                    </IonCardContent>
-                </IonCard>
+                <IonCol className="search-content">
+                    <IonLabel>Abdomen</IonLabel>   
+                </IonCol>
                 
-                <IonCard>
-                    <IonCardContent className="border-color">
-                    <IonRow>
+                <IonCol className="search-content">
+                    <IonLabel>{this.state.avaliacao.perimetros.abdomen}</IonLabel>
+            </IonCol>
 
-                        <IonCol className="search-content">
-                            <IonLabel>Cintura</IonLabel>   
-                        </IonCol>
-                        
-                        <IonCol className="search-content">
-                            <IonLabel>{this.state.avaliacao.perimetros.cintura}</IonLabel>
-                    </IonCol>
+            </IonRow>
+            </IonCardContent>
+        </IonCard>
 
-                    </IonRow>
-                    </IonCardContent>
-                </IonCard>
+        <IonCard>
+            <IonCardContent className="border-color">
+            <IonRow>
 
-                <IonCard>
-                    <IonCardContent className="border-color">
-                    <IonRow>
-
-                        <IonCol className="search-content">
-                            <IonLabel>Abdomen</IonLabel>   
-                        </IonCol>
-                        
-                        <IonCol className="search-content">
-                            <IonLabel>{this.state.avaliacao.perimetros.abdomen}</IonLabel>
-                    </IonCol>
-
-                    </IonRow>
-                    </IonCardContent>
-                </IonCard>
-
-                <IonCard>
-                    <IonCardContent className="border-color">
-                    <IonRow>
-
-                        <IonCol className="search-content">
-                            <IonLabel>Ombro</IonLabel>   
-                        </IonCol>
-                        
-                        <IonCol className="search-content">
-                            <IonLabel>{this.state.avaliacao.perimetros.ombro}</IonLabel>
-                    </IonCol>
-
-                    </IonRow>
-                    </IonCardContent>
-                </IonCard>
-
-                <IonCard>
-                    <IonCardContent className="border-color">
-                    <IonRow>
-
-                        <IonCol className="search-content">
-                            <IonLabel>Torax</IonLabel>   
-                        </IonCol>
-                        
-                        <IonCol className="search-content">
-                            <IonLabel>{this.state.avaliacao.perimetros.torax}</IonLabel>
-                    </IonCol>
-
-                    </IonRow>
-                    </IonCardContent>
-                </IonCard>
-
-                <IonCard>
-                    <IonCardContent className="border-color">
-                    <IonRow>
-
-                        <IonCol className="search-content">
-                            <IonLabel>Braço Direito</IonLabel>   
-                        </IonCol>
-                        
-                        <IonCol className="search-content">
-                            <IonLabel>{this.state.avaliacao.perimetros.braço_dir}</IonLabel>
-                    </IonCol>
-
-                    </IonRow>
-                    </IonCardContent>
-                </IonCard>
-
-                <IonCard>
-                    <IonCardContent className="border-color">
-                    <IonRow>
-
-                        <IonCol className="search-content">
-                            <IonLabel>Braço Esquerdo</IonLabel>   
-                        </IonCol>
-                        
-                        <IonCol className="search-content">
-                            <IonLabel>{this.state.avaliacao.perimetros.braço_esq}</IonLabel>
-                    </IonCol>
-
-                    </IonRow>
-                    </IonCardContent>
-                </IonCard>
-
-                <IonCard>
-                    <IonCardContent className="border-color">
-                    <IonRow>
-
-                        <IonCol className="search-content">
-                            <IonLabel>Coxa Direita</IonLabel>   
-                        </IonCol>
-                        
-                        <IonCol className="search-content">
-                            <IonLabel>{this.state.avaliacao.perimetros.coxa_dir}</IonLabel>
-                    </IonCol>
-
-                    </IonRow>
-                    </IonCardContent>
-                </IonCard>
-
-                <IonCard>
-                    <IonCardContent className="border-color">
-                    <IonRow>
-
-                        <IonCol className="search-content">
-                            <IonLabel>Coxa Esquerda</IonLabel>   
-                        </IonCol>
-                        
-                        <IonCol className="search-content">
-                            <IonLabel>{this.state.avaliacao.perimetros.coxa_esq}</IonLabel>
-                    </IonCol>
-
-                    </IonRow>
-                    </IonCardContent>
-                </IonCard>
-
-                <IonCard>
-                    <IonCardContent className="border-color">
-                    <IonRow>
-
-                        <IonCol className="search-content">
-                            <IonLabel>Gemeo Direito</IonLabel>   
-                        </IonCol>
-                        
-                        <IonCol className="search-content">
-                            <IonLabel>{this.state.avaliacao.perimetros.gemeo_dir}</IonLabel>
-                    </IonCol>
-
-                    </IonRow>
-                    </IonCardContent>
-                </IonCard>
-
-                <IonCard>
-                    <IonCardContent className="border-color">
-                    <IonRow>
-
-                        <IonCol className="search-content">
-                            <IonLabel>Gemeo Esquerdo</IonLabel>   
-                        </IonCol>
-                        
-                        <IonCol className="search-content">
-                            <IonLabel>{this.state.avaliacao.perimetros.gemeo_esq}</IonLabel>
-                    </IonCol>
-
-                    </IonRow>
-                    </IonCardContent>
-                </IonCard>
-
-                <IonCard>
-                    <IonCardContent className="border-color">
-                    <IonRow>
-
-                        <IonCol className="search-content">
-                            <IonLabel>Antebraço Direito</IonLabel>   
-                        </IonCol>
-                        
-                        <IonCol className="search-content">
-                            <IonLabel>{this.state.avaliacao.perimetros.antebraço_dir}</IonLabel>
-                    </IonCol>
-
-                    </IonRow>
-                    </IonCardContent>
-                </IonCard>
+                <IonCol className="search-content">
+                    <IonLabel>Ombro</IonLabel>   
+                </IonCol>
                 
-                <IonCard>
-                    <IonCardContent className="border-color">
-                    <IonRow>
+                <IonCol className="search-content">
+                    <IonLabel>{this.state.avaliacao.perimetros.ombro}</IonLabel>
+            </IonCol>
 
-                        <IonCol className="search-content">
-                            <IonLabel>Antebraço Esquerdo</IonLabel>   
-                        </IonCol>
-                        
-                        <IonCol className="search-content">
-                            <IonLabel>{this.state.avaliacao.perimetros.antebraço_esq}</IonLabel>
-                    </IonCol>
+            </IonRow>
+            </IonCardContent>
+        </IonCard>
 
-                    </IonRow>
-                    </IonCardContent>
-                </IonCard>
+        <IonCard>
+            <IonCardContent className="border-color">
+            <IonRow>
 
-            </IonGrid>
-
-            <div className="separador"></div>
-
-            <IonCard className="card-left">
-                <IonText className="text-title">Comentário do Instrutor:</IonText>            
-            </IonCard>
+                <IonCol className="search-content">
+                    <IonLabel>Torax</IonLabel>   
+                </IonCol>
                 
-            <IonGrid className="margens">
-                <IonCard  className="background-orange">
-                    <IonCardContent className="margem-vertical-labels">
-                        <IonText className="tamanho-fonte">{this.state.avaliacao.comentario}</IonText>
-                    </IonCardContent>
-                </IonCard>            
-            </IonGrid>
+                <IonCol className="search-content">
+                    <IonLabel>{this.state.avaliacao.perimetros.torax}</IonLabel>
+            </IonCol>
 
+            </IonRow>
+            </IonCardContent>
+        </IonCard>
+
+        <IonCard>
+            <IonCardContent className="border-color">
+            <IonRow>
+
+                <IonCol className="search-content">
+                    <IonLabel>Braço Direito</IonLabel>   
+                </IonCol>
+                
+                <IonCol className="search-content">
+                    <IonLabel>{this.state.avaliacao.perimetros.braço_dir}</IonLabel>
+            </IonCol>
+
+            </IonRow>
+            </IonCardContent>
+        </IonCard>
+
+        <IonCard>
+            <IonCardContent className="border-color">
+            <IonRow>
+
+                <IonCol className="search-content">
+                    <IonLabel>Braço Esquerdo</IonLabel>   
+                </IonCol>
+                
+                <IonCol className="search-content">
+                    <IonLabel>{this.state.avaliacao.perimetros.braço_esq}</IonLabel>
+            </IonCol>
+
+            </IonRow>
+            </IonCardContent>
+        </IonCard>
+
+        <IonCard>
+            <IonCardContent className="border-color">
+            <IonRow>
+
+                <IonCol className="search-content">
+                    <IonLabel>Coxa Direita</IonLabel>   
+                </IonCol>
+                
+                <IonCol className="search-content">
+                    <IonLabel>{this.state.avaliacao.perimetros.coxa_dir}</IonLabel>
+            </IonCol>
+
+            </IonRow>
+            </IonCardContent>
+        </IonCard>
+
+        <IonCard>
+            <IonCardContent className="border-color">
+            <IonRow>
+
+                <IonCol className="search-content">
+                    <IonLabel>Coxa Esquerda</IonLabel>   
+                </IonCol>
+                
+                <IonCol className="search-content">
+                    <IonLabel>{this.state.avaliacao.perimetros.coxa_esq}</IonLabel>
+            </IonCol>
+
+            </IonRow>
+            </IonCardContent>
+        </IonCard>
+
+        <IonCard>
+            <IonCardContent className="border-color">
+            <IonRow>
+
+                <IonCol className="search-content">
+                    <IonLabel>Gemeo Direito</IonLabel>   
+                </IonCol>
+                
+                <IonCol className="search-content">
+                    <IonLabel>{this.state.avaliacao.perimetros.gemeo_dir}</IonLabel>
+            </IonCol>
+
+            </IonRow>
+            </IonCardContent>
+        </IonCard>
+
+        <IonCard>
+            <IonCardContent className="border-color">
+            <IonRow>
+
+                <IonCol className="search-content">
+                    <IonLabel>Gemeo Esquerdo</IonLabel>   
+                </IonCol>
+                
+                <IonCol className="search-content">
+                    <IonLabel>{this.state.avaliacao.perimetros.gemeo_esq}</IonLabel>
+            </IonCol>
+
+            </IonRow>
+            </IonCardContent>
+        </IonCard>
+
+        <IonCard>
+            <IonCardContent className="border-color">
+            <IonRow>
+
+                <IonCol className="search-content">
+                    <IonLabel>Antebraço Direito</IonLabel>   
+                </IonCol>
+                
+                <IonCol className="search-content">
+                    <IonLabel>{this.state.avaliacao.perimetros.antebraço_dir}</IonLabel>
+            </IonCol>
+
+            </IonRow>
+            </IonCardContent>
+        </IonCard>
+        
+        <IonCard>
+            <IonCardContent className="border-color">
+            <IonRow>
+
+                <IonCol className="search-content">
+                    <IonLabel>Antebraço Esquerdo</IonLabel>   
+                </IonCol>
+                
+                <IonCol className="search-content">
+                    <IonLabel>{this.state.avaliacao.perimetros.antebraço_esq}</IonLabel>
+            </IonCol>
+
+            </IonRow>
+            </IonCardContent>
+        </IonCard>
+
+    </IonGrid>
+
+    <div className="separador"></div>
+
+    <IonCard className="card-left">
+        <IonText className="text-title">Comentário do Instrutor:</IonText>            
+    </IonCard>
+        
+    <IonGrid className="margens">
+        <IonCard  className="background-orange">
+            <IonCardContent className="margem-vertical-labels">
+                <IonText className="tamanho-fonte">{this.state.avaliacao.comentario}</IonText>
+            </IonCardContent>
+        </IonCard>            
+    </IonGrid>
         </IonContent>
  
         <IonFooter class="ion-no-border">

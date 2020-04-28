@@ -156,6 +156,16 @@ const peito: PlanoTreino = {
     lista_exercicios: [Supino_Normal_Halters, Pack_Deck, Afundos, Peito_Press_Maquina]
 }
 
+const empty: PlanoTreino = {
+
+    nome: "Não tem um plano ainda!",
+    tipo: "",
+    grupos_musculares: "",
+    frequencia: "",
+    data_fim: "",
+    lista_exercicios: []
+}
+
 const tricep: PlanoTreino = {
 
     nome: "Tricep",
@@ -314,9 +324,14 @@ class ShowPlanoTreino extends React.Component<any>{
 
                             resultList.push(planoRes);
                         }
+
+                        if(resultList.length === 0) 
+                            this.setState({lista_plano_treino: [empty]});
+                        else {
                         //console.log(resultList);
                         this.setState({lista_plano_treino: resultList});
 
+                        }
                     });
 
                     } else {
@@ -381,7 +396,7 @@ class ShowPlanoTreino extends React.Component<any>{
 
                     <IonRow>
                         <IonCol className="margens-centrar">
-                    <IonLabel className="nome-treino"> <b>Plano de Treino:</b> <i>{this.state.lista_plano_treino[this.state.indice_plano].nome}</i> (Até <i>01-02-2020</i>) </IonLabel>
+                    <IonLabel className="nome-treino"> <b>Plano de Treino:</b> <i>{this.state.lista_plano_treino[this.state.indice_plano].nome}</i> (Até <i>...</i>) </IonLabel>
                         </IonCol>
                     </IonRow>
                     

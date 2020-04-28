@@ -78,7 +78,7 @@ class UpdateDetails extends React.Component<any> {
 
                 <IonHeader>
                 <IonToolbar color="primary">
-                    <IonTitle id="page-title">Atualizar informações pessoais</IonTitle>
+                    <IonTitle id="page-title">Atualizar</IonTitle>
                 </IonToolbar>
                 </IonHeader>
     
@@ -89,7 +89,7 @@ class UpdateDetails extends React.Component<any> {
                         <IonRow>
                             <IonCol size="2.5" className="Row1ProfilePic">
                                 
-                                <img src={require('../imgs/perfil_pic.png')} width="150" height="150" alt="Loading..."/> 
+                                <img className="profilePic" src={require('../imgs/perfil_pic.png')} alt="Loading..."/> 
                             
                             </IonCol>
 

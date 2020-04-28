@@ -34,3 +34,25 @@ export function getLastAvaliacao(email : string){
 
     return res;
 }
+
+export function criarAvaliacao(dt:any, email_c: any, email_i: any, pt: any){
+
+    var enviar = {
+
+        data: dt,
+        email_cliente: email_c,
+        email_instrutor: email_i,
+        plano_treino: pt
+    }
+
+    var res = fetch(baseURL + "/criar", {
+        method: 'post',
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(enviar)
+    });
+
+    return res;
+}

@@ -1,53 +1,21 @@
-
-.card-wrapper {
-    height: 200px; 
-    display: flex; 
-    align-items: baseline; 
-    justify-content: center;
-    margin-top: 30px;
-    margin-bottom: 50px;
-}
-
-.profile-info-card {
-    padding: 20px;
-    flex-direction: column;
-    width: 95%;
-    margin: 0 !important;
-    background-color: rgb(240, 228, 215);
-    display: flex;
-    justify-content: center;
+.cardFirst {
     text-align: center;
+    border-top: 10px solid rgb(196, 131, 11);
+    --ion-background-color: rgb(241, 231, 231);
 }
 
-.info-wrapper {
-    height: 200px; 
-    margin-top: 30px;
-}
-
-.profile-personal-info-card {
-    padding: 20px;
-    width: 95%;
-    margin: 0 !important;
-    background-color: rgb(236, 185, 134);
-    height: 250px;
-}
-
-.info-text-title {
-    color: rgb(97, 91, 91);
-    font-size: 23px;
-    font-family: 'Courier New', Courier, monospace;   
-    font-weight: bolder;
-}
-
-.info-text {
+.cardSecond {
     color: black;
-    font-size: 16px;
-    font-family: 'Courier New', Courier, monospace;
-    height: 200px;
-    
+    border-top: 10px solid rgb(196, 131, 11);
+    --ion-background-color: rgb(241, 231, 231);
 }
 
-.centrar {
-    display: flex;
-    justify-content: center;
+.separador{
+    
+    border: 2px solid rgb(105, 95, 88);
+}
+
+.profilePic {
+    min-width: 100px;    
+    max-height: 100px;    
 }

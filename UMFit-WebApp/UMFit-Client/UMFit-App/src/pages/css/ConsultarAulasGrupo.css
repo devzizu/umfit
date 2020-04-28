@@ -26,6 +26,6 @@
 }
 
 .aulaImage {
-    max-width: 70%;
+    min-width: 100px;
     height: auto;
 }

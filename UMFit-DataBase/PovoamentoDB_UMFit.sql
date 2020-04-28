@@ -1,5 +1,5 @@
 use UMFit_DB;
-select * from Refeiçao;
+
 -- NOTAS
 -- Género é definido por um inteiro. 0 no caso de ser feminino e 1 caso seja masculino;
 -- A categoria do cliente tem os seguintes valores possiveis: Standard, Premium;

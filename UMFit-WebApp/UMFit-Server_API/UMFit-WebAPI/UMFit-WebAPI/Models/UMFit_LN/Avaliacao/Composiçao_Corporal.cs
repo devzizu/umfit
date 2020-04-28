@@ -1,4 +1,4 @@
-﻿/*
+﻿﻿/*
  * Classe Composiçao_Corporal que guarda todos os atributos, mais propriamente,
  * os perimetros relativos à Avaliação
  */

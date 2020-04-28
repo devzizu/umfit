@@ -12,7 +12,7 @@ http://ionicframework.com/docs/theming/ */
   --ion-color-primary-tint: #4c8dff;
 
   /** secondary **/
-  --ion-color-secondary: #ffffff;
+  --ion-color-primary: rgb(255, 108, 0);
   --ion-color-secondary-rgb: 61, 194, 255;
   --ion-color-secondary-contrast: #ffffff;
   --ion-color-secondary-contrast-rgb: 255, 255, 255;
@@ -20,7 +20,7 @@ http://ionicframework.com/docs/theming/ */
   --ion-color-secondary-tint: #50c8ff;
 
   /** tertiary **/
-  --ion-color-tertiary: #5260ff;
+  --ion-color-primary: rgb(255, 108, 0);
   --ion-color-tertiary-rgb: 82, 96, 255;
   --ion-color-tertiary-contrast: #ffffff;
   --ion-color-tertiary-contrast-rgb: 255, 255, 255;
@@ -83,7 +83,7 @@ http://ionicframework.com/docs/theming/ */
    */
 
   body {
-    --ion-color-primary: #428cff;
+    --ion-color-primary: rgb(255, 108, 0);
     --ion-color-primary-rgb: 66,140,255;
     --ion-color-primary-contrast: #ffffff;
     --ion-color-primary-contrast-rgb: 255,255,255;
@@ -190,7 +190,7 @@ http://ionicframework.com/docs/theming/ */
    * Material Design Dark Theme
    * -------------------------------------------
    */
-
+/*
   .md body {
     --ion-background-color: white;
     --ion-background-color-rgb: 18,18,18;
@@ -222,7 +222,7 @@ http://ionicframework.com/docs/theming/ */
 
     --ion-item-background: #1A1B1E;
   }
-
+*/
   ion-title.title-large {
     --color: white;
   }

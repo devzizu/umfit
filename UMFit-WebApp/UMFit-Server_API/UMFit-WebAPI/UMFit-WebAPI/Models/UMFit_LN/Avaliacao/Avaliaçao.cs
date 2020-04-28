@@ -11,8 +11,6 @@ namespace UMFit_WebAPI.Models.UMFit_LN.Avaliacao
 {
     public class Avaliaçao
     {
-       public int id { set; get; }
-
         public DateTime data { set; get; }
 
         public string instrutor_email { set; get; }
@@ -21,37 +19,35 @@ namespace UMFit_WebAPI.Models.UMFit_LN.Avaliacao
 
         public bool realizada { set; get; }
 
-        public Composiçao_Corporal composicao_corporal;
+        public Composiçao_Corporal composiçao_Corporal;
 
         public Perimetros perimetros;
 
 
         // Cria uma Avaliação <Agendada> (tem os valores de composição corporal e perimetros a 0)
-        public Avaliaçao(int id, DateTime data, string instrutor_email, string cliente_email)
+        public Avaliaçao(DateTime data, string instrutor_email, string cliente_email)
         {
-            this.id = id;
             this.data = data;
             this.instrutor_email = instrutor_email;
             this.cliente_email = cliente_email;
 
             this.realizada = false;
 
-            this.composicao_corporal = new Composiçao_Corporal();
+            this.composiçao_Corporal = new Composiçao_Corporal();
             this.perimetros = new Perimetros();
         }
 
         // Cria uma Avaliação <Realizada> 
-        public Avaliaçao(int id, DateTime data, string instrutor_email, string cliente_email, 
+        public Avaliaçao(DateTime data, string instrutor_email, string cliente_email, 
             Composiçao_Corporal cc, Perimetros p)
         {
-            this.id = id;
             this.data = data;
             this.instrutor_email = instrutor_email;
             this.cliente_email = cliente_email;
 
             this.realizada = true;
 
-            this.composicao_corporal = cc;
+            this.composiçao_Corporal = cc;
             this.perimetros = p;
         }
 
@@ -59,7 +55,7 @@ namespace UMFit_WebAPI.Models.UMFit_LN.Avaliacao
         public void FoiRealizada(Composiçao_Corporal cc, Perimetros p)
         {
             this.realizada = true;
-            this.composicao_corporal = cc;
+            this.composiçao_Corporal = cc;
             this.perimetros = p;
         }
 
@@ -67,17 +63,14 @@ namespace UMFit_WebAPI.Models.UMFit_LN.Avaliacao
         {
             StringBuilder r = new StringBuilder();
 
-            r.Append("\nId: " + this.id + ";\n");
-            r.Append("Data: " + this.data.ToString() + ";\n");
+            r.Append("\nData: " + this.data.ToString() + ";\n");
             r.Append("Instrutor: " + this.instrutor_email + ";\n");
             r.Append("Cliente: " + this.cliente_email + ";\n");
-            r.Append(this.composicao_corporal.ToString());
+            r.Append(this.composiçao_Corporal.ToString());
             r.Append(this.perimetros.ToString());
 
             return r.ToString();
         }
-        
-        
 
         /*
          * Retorna o parâmetro(peso, altura, imc, ...) consoante a string que recebe
@@ -93,22 +86,22 @@ namespace UMFit_WebAPI.Models.UMFit_LN.Avaliacao
                 switch (param)
                 {
                     case "altura":
-                        r = this.composicao_corporal.altura;
+                        r = this.composiçao_Corporal.altura;
                         break;
                     case "peso":
-                        r = this.composicao_corporal.peso;
+                        r = this.composiçao_Corporal.peso;
                         break;
                     case "massa_gorda":
-                        r = this.composicao_corporal.massa_gorda;
+                        r = this.composiçao_Corporal.massa_gorda;
                         break;
                     case "massa_magra":
-                        r = this.composicao_corporal.massa_magra;
+                        r = this.composiçao_Corporal.massa_magra;
                         break;
                     case "imc":
-                        r = this.composicao_corporal.imc;
+                        r = this.composiçao_Corporal.imc;
                         break;
                     case "idade_metabolica":
-                        r = this.composicao_corporal.idade_metabolica;
+                        r = this.composiçao_Corporal.idade_metabolica;
                         break;
                 }
             }
@@ -156,5 +149,6 @@ namespace UMFit_WebAPI.Models.UMFit_LN.Avaliacao
             }
             return r;
         }
+
     }
 }

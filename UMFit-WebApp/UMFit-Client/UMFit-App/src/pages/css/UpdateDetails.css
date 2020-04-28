@@ -1,3 +1,7 @@
+.profilePic {
+    min-width: 130px;
+    min-height: 130px;
+}
 
 .PageContent {
     --ion-background-color: white;

@@ -1,6 +1,6 @@
 
 import React from "react";
-import { IonPage, IonHeader, IonToolbar, IonTitle, IonFooter, IonContent, IonCard, IonCardContent, IonText, IonLabel, IonRow, IonCol, IonGrid} from "@ionic/react";
+import { IonPage, IonHeader, IonToolbar, IonTitle, IonFooter, IonContent, IonCard, IonCardContent, IonText, IonLabel, IonRow, IonCol, IonGrid } from "@ionic/react";
 import "./css/UltimaAvaliacao.css"
 import{Pie} from "react-chartjs-2";
 import { getLastAvaliacao } from "../../models/API/EvolucaoAPI";
@@ -10,7 +10,6 @@ var normal = require("../../imgs/avaliacao/normal.png")
 var acima_do_peso = require("../../imgs/avaliacao/acima_do_peso.png")
 var obeso = require("../../imgs/avaliacao/obeso.png")
 var obesidade_morbida = require("../../imgs/avaliacao/obesidade_morbida.png")
-var perfil = require('../../imgs/perfil_pic.png')
 
 var pieGraphSettings = {
 	labels: [],
@@ -188,24 +187,34 @@ class UltimaAvaliacao extends React.Component<any>{
 
         <IonContent>
 
-            <IonCard className="card-left">
-                <IonText className="text-title">Dados da Avaliação:</IonText>            
-            </IonCard>
+        <IonGrid>
+
+        <div className="separador"></div>
+            <IonRow>
+
+                    <IonCard className="card-left">
+
+        
+                        <IonCardContent>
+                                
+                                <IonLabel className="text-title">Detalhes:</IonLabel>            
+                                <br></br>
+                                <br></br>
+                                <IonLabel > <b> Data realização: </b> {this.state.avaliacao.data} </IonLabel>
+                                <br></br>
+                                <IonLabel> <b> Nome Cliente: </b> {this.state.avaliacao.cliente_nome}</IonLabel>
+                                <br></br>
+                                <IonLabel> <b> Mail Cliente: </b> {this.state.avaliacao.cliente_email} </IonLabel>
+                            
+                        </IonCardContent>
+
+                    </IonCard>
 
 
-            <IonCard className="card-left">
-                
-                <img src={perfil} width="100" height="100" alt="Loading..."/>
-                
-                <IonCardContent>
-                        
-                    <IonRow><IonLabel className="text-title"> <b> Data realização: </b> {this.state.avaliacao.data} </IonLabel></IonRow>
-                        <IonRow><IonLabel className="text-title"> <b> Nome Cliente: </b> {this.state.avaliacao.cliente_nome}</IonLabel></IonRow>
-                        <IonRow><IonLabel className="text-title"> <b> Mail Cliente: </b> {this.state.avaliacao.cliente_email} </IonLabel></IonRow>
-                     
-                </IonCardContent>
+            </IonRow>
 
-            </IonCard>
+        </IonGrid>
+
 
             <div className="separador"></div>
 
@@ -242,7 +251,7 @@ class UltimaAvaliacao extends React.Component<any>{
                             </IonRow>
 
                             <IonRow>
-                                <IonCardContent><img src={this.state.massa_gorda_img} height="350px" alt="Loading..."/></IonCardContent>
+                                <IonCardContent><img className="imcImage" src={this.state.massa_gorda_img} alt="Loading..."/></IonCardContent>
                             </IonRow>
 
                         </IonCol>

@@ -497,20 +497,20 @@ class CriarPlanoTreino extends React.Component<any>{
                 <IonRow>
 
                     <IonCol>
-                            <IonButton size="large" className="botao" color= "success" onClick={async () => {this.limparPlanoTreino.call(this)}}>
+                            <IonButton className="botao" color= "success" onClick={async () => {this.limparPlanoTreino.call(this)}}>
                                 <IonText> Limpar Plano de treino</IonText>
                                 <IonIcon slot="icon-only" icon={trashOutline}/>
                             </IonButton>
-                    </IonCol>
 
-                    <IonCol>
-                        
-                            <IonButton size="large" className="botao" onClick={async () => {this.addPlanoTreino.call(this)}}>
+                            </IonCol>
+                            <IonCol>
+                            <IonButton className="botao" onClick={async () => {this.addPlanoTreino.call(this)}}>
                                 <IonText> Adicionar Plano de treino</IonText>
                                 <IonIcon slot="icon-only" icon={addOutline}/>
                             </IonButton>
-                       
+
                     </IonCol>
+
                     
                 </IonRow>
             </IonGrid>

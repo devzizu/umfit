@@ -10,14 +10,14 @@ const About: React.FC = () => {
 
         <IonHeader>
           <IonToolbar color="primary">
-            <IonTitle id="page-title">About</IonTitle>
+            <IonTitle id="page-title">UMFit | Sobre</IonTitle>
           </IonToolbar>
         </IonHeader>
 
         <IonContent>
 
           <IonCardHeader>
-            <img src={require('../imgs/departamento_informatica.jpg')} width="100%" height="250" alt="Loading..."/> 
+            <img className="cardImage" src={require('../imgs/departamento_informatica.jpg')} alt="Loading..."/> 
           </IonCardHeader>
 
           <IonCard className="card-about">
@@ -26,7 +26,7 @@ const About: React.FC = () => {
               <IonCardTitle> <b>Sobre nós:</b> </IonCardTitle> 
             </IonCardHeader>
             
-            <IonCardContent>
+            <IonCardContent className="about-text">
               Esta aplicação foi desenvolvida e concebida no ambiento da 
               unidade curricular de Laboratórios de Informática IV.
               <br></br>
