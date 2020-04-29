@@ -123,7 +123,7 @@ namespace UMFit_WebAPI.Models.Data.DAO
 
                 command = new MySqlCommand(sqlCommand, connection);
 
-                av.composiçao_Corporal.IniParamSql(command);
+                av.composicao_corporal.IniParamSql(command);
                 av.perimetros.IniParamSql(command);
 
                 command.Parameters.Add(new MySqlParameter("@ID", MySqlDbType.Int32));
@@ -169,12 +169,12 @@ namespace UMFit_WebAPI.Models.Data.DAO
                     "massa_Magra, imc, idade_Metabolica, cintura, abdomen, ombro, torax," +
                     " braço_direito, braço_esquerdo, coxa_direita, coxa_esquerda, gemeo_direito, " +
                     "gemeo_esquerdo, antebraço_direito, antebraço_esquerdo) " +
-                    "values(" + av.composiçao_Corporal.ToSql(isNull)
+                    "values(" + av.composicao_corporal.ToSql(isNull)
                         + ", " + av.perimetros.ToSql(isNull) + ")";
 
                 command = new MySqlCommand(sqlCommand, connection);
 
-                av.composiçao_Corporal.IniParamSql(command);
+                av.composicao_corporal.IniParamSql(command);
                 av.perimetros.IniParamSql(command);
 
                 command.ExecuteScalar();

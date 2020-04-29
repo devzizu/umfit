@@ -1,9 +1,9 @@
 import React from "react";
-import { IonPage, IonHeader, IonToolbar, IonTitle, IonFooter, IonContent, IonCard, IonCardContent, IonSearchbar, IonInput, IonItem, IonList, IonText, IonLabel, IonRadio, IonRadioGroup, IonButton, IonIcon, IonRow, IonCol, IonGrid} from "@ionic/react";
+import { IonPage, IonHeader, IonToolbar, IonTitle, IonFooter, IonContent, IonCard, IonCardContent, IonSearchbar, IonInput, IonItem, IonList, IonText, IonLabel, IonRadio, IonRadioGroup, IonButton, IonIcon, IonRow, IonCol, IonGrid, IonRange} from "@ionic/react";
 import "../css/CriarAvaliacao.css"
-import { addOutline, trashOutline } from "ionicons/icons";
+import { addOutline, trashOutline} from "ionicons/icons";
 import { Avaliacao, ComposicaoCorporal, Perimetros } from "../../models/Other/Avaliacao";
-import { getAllClients} from "../../models/API/UserAPI";
+import { getAllClients, selectUser} from "../../models/API/UserAPI";
 import { criarAvaliacao } from "../../models/API/EvolucaoAPI";
 import { User } from "../../models/Other/User";
 
@@ -34,7 +34,7 @@ class CriarAvaliacao extends React.Component<any>{
                 peso: "",
                 altura: "",
                 imc: "",
-                idade_metabolica: "",
+                idade_metabolica: 60,
                 massa_magra: "",
                 massa_gorda: ""
             },
@@ -60,7 +60,7 @@ class CriarAvaliacao extends React.Component<any>{
             user_mail: "",
             user_nome: "",
 
-            avaliacao : new Avaliacao(  new ComposicaoCorporal("","","","","",""),
+            avaliacao : new Avaliacao(  new ComposicaoCorporal("","","",60,"",""),
                                         new Perimetros("","","","","","","","","","","","")),
             
             user: this.props.user
@@ -68,9 +68,15 @@ class CriarAvaliacao extends React.Component<any>{
         }
     }
 
-    setUserMail(mail: any){
+    async setUserMail(mail: any){
 
-        this.setState({user_mail: mail})
+        var user = await selectUser(mail);
+        user.json().then(
+            (json)=>{
+                var user =  JSON.parse(json);
+                this.setState({user_nome : user.user.name,user_mail: mail})}
+                
+            )
     }
 
     setPesoCC(peso: any){
@@ -161,7 +167,7 @@ class CriarAvaliacao extends React.Component<any>{
                 peso: "",
                 altura: "",
                 imc: "",
-                idade_metabolica: "",
+                idade_metabolica: 60,
                 massa_magra: "",
                 massa_gorda: ""
             },
@@ -235,6 +241,8 @@ class CriarAvaliacao extends React.Component<any>{
 
     render(){
 
+    console.log(this.state.composicao_corporal.imc)
+
     const mail = this.state.mail_inserido
 
     var lista_mails_resultado = this.state.lista_mails_inicial.filter(function(value){
@@ -298,7 +306,7 @@ class CriarAvaliacao extends React.Component<any>{
             <IonCard className="card-left">
                 <img src={require('../../imgs/perfil_pic.png')} width="100" height="100" alt="Loading..."/>
                 <IonCardContent>
-                    <b>Nome:</b> {this.state.user_mail.substring(0, this.state.user_mail.indexOf('@'))}
+                    <b>Nome:</b> {this.state.user_nome}
                     <br></br>
                     <br></br>
                     <b>Email:</b> {this.state.user_mail}
@@ -315,99 +323,168 @@ class CriarAvaliacao extends React.Component<any>{
                 <IonText className="text-title">Composição Corporal</IonText>
             </IonCard>
 
-            <IonCard className="card-center">
-                <IonList className="descricao-avaliacao">
-                    <IonItem >
-                        <IonLabel class="ion-text-wrap">Peso: </IonLabel>
-                        <IonInput value={this.state.composicao_corporal.peso} onIonChange={e => {this.setPesoCC(e.detail.value)}}/>
-                    </IonItem>
+        
+            <IonGrid className="grid">
+        
+                <IonRow>
 
-                    <IonItem>
-                        <IonLabel class="ion-text-wrap">Altura: </IonLabel>
-                        <IonInput value={this.state.composicao_corporal.altura} onIonChange={e => {this.setAlturaCC(e.detail.value)}}/>
-                    </IonItem>
+                    <IonCol>
+                        <IonCard className="card">
+                            <IonInput className="info-text" placeholder="cm" value={this.state.composicao_corporal.altura} onIonChange={e => {this.setAlturaCC(e.detail.value)}}>Altura: </IonInput>
+                            </IonCard>
+                    </IonCol>
 
-                    <IonItem>
-                        <IonLabel class="ion-text-wrap">IMC: </IonLabel>
-                        <IonInput value={this.state.composicao_corporal.imc} onIonChange={e => {this.setImcCC(e.detail.value)}}/>
-                    </IonItem>
+                    <IonCol>
+                        <IonCard className="card">
+                            <IonInput className="info-text" placeholder="kg" value={this.state.composicao_corporal.peso} onIonChange={e => {this.setPesoCC(e.detail.value)}}>Peso: </IonInput>
+                            </IonCard>
+                    </IonCol>
 
-                    <IonItem>
-                        <IonLabel class="ion-text-wrap">Idade Metabólica: </IonLabel>
-                        <IonInput value={this.state.composicao_corporal.idade_metabolica} onIonChange={e => {this.setIdadeMetabolicaCC(e.detail.value)}}/>
-                    </IonItem>
+                </IonRow>
+                
+                <IonRow>
+                    <IonCol>
+                        <IonCard className="card">
+                        <IonInput className="info-text" value={this.state.composicao_corporal.imc} onIonChange={e => {this.setImcCC(e.detail.value)}}>IMC: </IonInput>
+                        </IonCard>   
+                    </IonCol>
+                </IonRow>
+                
+                <IonRow>
+                    <IonCol>
+                        <IonCard className="card">
+                            <IonLabel className="info-text">Idade Metabolica: </IonLabel>
 
-                    <IonItem>
-                        <IonLabel class="ion-text-wrap">Massa Magra: </IonLabel>
-                        <IonInput value={this.state.composicao_corporal.massa_magra} onIonChange={e => {this.setMassaMagraCC(e.detail.value)}}/>
-                    </IonItem>
-                    <IonItem>
-                        <IonLabel class="ion-text-wrap">Massa Gorda: </IonLabel>
-                        <IonInput value={this.state.composicao_corporal.massa_gorda} onIonChange={e => {this.setMassaGordaCC(e.detail.value)}}/>
-                    </IonItem>
-                </IonList>
-            </IonCard>
+                            <IonRange pin={true} min={1} max={120} value={this.state.composicao_corporal.idade_metabolica} onIonChange={e => this.setIdadeMetabolicaCC(e.detail.value as number)} className="imc-barra">
+                                <IonLabel slot="start">1</IonLabel>
+                                <IonLabel slot="end">120</IonLabel>
+                            </IonRange>
+                            
+                            </IonCard>
+                    </IonCol>
+                </IonRow>
+                
+                <IonRow>
+                    <IonCol>
+                        <IonCard className="card">
+                            <IonInput className="info-text" placeholder="kg" value={this.state.composicao_corporal.massa_magra} onIonChange={e => {this.setMassaMagraCC(e.detail.value)}}>Massa Magra: </IonInput>
+                            </IonCard>
+                    </IonCol>
+                </IonRow>
+                
+                <IonRow>
+                    <IonCol>
+                        <IonCard className="card">
+                            <IonInput className="info-text" placeholder="kg" value={this.state.composicao_corporal.massa_gorda} onIonChange={e => {this.setMassaGordaCC(e.detail.value)}}>Massa Gorda: </IonInput>
+                            </IonCard>
+                    </IonCol>
+                </IonRow>
+            
+            </IonGrid>
 
             <IonCard className="card-left">
                 <IonText className="text-title">Perimetros</IonText>
             </IonCard>
 
-            <IonCard className="card-center">
-                <IonList className="descricao-avaliacao">
-                    <IonItem >
-                        <IonLabel class="ion-text-wrap">Cintura: </IonLabel>
-                        <IonInput value={this.state.perimetros.cintura} onIonChange={e => {this.setCinturaP(e.detail.value)}}/>
-                    </IonItem>
+            <IonGrid className="grid">
 
-                    <IonItem>
-                        <IonLabel class="ion-text-wrap">Abdomen: </IonLabel>
-                        <IonInput value={this.state.perimetros.abdomen} onIonChange={e => {this.setAbdomenP(e.detail.value)}}/>
-                    </IonItem>
+                <IonRow>
+                    <IonCol>
+                        <IonCard className="card">
+                            <IonInput className="info-text" placeholder="cm" value={this.state.perimetros.cintura} onIonChange={e => {this.setCinturaP(e.detail.value)}}>Cintura: </IonInput>  
+                        </IonCard>
+                    </IonCol>
+                </IonRow>
+                
+                <IonRow>
+                    <IonCol>
+                        <IonCard className="card">
+                            <IonInput className="info-text" placeholder="cm" value={this.state.perimetros.abdomen} onIonChange={e => {this.setAbdomenP(e.detail.value)}}>Abdomen: </IonInput>
+                        </IonCard>
+                    </IonCol>
+                </IonRow>
+                
+                <IonRow>
+                    <IonCol>
+                        <IonCard className="card">
+                            <IonInput className="info-text" placeholder="cm" value={this.state.perimetros.ombro} onIonChange={e => {this.setOmbroP(e.detail.value)}}>Ombro: </IonInput>
+                        </IonCard>
+                    </IonCol>
+                </IonRow>
+                
+                <IonRow>
+                    <IonCol>
+                        <IonCard className="card">
+                            <IonInput className="info-text" placeholder="cm" value={this.state.perimetros.torax} onIonChange={e => {this.setToraxP(e.detail.value)}}>Torax: </IonInput>
+                        </IonCard>
+                    </IonCol>
+                </IonRow>
+                
+                <IonRow>
+                    
+                    <IonCol>
+                        <IonCard className="card">
+                            <IonInput className="info-text" placeholder="cm" value={this.state.perimetros.braco_dir} onIonChange={e => {this.setBracoDirP(e.detail.value)}}>Braço Direito: </IonInput>
+                        </IonCard>
+                    </IonCol>
 
-                    <IonItem>
-                        <IonLabel class="ion-text-wrap">Ombro: </IonLabel>
-                        <IonInput value={this.state.perimetros.ombro} onIonChange={e => {this.setOmbroP(e.detail.value)}}/>
-                    </IonItem>
+                    <IonCol>
+                        <IonCard className="card">
+                            <IonInput className="info-text" placeholder="cm" value={this.state.perimetros.braco_esq} onIonChange={e => {this.setBracoEsqP(e.detail.value)}}>Braço Esquerdo: </IonInput>
+                        </IonCard>
+                    </IonCol>
 
-                    <IonItem>
-                        <IonLabel class="ion-text-wrap">Torax: </IonLabel>
-                        <IonInput value={this.state.perimetros.torax} onIonChange={e => {this.setToraxP(e.detail.value)}}/>
-                    </IonItem>
+                </IonRow>
+                
+                <IonRow>
 
-                    <IonItem>
-                        <IonLabel class="ion-text-wrap">Braço Direito: </IonLabel>
-                        <IonInput value={this.state.perimetros.braco_dir} onIonChange={e => {this.setBracoDirP(e.detail.value)}}/>
-                    </IonItem>
-                    <IonItem>
-                        <IonLabel class="ion-text-wrap">Braço Esquerdo: </IonLabel>
-                        <IonInput value={this.state.perimetros.braco_esq} onIonChange={e => {this.setBracoEsqP(e.detail.value)}}/>
-                    </IonItem>
-                    <IonItem>
-                        <IonLabel class="ion-text-wrap">Coxa Direita: </IonLabel>
-                        <IonInput value={this.state.perimetros.coxa_dir} onIonChange={e => {this.setCoxaDirP(e.detail.value)}}/>
-                    </IonItem>
-                    <IonItem>
-                        <IonLabel class="ion-text-wrap">Coxa Esquerda: </IonLabel>
-                        <IonInput value={this.state.perimetros.coxa_esq} onIonChange={e => {this.setCoxaEsqP(e.detail.value)}}/>
-                    </IonItem>
-                    <IonItem>
-                        <IonLabel class="ion-text-wrap">Gemeo Direito: </IonLabel>
-                        <IonInput value={this.state.perimetros.gemeo_dir} onIonChange={e => {this.setGemeoDirP(e.detail.value)}}/>
-                    </IonItem>
-                    <IonItem>
-                        <IonLabel class="ion-text-wrap">Gemeo Esquerdo: </IonLabel>
-                        <IonInput value={this.state.perimetros.gemeo_esq} onIonChange={e => {this.setGemeoEsqP(e.detail.value)}}/>
-                    </IonItem>
-                    <IonItem>
-                        <IonLabel class="ion-text-wrap">Antebraço Direito: </IonLabel>
-                        <IonInput value={this.state.perimetros.antebraco_dir} onIonChange={e => {this.setAntebracoDirP(e.detail.value)}}/>
-                    </IonItem>
-                    <IonItem>
-                        <IonLabel class="ion-text-wrap">Antebraço Esquerdo: </IonLabel>
-                        <IonInput value={this.state.perimetros.antebraco_esq} onIonChange={e => {this.setAntebracoEsqP(e.detail.value)}}/>
-                    </IonItem>
-                </IonList>
-            </IonCard>
+                    <IonCol>
+                        <IonCard className="card">
+                            <IonInput className="info-text" placeholder="cm" value={this.state.perimetros.coxa_dir} onIonChange={e => {this.setCoxaDirP(e.detail.value)}}>Coxa Direita: </IonInput>
+                        </IonCard>
+                    </IonCol>
+
+                    <IonCol>
+                        <IonCard className="card">
+                            <IonInput className="info-text" placeholder="cm" value={this.state.perimetros.coxa_esq} onIonChange={e => {this.setCoxaEsqP(e.detail.value)}}>Coxa Esquerda: </IonInput>
+                        </IonCard>
+                    </IonCol>
+
+                </IonRow>
+                    
+                <IonRow>
+
+                    <IonCol>
+                        <IonCard className="card">
+                            <IonInput className="info-text" placeholder="cm" value={this.state.perimetros.gemeo_dir} onIonChange={e => {this.setGemeoDirP(e.detail.value)}}>Gemeo Direito: </IonInput>
+                        </IonCard>
+                    </IonCol>
+
+                    <IonCol>
+                        <IonCard className="card">
+                            <IonInput className="info-text" placeholder="cm" value={this.state.perimetros.gemeo_esq} onIonChange={e => {this.setGemeoEsqP(e.detail.value)}}>Gemeo Esquerdo: </IonInput>
+                        </IonCard>
+                    </IonCol>
+
+                </IonRow>
+                
+                <IonRow>
+        
+                    <IonCol>
+                        <IonCard className="card">
+                            <IonInput className="info-text" placeholder="cm" value={this.state.perimetros.antebraco_dir} onIonChange={e => {this.setAntebracoDirP(e.detail.value)}}>Antebraço Direito: </IonInput>
+                        </IonCard>
+                    </IonCol>
+                        
+                    <IonCol>
+                        <IonCard className="card">
+                            <IonInput className="info-text" placeholder="cm" value={this.state.perimetros.antebraco_esq} onIonChange={e => {this.setAntebracoEsqP(e.detail.value)}}>Antebraço Esquerdo: </IonInput>
+                        </IonCard>
+                    </IonCol>
+
+                </IonRow>
+            
+            </IonGrid>
 
             <div className="separador"></div>
 

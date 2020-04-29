@@ -1,0 +1,15 @@
+.cardTitle{
+    font-family: monospace;
+}
+.cardAval {
+    border-top: 5px outset #FF832E;
+    border-radius: 0px 0px 15px 0px;
+    --ion-background-color : rgb(255, 255, 255);
+    }
+.data{
+    width: 100%;
+}
+.cardCol{
+
+    margin: 10px auto !important;
+}

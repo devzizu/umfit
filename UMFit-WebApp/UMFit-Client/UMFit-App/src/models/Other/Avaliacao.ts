@@ -6,14 +6,14 @@ export class ComposicaoCorporal {
     peso: string
     altura: string
     imc: string
-    idade_metabolica: string
+    idade_metabolica: number
     massa_magra: string
     massa_gorda: string
 
     constructor(peso: string,
                 altura: string,
                 imc: string,
-                idade_metabolica: string,
+                idade_metabolica: number,
                 massa_magra: string,
                 massa_gorda: string) {
 

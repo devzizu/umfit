@@ -23,8 +23,13 @@
 
 .info-text {
     font-family: 'Courier New', Courier, monospace;
-    text-align: center;
+    text-align: left;
     height: 30px;
+    font-weight: bold;
+}
+
+.imc-barra {
+    height: 50%;
 }
 
 .text-title{
@@ -103,4 +108,16 @@
 
     margin-top: 15%;
     margin-bottom: 10%;
+}
+
+.card{
+    background: rgb(245, 226, 214);
+    padding: 1.5%;
+    border: 1px solid rgb(246, 199, 167);
+}
+
+.grid{
+
+    margin-left: 5%;
+    width: 90%;
 }

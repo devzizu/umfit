@@ -6,10 +6,10 @@
     left:0; right:0;
     top:0; bottom:0;
     margin:auto;
-    border: 3px solid lightblue;
-    border-radius: 30px;
+    border: 3px outset rgb(240, 143, 63);
+    border-radius: 15px;
     max-width:80%;
-    max-height:80%;
+    max-height:70%;
     overflow:auto;
 }
 
@@ -20,6 +20,7 @@
     display: flex;
     margin: auto;
     margin-top: 20px;
+    opacity: 0.9;
 }
 
 #input-form {
@@ -37,23 +38,24 @@
 }
 
 #email-input {
-    border-left: 5px solid orange;
-    border-bottom: 1px dotted orange;
+    border-left: 5px outset orange;
+    border-bottom: 1px dashed orange;
     color: black;
 }
 
 #pass-input {
-    border-left: 5px solid orange;
-    border-bottom: 1px dotted orange;
+    border-left: 5px outset orange;
+    border-bottom: 1px dashed orange;
     color: black;
 }
 
 
 #phrase {
+    opacity: 0.7;
     font-style: italic;
     margin-top: 30px;
     font-size: 17px;
-    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
     text-align: center;
     color: darkslategrey;
     font-weight: bold;

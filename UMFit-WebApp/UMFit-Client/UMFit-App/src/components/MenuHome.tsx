@@ -80,6 +80,12 @@ const appPagesCliente: AppPage[] = [
     mdIcon: documentTextOutline
   },
   {
+    title: 'Agendar Avaliação',
+    url: '/profile/agendar',
+    iosIcon: callOutline,
+    mdIcon: callOutline
+  },
+  {
     title: 'Meus planos de treino',
     url: '/profile/planostreino',
     iosIcon: documentsOutline,

@@ -53,6 +53,7 @@ import UltimaAvaliacao from './pages/user/UltimaAvaliacao';
 import UltimaAvaliacaoInstrutor from './pages/instrutor/UltimaAvaliacaoInstrutor';
 import ShowPlanoTreino from './pages/user/ShowPlanoTreino';
 import CriarAvaliacao from './pages/instrutor/CriarAvaliacao';
+import AgendarAvaliacao from './pages/user/EvolucaoPage/AgendarAvaliacao';
 
 //---------------------------------------------------------------------------------------
 
@@ -300,6 +301,8 @@ class ProfileCliente extends React.Component<any> {
 
           <Route path="/profile/ultimaavaliacao" render={() => {return <UltimaAvaliacao user={this.state.user}/>}} exact={true} />
 
+          <Route path="/profile/agendar" component={AgendarAvaliacao} exact={true} />
+
           <Route path="/profile/planostreino" render={() => {return <ShowPlanoTreino user={this.state.user}/>}} exact={true} />
 
           <Route path="/profile/logout" component={() => {return <LogOut setLogged={this.props.setLogged}/>}} exact={true} />
@@ -452,6 +455,7 @@ class LogInForm extends React.Component<any> {
 
       <div id="login-form">
           <div id="Logo"></div>
+          
           <div id="phrase">
               <IonText>O teu ginásio da UMinho...</IonText>
           </div>
