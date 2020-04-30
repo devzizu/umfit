@@ -32,7 +32,28 @@
 .nome-treino{
 
     font-family: 'Courier New', Courier, monospace;
-    font-size: 30px; 
+    font-size: 20px; 
+}
+
+@media screen and (max-width: 600px) {
+    .responsiveText {
+        font-size: 13px;
+    }
+
+    .nome-treino {
+        font-size: 14px;
+    }
+    .text-title{
+
+        font-size: 10px; 
+    }
+    .nome-exercicio{
+
+        font-size: 13px; 
+    }
+    .buttonNextBefore {
+    }
+
 }
 
 .nome-exercicio{
@@ -60,21 +81,22 @@
     padding: 2.5%;
 }
 
-.botao{
+.buttonNextBefore{
 
-    margin-top: 7.5%;
+    min-width: 200px;
+    min-height: 50px;
 }
 
 .esq{
 
     text-align: left;
-    margin-left: 5%;
+    margin-left: 15%;
 }
 
 .dir{
 
     text-align: right;
-    margin-right: 5%;
+    margin-right: 15%;
 }
 
 .card-exercicio{

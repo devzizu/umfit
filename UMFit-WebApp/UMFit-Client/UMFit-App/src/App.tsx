@@ -295,7 +295,7 @@ class ProfileCliente extends React.Component<any> {
 
           <Route path="/profile/evolucao" component={Evolucao} exact={true} />
 
-          <Route path="/profile/mydetails" render={() => {return <UpdateDetails email={this.state.user.email} />}} exact={true} />
+          <Route path="/profile/mydetails" render={() => {return <UpdateDetails user={this.state.user} email={this.state.user.email} />}} exact={true} />
 
           <Route path="/profile/planoaulas" component={ConsultarAulasGrupo} exact={true} />
 
@@ -351,7 +351,7 @@ class ProfileFuncionario extends React.Component<any> {
 
           <Route path="/profile/removeruser" render={() => {return <RemoveUser email={this.state.user.email}/>}} exact={true} />
 
-          <Route path="/profile/mydetails" render={() => {return <UpdateDetails email={this.state.user.email} />}} exact={true} />
+          <Route path="/profile/mydetails" render={() => {return <UpdateDetails user={this.state.user} email={this.state.user.email} />}} exact={true} />
           <Route path="/profile/planoaulas" component={ConsultarAulasGrupo} exact={true} />
           <Route path="/profile/logout" component={() => {return <LogOut setLogged={this.props.setLogged}/>}} exact={true} />
 
@@ -393,7 +393,7 @@ class ProfileTreinador extends React.Component<any> {
 
           <Route path="/profile" render={() => {return <UserProfile user={this.state.user} />}} exact={true} />
 
-          <Route path="/profile/mydetails" render={() => {return <UpdateDetails email={this.state.user.email} />}} exact={true} />
+          <Route path="/profile/mydetails" render={() => {return <UpdateDetails user={this.state.user} email={this.state.user.email} />}} exact={true} />
           
           <Route path="/profile/planotreino" component={CriarPlanoTreino}  exact={true}/>
 

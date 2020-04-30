@@ -118,7 +118,7 @@ class ConsultarAulasGrupo extends React.Component<any> {
 
                             <IonCol>
                                 <IonItem className="selectDayOfWeek_Item">
-                                    <IonLabel>Selecione o dia da semana</IonLabel>
+                                    <IonLabel>Dia da semana:</IonLabel>
                                     <IonSelect okText="Selecionar" cancelText="Cancelar" key={"DiasDaSemana"} value={this.state.diaSelecionado} placeholder="Select One" 
                                             onIonChange={(e) => { this.setState({ diaSelecionado: (e.detail.value)}) }}>
                                         {
@@ -141,7 +141,7 @@ class ConsultarAulasGrupo extends React.Component<any> {
                             this.state.planoAulasSemanal.get(this.state.diaSelecionado)?.map(
                                 aulaDoDia => {
                                     return (
-                                    <IonRow key={aulaDoDia.hora}>
+                                    <IonRow key={aulaDoDia.hora + aulaDoDia.instrutor_email}>
 
                                         <IonCard key={aulaDoDia.hora} className="AulaDia_CardWrapper">
                                                     
@@ -162,25 +162,25 @@ class ConsultarAulasGrupo extends React.Component<any> {
                                                         <IonItem>
                                                             <IonIcon icon={bodyOutline}></IonIcon>
                                                             <b>&nbsp;&nbsp;</b>
-                                                            <IonLabel><b>Instrutor: </b>{aulaDoDia.instrutor_email}</IonLabel>
+                                                            <IonLabel className="textResponsive"><div className="textResponsive"><b>Instrutor: </b>{aulaDoDia.instrutor_email}</div></IonLabel>
                                                         </IonItem>
 
                                                         <IonItem>
                                                             <IonIcon icon={timerOutline}></IonIcon>
                                                             <b>&nbsp;&nbsp;</b>
-                                                            <IonLabel><b>Duração: </b>{aulaDoDia.duracao}</IonLabel>
+                                                            <IonLabel className="textResponsive"><div className="textResponsive"><b>Duração: </b>{aulaDoDia.duracao}</div></IonLabel>
                                                         </IonItem>
 
                                                         <IonItem>
                                                             <IonIcon icon={sendOutline}></IonIcon>
                                                             <b>&nbsp;&nbsp;</b>
-                                                            <IonLabel><b>Espaço: </b>{aulaDoDia.espaco_ginasio}</IonLabel>
+                                                            <IonLabel className="textResponsive"><div className="textResponsive"><b>Espaço: </b>{aulaDoDia.espaco_ginasio}</div></IonLabel>
                                                         </IonItem>
 
                                                         <IonItem>
                                                             <IonIcon icon={informationOutline}></IonIcon>
                                                             <b>&nbsp;&nbsp;</b>
-                                                            <IonLabel><b>Lotação atual: </b>{aulaDoDia.lotacao_atual} inscritos (máximo {aulaDoDia.lotacao_max} alunos)</IonLabel>
+                                                            <IonLabel><div className="textResponsive"><b>Lotação atual: </b>{aulaDoDia.lotacao_atual} inscritos (máximo {aulaDoDia.lotacao_max} alunos)</div></IonLabel>
                                                         </IonItem>
 
                                                     </IonCol>

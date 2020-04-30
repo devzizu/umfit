@@ -1,8 +1,8 @@
 
 import React from "react";
-import { IonPage, IonHeader, IonToolbar, IonTitle, IonFooter, IonContent, IonCard, IonText, IonGrid, IonRow, IonLabel, IonCol, IonButton, IonItem, IonIcon} from "@ionic/react";
+import { IonPage, IonHeader, IonToolbar, IonTitle, IonFooter, IonContent, IonCard, IonGrid, IonRow, IonLabel, IonCol, IonButton, IonItem, IonIcon} from "@ionic/react";
 import "./css/ShowPlanoTreino.css"
-import { caretForwardOutline, barbellOutline, hourglassOutline, informationOutline } from "ionicons/icons";
+import { barbellOutline, hourglassOutline, informationOutline } from "ionicons/icons";
 import { Exercicio, PlanoTreino } from "../../models/Other/PlanoTreino";
 import { User } from "../../models/Other/User";
 import { getPlanosTreino } from "../../models/API/PlanoTreinoAPI";
@@ -362,32 +362,34 @@ class ShowPlanoTreino extends React.Component<any>{
 
                 <IonRow>
                 
-                        <IonCol className="esq">{(this.state.indice_plano - 1 >= 0)?(
-                        <IonButton disabled={false} size="large" className="botao" onClick={() => this.planoanterior()}>
-                            <IonText>Plano Anterior ({this.state.lista_plano_treino[this.state.indice_plano-1].nome})</IonText>
-                        </IonButton>
-                        ):(
-                        <IonButton disabled size="large" className="botao">
-                            <IonText>Plano Anterior</IonText>
-                        </IonButton>
-                        )
+                        <IonCol className="esq">
+                        {
+                            (this.state.indice_plano - 1 >= 0) ? (
+                                <IonButton className="buttonNextBefore" disabled={false} size="small" onClick={() => this.planoanterior()}>
+                                    Plano Anterior ({this.state.lista_plano_treino[this.state.indice_plano-1].nome})
+                                </IonButton>
+                            ):(
+                                <IonButton className="buttonNextBefore" disabled size="small">
+                                    Plano Anterior
+                                </IonButton>
+                            )
                     
                         }
                         </IonCol>
 
-                        <IonCol className="dir">{(this.state.indice_plano + 1 < this.state.lista_plano_treino.length)?(
-                            <IonButton disabled={false} size="large" className="botao" onClick={() => this.proximoplano()}>
-                                <IonText>Próximo Plano ({this.state.lista_plano_treino[this.state.indice_plano+1].nome})</IonText>
-                            </IonButton>
-                        ):(
-                            <IonButton disabled size="large" className="botao">
-                                <IonText>Próximo Plano</IonText>
-                            </IonButton>
-                        )
-                        
-
+                        <IonCol className="dir">
+                        {
+                            (this.state.indice_plano + 1 < this.state.lista_plano_treino.length) ? (
+                                <IonButton className="buttonNextBefore" disabled={false} size="small" onClick={() => this.proximoplano()}>
+                                    Próximo Plano ({this.state.lista_plano_treino[this.state.indice_plano+1].nome})
+                                </IonButton>
+                            ):(
+                                <IonButton className="buttonNextBefore"  disabled size="small">
+                                    Próximo Plano
+                                </IonButton>
+                            )
                         }
-                    </IonCol>
+                        </IonCol>
                 
 
                 </IonRow>
@@ -403,6 +405,7 @@ class ShowPlanoTreino extends React.Component<any>{
                     <div className="separador"></div>
 
                     <IonRow>
+                        {/*
                         <IonCol>
                         <div className="margens-nomes">
                         <IonItem className="background-orange"><IonIcon icon={caretForwardOutline}></IonIcon><b>&nbsp;</b>
@@ -411,11 +414,11 @@ class ShowPlanoTreino extends React.Component<any>{
                         </IonItem>
                         </div>
                         </IonCol>
-
+                        */}
                         <IonCol>
                         <div className="margens-nomes">
                         <IonItem className="background-orange"><IonIcon icon={barbellOutline}></IonIcon><b>&nbsp;</b>
-                        <IonLabel className="text-title"><b>Grupos Musculares:</b> {this.state.lista_plano_treino[this.state.indice_plano].grupos_musculares}</IonLabel>
+                        <IonLabel className="text-title"><div className="responsiveText"><b>Grupos Musculares:</b> {this.state.lista_plano_treino[this.state.indice_plano].grupos_musculares}</div></IonLabel>
                         
                         </IonItem>
                         </div>
@@ -424,7 +427,7 @@ class ShowPlanoTreino extends React.Component<any>{
                         <IonCol>
                         <div className="margens-nomes">
                         <IonItem className="background-orange"><IonIcon icon={hourglassOutline}></IonIcon><b>&nbsp;</b>
-                        <IonLabel className="text-title"><b>Frequência:</b> {this.state.lista_plano_treino[this.state.indice_plano].frequencia}</IonLabel>
+                        <IonLabel className="text-title"><div className="responsiveText"><b>Frequência:</b> {this.state.lista_plano_treino[this.state.indice_plano].frequencia}</div></IonLabel>
                         
                         </IonItem>
                         </div>
@@ -435,7 +438,7 @@ class ShowPlanoTreino extends React.Component<any>{
 
                     <IonRow>
                         <div className="margens-nomes">
-                        <IonLabel className="text-title">Lista de Exercícios: </IonLabel>
+                        <IonLabel className="text-title"><div className="responsiveText">Lista de Exercícios:</div> </IonLabel>
                         </div>
                     </IonRow>       
 
@@ -448,26 +451,25 @@ class ShowPlanoTreino extends React.Component<any>{
                         <IonCol>  
 
                             <IonRow className="margens-nomes"> 
-                                <IonLabel className="nome-exercicio"><b>{s.nome}</b></IonLabel>
+                                <IonLabel className="nome-exercicio"><div className="responsiveText">{s.nome}</div></IonLabel>
                             </IonRow> 
                             
                             <IonRow className="margens-nomes"> 
                                 <IonItem><IonIcon icon={informationOutline}></IonIcon><b>&nbsp;</b>
-                                <IonLabel className="text-title"><b>Número de Repetições:</b> {s.nm_repeticoes}</IonLabel>                        
+                                <IonLabel className="text-title"><div className="responsiveText">Número de Repetições: {s.nm_repeticoes}</div></IonLabel>                        
                                 </IonItem>
                             </IonRow>  
 
                             <IonRow className="margens-nomes"> 
                             <IonItem><IonIcon icon={informationOutline}></IonIcon><b>&nbsp;</b>
-                                <IonLabel className="text-title"><b>Número de Séries:</b> {s.nm_series}</IonLabel>                        
+                                <IonLabel className="text-title"><div className="responsiveText">Número de Séries: {s.nm_series}</div></IonLabel>                        
                                 </IonItem>
                             </IonRow> 
 
                         </IonCol>
 
-                        <IonCol>
-                            <img alt="a carregar..." src={this.exercicioToImagem(s.nome)}></img>
-                        </IonCol>
+                            <img className="exeImage" alt="a carregar..." src={this.exercicioToImagem(s.nome)}></img>
+
 
                     </IonRow>
 

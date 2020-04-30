@@ -21,6 +21,7 @@
     margin: auto;
     margin-top: 20px;
     opacity: 0.9;
+    filter: contrast(10%);
 }
 
 #input-form {
@@ -37,27 +38,41 @@
     overflow:auto; 
 }
 
+
 #email-input {
     border-left: 5px outset orange;
     border-bottom: 1px dashed orange;
     color: black;
+    font-size: 15px;
 }
 
 #pass-input {
     border-left: 5px outset orange;
     border-bottom: 1px dashed orange;
     color: black;
+    font-size: 15px;
 }
 
+@media screen and (max-width: 600px) {
+    #email-input {
+
+        font-size: 13px;
+    }
+    
+    #pass-input {
+
+        font-size: 13px;
+    }
+}
 
 #phrase {
     opacity: 0.7;
     font-style: italic;
     margin-top: 30px;
-    font-size: 17px;
-    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    font-size: 18px;
+    font-family: 'Trebuchet MS';
     text-align: center;
-    color: darkslategrey;
+    color: rgba(78, 44, 17, 0.76);
     font-weight: bold;
 }
 
@@ -70,4 +85,7 @@
     max-height:100%;
     overflow:auto; 
     width: 120px; 
+    opacity: 0.8;
+    color: rgb(223, 205, 193);
+    font-family: monospace;
 }

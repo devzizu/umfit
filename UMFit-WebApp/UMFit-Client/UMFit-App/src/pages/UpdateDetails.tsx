@@ -6,6 +6,7 @@ import { IonPage, IonHeader, IonTitle, IonToolbar, IonContent, IonGrid, IonRow, 
 import { peopleCircleOutline, transgenderOutline, calendarOutline, buildOutline, closeOutline } from "ionicons/icons";
 import sha256 from "fast-sha256";
 import { updateUserDetailsAPI } from "../models/API/UserAPI";
+import { User } from "../models/Other/User";
 
 //---------------------------------------------------------------------------------------------------------------------------------
 
@@ -13,7 +14,8 @@ class UpdateDetails extends React.Component<any> {
 
     state: {
         password: string,
-        localidade: string
+        localidade: string,
+        user: User
     }
 
     stateToAPI: {
@@ -28,7 +30,8 @@ class UpdateDetails extends React.Component<any> {
 
         this.state = {
             password: "",
-            localidade: ""
+            localidade: "",
+            user: this.props.user
         }
 
         this.stateToAPI = {
@@ -44,11 +47,21 @@ class UpdateDetails extends React.Component<any> {
         let encoded = pass_enc.encode(this.state.password);
         let hash256 = Buffer.from(sha256(encoded)).toString('hex').toUpperCase();
 
-        this.stateToAPI = {
-            userEmail: this.props.email,
-            newPasswordHash: hash256,
-            newLocalidade: this.state.localidade
-        }   
+        var local = this.state.user.localidade;
+        if (this.state.localidade === "") {
+            this.stateToAPI = {
+                userEmail: this.props.email,
+                newPasswordHash: hash256,
+                newLocalidade: local
+            }   
+        } else {
+
+            this.stateToAPI = {
+                userEmail: this.props.email,
+                newPasswordHash: hash256,
+                newLocalidade: this.state.localidade
+            }   
+        }
 
         updateUserDetailsAPI(this.stateToAPI).then(
             res => res.json()            
@@ -78,7 +91,7 @@ class UpdateDetails extends React.Component<any> {
 
                 <IonHeader>
                 <IonToolbar color="primary">
-                    <IonTitle id="page-title">Atualizar</IonTitle>
+                    <IonTitle id="page-title">Atualizar perfil</IonTitle>
                 </IonToolbar>
                 </IonHeader>
     

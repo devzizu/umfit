@@ -27,5 +27,27 @@
 
 .aulaImage {
     min-width: 100px;
+    max-width: 150px;
     height: auto;
+}
+
+
+@media screen and (max-width: 600px) {
+    .textResponsive {
+        font-size: 13px;
+    }
+    .aulaImage {
+        width: 100px;
+        height: 100px;
+    }
+}
+
+@media screen and (min-width: 600px) {
+    .textResponsive {
+        font-size: 18px;
+    }
+    .aulaImage {
+        width: 150px;
+        height: 150px;
+    }
 }
