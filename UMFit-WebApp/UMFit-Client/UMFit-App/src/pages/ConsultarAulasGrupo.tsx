@@ -180,7 +180,7 @@ class ConsultarAulasGrupo extends React.Component<any> {
                                                         <IonItem>
                                                             <IonIcon icon={informationOutline}></IonIcon>
                                                             <b>&nbsp;&nbsp;</b>
-                                                            <IonLabel><div className="textResponsive"><b>Lotação atual: </b>{aulaDoDia.lotacao_atual} inscritos (máximo {aulaDoDia.lotacao_max} alunos)</div></IonLabel>
+                                                            <IonLabel><div className="textResponsive"><b>Lotação atual: </b><br></br><br></br>{aulaDoDia.lotacao_atual} inscritos (máximo {aulaDoDia.lotacao_max} alunos)</div></IonLabel>
                                                         </IonItem>
 
                                                     </IonCol>

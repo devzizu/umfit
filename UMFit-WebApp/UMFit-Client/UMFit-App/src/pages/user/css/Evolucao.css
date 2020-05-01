@@ -26,8 +26,8 @@
 
 .SelectionMenuItem {
    --background: rgb(238, 241, 237);
-   border-radius: 3px;
-   border-style: initial;
+
+   max-width: 100% !important;
 }
 
 .SMlabel {

@@ -174,11 +174,13 @@ class RemoveUser extends React.Component<any> {
                 {renderList.map(
                 (element,index)=>
                 <IonItem key={element} className="item" button={true}  onClick={() =>this.selectUser(index)}>
-                    <IonIcon className="icon" icon ={atCircle}></IonIcon>
                     {selected.index===index?
                     <React.Fragment >
-                    <IonLabel color="primary" >{element}</IonLabel>
                     <IonList lines="none" className="inheritBackground" >
+                        <IonItem className="inheritBackground" >
+                        <IonIcon className="icon" icon ={atCircle}></IonIcon>
+                        <IonLabel color="primary" >{element}</IonLabel>
+                        </IonItem>
                             <IonItem className="inheritBackground" >
                             <IonIcon icon={person} className="icon" ></IonIcon>
                             <IonLabel color="primary" className="inheritBackground">{selected.name}</IonLabel>
@@ -202,6 +204,7 @@ class RemoveUser extends React.Component<any> {
                     
                     :
                     <React.Fragment>
+                    <IonIcon className="icon" icon ={atCircle}></IonIcon>
                     <IonLabel color="primary" >{element}</IonLabel>
                     </React.Fragment>
                     }

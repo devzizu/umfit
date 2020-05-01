@@ -187,9 +187,9 @@ class Evolucao extends React.Component<any> {
                     </IonListHeader>
                     */}
 
-                    <IonItem className="SelectionMenuItem">
+                    <IonItem>
     
-                            <IonSelect interfaceOptions={customActionSheetOptions} value={this.state.menuOpt} placeholder="Select One" onIonChange={
+                            <IonSelect className="SelectionMenuItem" interfaceOptions={customActionSheetOptions} value={this.state.menuOpt} placeholder="Select One" onIonChange={
                                 e =>this.setState( {menuOpt:e.detail.value})
                             }>
 

@@ -229,7 +229,7 @@ class InserirUtilizador extends React.Component<any> {
                                             
                                             <IonItem className="SelectDate">
                                                 <IonIcon slot="start" icon={calendarOutline}></IonIcon>
-                                                <IonLabel>Data de Nascimento:</IonLabel>
+                                                <IonLabel><div className="textResponsive">Data de Nasc.:</div></IonLabel>
                                                 <IonDatetime value={this.state.data_nascimento} onIonChange={(e) => {this.setState({ data_nascimento: e.detail.value! })}}></IonDatetime>
 
                                             </IonItem>
