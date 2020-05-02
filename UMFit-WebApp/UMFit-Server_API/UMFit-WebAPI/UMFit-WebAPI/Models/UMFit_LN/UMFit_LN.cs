@@ -140,5 +140,31 @@ namespace UMFit_WebAPI.Models.UMFit_LN
         {
             return avaliaçaoDAO.UpdateAvaliaçaoRealizada(av);
         }
+
+        public List<string> GetInstrutorEmails()
+        {
+            return utilizadoresDAO.GetInstrutorEmails();
+        }
+
+        public List<Avaliaçao> GetAvaAgendCli(string emailCliente)
+        {
+            return avaliaçaoDAO.GetAvaAgendCli(emailCliente);
+
+        }
+
+        public Dictionary<string, string> GetAllEmailsNames(string tipo)
+        {
+            return utilizadoresDAO.GetAllEmailsNames(tipo);
+        }
+
+        public bool agendarAvaliaçao(Avaliaçao av)
+        {
+            return avaliaçaoDAO.InsertAvaliaçao(av);
+        }
+
+        public List<Avaliaçao> GetAvaAgendInst(string email)
+        {
+            return avaliaçaoDAO.GetAvalInstr(email, 'A');
+        }
     }
 }

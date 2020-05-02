@@ -145,8 +145,9 @@ namespace UMFit_WebAPI.Models.Data.DAO
 
             return r;
         }
-        public void InsertAvaliaçao(Avaliaçao av)
+        public bool InsertAvaliaçao(Avaliaçao av)
         {
+            var ret = true;
             try
             {
                 // Abre a conexão à Base de Dados
@@ -207,12 +208,17 @@ namespace UMFit_WebAPI.Models.Data.DAO
             catch(Exception e)
             {
                 Console.WriteLine(e.ToString());
+                ret = false;
+                return ret;
             }
             finally
             {
                 // Fecha a conexão à Base de Dados
                 connection.Close();
+                
             }
+
+            return ret;
         }
 
         /*
@@ -427,7 +433,10 @@ namespace UMFit_WebAPI.Models.Data.DAO
                 "where ar.idAvaliaçao = aa.idAvaliaçao and aa.Cliente_email = @EMAILCLIENTE ";
 
             MySqlCommand command = new MySqlCommand(sqlCommand, connection);
-
+            
+            command.Parameters.Add(new MySqlParameter("@EMAILCLIENTE", MySqlDbType.VarChar));
+            command.Parameters["@EMAILCLIENTE"].Value = emailCliente;
+            
             return GenericListAvAgend(command);
         }
 
@@ -467,19 +476,19 @@ namespace UMFit_WebAPI.Models.Data.DAO
         /*
          * Função que retorna a lista de Avaliaçõe realizadas do instrutor
          */
-        public List<Avaliaçao> GetAvalRInstr(string emailInstr)
+        public List<Avaliaçao> GetAvalInstr(string emailInstr, char tipo)
         {
             // Comando SQL utilizado para criar a classe Avaliaçao
             string sqlCommand = "select * from Avaliaçao_Realizada ar, Avaliaçao_Agendada aa " +
-                "where ar.idAvaliaçao = aa.idAvaliaçao and aa.Instrutor_email = @EMAILINSTRUTOR "
-                + "order by aa.data desc";
+                                "where ar.idAvaliaçao = aa.idAvaliaçao and aa.Instrutor_email = @EMAILINSTRUTOR "
+                                + "order by aa.data desc";
 
             MySqlCommand command = new MySqlCommand(sqlCommand, connection);
 
             command.Parameters.Add(new MySqlParameter("@EMAILINSTRUTOR", MySqlDbType.VarChar));
             command.Parameters["@EMAILINSTRUTOR"].Value = emailInstr;
 
-            return GenericListaAvR(command);
+            return tipo=='R'? GenericListaAvR(command) : GenericListAvAgend(command);
         }
 
         /*

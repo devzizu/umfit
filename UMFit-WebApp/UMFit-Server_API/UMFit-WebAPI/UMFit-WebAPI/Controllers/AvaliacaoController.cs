@@ -120,6 +120,54 @@ namespace UMFit_WebAPI.Controllers
             
             return (ret);
         }
-
+        
+        [HttpPost("agendadas")]
+        public ActionResult<string> AvaliacoesAgendadas([FromBody] StringDto token){
+            string email=token.valueST;
+            List<Avaliaçao> av = _system.GetAvaAgendCli(email);
+            JArray array = new JArray();
+            foreach(Avaliaçao a in av)
+            {
+                JObject tmp = new JObject();
+                tmp.Add("instrutor_email", a.instrutor_email);
+                tmp.Add("instrutor_nome", _system.GetUser(a.instrutor_email).GetName());
+                tmp.Add("data",a.data.ToString("yyyy-MM-dd HH:mm:ss"));
+                array.Add(tmp);
+            }
+            JObject avaliacoes = new JObject();
+            avaliacoes.Add("avaliacoes",array);
+            return Ok(avaliacoes.ToString());
+        }
+        
+        [HttpPost("agendar")]
+        public ActionResult<string> Agendar([FromBody] dynamic obj)
+        {
+            ActionResult<string> ret=Ok();
+            JObject job = JObject.Parse((string) obj.ToString());
+            JObject ava =(JObject) job.GetValue("avaliacao");
+            Avaliaçao av = new Avaliaçao( Convert.ToDateTime(ava.GetValue("data").ToString()),
+                                   ava.GetValue("instrutor_email").ToString(),
+                                    job.GetValue("email").ToString());
+            Console.WriteLine(av);
+            if (!_system.agendarAvaliaçao(av)) ret = BadRequest();
+            return ret;
+        }
+        [HttpPost("agendadasI")]
+        public ActionResult<string> AvaliacoesAgendadasInstrutor([FromBody] StringDto token){
+            string email=token.valueST;
+            List<Avaliaçao> av = _system.GetAvaAgendInst(email);
+            JArray array = new JArray();
+            foreach(Avaliaçao a in av)
+            {
+                JObject tmp = new JObject();
+                tmp.Add("instrutor_email", a.cliente_email);
+                tmp.Add("instrutor_nome", _system.GetUser(a.cliente_email).GetName());
+                tmp.Add("data",a.data.ToString("yyyy-MM-dd HH:mm:ss"));
+                array.Add(tmp);
+            }
+            JObject avaliacoes = new JObject();
+            avaliacoes.Add("avaliacoes",array);
+            return Ok(avaliacoes.ToString());
+        }
     }
 }

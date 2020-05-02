@@ -167,3 +167,20 @@ export function updateUserCat(settings: any) {
 
     return res;
 }
+
+export async function getInstrutores () {
+
+    const res = fetch(baseURL + "/emailsI", {
+        method: 'post',
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            valueST: localStorage.getItem("token")
+        })
+    });
+    
+
+    return res;
+}

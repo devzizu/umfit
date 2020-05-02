@@ -66,6 +66,7 @@ class ConsultarAulasGrupo extends React.Component<any> {
         json.then((data) => {
 
             var resultObj = JSON.parse(data);
+            console.log(resultObj);
                        
             for (var i = 0; i < diasDaSemana.length; i++) {
 

@@ -53,7 +53,7 @@ import UltimaAvaliacao from './pages/user/UltimaAvaliacao';
 import UltimaAvaliacaoInstrutor from './pages/instrutor/UltimaAvaliacaoInstrutor';
 import ShowPlanoTreino from './pages/user/ShowPlanoTreino';
 import CriarAvaliacao from './pages/instrutor/CriarAvaliacao';
-import AgendarAvaliacao from './pages/user/EvolucaoPage/AgendarAvaliacao';
+import AgendarAvaliacao from './pages/user/AgendarAvaliacao';
 
 //---------------------------------------------------------------------------------------
 
@@ -301,7 +301,7 @@ class ProfileCliente extends React.Component<any> {
 
           <Route path="/profile/ultimaavaliacao" render={() => {return <UltimaAvaliacao user={this.state.user}/>}} exact={true} />
 
-          <Route path="/profile/agendar" component={AgendarAvaliacao} exact={true} />
+          <Route path="/profile/agendar" render={() => {return <AgendarAvaliacao email={this.state.user.email}/>}} exact={true} />
 
           <Route path="/profile/planostreino" render={() => {return <ShowPlanoTreino user={this.state.user}/>}} exact={true} />
 

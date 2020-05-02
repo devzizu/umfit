@@ -121,3 +121,17 @@
     margin-left: 5%;
     width: 90%;
 }
+
+.cardColSelected{
+    position: relative;
+    margin: 10px auto !important;
+   --ion-background-color: white;
+   border: 5px dotted orangered;
+
+}
+
+.cardColUnselected{
+    position: relative;
+    margin: 10px auto !important;
+    --ion-background-color : white;
+}

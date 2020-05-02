@@ -1,4 +1,5 @@
 import IP_ADDR from "./API_DEFAULTS";
+import { AvaliacaoAgendada } from "../../pages/user/AgendarAvaliacao";
 
 export {}
 
@@ -52,6 +53,54 @@ export function criarAvaliacao(dt:any, email_c: any, email_i: any, pt: any){
             'Content-Type': 'application/json'
         },
         body: JSON.stringify(enviar)
+    });
+
+    return res;
+}
+
+
+export function getAvaliacoesAgendadas(email : string){
+    var res = fetch(baseURL + "/agendadas", {
+        method: 'post',
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            valueST: email
+        })
+    });
+
+    return res;
+}
+
+export function setAvaliacao(email : string, aval : AvaliacaoAgendada){
+    var enviar = {
+        avaliacao : aval,
+        email : email
+    }
+
+    var res = fetch(baseURL + "/agendar", {
+        method: 'post',
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(enviar)
+    });
+
+    return res;
+}
+export function getAvaliacoesAgendadasInstrutor(email : string){
+    var res = fetch(baseURL + "/agendadasI", {
+        method: 'post',
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            valueST: email
+        })
     });
 
     return res;

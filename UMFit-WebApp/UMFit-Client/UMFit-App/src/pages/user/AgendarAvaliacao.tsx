@@ -1,15 +1,18 @@
 import { IonButton, IonCard, IonCardHeader, IonCardTitle, IonContent, IonDatetime, IonHeader, IonIcon, IonItem, IonLabel, IonList, IonPage, IonRow, IonSearchbar, IonTitle, IonToolbar } from "@ionic/react";
 import { calendarOutline, personCircle, personCircleOutline } from "ionicons/icons";
 import React from "react";
-import '../css/AgendarAvaliacao.css';
+import { getAvaliacoesAgendadas, setAvaliacao } from "../../models/API/EvolucaoAPI";
+import { getInstrutores } from "../../models/API/UserAPI";
+import './css/AgendarAvaliacao.css';
 
 
 
-interface AvaliacaoAgendada{
+export interface AvaliacaoAgendada{
     data : string
     instrutor_nome : string
     instrutor_email : string
 }
+
 
 interface SearchBar{
     query : string;
@@ -17,7 +20,7 @@ interface SearchBar{
     list_now : string[]
 }
 const avalInicial : AvaliacaoAgendada  = {
-    data : new Date().toLocaleDateString(),
+    data : new Date().toLocaleString(),
     instrutor_nome : "",
     instrutor_email: ""
 }
@@ -26,53 +29,48 @@ const searchInit : SearchBar = {
     list_init : [],
     list_now : []
 }
-const avalsInicial :AvaliacaoAgendada[] =[
-    {
-        data : new Date().toLocaleDateString(),
-        instrutor_nome : "a name",
-        instrutor_email: "a"
-    },{
-        data : new Date().toLocaleDateString(),
-        instrutor_nome : "b name",
-        instrutor_email: "b"
-    },{
-        data : new Date().toLocaleDateString(),
-        instrutor_nome : "b name",
-        instrutor_email: "c"
-    },{
-        data : new Date().toLocaleDateString(),
-        instrutor_nome : "b name",
-        instrutor_email: "d"
-    },{
-        data : new Date().toLocaleDateString(),
-        instrutor_nome : "b name",
-        instrutor_email: "e"
-    }
-]
-class AgendarAvaliacao extends React.Component{
+
+class AgendarAvaliacao extends React.Component<any>{
     state:{
-       aval : AvaliacaoAgendada;
-       avals : AvaliacaoAgendada[];
+        email : string;
+        aval : AvaliacaoAgendada;
+        avals : AvaliacaoAgendada[];
+        instrutores : Map<string,string>;
        pickInstrutor : SearchBar; 
     }
 
     constructor(props : any){
         super(props);
         this.state={
+            email :props.email,
             aval : avalInicial,
             avals : [],
+            instrutores : new Map(),
             pickInstrutor : searchInit
         }
     }
     
     async componentDidMount(){
-        var avals : AvaliacaoAgendada[] =avalsInicial;
-        var instrutores : string[] = ["Yee@1","lol@ggMale.com","owoBuntu@chk.me.dasddy","Yede@1","lol@ggMalue.com","owoBuntou@chk.me.ddy","Yee@ss1","lol@ggMaleom","owoBuntu@chk.me.dd55y","Yee@1420","lol@gjgMale.co0000m","owoBuutynhgntu@chk.me.ddy","Ysee@1","loal@ggMale.com","owaoBuntu@chk.me.ddy"];
+        var avals : AvaliacaoAgendada[] =[];
+        var map : Map<string,string> = new Map<string,string>() ;
         var pick : SearchBar = this.state.pickInstrutor;
-        //await getAvaliacoesAgendadas().then()
-        //await getInstrutores().then()
-        pick.list_init = instrutores;
-        this.setState({ avals: avals, pickInstrutor :pick });
+        const res = (await getAvaliacoesAgendadas(this.state.email));
+        const res2 = (await getInstrutores());
+        await res.json().then((data)=>{
+
+            avals = JSON.parse(data).avaliacoes;
+        });
+        await res2.json().then((data)=>{
+            var ret = data.instrutores;
+            var i;
+            for( i in ret){
+           map.set(i,ret[i]);
+           pick.list_init.push(i);
+        }
+        });
+
+        
+        this.setState({ avals: avals, pickInstrutor :pick ,instrutores : map });
     }
 
     setDate(date : string){
@@ -94,10 +92,12 @@ class AgendarAvaliacao extends React.Component{
     }
    async selectInstrutor(mail: string) {
         var aval = this.state.aval;
-        var nome = "Josue";
-        //Reset Search ao selecionar (sq irritante, further testing required)   
+        var st = this.state.instrutores.get(mail);
+        var nome = st ? st : "" ;
+        console.log(st);
+        
         var resetSearch :SearchBar ={query: "",list_now :[],list_init : this.state.pickInstrutor.list_init } 
-        //await getInstrutor(mail).then({SET NOME; SET EMAIL})
+        
 
 
         aval.instrutor_email = mail;    
@@ -106,8 +106,13 @@ class AgendarAvaliacao extends React.Component{
     }
 
     setAgendacao() {
-        //setAvaliacao().then
+        setAvaliacao(this.state.email,this.state.aval).then(
+            (data) => {
+                console.log(data.status);
+            }
+        )
         alert("Avaliação Marcada");
+        window.location.reload();
     }
 
 
@@ -142,9 +147,7 @@ class AgendarAvaliacao extends React.Component{
 
         <IonIcon icon={calendarOutline}></IonIcon>
         <IonLabel className="data" > <b>&nbsp;</b>Data:</IonLabel>
-  
-   
-              <IonDatetime  displayFormat="DD-MM-YYYY" value={this.state.aval.data} onIonChange={e => this.setDate(e.detail.value!)}></IonDatetime>
+              <IonDatetime  displayFormat="DD-MM-YYYY HH:mm" value={this.state.aval.data} onIonChange={e => this.setDate(e.detail.value!)}></IonDatetime>
 
         </IonItem>
         <IonItem>
@@ -183,7 +186,7 @@ class AgendarAvaliacao extends React.Component{
 <IonRow className="avalRow">
 {localVals.map((elem)=>
     
-    <IonCard key={Math.random()} className="cardCol">
+    <IonCard key={elem.data + elem.instrutor_nome} className="cardCol">
     <IonItem><IonIcon icon={calendarOutline }></IonIcon><IonLabel>&nbsp;Data: {elem.data}</IonLabel></IonItem>
     <IonItem><IonIcon icon={personCircleOutline}></IonIcon><IonLabel>&nbsp;Instrutor: {elem.instrutor_nome}</IonLabel></IonItem>
     </IonCard>

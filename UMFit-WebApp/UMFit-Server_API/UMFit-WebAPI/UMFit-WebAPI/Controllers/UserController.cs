@@ -143,7 +143,7 @@ namespace UMFit_WebAPI.Controllers
             var createUserObject = JObject.Parse(res);
 
             var userJson = createUserObject.newUser;
-
+            
             InterfaceUtilizador user = null;
             var tipo = -1;
             
@@ -302,6 +302,17 @@ namespace UMFit_WebAPI.Controllers
             _system.UpdateClientCat(email, newTipo.Remove(0, "Cliente ".Length));
             return Ok();
         }
+        [HttpPost("emailsI")]
+        public ActionResult<string> GetIntrutorEmails([FromBody] StringDto token)
+        {
+            var emailsList = _system.GetAllEmailsNames("Instrutor");
+            return Ok(new
+            {
+                instrutores = emailsList
+            });
+        }
+        
+        
         
     }
 }

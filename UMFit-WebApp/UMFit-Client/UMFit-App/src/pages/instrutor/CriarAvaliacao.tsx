@@ -1,16 +1,20 @@
+import { IonButton, IonCard, IonCardContent, IonCol, IonContent, IonFooter, IonGrid, IonHeader, IonIcon, IonInput, IonItem, IonLabel, IonPage, IonRange, IonRow, IonText, IonTitle, IonToolbar, IonAlert } from "@ionic/react";
+import { addOutline, calendarOutline, personCircleOutline, trashOutline } from "ionicons/icons";
 import React from "react";
-import { IonPage, IonHeader, IonToolbar, IonTitle, IonFooter, IonContent, IonCard, IonCardContent, IonSearchbar, IonInput, IonItem, IonList, IonText, IonLabel, IonRadio, IonRadioGroup, IonButton, IonIcon, IonRow, IonCol, IonGrid, IonRange} from "@ionic/react";
-import "../css/CriarAvaliacao.css"
-import { addOutline, trashOutline} from "ionicons/icons";
+import { criarAvaliacao, getAvaliacoesAgendadasInstrutor } from "../../models/API/EvolucaoAPI";
+import { selectUser } from "../../models/API/UserAPI";
 import { Avaliacao, ComposicaoCorporal, Perimetros } from "../../models/Other/Avaliacao";
-import { getAllClients, selectUser} from "../../models/API/UserAPI";
-import { criarAvaliacao } from "../../models/API/EvolucaoAPI";
 import { User } from "../../models/Other/User";
-
+import "../css/CriarAvaliacao.css";
+import { AvaliacaoAgendada } from "../user/AgendarAvaliacao";
+const noIndex : number = -1 
 class CriarAvaliacao extends React.Component<any>{
-
+    
     state: {
-
+        avaliacoes : AvaliacaoAgendada[]
+        selecionada :AvaliacaoAgendada
+        indexed : number
+        showAlert : boolean;
         composicao_corporal: ComposicaoCorporal
         perimetros: Perimetros
 
@@ -29,29 +33,36 @@ class CriarAvaliacao extends React.Component<any>{
         super(props);
 
         this.state = {
-
+            avaliacoes : [],
+            indexed : noIndex,
+            showAlert : false,
+            selecionada:{
+                instrutor_email:"",
+                instrutor_nome:"",
+                data:""
+            },
             composicao_corporal: {
-                peso: "",
-                altura: "",
-                imc: "",
+                peso: "0",
+                altura: "0",
+                imc: "0",
                 idade_metabolica: 60,
-                massa_magra: "",
-                massa_gorda: ""
+                massa_magra: "0",
+                massa_gorda: "0"
             },
 
             perimetros: {
-                cintura: "",
-                abdomen: "",
-                ombro: "",
-                torax: "",
-                braco_dir: "",
-                braco_esq: "",
-                coxa_dir: "",
-                coxa_esq: "",
-                gemeo_dir: "",
-                gemeo_esq: "",
-                antebraco_dir: "",
-                antebraco_esq: ""
+                cintura: "0",
+                abdomen: "0",
+                ombro: "0",
+                torax: "0",
+                braco_dir: "0",
+                braco_esq: "0",
+                coxa_dir: "0",
+                coxa_esq: "0",
+                gemeo_dir: "0",
+                gemeo_esq: "0",
+                antebraco_dir: "0",
+                antebraco_esq: "0"
             },
 
             lista_mails_inicial: new Array<string>(),
@@ -60,10 +71,10 @@ class CriarAvaliacao extends React.Component<any>{
             user_mail: "",
             user_nome: "",
 
-            avaliacao : new Avaliacao(  new ComposicaoCorporal("","","",60,"",""),
-                                        new Perimetros("","","","","","","","","","","","")),
+            avaliacao : new Avaliacao(  new ComposicaoCorporal("0","0","0",60,"0","0"),
+                                        new Perimetros("0","0","0","0","0","0","0","0","0","0","0","0")),
             
-            user: this.props.user
+                                        user: this.props.user
 
         }
     }
@@ -164,38 +175,41 @@ class CriarAvaliacao extends React.Component<any>{
         this.setState({
 
             composicao_corporal: {
-                peso: "",
-                altura: "",
-                imc: "",
+                peso: "0",
+                altura: "0",
+                imc: "0",
                 idade_metabolica: 60,
-                massa_magra: "",
-                massa_gorda: ""
+                massa_magra: "0",
+                massa_gorda: "0"
             },
 
             perimetros: {
-                cintura: "",
-                abdomen: "",
-                ombro: "",
-                torax: "",
-                braco_dir: "",
-                braco_esq: "",
-                coxa_dir: "",
-                coxa_esq: "",
-                gemeo_dir: "",
-                gemeo_esq: "",
-                antebraco_dir: "",
-                antebraco_esq: ""
-            }
+                cintura: "0",
+                abdomen: "0",
+                ombro: "0",
+                torax: "0",
+                braco_dir: "0",
+                braco_esq: "0",
+                coxa_dir: "0",
+                coxa_esq: "0",
+                gemeo_dir: "0",
+                gemeo_esq: "0",
+                antebraco_dir: "0",
+                antebraco_esq: "0"
+            },
+            avaliacao : new Avaliacao(  new ComposicaoCorporal("0","0","0",60,"0","0"),
+                                        new Perimetros("0","0","0","0","0","0","0","0","0","0","0","0")),
+            
         })
     }
 
-    async addAvaliacao(){
-
+    async addAvaliacao(nome :string, mail :string, data : string ){
+        if (data==="") {this.setState({showAlert:true}); return("");}
         var pt: Avaliacao = new Avaliacao(  this.state.composicao_corporal,
                                                 this.state.perimetros)
 
                                                 
-        await criarAvaliacao("2020-04-30 18:00:00", this.state.user_mail, this.state.user.email, pt).then(
+        await criarAvaliacao(data, mail, this.state.user.email, pt).then(
             async (value: any) =>{
                 console.log(value)
                 
@@ -205,39 +219,27 @@ class CriarAvaliacao extends React.Component<any>{
                     case 400 : alert("Verifique se os campos estão válidos"); break;
 
                 }});
+                window.location.reload();
     }
 
     async componentDidMount(){
-
-        var emails : string[];
-        await getAllClients().then(
-            async (value: any) =>{
-                if (value.status === 200) {              
-                    
-                    var json = value.json();
-
-                    await json.then((value: any) => {
-                        emails= value.users;
-                        this.setState({lista_mails_inicial:emails})
-                    });
-               
-                    } else {
-                    alert("REQUEST ERROR "+value.status);
-                }
-            })
-            .catch(function(error: any) {
-              alert("Server is currently down... \n\n".concat("Error details: \n\n\t").concat(error));
-            });
- 
+        var avs : AvaliacaoAgendada[]=[];
+        var res = await getAvaliacoesAgendadasInstrutor(this.state.user.email);
+        await res.json().then(  (value: any) =>{
+                        avs = JSON.parse(value).avaliacoes;
+                         this.setState({avaliacoes:avs});
+                        
+                });
     }
 
 
     render(){
-
-    const mail = this.state.mail_inserido
-
-    var lista_mails_resultado = this.state.lista_mails_inicial.filter(function(value){
-        return value.toLowerCase().indexOf(mail.toLowerCase()) >= 0;})
+    var selection : AvaliacaoAgendada = this.state.indexed<0? {instrutor_email:"",
+                                            instrutor_nome:"",
+                                            data: ""} : this.state.avaliacoes[this.state.indexed];
+    var emailS = selection.instrutor_email;
+    var nomeS = selection.instrutor_nome;
+    var data = selection.data;
 
     return(
       <IonPage>
@@ -245,62 +247,58 @@ class CriarAvaliacao extends React.Component<any>{
         <IonHeader>
           <IonToolbar color="primary">
             <IonTitle className="title" id="page-title">Criar Avaliação</IonTitle>
+
           </IonToolbar>
         </IonHeader>
 
         <IonContent>
-
+        <IonAlert
+          isOpen={this.state.showAlert}
+          onDidDismiss={() => this.setState({showAlert : false})}
+          header={'Aviso'}
+          subHeader={'Impossivel submeter formulario'}
+          message={'SELECIONE UMA AVALIAÇAO'}
+          buttons={['I dont understand','Yass']}
+        />
             <IonCard className="card-left">
-                <IonText className="text-title">Email:</IonText>
+                <IonText className="text-title">Avaliações do dia (Selecione)   : </IonText>
+                
             </IonCard>
+            <IonRow  >
+                {this.state.avaliacoes.map((elem,index)=>
+                    this.state.indexed===index? 
 
-            <IonGrid className="layout-selecao-mails">
-
-                <IonRow >
-                    <IonCol>
-                        <IonSearchbar className="background-orange"
-                                    placeholder="email do cliente"
-                                    value={this.state.mail_inserido}
-                                    onIonChange={e => this.setSearchMail(e.detail.value!)}>
-                        </IonSearchbar>
-                    </IonCol>
-                </IonRow>
-
-                <IonRow >
-                    <IonCol>
-                        <IonContent className="comprimento-lista-mails">
-                            <IonList>
-                                <IonRadioGroup value={this.state.user_mail} onIonChange={e => this.setUserMail(e.detail.value)}>
-                                    {
-                                        lista_mails_resultado.map(function(s :any){
-
-                                            return( <IonItem key={s}>
-                                                        <IonLabel class="ion-text-wrap">{s}</IonLabel>
-                                                        <IonRadio value={s} slot="end"/>
-                                                    </IonItem>)
-                                            })
-                                    }
-                                </IonRadioGroup>
-                            </IonList>
-                        </IonContent>
-                    </IonCol>
-                </IonRow>
-
-            </IonGrid>
-
+                    <IonCard ion-activatable className="cardColSelected" color="primary" button={true} onClick={()=>{ console.log("NICE");this.setState({selecionada:elem, indexed : noIndex})}}  key={elem.data + elem.instrutor_nome} >
+                    <IonItem ><IonIcon icon={calendarOutline }></IonIcon><IonLabel>&nbsp;Data: {elem.data}</IonLabel></IonItem>
+                    <IonItem ><IonIcon icon={personCircleOutline}></IonIcon><IonLabel>&nbsp;Instrutor: {elem.instrutor_nome}</IonLabel></IonItem>
+                    </IonCard>
+                     : 
+                    <IonCard ion-activatable className="cardColUnselected" button={true} onClick={()=>{console.log("NICE NICE");this.setState({selecionada:elem, indexed : index })}}  key={elem.data + elem.instrutor_nome} >
+                    <IonItem  ><IonIcon icon={calendarOutline }></IonIcon><IonLabel>&nbsp;Data: {elem.data}</IonLabel></IonItem>
+                    <IonItem ><IonIcon icon={personCircleOutline}></IonIcon><IonLabel>&nbsp;Instrutor: {elem.instrutor_nome}</IonLabel></IonItem>
+                    </IonCard> 
+                    
+ 
+                    
+                )
+               
+                }
+                
+            </IonRow>
             <div className="separador"></div>
 
             <IonCard className="card-left">
                 <IonText className="text-title">Utilizador Selecionado:</IonText>
+
             </IonCard>
 
             <IonCard className="card-left">
                 <img src={require('../../imgs/perfil_pic.png')} width="100" height="100" alt="Loading..."/>
                 <IonCardContent>
-                    <b>Nome:</b> {this.state.user_nome}
+                    <b>Nome:</b> {nomeS}
                     <br></br>
                     <br></br>
-                    <b>Email:</b> {this.state.user_mail}
+                    <b>Email:</b> {emailS}
                 </IonCardContent>
             </IonCard>
 
@@ -491,7 +489,7 @@ class CriarAvaliacao extends React.Component<any>{
 
                     <IonCol>
 
-                            <IonButton size="large" className="botao" onClick={async () => {this.addAvaliacao.call(this)}}>
+                            <IonButton size="large" className="botao" onClick={async () => {this.addAvaliacao(nomeS,emailS,data)}}>
                                 <IonText> Adicionar Avaliação</IonText>
                                 <IonIcon slot="icon-only" icon={addOutline}/>
                             </IonButton>

@@ -854,5 +854,79 @@ namespace UMFit_WebAPI.Models.Data.DAO
 
             return emailsList;
         }
+        
+        
+        public List<string> GetInstrutorEmails()
+        {
+
+            List<string> emailsList = new List<string>();
+
+            try
+            {
+                connection.Open();
+                string sqlCommand = "select email from Instrutor ";
+                MySqlCommand cmd = new MySqlCommand(sqlCommand, connection);
+                MySqlDataReader reader = cmd.ExecuteReader();
+                while (reader.Read())
+                {
+                    emailsList.Add(reader.GetString(0));
+                }
+                
+                reader.Close();
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.ToString());
+            }
+            finally
+            {
+                connection.Close();
+            }
+
+            return emailsList;
+        }
+        
+        public Dictionary<string,string> GetAllEmailsNames(string tipo)
+        {
+
+            Dictionary<string,string> emailsList = new Dictionary<string,string>();
+            try
+            {
+
+                string sqlCommand;
+                if (tipo.Equals("todos"))
+                    sqlCommand = "select email, nome from Rececionista " +
+                                 "union select email, nome from Cliente " +
+                                 "union select email, nome from Instrutor";
+                else
+                {
+                    sqlCommand = "select email, nome from " + tipo;}
+                connection.Open();
+
+
+                MySqlCommand cmd = new MySqlCommand(sqlCommand, connection);
+                
+                MySqlDataReader reader = cmd.ExecuteReader();
+
+                while (reader.Read())
+                {
+                    emailsList.Add(reader.GetString(0), reader.GetString(1));
+                }
+                
+                reader.Close();
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.ToString());
+            }
+            finally
+            {
+                connection.Close();
+            }
+
+            return emailsList;
+        }
+        
+        
     }
 }
