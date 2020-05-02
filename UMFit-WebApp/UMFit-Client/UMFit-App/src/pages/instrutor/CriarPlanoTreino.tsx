@@ -270,18 +270,20 @@ class CriarPlanoTreino extends React.Component<any>{
           </IonToolbar>
         </IonHeader>
 
+        <div className="separador"></div>
+
         <IonContent>
 
             <IonCard className="card-left">
-                <IonText className="text-title">Email:</IonText>            
+                <IonText className="responsiveTitle">Email:</IonText>            
             </IonCard>
 
             <IonGrid className="layout-selecao-mails">
 
                 <IonRow >
                     <IonCol>
-                        <IonSearchbar className="background-orange"
-                                    placeholder="email do cliente" 
+                        <IonSearchbar className="searchMail"
+                                    placeholder="E-Mail?" 
                                     value={this.state.mail_inserido} 
                                     onIonChange={e => this.setSearchMail(e.detail.value!)}>
                         </IonSearchbar>
@@ -290,7 +292,7 @@ class CriarPlanoTreino extends React.Component<any>{
 
                 <IonRow >
                     <IonCol>
-                        <IonContent className="comprimento-lista-mails">
+                        <IonContent className="mailList">
                             <IonList>
                                 <IonRadioGroup value={this.state.user_mail} onIonChange={e => this.setUserMail(e.detail.value)}>
                                     {
@@ -313,15 +315,15 @@ class CriarPlanoTreino extends React.Component<any>{
             <div className="separador"></div>
 
             <IonCard className="card-left">
-                <IonText className="text-title">Utilizador Selecionado:</IonText>            
+                <IonText className="responsiveTitle">Utilizador Selecionado:</IonText>            
             </IonCard>
             
             <IonCard className="card-left">
-                <img src={require('../../imgs/perfil_pic.png')} width="100" height="100" alt="Loading..."/>
-                <IonCardContent>
+                <img className="ProfilePicPlanoTreino" src={require('../../imgs/perfil_pic.png')} alt="Loading..."/>
+                <IonCardContent className="detailsPlanoTreino">
                     <b>Nome:</b> {this.state.user_nome}
                     <br></br>
-                    <br></br>
+
                     <b>Email:</b> {this.state.user_mail}
                 </IonCardContent>
             </IonCard>
@@ -329,68 +331,67 @@ class CriarPlanoTreino extends React.Component<any>{
             <div className="separador"></div>
 
             <IonCard className="card-left">
-                <IonText className="text-title">Especificações do Plano de treino:</IonText>            
+                <IonText className="responsiveTitle">Especificações do Plano de treino:</IonText>            
             </IonCard>
 
 
             <IonCard className="card-center"> 
                 <IonList className="descricao-plano">
                     <IonItem >
-                        <IonLabel class="ion-text-wrap">Nome: </IonLabel>
+                        <IonLabel><div className="detailsPlanoTreino">Nome:</div></IonLabel>
                         <IonInput value={this.state.nome_treino} onIonChange={e => {this.setNomeTreino(e.detail.value)}}/>
                     </IonItem>
 
                     <IonItem>
-                        <IonLabel class="ion-text-wrap">Tipo: </IonLabel>
+                        <IonLabel><div className="detailsPlanoTreino">Tipo: </div></IonLabel>
                         <IonInput value={this.state.tipo_treino} onIonChange={e => {this.setTipo(e.detail.value)}}/>
                     </IonItem>
 
                     <IonItem>
-                        <IonLabel class="ion-text-wrap">Grupos Musculares: </IonLabel>
+                        <IonLabel><div className="detailsPlanoTreino">Grupos Musc.: </div></IonLabel>
                         <IonInput value={this.state.grup_muscular} onIonChange={e => {this.setGrpMu(e.detail.value)}}/>
                     </IonItem>
 
                     <IonItem>
-                        <IonLabel class="ion-text-wrap">Frequência Recomendada: </IonLabel>
+                        <IonLabel><div className="detailsPlanoTreino">Frequência: </div></IonLabel>
                         <IonInput value={this.state.frequencia} onIonChange={e => {this.setFreq(e.detail.value)}}/>
                     </IonItem>
-                    <IonItem>
-                                          
-                                                <IonLabel class="ion-text-wrap" className="quarterWidth">  Data de Fim:</IonLabel>
-                                                <IonDatetime className="minquarterWidth" value={this.state.data_fim} onIonChange={(e) => {this.setState({ data_fim: e.detail.value! })}}></IonDatetime>
-                                            </IonItem>
+                    <IonItem>                 
+                        <IonLabel class="ion-text-wrap" className="detailsPlanoTreino">  Data de Fim:</IonLabel>
+                            <IonDatetime className="minquarterWidth" value={this.state.data_fim} onIonChange={(e) => {this.setState({ data_fim: e.detail.value! })}}></IonDatetime>
+                         </IonItem>
                 </IonList> 
             </IonCard>
             
             <div className="separador"></div>
 
             <IonCard className="card-left">
-                <IonText className="text-title">Seleção de Exercícios:</IonText>            
+                <IonText className="responsiveTitle">Seleção de Exercícios:</IonText>            
             </IonCard>
 
             <IonGrid className="layout-selecao-exercicios">
                 
                 <IonRow className="espaco-vertical-search">
                     <IonToolbar>
-                        <IonSearchbar className="background-orange"
+                        <IonSearchbar className="searchMail"
                                 value={this.state.nome_exercicio} 
                                 onIonChange={e => this.setSearchExercicio(e.detail.value!)}
-                                placeholder="nome do exercicicio"></IonSearchbar>
+                                placeholder="Exercício?"></IonSearchbar>
                         </IonToolbar>
                     
                 </IonRow>
                 
-                <IonRow className="espaco-vertical-search">
+                <IonRow>
                     <IonCol>
-                        <IonContent>
+                        <IonContent className="mailList">
                             <IonList>
                                 <IonRadioGroup value={this.state.exercicio.nome} onIonChange={e => this.setNomeEx(e.detail.value)}>
                                     {
                                         lista_ex_resultado.map(function(s :any){
 
                                             return( <IonItem key={s}>
-                                                        <IonLabel class="ion-text-wrap">{s}</IonLabel>
-                                                        <IonRadio value={s} slot="end"/>
+                                                        <IonLabel>{s}</IonLabel>
+                                                        <IonRadio value={s}/>
                                                     </IonItem>)
                                         })      
                                     }  
@@ -398,33 +399,55 @@ class CriarPlanoTreino extends React.Component<any>{
                             </IonList>
                         </IonContent>
                     </IonCol>
+                </IonRow>
+                <br></br>
+
+                    <IonRow>
+
+                        <IonCol>
+                            <IonText className="detailsPlanoTreino">Repetições</IonText>            
+                        </IonCol>
+
+                        <IonCol>
+                            <IonInput className="repetSeriInput" type="number" value={this.state.exercicio.nm_repeticoes} onIonChange={e => this.setRepeticoesEx(e.detail.value!)}></IonInput>
+                        </IonCol>
+
+                        <IonCol></IonCol>
+                        <IonCol></IonCol>
+                        <IonCol></IonCol>
+                    </IonRow>
                     
-                    <IonCol className="distancia-horizontal">
-                        <IonText className="search-content">Número de repetições:</IonText>
-                        <IonInput type="number" className="search-bar" value={this.state.exercicio.nm_repeticoes} onIonChange={e => this.setRepeticoesEx(e.detail.value!)}></IonInput>
+                    <IonRow>
 
-                        <IonText className="search-content">  <br></br> Número de séries:</IonText>
-                        <IonInput type="number" className="search-bar" value={this.state.exercicio.nm_series} onIonChange={e => this.setSeriesEx(e.detail.value!)}></IonInput>
-                    </IonCol>
+                        <IonCol>
+                            <IonText className="detailsPlanoTreino">Séries</IonText>            
+                        </IonCol>
 
+                        <IonCol>
+                            <IonInput className="repetSeriInput" type="number" value={this.state.exercicio.nm_series} onIonChange={e => this.setSeriesEx(e.detail.value!)}></IonInput>
+                        </IonCol>
 
-                    <IonCol className="distancia-horizontal">
-                        <IonContent>
-                            <IonButton size="large" onClick={async () =>{ this.addExercicio()}}>
-                                <IonIcon slot="icon-only" icon={addCircleSharp} />
+                        <IonCol></IonCol>
+                        <IonCol></IonCol>
+                        <IonCol></IonCol>
+
+                    </IonRow>
+                    <IonRow>
+                        <IonItem>
+                            <IonText><div className="detailsPlanoTreino">Novo Exercício:</div></IonText>
+                            <IonInput className="newExercise" onIonChange={e => this.setNovoEx(e.detail.value!)}></IonInput>
+                        </IonItem>
+                    </IonRow>
+                                    <br></br>
+                <IonRow>
+                    <IonCol>
+                        <IonContent className="AddButton">
+                            <IonButton onClick={async () =>{ this.addExercicio()}}>
+                                Adicionar exercício &nbsp; <IonIcon icon={addCircleSharp} />
                             </IonButton>
                         </IonContent>
                     </IonCol>
 
-                </IonRow>
-
-                <IonRow>
-                <IonList className="descricao-plano">
-                    <IonItem>
-                    <IonLabel class="ion-text-wrap">Novo Exercício:</IonLabel>
-                    <IonInput onIonChange={e => this.setNovoEx(e.detail.value!)}></IonInput>
-                    </IonItem>
-                    </IonList>
                 </IonRow>
 
             </IonGrid>
@@ -432,24 +455,24 @@ class CriarPlanoTreino extends React.Component<any>{
             <div className="separador"></div>
 
             <IonCard className="card-left">
-                <IonText className="text-title">Lista de exercícios selecionados:</IonText>            
+                <IonText className="responsiveTitle">Lista de exercícios selecionados:</IonText>            
             </IonCard>                        
                          
-            <IonGrid className="grid-exercicios">
+            <IonGrid className="final-ex-table">
                 <IonCard className="background-orange">
                     <IonCardContent>
                         <IonRow>
 
-                            <IonCol className="search-content">
-                                <IonLabel class="ion-text-wrap"><b>Nome do Exercício</b></IonLabel>
+                            <IonCol>
+                                <IonLabel className="detailsPlanoTreino"><b>Exercício:</b></IonLabel>
                             </IonCol >
 
-                            <IonCol className="search-content">
-                                <IonLabel class="ion-text-wrap"><b>Número de Repetições</b></IonLabel>
+                            <IonCol>
+                                <IonLabel className="detailsPlanoTreino"><b>Repetições:</b></IonLabel>
                             </IonCol >
 
-                            <IonCol className="search-content">
-                                <IonLabel class="ion-text-wrap"><b>Número de Séries</b></IonLabel>
+                            <IonCol>
+                                <IonLabel className="detailsPlanoTreino"><b>Séries:</b></IonLabel>
                             </IonCol >
 
                         </IonRow>
@@ -458,23 +481,23 @@ class CriarPlanoTreino extends React.Component<any>{
                     {
                         this.state.lista_ex_selecionados.map((s, i) => (
 
-                            <IonCard key={s.nome} >
+                            <IonCard className="bordersGrid" key={s.nome} >
                                 <IonCardContent>
                                     <IonRow>
 
                                         <IonCol className="search-content">
-                                            <IonLabel class="ion-text-wrap">{s.nome}</IonLabel>
+                                            <IonLabel className="detailsPlanoTreino">{s.nome}</IonLabel>
                                         </IonCol >
 
                                         <IonCol className="search-content">
-                                            <IonLabel class="ion-text-wrap">{s.nm_repeticoes}</IonLabel>
+                                            <IonLabel className="detailsPlanoTreino">{s.nm_repeticoes}</IonLabel>
                                         </IonCol >
 
                                         <IonCol className="search-content">
-                                            <IonLabel  class="ion-text-wrap">{s.nm_series}</IonLabel>
+                                            <IonLabel className="detailsPlanoTreino">{s.nm_series}</IonLabel>
                                         </IonCol >
 
-                                        <IonButton size="small" onClick={async () => {this.rmExercico.call(this, i)}}>
+                                        <IonButton onClick={async () => {this.rmExercico.call(this, i)}}>
                                             <IonIcon slot="icon-only" icon={closeCircleSharp}/>
                                         </IonButton>
 
@@ -492,26 +515,22 @@ class CriarPlanoTreino extends React.Component<any>{
             </IonContent>
                
             </IonGrid>
+            <div className="separador"></div>
 
             <IonGrid className="grid-exercicios">
                 <IonRow>
-
                     <IonCol>
-                            <IonButton className="botao" color= "success" onClick={async () => {this.limparPlanoTreino.call(this)}}>
-                                <IonText> Limpar Plano de treino</IonText>
+                            <IonButton className="botaoGridPT" color= "success" onClick={async () => {this.limparPlanoTreino.call(this)}}>
+                                Limpar
                                 <IonIcon slot="icon-only" icon={trashOutline}/>
                             </IonButton>
 
-                            </IonCol>
-                            <IonCol>
-                            <IonButton className="botao" onClick={async () => {this.addPlanoTreino.call(this)}}>
-                                <IonText> Adicionar Plano de treino</IonText>
+                            <IonButton className="botaoGridPT" onClick={async () => {this.addPlanoTreino.call(this)}}>
+                                Adicionar
                                 <IonIcon slot="icon-only" icon={addOutline}/>
                             </IonButton>
-
-                    </IonCol>
-
                     
+                            </IonCol>
                 </IonRow>
             </IonGrid>
 

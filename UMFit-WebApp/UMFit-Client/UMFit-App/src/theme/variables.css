@@ -1,6 +1,7 @@
 /* Ionic Variables and Theming. For more info, please see:
 http://ionicframework.com/docs/theming/ */
 
+
 /** Ionic CSS Variables **/
 :root {
   /** primary **/
@@ -151,7 +152,7 @@ http://ionicframework.com/docs/theming/ */
    * iOS Dark Theme
    * -------------------------------------------
    */
-
+/*
   .ios body {
     --ion-background-color: #000000;
     --ion-background-color-rgb: 0,0,0;
@@ -184,7 +185,7 @@ http://ionicframework.com/docs/theming/ */
     --ion-item-background: #1c1c1c;
     --ion-item-background-activated: #313131;
   }
-
+*/
 
   /*
    * Material Design Dark Theme
@@ -226,4 +227,6 @@ http://ionicframework.com/docs/theming/ */
   ion-title.title-large {
     --color: white;
   }
+
+
 }

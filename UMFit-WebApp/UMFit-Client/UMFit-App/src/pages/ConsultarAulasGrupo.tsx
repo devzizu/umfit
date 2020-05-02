@@ -219,7 +219,7 @@ class ConsultarAulasGrupo extends React.Component<any> {
                                     </IonRow>
                                     );
                                 }
-                            )) : <div>nao ha aulas</div>
+                            )) : <div>A carregar plano semanal de aulas...</div>
                         }
                         </IonGrid>
 

@@ -26,12 +26,6 @@
     height: 30px; 
 }
 
-.text-title{
-
-    font-family: 'Courier New', Courier, monospace;
-    font-size: 20px; 
-}
-
 .card-center{
 
     box-shadow: none;
@@ -74,6 +68,10 @@
     --ion-grid-padding: 0;
 }
 
+.final-ex-table {
+    width: 90%;
+}
+
 .background-orange{
 
     background: rgb(245, 226, 214);
@@ -82,12 +80,6 @@
 .espaco-vertical-search{
 
     margin-bottom: 2.5%;
-}
-
-.comprimento-lista-mails{
-
-
-    height: 175px;
 }
 
 .descricao-plano{
@@ -104,8 +96,6 @@
     margin-right: 5%;
  }
 
- .botao{
-}
 
 .quarterWidth{
     max-width: 25% !important;
@@ -113,4 +103,86 @@
 
 .minquarterWidth{
     min-width: 27% !important;
+}
+
+.searchMail {
+    
+    --ion-background-color: rgb(226, 222, 215);
+}
+
+.responsiveTitle {
+    font-size: 22px;
+    font-weight: bold;
+}
+
+.mailList{
+
+    height: 150px;
+}
+
+.detailsPlanoTreino {
+    font-size: 16px;
+    font-family: 'Courier New', Courier, monospace;
+}
+
+.ProfilePicPlanoTreino {
+    max-width: 100px;
+    max-height: 100px;
+}
+
+.repetSeriInput {
+    background-color: rgb(226, 206, 206);
+    width: 70px;
+    height: 23px;
+    font-weight: bold;
+    color: black;
+}
+
+.newExercise {
+    width: 400px;
+}
+
+.AddButton {
+    height: 50px;   
+    text-align: center;
+}
+
+.bordersGrid {
+    border: 2px outset orange;
+}
+
+.botaoGridPT {
+    width: 48%;
+}
+
+@media screen and (max-width: 650px) {
+
+    .searchMail {
+    
+        --ion-background-color: rgb(224, 219, 209);
+    }
+    
+    .detailsPlanoTreino {
+        font-size: 13px;
+        font-family: 'Courier New', Courier, monospace;
+    }
+
+    .responsiveTitle {
+        font-size: 17px;
+        font-weight: bold;
+        font-family: cursive;
+    }
+    
+    .ProfilePicPlanoTreino {
+        max-width: 70px;
+        max-height: 70px;
+    }
+
+    .final-ex-table {
+        width: 100%;
+    }
+
+    .botaoGridPT {
+        width: 48%;
+    }
 }
