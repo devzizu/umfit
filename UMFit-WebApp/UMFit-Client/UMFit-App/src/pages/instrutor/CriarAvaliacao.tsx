@@ -194,23 +194,17 @@ class CriarAvaliacao extends React.Component<any>{
         var pt: Avaliacao = new Avaliacao(  this.state.composicao_corporal,
                                                 this.state.perimetros)
 
+                                                
         await criarAvaliacao("2020-04-30 18:00:00", this.state.user_mail, this.state.user.email, pt).then(
             async (value: any) =>{
-                if (value.status === 200) {              
-                                                            
-                var json = value.json();
-                                        
-                await json.then((value: any) => {
-                console.log(value);
-                });
-                                                       
-                } else {
-                alert("REQUEST ERROR "+value.status);
-                }
-                })
-                .catch(function(error: any) {
-                alert("Server is currently down... \n\n".concat("Error details: \n\n\t").concat(error));
-                });
+                console.log(value)
+                
+                switch (value.status){
+
+                    case 200 : alert("Avaliação Adicionada!");break;
+                    case 400 : alert("Verifique se os campos estão válidos"); break;
+
+                }});
     }
 
     async componentDidMount(){
@@ -223,7 +217,6 @@ class CriarAvaliacao extends React.Component<any>{
                     var json = value.json();
 
                     await json.then((value: any) => {
-                        console.log(value);
                         emails= value.users;
                         this.setState({lista_mails_inicial:emails})
                     });
@@ -240,8 +233,6 @@ class CriarAvaliacao extends React.Component<any>{
 
 
     render(){
-
-    console.log(this.state.composicao_corporal.imc)
 
     const mail = this.state.mail_inserido
 

@@ -77,39 +77,48 @@ namespace UMFit_WebAPI.Controllers
 
             DateTime data = Convert.ToDateTime(jObject["data"].ToString());
             string email_cliente = (string) jObject["email_cliente"];
-            string email_instrutor = (string) jObject["email_instrutor"]; 
+            string email_instrutor = (string) jObject["email_instrutor"];
             
-            Composiçao_Corporal cc = new Composiçao_Corporal(
-                int.Parse(jObject["plano_treino"]["composicao_corporal"]["altura"].ToString()),
-                float.Parse(jObject["plano_treino"]["composicao_corporal"]["peso"].ToString()),
-                float.Parse(jObject["plano_treino"]["composicao_corporal"]["massa_gorda"].ToString()),
-                float.Parse(jObject["plano_treino"]["composicao_corporal"]["massa_magra"].ToString()),
-                float.Parse(jObject["plano_treino"]["composicao_corporal"]["imc"].ToString()),
-                int.Parse(jObject["plano_treino"]["composicao_corporal"]["idade_metabolica"].ToString()));
-
-            Perimetros p = new Perimetros(
-                float.Parse(jObject["plano_treino"]["perimetros"]["cintura"].ToString()),
-                float.Parse(jObject["plano_treino"]["perimetros"]["abdomen"].ToString()),
-                float.Parse(jObject["plano_treino"]["perimetros"]["ombro"].ToString()),
-                float.Parse(jObject["plano_treino"]["perimetros"]["torax"].ToString()),
-                float.Parse(jObject["plano_treino"]["perimetros"]["braco_dir"].ToString()),
-                float.Parse(jObject["plano_treino"]["perimetros"]["braco_esq"].ToString()),
-                float.Parse(jObject["plano_treino"]["perimetros"]["coxa_dir"].ToString()),
-                float.Parse(jObject["plano_treino"]["perimetros"]["coxa_esq"].ToString()),
-                float.Parse(jObject["plano_treino"]["perimetros"]["gemeo_dir"].ToString()),
-                float.Parse(jObject["plano_treino"]["perimetros"]["gemeo_esq"].ToString()),
-                float.Parse(jObject["plano_treino"]["perimetros"]["antebraco_dir"].ToString()),
-                float.Parse(jObject["plano_treino"]["perimetros"]["antebraco_esq"].ToString()));
+            ActionResult<string> ret= BadRequest("Impossível inserir avaliação");
+            
+            try
+            {
+                if(email_cliente.Equals("")) throw new Exception("EMAIL BROKEN");
                 
+                Composiçao_Corporal cc = new Composiçao_Corporal(
+                    int.Parse(jObject["plano_treino"]["composicao_corporal"]["altura"].ToString()),
+                    float.Parse(jObject["plano_treino"]["composicao_corporal"]["peso"].ToString()),
+                    float.Parse(jObject["plano_treino"]["composicao_corporal"]["massa_gorda"].ToString()),
+                    float.Parse(jObject["plano_treino"]["composicao_corporal"]["massa_magra"].ToString()),
+                    float.Parse(jObject["plano_treino"]["composicao_corporal"]["imc"].ToString()),
+                    int.Parse(jObject["plano_treino"]["composicao_corporal"]["idade_metabolica"].ToString()));
+                
+                Perimetros p = new Perimetros(
+                    float.Parse(jObject["plano_treino"]["perimetros"]["cintura"].ToString()),
+                    float.Parse(jObject["plano_treino"]["perimetros"]["abdomen"].ToString()),
+                    float.Parse(jObject["plano_treino"]["perimetros"]["ombro"].ToString()),
+                    float.Parse(jObject["plano_treino"]["perimetros"]["torax"].ToString()),
+                    float.Parse(jObject["plano_treino"]["perimetros"]["braco_dir"].ToString()),
+                    float.Parse(jObject["plano_treino"]["perimetros"]["braco_esq"].ToString()),
+                    float.Parse(jObject["plano_treino"]["perimetros"]["coxa_dir"].ToString()),
+                    float.Parse(jObject["plano_treino"]["perimetros"]["coxa_esq"].ToString()),
+                    float.Parse(jObject["plano_treino"]["perimetros"]["gemeo_dir"].ToString()),
+                    float.Parse(jObject["plano_treino"]["perimetros"]["gemeo_esq"].ToString()),
+                    float.Parse(jObject["plano_treino"]["perimetros"]["antebraco_dir"].ToString()),
+                    float.Parse(jObject["plano_treino"]["perimetros"]["antebraco_esq"].ToString()));
+                    
+                Avaliaçao av = new Avaliaçao(
+                    data,
+                    email_instrutor,
+                    email_cliente,
+                    cc,
+                    p);
+                    
+                if (_system.AddAvaliacao(av)) ret = Ok();
+            }
+            catch (Exception e){Console.WriteLine(e.ToString()); }
             
-            Avaliaçao av = new Avaliaçao(
-                data,
-                email_instrutor,
-                email_cliente,
-                cc,
-                p);
-            
-            return Ok(_system.AddAvaliacao(av));
+            return (ret);
         }
 
     }
