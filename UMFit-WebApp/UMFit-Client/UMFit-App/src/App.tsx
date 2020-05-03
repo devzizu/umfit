@@ -79,9 +79,17 @@ class App extends React.Component {
       localStorage.clear();
     }
 
+    var cat;
+    var menuss;
+
+    if (logged) {
+      cat = user.categoria
+      menuss = user.tipoDeUser === "Cliente" ? cat : user.tipoDeUser   
+    }
+
     this.setState({ 
       logged: logged, 
-      menus: logged ? user.tipoDeUser : 'home',
+      menus: logged ? menuss : 'home',
       userLogged: user
     });
 
@@ -120,9 +128,11 @@ class App extends React.Component {
 
         if (res.status === "online") {
           
+          var userMenus = res.user.categoria
+          
           this.setState({
             logged: true,
-            menus: res.user.tipoDeUser,
+            menus: res.user.tipoDeUser === "Cliente" ? userMenus : res.user.tipoDeUser,
             loadingAPIcall: false,
             userLogged: res.user
           });
@@ -288,29 +298,49 @@ class ProfileCliente extends React.Component<any> {
   render() {
 
     return(
-              
-        <IonRouterOutlet>
+          this.state.user.categoria === "Premium" ? 
+              <IonRouterOutlet>
 
-          <Route path="/profile" render={() => {return <UserProfile user={this.state.user} />}} exact={true} />
+                <Route path="/profile" render={() => {return <UserProfile user={this.state.user} />}} exact={true} />
 
-          <Route path="/profile/evolucao" component={Evolucao} exact={true} />
+                <Route path="/profile/evolucao" component={Evolucao} exact={true} />
 
-          <Route path="/profile/mydetails" render={() => {return <UpdateDetails user={this.state.user} email={this.state.user.email} />}} exact={true} />
+                <Route path="/profile/mydetails" render={() => {return <UpdateDetails user={this.state.user} email={this.state.user.email} />}} exact={true} />
 
-          <Route path="/profile/planoaulas" component={ConsultarAulasGrupo} exact={true} />
+                <Route path="/profile/planoaulas" component={ConsultarAulasGrupo} exact={true} />
 
-          <Route path="/profile/ultimaavaliacao" render={() => {return <UltimaAvaliacao user={this.state.user}/>}} exact={true} />
+                <Route path="/profile/ultimaavaliacao" render={() => {return <UltimaAvaliacao user={this.state.user}/>}} exact={true} />
 
-          <Route path="/profile/agendar" render={() => {return <AgendarAvaliacao email={this.state.user.email}/>}} exact={true} />
+                <Route path="/profile/agendar" render={() => {return <AgendarAvaliacao email={this.state.user.email}/>}} exact={true} />
 
-          <Route path="/profile/planostreino" render={() => {return <ShowPlanoTreino user={this.state.user}/>}} exact={true} />
+                <Route path="/profile/planostreino" render={() => {return <ShowPlanoTreino user={this.state.user}/>}} exact={true} />
 
-          <Route path="/profile/logout" component={() => {return <LogOut setLogged={this.props.setLogged}/>}} exact={true} />
-     
-          <Route path='*' exact={true} component={Component404} />
+                <Route path="/profile/logout" component={() => {return <LogOut setLogged={this.props.setLogged}/>}} exact={true} />
+          
+                <Route path='*' exact={true} component={Component404} />
 
-        </IonRouterOutlet>
-      
+              </IonRouterOutlet>
+        :
+              <IonRouterOutlet>
+
+              <Route path="/profile" render={() => {return <UserProfile user={this.state.user} />}} exact={true} />
+
+              <Route path="/profile/evolucao" component={Evolucao} exact={true} />
+
+              <Route path="/profile/mydetails" render={() => {return <UpdateDetails user={this.state.user} email={this.state.user.email} />}} exact={true} />
+
+              <Route path="/profile/planoaulas" component={ConsultarAulasGrupo} exact={true} />
+
+              <Route path="/profile/ultimaavaliacao" render={() => {return <UltimaAvaliacao user={this.state.user}/>}} exact={true} />
+
+              <Route path="/profile/agendar" render={() => {return <AgendarAvaliacao email={this.state.user.email}/>}} exact={true} />
+
+              <Route path="/profile/logout" component={() => {return <LogOut setLogged={this.props.setLogged}/>}} exact={true} />
+        
+              <Route path='*' exact={true} component={Component404} />
+
+            </IonRouterOutlet>
+
     );    
   }
 

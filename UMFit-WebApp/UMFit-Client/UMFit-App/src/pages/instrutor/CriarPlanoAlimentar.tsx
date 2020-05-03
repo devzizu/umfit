@@ -4,7 +4,7 @@ import { IonPage, IonHeader, IonToolbar, IonTitle, IonFooter, IonContent, IonCar
 import "../css/CriarPlanoAlimentar.css"
 import {addCircleSharp, closeCircleSharp, addOutline, trashOutline } from "ionicons/icons";
 import { PlanoAlimentar, Refeicao } from '../../models/Other/PlanoAlimentar';
-import { getAllClients } from "../../models/API/UserAPI";
+import { getAllClientsPremium } from "../../models/API/UserAPI";
 import { getListaRefeicoes, setPlanoAlimentar } from "../../models/API/PlanoAlimentarAPI";
 
 class CriarPlanoAlimentar extends React.Component<any>{
@@ -169,7 +169,7 @@ class CriarPlanoAlimentar extends React.Component<any>{
         var  refeicoes:string[] =  [""];
         var  emails:string[] =  [""];
 
-        getAllClients().then(
+        getAllClientsPremium().then(
             async (value) =>{
                 if (value.status === 200) {              
                     
@@ -234,7 +234,7 @@ class CriarPlanoAlimentar extends React.Component<any>{
         <IonContent>
 
             <IonCard className="card-left">
-                <IonText className="text-title">Email:</IonText>            
+                <IonText className="text-title">Email (para clientes Premium):</IonText>            
             </IonCard>
 
             <IonGrid className="layout-selecao-mails">

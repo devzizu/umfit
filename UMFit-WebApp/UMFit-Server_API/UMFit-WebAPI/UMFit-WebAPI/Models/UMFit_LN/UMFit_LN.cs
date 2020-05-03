@@ -111,6 +111,11 @@ namespace UMFit_WebAPI.Models.UMFit_LN
             return utilizadoresDAO.GetUserEmails();
         }
 
+        public List<string> GetPremiumClientEmails()
+        {
+            return utilizadoresDAO.GetClientesPremiumEmails();
+        }
+
         public List<AulaGrupo> GetAulasDia(string dia)
         {
             return aulaGrupoDAO.GetAulasDia(dia);

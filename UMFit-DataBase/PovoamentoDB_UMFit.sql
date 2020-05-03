@@ -1,5 +1,5 @@
 use UMFit_DB;
-select * from Avaliaçao_Agendada;
+select * from Avaliaçao_Realizada;
 -- NOTAS
 -- Género é definido por um inteiro. 0 no caso de ser feminino e 1 caso seja masculino;
 -- A categoria do cliente tem os seguintes valores possiveis: Standard, Premium;
@@ -27,7 +27,6 @@ insert into Rececionista
 values ("a84656@alunos.uminho.pt", 3, "Hugo Cunha",  
 		"52BBA69FCE7D58C7BD158821495F50355D6CA00D2403B764A42368DFFA84CE1A",
         "1999-04-23", 1, "Fafe");
-
 
 
 -- CLIENTES -----------------------------------------------------------------------------------------

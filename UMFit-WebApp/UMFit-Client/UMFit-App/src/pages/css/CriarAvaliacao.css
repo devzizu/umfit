@@ -32,12 +32,6 @@
     height: 50%;
 }
 
-.text-title{
-
-    font-family: 'Courier New', Courier, monospace;
-    font-size: 20px;
-}
-
 .card-center{
 
     box-shadow: none;
@@ -126,7 +120,7 @@
     position: relative;
     margin: 10px auto !important;
    --ion-background-color: white;
-   border: 5px dotted orangered;
+   border: 4px outset rgb(204, 107, 69);
 
 }
 
@@ -134,4 +128,58 @@
     position: relative;
     margin: 10px auto !important;
     --ion-background-color : white;
+}
+
+.responsiveTitleCAval{
+
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 20px;
+}
+
+.responsiveProfilePicCAval {
+    max-width: 150px;
+    max-height: 150px;
+}
+
+.responsiveTextCardCavl {
+    font-size: 18px;
+    font-family: 'Courier New', Courier, monospace
+}
+
+.seccaoCAval {
+    font-size: 18px;
+    font-weight: bold;
+    color: black;
+}
+
+.botaoCAval {
+    width: 48%;
+}
+
+@media screen and (max-width: 600px) {
+    .responsiveTitleCAval {
+        font-size: 15px;
+    }
+    .aulaImage {
+        width: 100px;
+        height: 100px;
+    }
+
+    .responsiveProfilePicCAval {
+        max-width: 70px;
+        max-height: 70px;
+    }
+    .responsiveTextCardCavl {
+        font-size: 12px;
+    }
+    .seccaoCAval {
+        font-size: 12px;
+        font-weight: bold;
+        color: black;
+    }
+    
+    .botaoCAval {
+        width: 48%;
+    }
+
 }

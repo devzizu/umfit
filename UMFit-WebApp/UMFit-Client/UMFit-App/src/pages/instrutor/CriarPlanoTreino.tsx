@@ -3,7 +3,7 @@ import { IonButton, IonCard, IonCardContent, IonCol, IonContent, IonDatetime, Io
 import { addCircleSharp, addOutline, closeCircleSharp, trashOutline } from "ionicons/icons";
 import React from "react";
 import { getListaExercicios, setPlanoTreino } from "../../models/API/PlanoTreinoAPI";
-import { getAllClients, selectUser } from "../../models/API/UserAPI";
+import { selectUser, getAllClientsPremium } from "../../models/API/UserAPI";
 import { Exercicio, PlanoTreino } from "../../models/Other/PlanoTreino";
 import "../css/CriarPlanoTreino.css";
 
@@ -202,7 +202,7 @@ class CriarPlanoTreino extends React.Component<any>{
 
    async componentDidMount(){
         var emails : string[];
-        await getAllClients().then(
+        await getAllClientsPremium().then(
             async (value) =>{
                 if (value.status === 200) {              
                     
@@ -275,7 +275,7 @@ class CriarPlanoTreino extends React.Component<any>{
         <IonContent>
 
             <IonCard className="card-left">
-                <IonText className="responsiveTitle">Email:</IonText>            
+                <IonText className="responsiveTitle">Email (para clientes Premium):</IonText>            
             </IonCard>
 
             <IonGrid className="layout-selecao-mails">

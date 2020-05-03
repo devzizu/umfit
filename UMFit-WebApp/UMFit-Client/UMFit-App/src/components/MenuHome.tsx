@@ -48,7 +48,7 @@ const appPagesHome: AppPage[] = [
   }
 ];
 
-const appPagesCliente: AppPage[] = [
+const appPagesClientePremium: AppPage[] = [
   {
     title: 'O meu perfil',
     url: '/profile',
@@ -91,6 +91,52 @@ const appPagesCliente: AppPage[] = [
     iosIcon: documentsOutline,
     mdIcon: documentsOutline
   },
+  {
+    title: 'Log-Out',
+    url: '/profile/logout',
+    iosIcon: logOutOutline,
+    mdIcon: logOutOutline
+  }
+];
+
+const appPagesClienteStandard: AppPage[] = [
+  {
+    title: 'O meu perfil',
+    url: '/profile',
+    iosIcon: personOutline,
+    mdIcon: personOutline
+  },
+  {
+    title: 'Plano de Aulas',
+    url: '/profile/planoaulas',
+    iosIcon: calendarOutline,
+    mdIcon: calendarOutline
+  },
+  {
+    title: 'Atualizar perfil',
+    url: '/profile/mydetails',
+    iosIcon: keyOutline,
+    mdIcon: keyOutline
+  },
+  {
+    title: 'Evolução',
+    url: '/profile/evolucao',
+    iosIcon: analyticsOutline,
+    mdIcon: analyticsOutline
+  },
+  {
+    title: 'Última Avaliação',
+    url: '/profile/ultimaavaliacao',
+    iosIcon: documentTextOutline,
+    mdIcon: documentTextOutline
+  },
+  {
+    title: 'Agendar Avaliação',
+    url: '/profile/agendar',
+    iosIcon: callOutline,
+    mdIcon: callOutline
+  },
+
   {
     title: 'Log-Out',
     url: '/profile/logout',
@@ -223,8 +269,8 @@ const Menu: React.FunctionComponent<MenuProps> = ({ selectedPage, menus }) => {
                     </IonMenuToggle>
                   )});
                   break;
-                  case 'Cliente': 
-                  menuElements = appPagesCliente.map((appPage, index) => {
+                  case 'Premium': 
+                  menuElements = appPagesClientePremium.map((appPage, index) => {
                       return (
                         <IonMenuToggle key={index} autoHide={false}>
                           <IonItem className={selectedPage === appPage.title ? 'selected' : ''} routerLink={appPage.url} routerDirection="none" lines="none" detail={false}>
@@ -234,7 +280,18 @@ const Menu: React.FunctionComponent<MenuProps> = ({ selectedPage, menus }) => {
                         </IonMenuToggle>
                       )});  
                       break;
-                    case 'Instrutor': 
+                      case 'Standard': 
+                      menuElements = appPagesClienteStandard.map((appPage, index) => {
+                          return (
+                            <IonMenuToggle key={index} autoHide={false}>
+                              <IonItem className={selectedPage === appPage.title ? 'selected' : ''} routerLink={appPage.url} routerDirection="none" lines="none" detail={false}>
+                                <IonIcon slot="start" icon={appPage.iosIcon} />
+                                <IonLabel>{appPage.title}</IonLabel>
+                              </IonItem>
+                            </IonMenuToggle>
+                          )});  
+                          break;
+                        case 'Instrutor': 
                     menuElements = appPagesTreinador.map((appPage, index) => {
                         return (
                           <IonMenuToggle key={index} autoHide={false}>

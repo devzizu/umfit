@@ -154,6 +154,23 @@ export async function getAllClients () {
     return res;
 }
 
+export async function getAllClientsPremium () {
+
+    const res = fetch(baseURL + "/emailsPremium", {
+        method: 'post',
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            valueST: localStorage.getItem("token")
+        })
+    });
+    
+
+    return res;
+}
+
 export function updateUserCat(settings: any) {
 
     const res = fetch(baseURL + "/updateCat", {

@@ -259,8 +259,9 @@ class CriarAvaliacao extends React.Component<any>{
           message={'Tem de selecionar a data e o cliente!'}
           buttons={['Ok, percebido!']}
         />
+            <div className="separador"></div>
             <IonCard className="card-left">
-                <IonText className="text-title">Selecione uma avaliação para realizar: </IonText>
+                <IonText className="responsiveTitleCAval">Selecione uma avaliação para realizar: </IonText>
                 
             </IonCard>
             <IonRow  >
@@ -268,13 +269,13 @@ class CriarAvaliacao extends React.Component<any>{
                     this.state.indexed===index? 
 
                     <IonCard ion-activatable className="cardColSelected" color="primary" button={true} onClick={()=>{ console.log("NICE");this.setState({selecionada:elem, indexed : noIndex})}}  key={elem.data + elem.instrutor_nome} >
-                    <IonItem ><IonIcon icon={calendarOutline }></IonIcon><IonLabel>&nbsp;Data: {elem.data}</IonLabel></IonItem>
-                    <IonItem ><IonIcon icon={personCircleOutline}></IonIcon><IonLabel>&nbsp;Instrutor: {elem.instrutor_nome}</IonLabel></IonItem>
+                    <IonItem ><IonIcon icon={calendarOutline }></IonIcon><IonLabel><div className="responsiveTextCardCavl">&nbsp;Data: {elem.data}</div></IonLabel></IonItem>
+                    <IonItem ><IonIcon icon={personCircleOutline}></IonIcon><IonLabel><div className="responsiveTextCardCavl">&nbsp;Instrutor: {elem.instrutor_nome}</div></IonLabel></IonItem>
                     </IonCard>
                      : 
                     <IonCard ion-activatable className="cardColUnselected" button={true} onClick={()=>{console.log("NICE NICE");this.setState({selecionada:elem, indexed : index })}}  key={elem.data + elem.instrutor_nome} >
-                    <IonItem  ><IonIcon icon={calendarOutline }></IonIcon><IonLabel>&nbsp;Data: {elem.data}</IonLabel></IonItem>
-                    <IonItem ><IonIcon icon={personCircleOutline}></IonIcon><IonLabel>&nbsp;Instrutor: {elem.instrutor_nome}</IonLabel></IonItem>
+                    <IonItem  ><IonIcon icon={calendarOutline }></IonIcon><IonLabel><div className="responsiveTextCardCavl">&nbsp;Data: {elem.data}</div></IonLabel></IonItem>
+                    <IonItem ><IonIcon icon={personCircleOutline}></IonIcon><IonLabel><div className="responsiveTextCardCavl">&nbsp;Instrutor: {elem.instrutor_nome}</div></IonLabel></IonItem>
                     </IonCard> 
                     
  
@@ -287,13 +288,13 @@ class CriarAvaliacao extends React.Component<any>{
             <div className="separador"></div>
 
             <IonCard className="card-left">
-                <IonText className="text-title">Utilizador Selecionado:</IonText>
+                <IonText className="responsiveTitleCAval">Utilizador Selecionado:</IonText>
 
             </IonCard>
 
             <IonCard className="card-left">
-                <img src={require('../../imgs/perfil_pic.png')} width="100" height="100" alt="Loading..."/>
-                <IonCardContent>
+                <img className="responsiveProfilePicCAval" src={require('../../imgs/perfil_pic.png')} width="100" height="100" alt="Loading..."/>
+                <IonCardContent className="responsiveTextCardCavl">
                     <b>Nome:</b> {nomeS}
                     <br></br>
                     <br></br>
@@ -304,11 +305,11 @@ class CriarAvaliacao extends React.Component<any>{
             <div className="separador"></div>
 
             <IonCard className="card-left">
-                <IonText className="text-title">Inserir dados para avaliação:</IonText>
+                <IonText className="responsiveTitleCAval">Inserir dados para avaliação:</IonText>
             </IonCard>
 
             <IonCard className="card-left">
-                <IonText className="text-title">Composição Corporal</IonText>
+                <IonText className="seccaoCAval">Composição Corporal:</IonText>
             </IonCard>
 
         
@@ -318,13 +319,13 @@ class CriarAvaliacao extends React.Component<any>{
 
                     <IonCol>
                         <IonCard className="card">
-                            <IonInput className="info-text" placeholder="cm" value={this.state.composicao_corporal.altura} onIonChange={e => {this.setAlturaCC(e.detail.value)}}>Altura: </IonInput>
+                            <IonInput className="responsiveTextCardCavl" placeholder="cm" value={this.state.composicao_corporal.altura} onIonChange={e => {this.setAlturaCC(e.detail.value)}}>Altura: </IonInput>
                             </IonCard>
                     </IonCol>
 
                     <IonCol>
                         <IonCard className="card">
-                            <IonInput className="info-text" placeholder="kg" value={this.state.composicao_corporal.peso} onIonChange={e => {this.setPesoCC(e.detail.value)}}>Peso: </IonInput>
+                            <IonInput className="responsiveTextCardCavl" placeholder="kg" value={this.state.composicao_corporal.peso} onIonChange={e => {this.setPesoCC(e.detail.value)}}>Peso: </IonInput>
                             </IonCard>
                     </IonCol>
 
@@ -333,7 +334,7 @@ class CriarAvaliacao extends React.Component<any>{
                 <IonRow>
                     <IonCol>
                         <IonCard className="card">
-                        <IonInput className="info-text" value={this.state.composicao_corporal.imc} onIonChange={e => {this.setImcCC(e.detail.value)}}>IMC: </IonInput>
+                        <IonInput className="responsiveTextCardCavl" value={this.state.composicao_corporal.imc} onIonChange={e => {this.setImcCC(e.detail.value)}}>IMC: </IonInput>
                         </IonCard>   
                     </IonCol>
                 </IonRow>
@@ -341,7 +342,7 @@ class CriarAvaliacao extends React.Component<any>{
                 <IonRow>
                     <IonCol>
                         <IonCard className="card">
-                            <IonLabel className="info-text">Idade Metabolica: </IonLabel>
+                            <IonLabel className="responsiveTextCardCavl">Idade Metabolica: </IonLabel>
 
                             <IonRange pin={true} min={1} max={120} value={this.state.composicao_corporal.idade_metabolica} onIonChange={e => this.setIdadeMetabolicaCC(e.detail.value as number)} className="imc-barra">
                                 <IonLabel slot="start">1</IonLabel>
@@ -355,7 +356,7 @@ class CriarAvaliacao extends React.Component<any>{
                 <IonRow>
                     <IonCol>
                         <IonCard className="card">
-                            <IonInput className="info-text" placeholder="kg" value={this.state.composicao_corporal.massa_magra} onIonChange={e => {this.setMassaMagraCC(e.detail.value)}}>Massa Magra: </IonInput>
+                            <IonInput className="responsiveTextCardCavl" placeholder="kg" value={this.state.composicao_corporal.massa_magra} onIonChange={e => {this.setMassaMagraCC(e.detail.value)}}>Massa Magra: </IonInput>
                             </IonCard>
                     </IonCol>
                 </IonRow>
@@ -363,7 +364,7 @@ class CriarAvaliacao extends React.Component<any>{
                 <IonRow>
                     <IonCol>
                         <IonCard className="card">
-                            <IonInput className="info-text" placeholder="kg" value={this.state.composicao_corporal.massa_gorda} onIonChange={e => {this.setMassaGordaCC(e.detail.value)}}>Massa Gorda: </IonInput>
+                            <IonInput className="responsiveTextCardCavl" placeholder="kg" value={this.state.composicao_corporal.massa_gorda} onIonChange={e => {this.setMassaGordaCC(e.detail.value)}}>Massa Gorda: </IonInput>
                             </IonCard>
                     </IonCol>
                 </IonRow>
@@ -379,7 +380,7 @@ class CriarAvaliacao extends React.Component<any>{
                 <IonRow>
                     <IonCol>
                         <IonCard className="card">
-                            <IonInput className="info-text" placeholder="cm" value={this.state.perimetros.cintura} onIonChange={e => {this.setCinturaP(e.detail.value)}}>Cintura: </IonInput>  
+                            <IonInput className="responsiveTextCardCavl" placeholder="cm" value={this.state.perimetros.cintura} onIonChange={e => {this.setCinturaP(e.detail.value)}}>Cintura: </IonInput>  
                         </IonCard>
                     </IonCol>
                 </IonRow>
@@ -387,7 +388,7 @@ class CriarAvaliacao extends React.Component<any>{
                 <IonRow>
                     <IonCol>
                         <IonCard className="card">
-                            <IonInput className="info-text" placeholder="cm" value={this.state.perimetros.abdomen} onIonChange={e => {this.setAbdomenP(e.detail.value)}}>Abdomen: </IonInput>
+                            <IonInput className="responsiveTextCardCavl" placeholder="cm" value={this.state.perimetros.abdomen} onIonChange={e => {this.setAbdomenP(e.detail.value)}}>Abdomen: </IonInput>
                         </IonCard>
                     </IonCol>
                 </IonRow>
@@ -395,7 +396,7 @@ class CriarAvaliacao extends React.Component<any>{
                 <IonRow>
                     <IonCol>
                         <IonCard className="card">
-                            <IonInput className="info-text" placeholder="cm" value={this.state.perimetros.ombro} onIonChange={e => {this.setOmbroP(e.detail.value)}}>Ombro: </IonInput>
+                            <IonInput className="responsiveTextCardCavl" placeholder="cm" value={this.state.perimetros.ombro} onIonChange={e => {this.setOmbroP(e.detail.value)}}>Ombro: </IonInput>
                         </IonCard>
                     </IonCol>
                 </IonRow>
@@ -403,7 +404,7 @@ class CriarAvaliacao extends React.Component<any>{
                 <IonRow>
                     <IonCol>
                         <IonCard className="card">
-                            <IonInput className="info-text" placeholder="cm" value={this.state.perimetros.torax} onIonChange={e => {this.setToraxP(e.detail.value)}}>Torax: </IonInput>
+                            <IonInput className="responsiveTextCardCavl" placeholder="cm" value={this.state.perimetros.torax} onIonChange={e => {this.setToraxP(e.detail.value)}}>Torax: </IonInput>
                         </IonCard>
                     </IonCol>
                 </IonRow>
@@ -412,13 +413,13 @@ class CriarAvaliacao extends React.Component<any>{
                     
                     <IonCol>
                         <IonCard className="card">
-                            <IonInput className="info-text" placeholder="cm" value={this.state.perimetros.braco_dir} onIonChange={e => {this.setBracoDirP(e.detail.value)}}>Braço Direito: </IonInput>
+                            <IonInput className="responsiveTextCardCavl" placeholder="cm" value={this.state.perimetros.braco_dir} onIonChange={e => {this.setBracoDirP(e.detail.value)}}>Braço Dir.: </IonInput>
                         </IonCard>
                     </IonCol>
 
                     <IonCol>
                         <IonCard className="card">
-                            <IonInput className="info-text" placeholder="cm" value={this.state.perimetros.braco_esq} onIonChange={e => {this.setBracoEsqP(e.detail.value)}}>Braço Esquerdo: </IonInput>
+                            <IonInput className="responsiveTextCardCavl" placeholder="cm" value={this.state.perimetros.braco_esq} onIonChange={e => {this.setBracoEsqP(e.detail.value)}}>Braço Esq.: </IonInput>
                         </IonCard>
                     </IonCol>
 
@@ -428,13 +429,13 @@ class CriarAvaliacao extends React.Component<any>{
 
                     <IonCol>
                         <IonCard className="card">
-                            <IonInput className="info-text" placeholder="cm" value={this.state.perimetros.coxa_dir} onIonChange={e => {this.setCoxaDirP(e.detail.value)}}>Coxa Direita: </IonInput>
+                            <IonInput className="responsiveTextCardCavl" placeholder="cm" value={this.state.perimetros.coxa_dir} onIonChange={e => {this.setCoxaDirP(e.detail.value)}}>Coxa Dir.: </IonInput>
                         </IonCard>
                     </IonCol>
 
                     <IonCol>
                         <IonCard className="card">
-                            <IonInput className="info-text" placeholder="cm" value={this.state.perimetros.coxa_esq} onIonChange={e => {this.setCoxaEsqP(e.detail.value)}}>Coxa Esquerda: </IonInput>
+                            <IonInput className="responsiveTextCardCavl" placeholder="cm" value={this.state.perimetros.coxa_esq} onIonChange={e => {this.setCoxaEsqP(e.detail.value)}}>Coxa Esq.: </IonInput>
                         </IonCard>
                     </IonCol>
 
@@ -444,13 +445,13 @@ class CriarAvaliacao extends React.Component<any>{
 
                     <IonCol>
                         <IonCard className="card">
-                            <IonInput className="info-text" placeholder="cm" value={this.state.perimetros.gemeo_dir} onIonChange={e => {this.setGemeoDirP(e.detail.value)}}>Gemeo Direito: </IonInput>
+                            <IonInput className="responsiveTextCardCavl" placeholder="cm" value={this.state.perimetros.gemeo_dir} onIonChange={e => {this.setGemeoDirP(e.detail.value)}}>Gemeo Dir.: </IonInput>
                         </IonCard>
                     </IonCol>
 
                     <IonCol>
                         <IonCard className="card">
-                            <IonInput className="info-text" placeholder="cm" value={this.state.perimetros.gemeo_esq} onIonChange={e => {this.setGemeoEsqP(e.detail.value)}}>Gemeo Esquerdo: </IonInput>
+                            <IonInput className="responsiveTextCardCavl" placeholder="cm" value={this.state.perimetros.gemeo_esq} onIonChange={e => {this.setGemeoEsqP(e.detail.value)}}>Gemeo Esq.: </IonInput>
                         </IonCard>
                     </IonCol>
 
@@ -460,13 +461,13 @@ class CriarAvaliacao extends React.Component<any>{
         
                     <IonCol>
                         <IonCard className="card">
-                            <IonInput className="info-text" placeholder="cm" value={this.state.perimetros.antebraco_dir} onIonChange={e => {this.setAntebracoDirP(e.detail.value)}}>Antebraço Direito: </IonInput>
+                            <IonInput className="responsiveTextCardCavl" placeholder="cm" value={this.state.perimetros.antebraco_dir} onIonChange={e => {this.setAntebracoDirP(e.detail.value)}}>Anteb. Dir.: </IonInput>
                         </IonCard>
                     </IonCol>
                         
                     <IonCol>
                         <IonCard className="card">
-                            <IonInput className="info-text" placeholder="cm" value={this.state.perimetros.antebraco_esq} onIonChange={e => {this.setAntebracoEsqP(e.detail.value)}}>Antebraço Esquerdo: </IonInput>
+                            <IonInput className="responsiveTextCardCavl" placeholder="cm" value={this.state.perimetros.antebraco_esq} onIonChange={e => {this.setAntebracoEsqP(e.detail.value)}}>Anteb. Esq.: </IonInput>
                         </IonCard>
                     </IonCol>
 
@@ -480,16 +481,13 @@ class CriarAvaliacao extends React.Component<any>{
                 <IonRow>
 
                     <IonCol>
-                            <IonButton size="large" className="botao" color= "success" onClick={async () => {this.limparAvaliacao.call(this)}}>
-                                <IonText> Limpar Avaliação</IonText>
+                            <IonButton className="botaoCAval" color= "success" onClick={async () => {this.limparAvaliacao.call(this)}}>
+                                Limpar
                                 <IonIcon slot="icon-only" icon={trashOutline}/>
                             </IonButton>
-                    </IonCol>
 
-                    <IonCol>
-
-                            <IonButton size="large" className="botao" onClick={async () => {this.addAvaliacao(nomeS,emailS,data)}}>
-                                <IonText> Adicionar Avaliação</IonText>
+                            <IonButton className="botaoCAval" onClick={async () => {this.addAvaliacao(nomeS,emailS,data)}}>
+                                Adicionar
                                 <IonIcon slot="icon-only" icon={addOutline}/>
                             </IonButton>
 

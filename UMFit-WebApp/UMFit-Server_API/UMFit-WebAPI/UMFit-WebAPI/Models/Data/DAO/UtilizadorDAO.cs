@@ -855,6 +855,39 @@ namespace UMFit_WebAPI.Models.Data.DAO
             return emailsList;
         }
         
+        public List<string> GetClientesPremiumEmails()
+        {
+
+            List<string> emailsList = new List<string>();
+
+            try
+            {
+                connection.Open();
+                string sqlCommand = "select email, categoria from Cliente where categoria = 'Premium' ";
+                MySqlCommand cmd = new MySqlCommand(sqlCommand, connection);
+                MySqlDataReader reader = cmd.ExecuteReader();
+                while (reader.Read())
+                {
+                    if (reader.GetString(1).Equals("Premium"))
+                    {
+                        
+                        emailsList.Add(reader.GetString(0));
+                    }
+                }
+                
+                reader.Close();
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.ToString());
+            }
+            finally
+            {
+                connection.Close();
+            }
+
+            return emailsList;
+        }
         
         public List<string> GetInstrutorEmails()
         {

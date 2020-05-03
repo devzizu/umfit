@@ -289,6 +289,19 @@ namespace UMFit_WebAPI.Controllers
                 users = emailsList
             });
         }
+        
+        [HttpPost("emailsPremium")]
+        public ActionResult<string> GetClientEmailsPremium ([FromBody] StringDto token)
+        {
+            
+            var emailsList = _system.GetPremiumClientEmails();
+
+            return Ok(new
+            {
+                users = emailsList
+            });
+        }
+        
         [HttpPost("updateCat")]
         public ActionResult<string> AtualizarCat([FromBody] dynamic json)
         {
