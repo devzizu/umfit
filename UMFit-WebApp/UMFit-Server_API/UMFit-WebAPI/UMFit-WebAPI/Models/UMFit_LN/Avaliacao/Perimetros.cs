@@ -120,7 +120,7 @@ namespace UMFit_WebAPI.Models.UMFit_LN.Avaliacao
             command.Parameters["@COXA_DIR"].Value = this.coxa_dir;
 
             command.Parameters.Add(new MySqlParameter("@COXA_ESQ", MySqlDbType.Float));
-            command.Parameters["@COXA_DIR"].Value = this.coxa_dir;
+            command.Parameters["@COXA_ESQ"].Value = this.coxa_esq;
 
             command.Parameters.Add(new MySqlParameter("@GEMEO_DIR", MySqlDbType.Float));
             command.Parameters["@GEMEO_DIR"].Value = this.gemeo_dir;

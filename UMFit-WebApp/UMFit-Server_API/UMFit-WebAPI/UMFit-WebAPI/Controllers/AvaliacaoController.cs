@@ -148,7 +148,7 @@ namespace UMFit_WebAPI.Controllers
             Avaliaçao av = new Avaliaçao( Convert.ToDateTime(ava.GetValue("data").ToString()),
                                    ava.GetValue("instrutor_email").ToString(),
                                     job.GetValue("email").ToString());
-            Console.WriteLine(av);
+            //Console.WriteLine(av);
             if (!_system.agendarAvaliaçao(av)) ret = BadRequest();
             return ret;
         }

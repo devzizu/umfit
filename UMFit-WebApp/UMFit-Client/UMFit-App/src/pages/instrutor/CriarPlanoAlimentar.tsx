@@ -227,7 +227,7 @@ class CriarPlanoAlimentar extends React.Component<any>{
 
         <IonHeader>
           <IonToolbar color="primary">
-            <IonTitle id="page-title">Criar Plano Criar Plano Alimentar</IonTitle>
+            <IonTitle id="page-title">Criar Plano Alimentar</IonTitle>
           </IonToolbar>
         </IonHeader>
 

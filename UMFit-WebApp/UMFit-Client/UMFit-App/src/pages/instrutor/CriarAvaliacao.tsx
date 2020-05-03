@@ -256,12 +256,11 @@ class CriarAvaliacao extends React.Component<any>{
           isOpen={this.state.showAlert}
           onDidDismiss={() => this.setState({showAlert : false})}
           header={'Aviso'}
-          subHeader={'Impossivel submeter formulario'}
-          message={'SELECIONE UMA AVALIAÇAO'}
-          buttons={['I dont understand','Yass']}
+          message={'Tem de selecionar a data e o cliente!'}
+          buttons={['Ok, percebido!']}
         />
             <IonCard className="card-left">
-                <IonText className="text-title">Avaliações do dia (Selecione)   : </IonText>
+                <IonText className="text-title">Selecione uma avaliação para realizar: </IonText>
                 
             </IonCard>
             <IonRow  >
