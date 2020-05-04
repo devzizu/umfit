@@ -299,7 +299,7 @@ class CriarPlanoTreino extends React.Component<any>{
                                         lista_mails_resultado.map(function(s :any){
 
                                             return( <IonItem key={s}>
-                                                        <IonLabel class="ion-text-wrap">{s}</IonLabel>
+                                                        <IonLabel class="ion-text-wrap"><div className="detailsPlanoTreino">{s}</div></IonLabel>
                                                         <IonRadio value={s} slot="end"/>
                                                     </IonItem>)
                                             })      

@@ -4,7 +4,7 @@ import { IonPage, IonHeader, IonToolbar, IonTitle, IonFooter, IonContent, IonCar
 import "../css/CriarPlanoAlimentar.css"
 import {addCircleSharp, closeCircleSharp, addOutline, trashOutline } from "ionicons/icons";
 import { PlanoAlimentar, Refeicao } from '../../models/Other/PlanoAlimentar';
-import { getAllClientsPremium } from "../../models/API/UserAPI";
+import { getAllClientsPremium, selectUser } from "../../models/API/UserAPI";
 import { getListaRefeicoes, setPlanoAlimentar } from "../../models/API/PlanoAlimentarAPI";
 
 class CriarPlanoAlimentar extends React.Component<any>{
@@ -63,9 +63,17 @@ class CriarPlanoAlimentar extends React.Component<any>{
         }        
     }
 
-    setUserMail(mail: any){
+    async setUserMail(mail: any){
+        var user = await selectUser(mail);
+        user.json().then(
+            (json)=>{
+                var user =  JSON.parse(json);
+                this.setState({user_nome : user.user.name,user_mail: mail})
+            }
+        )
 
-        this.setState({user_mail: mail})
+        
+
     }
 
     setNomePlano(nome: any){
@@ -227,27 +235,30 @@ class CriarPlanoAlimentar extends React.Component<any>{
 
         <IonHeader>
           <IonToolbar color="primary">
-            <IonTitle id="page-title">Criar Plano Alimentar</IonTitle>
+            <IonTitle id="page-title">Novo Plano Alimentar</IonTitle>
           </IonToolbar>
         </IonHeader>
 
         <IonContent>
 
+            <div className="separador"></div>
+
             <IonCard className="card-left">
-                <IonText className="text-title">Email (para clientes Premium):</IonText>            
+                <IonText className="responsiveTitlePA">Email (para clientes Premium):</IonText>            
             </IonCard>
 
             <IonGrid className="layout-selecao-mails">
 
-                <IonRow >
+            <IonRow >
                     <IonCol>
-                        <IonSearchbar className="background-orange"
-                                    placeholder="email do cliente" 
+                        <IonSearchbar className="searchMailPA"
+                                    placeholder="E-Mail?" 
                                     value={this.state.mail_inserido} 
                                     onIonChange={e => this.setSearchMail(e.detail.value!)}>
                         </IonSearchbar>
                     </IonCol>
                 </IonRow>
+
 
                 <IonRow >
                     <IonCol>
@@ -258,7 +269,7 @@ class CriarPlanoAlimentar extends React.Component<any>{
                                         lista_mails_resultado.map(function(s :any){
 
                                             return( <IonItem key={s}>
-                                                        <IonLabel class="ion-text-wrap">{s}</IonLabel>
+                                                        <IonLabel class="ion-text-wrap"><div className="detailsPA">{s}</div></IonLabel>
                                                         <IonRadio value={s} slot="end"/>
                                                     </IonItem>)
                                             })      
@@ -274,13 +285,13 @@ class CriarPlanoAlimentar extends React.Component<any>{
             <div className="separador"></div>
 
             <IonCard className="card-left">
-                <IonText className="text-title">Utilizador Selecionado:</IonText>            
+                <IonText className="responsiveTitlePA">Utilizador Selecionado:</IonText>            
             </IonCard>
             
             <IonCard className="card-left">
                 <img src={require('../../imgs/perfil_pic.png')} width="100" height="100" alt="Loading..."/>
                 <IonCardContent>
-                    <b>Nome:</b> {this.state.user_mail.substring(0, this.state.user_mail.indexOf('@'))}
+                    <b>Nome:</b> {this.state.user_nome}
                     <br></br>
                     <br></br>
                     <b>Email:</b> {this.state.user_mail}
@@ -290,28 +301,28 @@ class CriarPlanoAlimentar extends React.Component<any>{
             <div className="separador"></div>
 
             <IonCard className="card-left">
-                <IonText className="text-title">Especificações do Plano Alimentar:</IonText>            
+                <IonText className="responsiveTitlePA">Especificações do Plano Alimentar:</IonText>            
             </IonCard>
 
 
             <IonCard className="card-center"> 
                 <IonList className="descricao-plano">
                     <IonItem >
-                        <IonLabel class="ion-text-wrap">Nome: </IonLabel>
+                        <IonLabel class="ion-text-wrap"><div className="detailsPA">Nome: </div></IonLabel>
                         <IonInput value={this.state.nome_plano_alimentar} onIonChange={e => {this.setNomePlano(e.detail.value)}}/>
                     </IonItem>
 
                     <IonItem>
-                        <IonLabel class="ion-text-wrap">Frequencia: </IonLabel>
+                        <IonLabel class="ion-text-wrap"><div className="detailsPA">Frequencia: </div></IonLabel>
                         <IonInput value={this.state.frequencia} onIonChange={e => {this.setFreq(e.detail.value)}}/>
                     </IonItem>
 
                     <IonItem>
-                        <IonLabel class="ion-text-wrap">Refeicoes Livres: </IonLabel>
+                        <IonLabel class="ion-text-wrap"><div className="detailsPA">Refeicoes Livres: </div></IonLabel>
                         <IonInput value={this.state.refeicoes_livres} onIonChange={e => {this.setRefLiv(e.detail.value)}}/>
                     </IonItem>
                     <IonItem>
-                        <IonLabel class="ion-text-wrap" className="quarterWidth">  Data de Fim:</IonLabel>
+                        <IonLabel class="ion-text-wrap" ><div className="detailsPA">Data de Fim:</div></IonLabel>
                         <IonDatetime className="minquarterWidth" value={this.state.data_fim} onIonChange={(e) => {this.setState({ data_fim: e.detail.value! })}}></IonDatetime>
 
                     </IonItem>
@@ -322,31 +333,31 @@ class CriarPlanoAlimentar extends React.Component<any>{
             <div className="separador"></div>
 
             <IonCard className="card-left">
-                <IonText className="text-title">Seleção de Refeições:</IonText>            
+                <IonText className="responsiveTitlePA">Seleção de Refeições:</IonText>            
             </IonCard>
 
             <IonGrid className="layout-selecao-refeicoes">
-                
+
                 <IonRow className="espaco-vertical-search">
                     <IonToolbar>
-                        <IonSearchbar className="background-orange"
+                        <IonSearchbar className="searchMailPA"
                                 value={this.state.nome_refeicao} 
                                 onIonChange={e => this.setSearchExercicio(e.detail.value!)}
-                                placeholder="nome da refeição"></IonSearchbar>
+                                placeholder="Refeição?"></IonSearchbar>
                         </IonToolbar>
                     
                 </IonRow>
                 
-                <IonRow className="espaco-vertical-search">
+                <IonRow>
                     <IonCol>
-                        <IonContent>
+                        <IonContent className="mailListPA">
                             <IonList>
                                 <IonRadioGroup value={this.state.refeicao.nome} onIonChange={e => this.setNomeRefeicao(e.detail.value)}>
                                     {
                                         lista_ex_resultado.map(function(s :any){
 
                                             return( <IonItem key={s}>
-                                                        <IonLabel class="ion-text-wrap">{s}</IonLabel>
+                                                        <IonLabel class="ion-text-wrap"><div className="detailsPA">{s}</div></IonLabel>
                                                         <IonRadio value={s} slot="end"/>
                                                     </IonItem>)
                                         })      
@@ -355,24 +366,33 @@ class CriarPlanoAlimentar extends React.Component<any>{
                             </IonList>
                         </IonContent>
                     </IonCol>
-                    
-                    <IonCol className="distancia-horizontal">
-                        <IonText className="search-content">Descricao da refeicao:</IonText>
-                        <IonTextarea className="search-bar" value={this.state.refeicao.descricao} onIonChange={e => this.setDescricao(e.detail.value!)}></IonTextarea>
+
+                </IonRow>
+                <br></br>
+                <br></br>
+                <IonRow >    
+                    <IonCol >
+                        <IonText className="responsiveTitlePA">Descrição da refeição:</IonText>
+                        <br></br>
+                        <br></br>
+                        <IonTextarea className="detailsMealPA" value={this.state.refeicao.descricao} onIonChange={e => this.setDescricao(e.detail.value!)}></IonTextarea>
                     </IonCol>
 
                 </IonRow>
-               
-                <IonButton className="botao-adicioanr-refeicao" size="large" onClick={async () =>{ this.addRefeicao()}}>
-                    <IonIcon slot="icon-only" icon={addCircleSharp} />
-                </IonButton>
-                
+
+                <IonRow>
+                    <IonCol class="ion-text-center">
+                        <IonButton className="buttonAddRefeicao" onClick={async () =>{ this.addRefeicao()}}>
+                            Adicionar refeição <b>&nbsp;&nbsp;</b><IonIcon slot="icon-only" icon={addCircleSharp} />
+                        </IonButton>
+                    </IonCol>
+                </IonRow>                
             </IonGrid>
             
             <div className="separador"></div>
 
             <IonCard className="card-left">
-                <IonText className="text-title">Lista de refeições selecionadas:</IonText>            
+                <IonText className="responsiveTitlePA">Lista de refeições selecionadas:</IonText>            
             </IonCard>                        
                          
             <IonGrid className="grid-exercicios">
@@ -382,11 +402,7 @@ class CriarPlanoAlimentar extends React.Component<any>{
                         <IonRow>
 
                             <IonCol className="search-content">
-                                <IonLabel class="ion-text-wrap"><b>Refeição</b></IonLabel>
-                            </IonCol >
-
-                            <IonCol className="search-content">
-                                <IonLabel class="ion-text-wrap"><b>Descrição</b></IonLabel>
+                                <IonLabel class="ion-text-wrap"><div className="detailsPA">Refeição / Descrição </div></IonLabel>
                             </IonCol >
 
                         </IonRow>
@@ -395,23 +411,33 @@ class CriarPlanoAlimentar extends React.Component<any>{
                     {
                         this.state.lista_refeicoes_selecionados.map((s, i) => (
                             
-                            <IonCard key={s.nome} >
+                            <IonCard key={i + s.descricao + s.nome} >
                                 <IonCardContent className="border-color">
                                     <IonRow>
 
                                         <IonCol className="search-content">
-                                            <IonLabel class="ion-text-wrap">{s.nome}</IonLabel>
+                                            <IonLabel className="detailsPA"><b>Tipo: </b>{s.nome}</IonLabel>
                                         </IonCol >
+
+                                    </IonRow>
+                                    <IonRow>
 
                                         <IonCol className="search-content">
-                                            <IonTextarea>{s.descricao}</IonTextarea>
+                                            <IonText className="detailsPA"><b>Descrição: </b>{s.descricao}</IonText>
                                         </IonCol >
 
-                                        <IonButton size="small" onClick={async () => {this.rmRefeicao.call(this, i)}}>
-                                            <IonIcon slot="icon-only" icon={closeCircleSharp}/>
-                                        </IonButton>
+                                    </IonRow>
 
-                                        </IonRow>
+                                    <IonRow>
+                                        <IonCol>
+
+                                            <IonButton size="small" onClick={async () => {this.rmRefeicao.call(this, i)}}>
+                                                Remover <b>&nbsp;</b><IonIcon slot="icon-only" icon={closeCircleSharp}/>
+                                            </IonButton>
+
+                                        </IonCol>
+                                    </IonRow>
+
                                     </IonCardContent>
                                 </IonCard>
                         ))
@@ -422,16 +448,13 @@ class CriarPlanoAlimentar extends React.Component<any>{
                 <IonRow>
 
                     <IonCol>
-                            <IonButton size="large" className="botao" color= "success" onClick={async () => {this.limparPlanoAlimentar.call(this)}}>
-                                <IonText> Limpar Plano Alimentar</IonText>
+                            <IonButton className="botaoGridPA" color= "success" onClick={async () => {this.limparPlanoAlimentar.call(this)}}>
+                                <IonText> Limpar</IonText>
                                 <IonIcon slot="icon-only" icon={trashOutline}/>
                             </IonButton>
-                    </IonCol>
-
-                    <IonCol>
                         
-                            <IonButton size="large" className="botao" onClick={async () => {this.addPlanoAlimentar.call(this)}}>
-                                <IonText> Adicionar Plano Alimentar</IonText>
+                            <IonButton className="botaoGridPA" onClick={async () => {this.addPlanoAlimentar.call(this)}}>
+                                <IonText> Adicionar</IonText>
                                 <IonIcon slot="icon-only" icon={addOutline}/>
                             </IonButton>
                        
