@@ -1,4 +1,4 @@
-import { IonButton, IonCard, IonCardContent, IonCol, IonContent, IonFooter, IonGrid, IonHeader, IonIcon, IonInput, IonItem, IonLabel, IonPage, IonRange, IonRow, IonText, IonTitle, IonToolbar, IonAlert } from "@ionic/react";
+import { IonButton, IonCard, IonCardContent, IonCol, IonContent, IonGrid, IonHeader, IonIcon, IonInput, IonItem, IonLabel, IonPage, IonRange, IonRow, IonText, IonTitle, IonToolbar, IonAlert, IonFooter } from "@ionic/react";
 import { addOutline, calendarOutline, personCircleOutline, trashOutline } from "ionicons/icons";
 import React from "react";
 import { criarAvaliacao, getAvaliacoesAgendadasInstrutor } from "../../models/API/EvolucaoAPI";
@@ -497,11 +497,11 @@ class CriarAvaliacao extends React.Component<any>{
             </IonGrid>
 
         </IonContent>
-
-        <IonFooter class="ion-no-border">
-            <IonContent className="info-text"> © UMFit - 2020</IonContent>
+        <IonFooter>
+          <IonToolbar class="ion-text-center">
+            <IonTitle border-top size="small">© UMFit 2020</IonTitle>
+          </IonToolbar>
         </IonFooter>
-
       </IonPage>
     );
     }

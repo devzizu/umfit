@@ -1,6 +1,6 @@
 import React from 'react';
 import { Redirect, Route } from 'react-router-dom';
-import { IonApp, IonRouterOutlet, IonSplitPane, IonPage, IonHeader, IonToolbar, IonTitle, IonText, IonInput, IonButton, IonCard, IonContent, IonCardContent, IonCardHeader } from '@ionic/react';
+import { IonApp, IonRouterOutlet, IonSplitPane, IonPage, IonHeader, IonToolbar, IonTitle, IonText, IonInput, IonButton, IonCard, IonContent, IonCardContent, IonCardHeader, IonFooter } from '@ionic/react';
 import { IonReactRouter } from '@ionic/react-router';
 
 /* Core CSS required for Ionic components to work properly */
@@ -267,6 +267,12 @@ class Home extends React.Component<any> {
         </IonHeader>
 
         <LogInForm logged={this.props.logged} history={this.props.history} setLogged={this.props.setLogged}/>
+        
+        <IonFooter>
+          <IonToolbar class="ion-text-center">
+            <IonTitle border-top size="small">© UMFit 2020</IonTitle>
+          </IonToolbar>
+        </IonFooter>
 
       </IonPage>
     );
@@ -576,8 +582,6 @@ class LogInForm extends React.Component<any> {
     </div> 
   );
   }
-
-  
 };
 
 

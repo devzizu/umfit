@@ -1,7 +1,7 @@
 import React from "react";
 
 import "../css/RemoveUser.css"
-import { IonPage, IonHeader, IonTitle, IonToolbar, IonContent, IonItem, IonLabel, IonSearchbar, IonList, IonIcon, IonButton } from "@ionic/react";
+import { IonPage, IonHeader, IonTitle, IonToolbar, IonContent, IonItem, IonLabel, IonSearchbar, IonList, IonIcon, IonButton, IonFooter } from "@ionic/react";
 import{person,home,informationCircle,atCircle, closeCircleSharp} from 'ionicons/icons'
 import { getAllUsers, selectUser, removeUser } from "../../models/API/UserAPI";
 
@@ -214,7 +214,11 @@ class RemoveUser extends React.Component<any> {
                 
                 </IonList>
                 </IonContent>
-    
+                <IonFooter>
+          <IonToolbar class="ion-text-center">
+            <IonTitle border-top size="small">© UMFit 2020</IonTitle>
+          </IonToolbar>
+        </IonFooter>
             </IonPage>    
         );
     }

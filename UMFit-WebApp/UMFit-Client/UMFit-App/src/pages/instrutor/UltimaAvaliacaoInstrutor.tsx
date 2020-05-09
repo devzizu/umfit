@@ -573,10 +573,11 @@ class UltimaAvaliacaoInstrutor extends React.Component<any>{
     </IonGrid>
         </IonContent>
  
-        <IonFooter class="ion-no-border">
-            <IonContent className="info-text"> © UMFit - 2020</IonContent>
+        <IonFooter>
+          <IonToolbar class="ion-text-center">
+            <IonTitle border-top size="small">© UMFit 2020</IonTitle>
+          </IonToolbar>
         </IonFooter>
-
       </IonPage>
     );
     }

@@ -47,8 +47,10 @@ const Contact: React.FC = () => {
           </IonCard>
         </IonContent>
 
-        <IonFooter className="ion-no-border">
-            <IonContent className="info-text"> © UMFit - 2020</IonContent>
+        <IonFooter>
+          <IonToolbar class="ion-text-center">
+            <IonTitle border-top size="small">© UMFit 2020</IonTitle>
+          </IonToolbar>
         </IonFooter>
 
       </IonPage>

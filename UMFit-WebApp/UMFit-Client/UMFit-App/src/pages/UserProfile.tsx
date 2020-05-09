@@ -1,5 +1,5 @@
 
-import { IonPage, IonHeader, IonToolbar, IonTitle, IonContent, IonCard, IonCardHeader, IonCardTitle, IonCardSubtitle, IonIcon, IonGrid, IonRow, IonCol, IonCardContent } from "@ionic/react";
+import { IonPage, IonHeader, IonToolbar, IonTitle, IonContent, IonCard, IonCardHeader, IonCardTitle, IonCardSubtitle, IonIcon, IonGrid, IonRow, IonCol, IonCardContent, IonFooter } from "@ionic/react";
 import React from "react";
 import { User } from "../models/Other/User";
 
@@ -136,6 +136,11 @@ class UserProfile extends React.Component<any> {
           </IonGrid>
 
           </IonContent>
+          <IonFooter>
+          <IonToolbar class="ion-text-center">
+            <IonTitle border-top size="small">© UMFit 2020</IonTitle>
+          </IonToolbar>
+        </IonFooter>
         </IonPage>
     );
   }

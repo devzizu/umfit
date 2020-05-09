@@ -2,7 +2,7 @@
 import React from "react";
 
 import "../css/InserirUtilizador.css"
-import { IonPage, IonHeader, IonTitle, IonToolbar, IonContent, IonGrid, IonRow, IonCol, IonItem, IonLabel, IonInput, IonIcon, IonSelect, IonSelectOption, IonDatetime, IonText, IonButton, IonLoading } from "@ionic/react";
+import { IonPage, IonHeader, IonTitle, IonToolbar, IonContent, IonGrid, IonRow, IonCol, IonItem, IonLabel, IonInput, IonIcon, IonSelect, IonSelectOption, IonDatetime, IonText, IonButton, IonLoading, IonFooter } from "@ionic/react";
 import { personOutline, mailOutline, cardOutline, locationOutline, peopleCircleOutline, transgenderOutline, calendarOutline, codeWorkingOutline } from "ionicons/icons";
 import { User, getTestValueUser } from "../../models/Other/User";
 import sha256 from "fast-sha256";
@@ -271,7 +271,11 @@ class InserirUtilizador extends React.Component<any> {
                         />
 
                 </IonContent>
-    
+                <IonFooter>
+          <IonToolbar class="ion-text-center">
+            <IonTitle border-top size="small">© UMFit 2020</IonTitle>
+          </IonToolbar>
+        </IonFooter>
             </IonPage>    
         );
     }
