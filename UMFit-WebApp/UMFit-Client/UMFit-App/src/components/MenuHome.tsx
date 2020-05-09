@@ -82,6 +82,12 @@ const appPagesClientePremium: AppPage[] = [
     mdIcon: documentsOutline
   },
   {
+    title: 'Meus planos Alimentares',
+    url: '/profile/planosalimentares',
+    iosIcon: pizzaOutline,
+    mdIcon: pizzaOutline
+  },
+  {
     title: 'Log-Out',
     url: '/profile/logout',
     iosIcon: logOutOutline,

@@ -1,0 +1,84 @@
+.buttonsWrapper-ca{
+    text-align: center;
+    padding: 15px; 
+}
+
+.leftBut-ca{
+    display: inline-block;
+    max-width: 150px;
+    text-align: left;
+    padding: 5px;    
+    border-radius: 3px;
+    margin: 15px;
+    vertical-align: top;
+}
+
+.rightBut-ca{
+    display: inline-block;
+    max-width: 150px;
+    text-align: left;
+    padding: 5px;
+    border-radius: 3px;
+    margin: 15px;
+    margin-left: 40%;
+}
+
+.buttonNextBefore-ca{
+
+    height: 60px;
+
+    font-weight: bold;
+    color: rgb(0, 0, 0);
+    border-style: solid;
+    border-radius: 8px;
+    border-color: orange;
+}
+
+@media screen and (max-width: 650px) {
+    .responsiveText-ca {
+        font-size: 13px;
+    }
+
+    .nome-treino-ca {
+        font-size: 14px;
+    }
+    .text-title-ca{
+
+        font-size: 10px; 
+    }
+    .nome-exercicio-ca{
+
+        font-size: 13px; 
+    }
+    .buttonNextBefore-ca{
+
+        height: 60px;
+        width: 130px;
+    
+        font-weight: bold;
+        color: rgb(0, 0, 0);
+        border-style: solid;
+        border-radius: 8px;
+        border-color: orange;
+    }
+        .leftBut-ca, .rightBut-ca{
+        max-width: 130px;
+    }
+
+    .leftBut-ca{
+        display: inline-block;
+        text-align: left;
+        padding: 5px;    
+        border-radius: 3px;
+        margin: 15px;
+        vertical-align: top;
+    }
+    
+    .rightBut-ca{
+        display: inline-block;
+        text-align: left;
+        padding: 5px;
+        border-radius: 3px;
+        margin: 15px;
+    }
+}

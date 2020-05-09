@@ -35,3 +35,19 @@ export async function setPlanoAlimentar( pt:any ){
 
     return res;
 }
+
+export async function getPlanosAlimentares(mail_cliente: string){
+
+    const res = fetch(baseURL + "/consultar", {
+        method: 'post',
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            valueST: mail_cliente
+        })
+    });
+
+    return res;
+}

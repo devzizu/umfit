@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ContentModelStore">
+    <e p="$APPLICATION_CONFIG_DIR$/consoles/db" t="IncludeRecursive" />
     <e p="$APPLICATION_CONFIG_DIR$/scratches" t="IncludeRecursive" />
     <e p="$USER_HOME$/.Rider2019.3/system/extResources" t="IncludeRecursive" />
-    <e p="$USER_HOME$/.Rider2019.3/system/resharper-host/local/Transient/ReSharperHost/v193/SolutionCaches/_UMFit-WebAPI.-1312475956.00" t="ExcludeRecursive" />
+    <e p="$USER_HOME$/.Rider2019.3/system/resharper-host/local/Transient/ReSharperHost/v193/SolutionCaches/_UMFit-WebAPI.1491286518.00" t="ExcludeRecursive" />
     <e p="$PROJECT_DIR$" t="IncludeFlat">
       <e p="UMFit-WebAPI" t="IncludeRecursive">
         <e p="Controllers" t="Include">
@@ -35,6 +36,7 @@
           <e p="UMFit_LN" t="Include">
             <e p="Aulas" t="Include">
               <e p="AulaGrupo.cs" t="Include" />
+              <e p="ClienteAula.cs" t="Include" />
             </e>
             <e p="Avaliacao" t="Include">
               <e p="Avaliaçao.cs" t="Include" />
@@ -72,6 +74,9 @@
         <e p="appsettings.Development.json" t="Include" />
         <e p="appsettings.json" t="Include" />
         <e p="bin" t="ExcludeRecursive" />
+        <e p="mono_crash.mem.5098.1.blob" t="Include" />
+        <e p="mono_crash.mem.5651.1.blob" t="Include" />
+        <e p="mono_crash.mem.9811.1.blob" t="Include" />
         <e p="obj" t="ExcludeRecursive">
           <e p="Debug" t="Include">
             <e p="netcoreapp3.1" t="Include">

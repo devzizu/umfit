@@ -5,6 +5,7 @@ using UMFit_WebAPI.Models.UMFit_LN.Aulas;
 using UMFit_WebAPI.Models.UMFit_LN.Avaliacao;
 using UMFit_WebAPI.Models.UMFit_LN.Planos.PlanoAlimentar;
 using UMFit_WebAPI.Models.UMFit_LN.Planos.PlanoTreino;
+using UMFit_WebAPI.Models.UMFit_LN.Utilizadores;
 using UMFit_WebAPI.Models.UMFit_LN.Utilizadores.Interfaces;
 
 namespace UMFit_WebAPI.Models.UMFit_LN
@@ -145,6 +146,11 @@ namespace UMFit_WebAPI.Models.UMFit_LN
         {
             return avaliaçaoDAO.UpdateAvaliaçaoRealizada(av);
         }
+        
+        public List<PlanoAlimentar> GetPlanosAlimentares(string mail)
+        {
+            return planoAlimentarDao.GetPlanoAlimentar(mail);
+        }
 
         public List<string> GetInstrutorEmails()
         {
@@ -170,6 +176,25 @@ namespace UMFit_WebAPI.Models.UMFit_LN
         public List<Avaliaçao> GetAvaAgendInst(string email)
         {
             return avaliaçaoDAO.GetAvalInstr(email, 'A');
+        }
+
+        public AulaGrupo GetAulaID(int id)
+        {
+            return aulaGrupoDAO.GetAulaID(id);
+        }
+
+        public bool MarcarAula(ClienteAula ca)
+        {
+           return aulaGrupoDAO.MarcarAula(ca);
+        }
+
+        public List<int> GetAulasCliente(string mail)
+        {
+            return aulaGrupoDAO.GetAulasCliente(mail);
+        }
+        public bool DesmarcarAula(int id, string mail)
+        {
+            return aulaGrupoDAO.DesmarcárAula(id, mail);
         }
     }
 }

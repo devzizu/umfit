@@ -44,6 +44,7 @@ import UltimaAvaliacao from './pages/user/UltimaAvaliacao';
 import UserProfile from './pages/UserProfile';
 /* Theme variables */
 import './theme/variables.css';
+import ShowPlanoAlimentar from './pages/user/ShowPlanoAlimentar';
 
 
 
@@ -305,13 +306,14 @@ class ProfileCliente extends React.Component<any> {
 
                 <Route path="/profile/mydetails" render={() => {return <UpdateDetails user={this.state.user} email={this.state.user.email} />}} exact={true} />
 
-                <Route path="/profile/planoaulas" component={ConsultarAulasGrupo} exact={true} />
-
+                <Route path="/profile/planoaulas" render={() => {return <ConsultarAulasGrupo user={this.state.user}  />}} exact={true} />
+          
                 <Route path="/profile/ultimaavaliacao" render={() => {return <UltimaAvaliacao user={this.state.user}/>}} exact={true} />
 
                 <Route path="/profile/agendar" render={() => {return <AgendarAvaliacao email={this.state.user.email}/>}} exact={true} />
 
                 <Route path="/profile/planostreino" render={() => {return <ShowPlanoTreino user={this.state.user}/>}} exact={true} />
+                <Route path="/profile/planosalimentares" render={() => {return <ShowPlanoAlimentar user={this.state.user}/>}} exact={true} />
 
                 <Route path="/profile/logout" component={() => {return <LogOut setLogged={this.props.setLogged}/>}} exact={true} />
           
@@ -327,8 +329,8 @@ class ProfileCliente extends React.Component<any> {
 
               <Route path="/profile/mydetails" render={() => {return <UpdateDetails user={this.state.user} email={this.state.user.email} />}} exact={true} />
 
-              <Route path="/profile/planoaulas" component={ConsultarAulasGrupo} exact={true} />
-
+              <Route path="/profile/planoaulas" render={() => {return <ConsultarAulasGrupo user={this.state.user}  />}} exact={true} />
+          
               <Route path="/profile/ultimaavaliacao" render={() => {return <UltimaAvaliacao user={this.state.user}/>}} exact={true} />
 
               <Route path="/profile/agendar" render={() => {return <AgendarAvaliacao email={this.state.user.email}/>}} exact={true} />
@@ -380,7 +382,7 @@ class ProfileFuncionario extends React.Component<any> {
           <Route path="/profile/removeruser" render={() => {return <RemoveUser email={this.state.user.email}/>}} exact={true} />
 
           <Route path="/profile/mydetails" render={() => {return <UpdateDetails user={this.state.user} email={this.state.user.email} />}} exact={true} />
-          <Route path="/profile/planoaulas" component={ConsultarAulasGrupo} exact={true} />
+          <Route path="/profile/planoaulas" render={() => {return <ConsultarAulasGrupo user={this.state.user}  />}} exact={true} />
           <Route path="/profile/logout" component={() => {return <LogOut setLogged={this.props.setLogged}/>}} exact={true} />
 
           <Route path='*' exact={true} component={Component404} />
@@ -427,8 +429,8 @@ class ProfileTreinador extends React.Component<any> {
 
           <Route path="/profile/planoalimentar" component={CriarPlanoAlimentar}  exact={true}/>
 
-          <Route path="/profile/planoaulas" component={ConsultarAulasGrupo} exact={true} />
-
+          <Route path="/profile/planoaulas" render={() => {return <ConsultarAulasGrupo user={this.state.user}  />}} exact={true} />
+         
           <Route path="/profile/avaliacaocliente" component={UltimaAvaliacaoInstrutor} exact={true} />
 
           <Route path="/profile/criaravaliacao" render={() => { return <CriarAvaliacao user={this.state.user} /> } } exact={true} />

@@ -1,8 +1,8 @@
 
-import { IonCard, IonCardHeader, IonCardSubtitle, IonCardTitle, IonCol, IonContent, IonGrid, IonHeader, IonIcon, IonItem, IonLabel, IonPage, IonRow, IonSelect, IonSelectOption, IonTitle, IonToolbar } from "@ionic/react";
-import { bodyOutline, calendarOutline, informationOutline, sendOutline, timerOutline } from "ionicons/icons";
+import { IonAlert, IonButton, IonCard, IonCardHeader, IonCardSubtitle, IonCardTitle, IonCol, IonContent, IonGrid, IonHeader, IonIcon, IonItem, IonLabel, IonPage, IonRow, IonSelect, IonSelectOption, IonTitle, IonToolbar } from "@ionic/react";
+import { addOutline, bodyOutline, calendarOutline, informationOutline, removeOutline, sendOutline, timerOutline } from "ionicons/icons";
 import React from "react";
-import { getPlanoSemanalAulas } from "../models/API/AulaGrupoAPI";
+import { desmarcarAula, getPlanoSemanalAulas, marcarAula } from "../models/API/AulaGrupoAPI";
 import "./css/ConsultarAulasGrupo.css";
 
 
@@ -10,6 +10,8 @@ import "./css/ConsultarAulasGrupo.css";
 //---------------------------------------------------------------------------------------------------------------------------------
 
 interface AulaGrupo {
+    id : number,
+    marcada : boolean,
     hora: string,
     dia: string,
     nome: string,
@@ -43,21 +45,51 @@ class ConsultarAulasGrupo extends React.Component<any> {
     state: {
         planoAulasSemanal: Map<string, AulaGrupo[]>, //Map<DAY_OF_WEEK, AULAS>
         diaSelecionado: string
+        userType : string
+        userEmail : string
+        alert : string
+
     }
+    timerID: any;
 
     constructor(props: any) {
-
         super(props);
-
+        this.timerID = null;
         this.state = {
             planoAulasSemanal: new Map(),
-            diaSelecionado: ""
+            diaSelecionado: "",
+            userType : this.props.user.tipoDeUser,
+            userEmail : this.props.user.email,
+            alert : ""
+
         }
+
+
+
     }
 
     async componentDidMount() {
+        this.timerID = setInterval( () => this.update() , 5000);
+        var day = (new Date()).getDay() - 1;
+            var ususalSearchDay = diasDaSemana[(new Date()).getDay() - 1];
+            var notUsual: Set<String> = new Set(["Sábado", "Domingo"]);
+            if (notUsual.has(ususalSearchDay) || day === -1) {
+                ususalSearchDay = "Segunda";
+            }
 
-        const res = await getPlanoSemanalAulas();
+
+            this.setState({
+                diaSelecionado: ususalSearchDay
+            });
+
+    }
+    componentWillUnmount() {
+        clearInterval(this.timerID);
+      }
+
+
+    async update(){
+        const res = await getPlanoSemanalAulas(this.state.userEmail);
 
         const json = res.json();
 
@@ -76,31 +108,48 @@ class ConsultarAulasGrupo extends React.Component<any> {
                 planoAulasSemanalTest.set(diaString, diaAulas);
             }
 
-            var day = (new Date()).getDay() - 1;
-            var ususalSearchDay = diasDaSemana[(new Date()).getDay() - 1];
-            var notUsual: Set<String> = new Set(["Sábado", "Domingo"]);
-            if (notUsual.has(ususalSearchDay) || day === -1) {
-                ususalSearchDay = "Segunda";
-            }
 
-            console.log("::: " + ((new Date()).getDay() - 1));
+
 
             this.setState({
-                planoAulasSemanal: planoAulasSemanalTest,
-                diaSelecionado: ususalSearchDay
+                planoAulasSemanal: planoAulasSemanalTest
             });
         });
 
-        //-------------------------------------------------------------------
+    }
+
+
+   async desmarcarAula(id: number) {
+       await desmarcarAula(id);
+       this.update();     
+    }
+   async marcarAula(id: number) {
+         await marcarAula(id).then(
+            (data : any)=> {
+                console.log(data);
+                if (data.status===200) this.setState({alert : "Aula marcada com sucesso!"});
+                if (data.status===400) this.setState({alert : "Aula não marcada com sucesso!"})
+                this.update();
+            }
+        );
+        
+
     }
 
     render() {
-        
-        console.log(this.state);
 
         return(
-            
+
             <IonPage>
+
+
+<IonAlert
+          isOpen={this.state.alert.length>0}
+          onDidDismiss={() => this.setState({alert : ""})}
+          header={'Alerta'}
+          message={this.state.alert}
+          buttons={['OK']}
+        />
 
                 <IonHeader>
                 <IonToolbar color="primary">
@@ -183,6 +232,24 @@ class ConsultarAulasGrupo extends React.Component<any> {
                                                             <b>&nbsp;&nbsp;</b>
                                                             <IonLabel><div className="textResponsive"><b>Lotação atual: </b><br></br><br></br>{aulaDoDia.lotacao_atual} inscritos (máximo {aulaDoDia.lotacao_max} alunos)</div></IonLabel>
                                                         </IonItem>
+                                                        
+                                                        { this.state.userType==="Cliente"?
+                                                         (aulaDoDia.marcada? 
+                                                            <IonButton color="danger" onClick = {()=>this.desmarcarAula(aulaDoDia.id)}>
+                                                                Desmarcar Aula  <b>&nbsp;&nbsp;</b>
+                                                            <IonIcon icon={removeOutline}></IonIcon> 
+                                                            </IonButton>
+
+
+                                                        :
+                                                        <IonButton color="success" onClick = {()=>this.marcarAula(aulaDoDia.id)}> 
+                                                        Marcar Aula  <b>&nbsp;&nbsp;</b>
+                                                        <IonIcon icon={addOutline}></IonIcon>
+                                                        </IonButton>
+                                                        ) 
+                                                        :
+                                                        <React.Fragment></React.Fragment>
+                                                        }
 
                                                     </IonCol>
                                                     
@@ -227,10 +294,11 @@ class ConsultarAulasGrupo extends React.Component<any> {
 
 
                 </IonContent>
-                
+    
             </IonPage>    
         );
     }
+
 }
 
 export default ConsultarAulasGrupo;
