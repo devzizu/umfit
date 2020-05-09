@@ -1,10 +1,10 @@
 
-import { IonPage, IonHeader, IonToolbar, IonTitle, IonContent, IonCard, IonCardHeader, IonCardTitle, IonCardSubtitle, IonIcon, IonGrid, IonRow, IonCol, IonCardContent, IonFooter } from "@ionic/react";
+import { IonCard, IonCardContent, IonCardHeader, IonCardSubtitle, IonCardTitle, IonCol, IonContent, IonGrid, IonHeader, IonIcon, IonPage, IonRow, IonTitle, IonToolbar } from "@ionic/react";
+import { calendarOutline, cardOutline, femaleOutline, informationCircleOutline, locationOutline, mailOutline, maleOutline } from "ionicons/icons";
 import React from "react";
 import { User } from "../models/Other/User";
-
 import './css/UserProfile.css';
-import { mailOutline, femaleOutline, maleOutline, locationOutline, calendarOutline, cardOutline, informationCircleOutline } from "ionicons/icons";
+
 
 class UserProfile extends React.Component<any> {
 
@@ -136,11 +136,7 @@ class UserProfile extends React.Component<any> {
           </IonGrid>
 
           </IonContent>
-          <IonFooter>
-          <IonToolbar class="ion-text-center">
-            <IonTitle border-top size="small">© UMFit 2020</IonTitle>
-          </IonToolbar>
-        </IonFooter>
+          
         </IonPage>
     );
   }

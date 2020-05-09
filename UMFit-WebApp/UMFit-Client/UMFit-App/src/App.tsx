@@ -1,59 +1,57 @@
-import React from 'react';
-import { Redirect, Route } from 'react-router-dom';
-import { IonApp, IonRouterOutlet, IonSplitPane, IonPage, IonHeader, IonToolbar, IonTitle, IonText, IonInput, IonButton, IonCard, IonContent, IonCardContent, IonCardHeader, IonFooter } from '@ionic/react';
+import { IonApp, IonButton, IonCard, IonCardContent, IonCardHeader, IonContent, IonHeader, IonInput, IonPage, IonRouterOutlet, IonSplitPane, IonText, IonTitle, IonToolbar } from '@ionic/react';
 import { IonReactRouter } from '@ionic/react-router';
-
 /* Core CSS required for Ionic components to work properly */
 import '@ionic/react/css/core.css';
-
+import '@ionic/react/css/display.css';
+import '@ionic/react/css/flex-utils.css';
+import '@ionic/react/css/float-elements.css';
 /* Basic CSS for apps built with Ionic */
 import '@ionic/react/css/normalize.css';
-import '@ionic/react/css/structure.css';
-import '@ionic/react/css/typography.css';
-
 /* Optional CSS utils that can be commented out */
 import '@ionic/react/css/padding.css';
-import '@ionic/react/css/float-elements.css';
+import '@ionic/react/css/structure.css';
 import '@ionic/react/css/text-alignment.css';
 import '@ionic/react/css/text-transformation.css';
-import '@ionic/react/css/flex-utils.css';
-import '@ionic/react/css/display.css';
-
+import '@ionic/react/css/typography.css';
+import sha256 from "fast-sha256";
+import React from 'react';
+import { Redirect, Route } from 'react-router-dom';
+//---------------------------------------------------------------------------------------
+//---------------------------------------------------------------------------------------
+import './components/css/LogIn.css';
+import Menu from './components/MenuHome';
+//---------------------------------------------------------------------------------------
+//---------------------------------------------------------------------------------------
+import { authenticate, getUserStatus, logout } from './models/API/UserAPI';
+import { User } from './models/Other/User';
+import About from './pages/About';
+import ConsultarAulasGrupo from './pages/ConsultarAulasGrupo';
+import Contact from './pages/Contact';
+import './pages/css/404.css';
+import './pages/css/Home.css';
+import EditarUtilizador from './pages/funcionario/EditarUtilizador';
+import InserirUtilizador from './pages/funcionario/InserirUtilizador';
+import RemoveUser from './pages/funcionario/RemoveUser';
+import CriarAvaliacao from './pages/instrutor/CriarAvaliacao';
+import CriarPlanoAlimentar from './pages/instrutor/CriarPlanoAlimentar';
+import CriarPlanoTreino from './pages/instrutor/CriarPlanoTreino';
+import UltimaAvaliacaoInstrutor from './pages/instrutor/UltimaAvaliacaoInstrutor';
+import UpdateDetails from './pages/UpdateDetails';
+import AgendarAvaliacao from './pages/user/AgendarAvaliacao';
+import Evolucao from './pages/user/EvolucaoPage/Evolucao';
+import ShowPlanoTreino from './pages/user/ShowPlanoTreino';
+import UltimaAvaliacao from './pages/user/UltimaAvaliacao';
+import UserProfile from './pages/UserProfile';
 /* Theme variables */
 import './theme/variables.css';
 
-//---------------------------------------------------------------------------------------
-//---------------------------------------------------------------------------------------
 
-import { authenticate, getUserStatus, logout } from './models/API/UserAPI';
-import { User } from './models/Other/User';
 
-import sha256 from "fast-sha256";
 
-//---------------------------------------------------------------------------------------
-//---------------------------------------------------------------------------------------
 
-import './components/css/LogIn.css';
-import './pages/css/Home.css';
-import './pages/css/404.css';
 
-import Menu from './components/MenuHome';
-import About from './pages/About';
-import Contact from './pages/Contact';
-import UserProfile from './pages/UserProfile';
-import Evolucao from './pages/user/EvolucaoPage/Evolucao';
-import InserirUtilizador from './pages/funcionario/InserirUtilizador';
-import UpdateDetails from './pages/UpdateDetails';
-import RemoveUser from './pages/funcionario/RemoveUser';
-import EditarUtilizador from './pages/funcionario/EditarUtilizador';
-import CriarPlanoTreino from './pages/instrutor/CriarPlanoTreino';
-import CriarPlanoAlimentar from './pages/instrutor/CriarPlanoAlimentar';
-import ConsultarAulasGrupo from './pages/ConsultarAulasGrupo';
-import UltimaAvaliacao from './pages/user/UltimaAvaliacao';
-import UltimaAvaliacaoInstrutor from './pages/instrutor/UltimaAvaliacaoInstrutor';
-import ShowPlanoTreino from './pages/user/ShowPlanoTreino';
-import CriarAvaliacao from './pages/instrutor/CriarAvaliacao';
-import AgendarAvaliacao from './pages/user/AgendarAvaliacao';
+
+
 
 //---------------------------------------------------------------------------------------
 
@@ -267,12 +265,6 @@ class Home extends React.Component<any> {
         </IonHeader>
 
         <LogInForm logged={this.props.logged} history={this.props.history} setLogged={this.props.setLogged}/>
-        
-        <IonFooter>
-          <IonToolbar class="ion-text-center">
-            <IonTitle border-top size="small">© UMFit 2020</IonTitle>
-          </IonToolbar>
-        </IonFooter>
 
       </IonPage>
     );

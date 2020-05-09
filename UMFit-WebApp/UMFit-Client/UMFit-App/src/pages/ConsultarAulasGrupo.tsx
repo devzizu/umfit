@@ -1,11 +1,11 @@
 
+import { IonCard, IonCardHeader, IonCardSubtitle, IonCardTitle, IonCol, IonContent, IonGrid, IonHeader, IonIcon, IonItem, IonLabel, IonPage, IonRow, IonSelect, IonSelectOption, IonTitle, IonToolbar } from "@ionic/react";
+import { bodyOutline, calendarOutline, informationOutline, sendOutline, timerOutline } from "ionicons/icons";
 import React from "react";
-
-import "./css/ConsultarAulasGrupo.css"
-
-import { IonPage, IonHeader, IonTitle, IonToolbar, IonContent, IonIcon, IonRow, IonGrid, IonItem, IonLabel, IonSelect, IonSelectOption, IonCol, IonCard, IonCardHeader, IonCardSubtitle, IonCardTitle, IonFooter } from "@ionic/react";
-import { calendarOutline, bodyOutline, timerOutline, sendOutline, informationOutline } from "ionicons/icons";
 import { getPlanoSemanalAulas } from "../models/API/AulaGrupoAPI";
+import "./css/ConsultarAulasGrupo.css";
+
+
 
 //---------------------------------------------------------------------------------------------------------------------------------
 
@@ -227,11 +227,7 @@ class ConsultarAulasGrupo extends React.Component<any> {
 
 
                 </IonContent>
-                <IonFooter>
-          <IonToolbar class="ion-text-center">
-            <IonTitle border-top size="small">© UMFit 2020</IonTitle>
-          </IonToolbar>
-        </IonFooter>
+                
             </IonPage>    
         );
     }

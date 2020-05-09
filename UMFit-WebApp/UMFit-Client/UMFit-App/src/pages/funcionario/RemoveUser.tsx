@@ -1,9 +1,9 @@
+import { IonButton, IonContent, IonHeader, IonIcon, IonItem, IonLabel, IonList, IonPage, IonSearchbar, IonTitle, IonToolbar } from "@ionic/react";
+import { atCircle, closeCircleSharp, home, informationCircle, person } from 'ionicons/icons';
 import React from "react";
+import { getAllUsers, removeUser, selectUser } from "../../models/API/UserAPI";
+import "../css/RemoveUser.css";
 
-import "../css/RemoveUser.css"
-import { IonPage, IonHeader, IonTitle, IonToolbar, IonContent, IonItem, IonLabel, IonSearchbar, IonList, IonIcon, IonButton, IonFooter } from "@ionic/react";
-import{person,home,informationCircle,atCircle, closeCircleSharp} from 'ionicons/icons'
-import { getAllUsers, selectUser, removeUser } from "../../models/API/UserAPI";
 
 
 //const testing = true;
@@ -214,11 +214,7 @@ class RemoveUser extends React.Component<any> {
                 
                 </IonList>
                 </IonContent>
-                <IonFooter>
-          <IonToolbar class="ion-text-center">
-            <IonTitle border-top size="small">© UMFit 2020</IonTitle>
-          </IonToolbar>
-        </IonFooter>
+                
             </IonPage>    
         );
     }

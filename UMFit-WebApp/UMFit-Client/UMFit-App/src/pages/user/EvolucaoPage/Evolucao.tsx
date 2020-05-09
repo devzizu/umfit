@@ -1,11 +1,10 @@
 
+import { IonCard, IonCardHeader, IonCardSubtitle, IonCardTitle, IonCol, IonContent, IonGrid, IonHeader, IonItem, IonList, IonPage, IonRow, IonSelect, IonSelectOption, IonTitle, IonToolbar } from "@ionic/react";
 import React from "react";
-import { IonPage, IonHeader, IonToolbar, IonTitle, IonContent, IonCard, IonCardHeader, IonCardTitle,  IonGrid, IonRow, IonCol, IonList, IonItem, IonSelect, IonSelectOption, IonCardSubtitle, IonFooter } from "@ionic/react";
 import { Line } from "react-chartjs-2";
-//import{Line, Pie} from "react-chartjs-2";
-
-import "../css/Evolucao.css";
 import { getEvolucao } from "../../../models/API/EvolucaoAPI";
+//import{Line, Pie} from "react-chartjs-2";
+import "../css/Evolucao.css";
 
 //----------------------------------------------------------------------
 //Graph settings
@@ -305,11 +304,7 @@ class Evolucao extends React.Component<any> {
                 </IonGrid>
 
             </IonContent>
-            <IonFooter>
-          <IonToolbar class="ion-text-center">
-            <IonTitle border-top size="small">© UMFit 2020</IonTitle>
-          </IonToolbar>
-        </IonFooter>
+            
 
         </IonPage>
         );

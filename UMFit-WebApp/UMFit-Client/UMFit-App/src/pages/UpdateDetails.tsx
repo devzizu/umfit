@@ -1,12 +1,12 @@
 
-import React from "react";
-
-import "./css/UpdateDetails.css"
-import { IonPage, IonHeader, IonTitle, IonToolbar, IonContent, IonGrid, IonRow, IonCol, IonItem, IonLabel, IonInput, IonIcon, IonSelect, IonSelectOption, IonDatetime, IonText, IonButton, IonFooter } from "@ionic/react";
-import { peopleCircleOutline, transgenderOutline, calendarOutline, buildOutline, closeOutline } from "ionicons/icons";
+import { IonButton, IonCol, IonContent, IonDatetime, IonGrid, IonHeader, IonIcon, IonInput, IonItem, IonLabel, IonPage, IonRow, IonSelect, IonSelectOption, IonText, IonTitle, IonToolbar } from "@ionic/react";
 import sha256 from "fast-sha256";
+import { buildOutline, calendarOutline, closeOutline, peopleCircleOutline, transgenderOutline } from "ionicons/icons";
+import React from "react";
 import { updateUserDetailsAPI } from "../models/API/UserAPI";
 import { User } from "../models/Other/User";
+import "./css/UpdateDetails.css";
+
 
 //---------------------------------------------------------------------------------------------------------------------------------
 
@@ -229,11 +229,7 @@ class UpdateDetails extends React.Component<any> {
                     </IonGrid>
 
                 </IonContent>
-                <IonFooter>
-          <IonToolbar class="ion-text-center">
-            <IonTitle border-top size="small">© UMFit 2020</IonTitle>
-          </IonToolbar>
-        </IonFooter>
+                
             </IonPage>    
         );
     }

@@ -1,9 +1,9 @@
 
+import { IonCard, IonCardContent, IonCol, IonContent, IonGrid, IonHeader, IonLabel, IonPage, IonRow, IonText, IonTitle, IonToolbar } from "@ionic/react";
 import React from "react";
-import { IonPage, IonHeader, IonToolbar, IonTitle, IonFooter, IonContent, IonCard, IonCardContent, IonText, IonLabel, IonRow, IonCol, IonGrid } from "@ionic/react";
-import "./css/UltimaAvaliacao.css"
-import{Pie} from "react-chartjs-2";
+import { Pie } from "react-chartjs-2";
 import { getLastAvaliacao } from "../../models/API/EvolucaoAPI";
+import "./css/UltimaAvaliacao.css";
 
 var magro = require("../../imgs/avaliacao/magro.png") 
 var normal = require("../../imgs/avaliacao/normal.png") 
@@ -514,11 +514,7 @@ class UltimaAvaliacao extends React.Component<any>{
 
         </IonContent>
  
-        <IonFooter>
-          <IonToolbar class="ion-text-center">
-            <IonTitle border-top size="small">© UMFit 2020</IonTitle>
-          </IonToolbar>
-        </IonFooter>
+        
       </IonPage>
     );
     }

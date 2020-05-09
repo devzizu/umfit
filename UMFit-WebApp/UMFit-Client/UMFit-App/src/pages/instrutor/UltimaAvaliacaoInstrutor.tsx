@@ -1,10 +1,10 @@
 
+import { IonCard, IonCardContent, IonCol, IonContent, IonGrid, IonHeader, IonItem, IonLabel, IonList, IonPage, IonRadio, IonRadioGroup, IonRow, IonSearchbar, IonText, IonTitle, IonToolbar } from "@ionic/react";
 import React from "react";
-import { IonPage, IonHeader, IonToolbar, IonTitle, IonFooter, IonContent, IonCard, IonCardContent, IonText, IonLabel, IonRow, IonCol, IonGrid, IonList, IonRadioGroup, IonItem, IonRadio, IonSearchbar} from "@ionic/react";
-import "../css/UltimaAvaliacaoInstrutor.css"
-import{Pie} from "react-chartjs-2";
-import { getAllClients } from "../../models/API/UserAPI";
+import { Pie } from "react-chartjs-2";
 import { getLastAvaliacao } from "../../models/API/EvolucaoAPI";
+import { getAllClients } from "../../models/API/UserAPI";
+import "../css/UltimaAvaliacaoInstrutor.css";
 
 var magro = require("../../imgs/avaliacao/magro.png") 
 var normal = require("../../imgs/avaliacao/normal.png") 
@@ -573,11 +573,7 @@ class UltimaAvaliacaoInstrutor extends React.Component<any>{
     </IonGrid>
         </IonContent>
  
-        <IonFooter>
-          <IonToolbar class="ion-text-center">
-            <IonTitle border-top size="small">© UMFit 2020</IonTitle>
-          </IonToolbar>
-        </IonFooter>
+        
       </IonPage>
     );
     }

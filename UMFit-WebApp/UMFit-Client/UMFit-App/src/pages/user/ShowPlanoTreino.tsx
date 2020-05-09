@@ -1,11 +1,11 @@
 
-import React from "react";
-import { IonPage, IonHeader, IonToolbar, IonTitle, IonFooter, IonContent, IonCard, IonGrid, IonRow, IonLabel, IonCol, IonButton, IonItem, IonIcon} from "@ionic/react";
-import "./css/ShowPlanoTreino.css"
+import { IonButton, IonCard, IonCol, IonContent, IonGrid, IonHeader, IonIcon, IonItem, IonLabel, IonPage, IonRow, IonTitle, IonToolbar } from "@ionic/react";
 import { barbellOutline, hourglassOutline, informationOutline } from "ionicons/icons";
+import React from "react";
+import { getPlanosTreino } from "../../models/API/PlanoTreinoAPI";
 import { Exercicio, PlanoTreino } from "../../models/Other/PlanoTreino";
 import { User } from "../../models/Other/User";
-import { getPlanosTreino } from "../../models/API/PlanoTreinoAPI";
+import "./css/ShowPlanoTreino.css";
 
 //Pernas imgs
 var agachamento_frontal = require("../../imgs/exercicios/Agachamento_Frontal.png") 
@@ -477,11 +477,7 @@ class ShowPlanoTreino extends React.Component<any>{
 
         </IonContent>
  
-        <IonFooter>
-          <IonToolbar class="ion-text-center">
-            <IonTitle border-top size="small">© UMFit 2020</IonTitle>
-          </IonToolbar>
-        </IonFooter>
+        
       </IonPage>
     );
     }

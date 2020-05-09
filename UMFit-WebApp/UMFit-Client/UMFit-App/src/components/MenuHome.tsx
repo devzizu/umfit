@@ -1,19 +1,9 @@
-import {
-  IonContent,
-  IonIcon,
-  IonItem,
-  IonLabel,
-  IonList,
-  IonListHeader,
-  IonMenu,
-  IonMenuToggle,
-  IonNote,
-} from '@ionic/react';
+import { IonContent, IonFooter, IonIcon, IonItem, IonLabel, IonList, IonListHeader, IonMenu, IonMenuToggle, IonNote, IonTitle, IonToolbar } from '@ionic/react';
+import { addCircleOutline, analyticsOutline, barbellOutline, buildOutline, calendarOutline, callOutline, closeCircleOutline, documentsOutline, documentTextOutline, helpCircleOutline, keyOutline, logInOutline, logOutOutline, personOutline, pizzaOutline } from 'ionicons/icons';
 import React from 'react';
 import { RouteComponentProps, withRouter } from 'react-router-dom';
-import { logInOutline, helpCircleOutline, callOutline, logOutOutline, personOutline, analyticsOutline, keyOutline, closeCircleOutline, addCircleOutline, buildOutline, documentTextOutline, pizzaOutline, calendarOutline, documentsOutline, barbellOutline } from 'ionicons/icons';
-
 import './css/MenuHome.css';
+
 
 interface MenuProps extends RouteComponentProps {
   selectedPage: string;
@@ -320,7 +310,14 @@ const Menu: React.FunctionComponent<MenuProps> = ({ selectedPage, menus }) => {
           ) ()}
         </IonList>
       </IonContent>
+      <IonFooter className="footer">
+          <IonToolbar class="ion-text-center">
+            <IonTitle className="text-footer" size="small">© 2020 UMFit</IonTitle>
+          </IonToolbar>
+        </IonFooter>
+
     </IonMenu>
+    
   );
 };
 

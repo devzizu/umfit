@@ -1,9 +1,9 @@
 
-import { IonButton, IonCard, IonCardContent, IonCol, IonContent, IonDatetime, IonFooter, IonGrid, IonHeader, IonIcon, IonInput, IonItem, IonLabel, IonList, IonPage, IonRadio, IonRadioGroup, IonRow, IonSearchbar, IonText, IonTitle, IonToolbar } from "@ionic/react";
+import { IonButton, IonCard, IonCardContent, IonCol, IonContent, IonDatetime, IonGrid, IonHeader, IonIcon, IonInput, IonItem, IonLabel, IonList, IonPage, IonRadio, IonRadioGroup, IonRow, IonSearchbar, IonText, IonTitle, IonToolbar } from "@ionic/react";
 import { addCircleSharp, addOutline, closeCircleSharp, trashOutline } from "ionicons/icons";
 import React from "react";
 import { getListaExercicios, setPlanoTreino } from "../../models/API/PlanoTreinoAPI";
-import { selectUser, getAllClientsPremium } from "../../models/API/UserAPI";
+import { getAllClientsPremium, selectUser } from "../../models/API/UserAPI";
 import { Exercicio, PlanoTreino } from "../../models/Other/PlanoTreino";
 import "../css/CriarPlanoTreino.css";
 
@@ -536,11 +536,7 @@ class CriarPlanoTreino extends React.Component<any>{
 
         </IonContent>
  
-        <IonFooter>
-          <IonToolbar class="ion-text-center">
-            <IonTitle border-top size="small">© UMFit 2020</IonTitle>
-          </IonToolbar>
-        </IonFooter>
+        
 
       </IonPage>
     );

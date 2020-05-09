@@ -1,9 +1,9 @@
 
+import { IonCard, IonCardHeader, IonCardTitle, IonCol, IonContent, IonGrid, IonHeader, IonItem, IonList, IonPage, IonRow, IonSelect, IonSelectOption, IonTitle, IonToolbar } from "@ionic/react";
 import React from "react";
-import { IonPage, IonHeader, IonToolbar, IonTitle, IonContent, IonCard, IonCardHeader, IonCardTitle,  IonGrid, IonRow, IonCol, IonList, IonItem, IonSelect, IonSelectOption } from "@ionic/react";
-import{Line} from "react-chartjs-2";
-
+import { Line } from "react-chartjs-2";
 import "../css/Evolucao.css";
+
 
 interface registoAvaliacao {
     data: Date,

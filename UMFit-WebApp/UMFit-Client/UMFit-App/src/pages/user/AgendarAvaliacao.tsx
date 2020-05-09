@@ -1,4 +1,4 @@
-import { IonButton, IonCard, IonCardHeader, IonCardTitle, IonContent, IonDatetime, IonHeader, IonIcon, IonItem, IonLabel, IonList, IonPage, IonRow, IonSearchbar, IonTitle, IonToolbar, IonFooter } from "@ionic/react";
+import { IonButton, IonCard, IonCardHeader, IonCardTitle, IonContent, IonDatetime, IonHeader, IonIcon, IonItem, IonLabel, IonList, IonPage, IonRow, IonSearchbar, IonTitle, IonToolbar } from "@ionic/react";
 import { calendarOutline, personCircle, personCircleOutline } from "ionicons/icons";
 import React from "react";
 import { getAvaliacoesAgendadas, setAvaliacao } from "../../models/API/EvolucaoAPI";
@@ -198,11 +198,7 @@ class AgendarAvaliacao extends React.Component<any>{
 
 </IonCard>
 </IonContent>
-<IonFooter>
-          <IonToolbar class="ion-text-center">
-            <IonTitle border-top size="small">© UMFit 2020</IonTitle>
-          </IonToolbar>
-        </IonFooter>
+
 </IonPage>
         )
 }

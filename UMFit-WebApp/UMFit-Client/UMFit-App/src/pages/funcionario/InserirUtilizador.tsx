@@ -1,12 +1,12 @@
 
-import React from "react";
-
-import "../css/InserirUtilizador.css"
-import { IonPage, IonHeader, IonTitle, IonToolbar, IonContent, IonGrid, IonRow, IonCol, IonItem, IonLabel, IonInput, IonIcon, IonSelect, IonSelectOption, IonDatetime, IonText, IonButton, IonLoading, IonFooter } from "@ionic/react";
-import { personOutline, mailOutline, cardOutline, locationOutline, peopleCircleOutline, transgenderOutline, calendarOutline, codeWorkingOutline } from "ionicons/icons";
-import { User, getTestValueUser } from "../../models/Other/User";
+import { IonButton, IonCol, IonContent, IonDatetime, IonGrid, IonHeader, IonIcon, IonInput, IonItem, IonLabel, IonLoading, IonPage, IonRow, IonSelect, IonSelectOption, IonText, IonTitle, IonToolbar } from "@ionic/react";
 import sha256 from "fast-sha256";
+import { calendarOutline, cardOutline, codeWorkingOutline, locationOutline, mailOutline, peopleCircleOutline, personOutline, transgenderOutline } from "ionicons/icons";
+import React from "react";
 import { createUserAPI } from "../../models/API/UserAPI";
+import { getTestValueUser, User } from "../../models/Other/User";
+import "../css/InserirUtilizador.css";
+
 
 //---------------------------------------------------------------------------------------------------------------------------------
 
@@ -271,11 +271,7 @@ class InserirUtilizador extends React.Component<any> {
                         />
 
                 </IonContent>
-                <IonFooter>
-          <IonToolbar class="ion-text-center">
-            <IonTitle border-top size="small">© UMFit 2020</IonTitle>
-          </IonToolbar>
-        </IonFooter>
+                
             </IonPage>    
         );
     }

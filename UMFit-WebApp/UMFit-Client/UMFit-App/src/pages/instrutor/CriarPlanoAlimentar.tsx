@@ -1,11 +1,11 @@
 
+import { IonButton, IonCard, IonCardContent, IonCol, IonContent, IonDatetime, IonGrid, IonHeader, IonIcon, IonInput, IonItem, IonLabel, IonList, IonPage, IonRadio, IonRadioGroup, IonRow, IonSearchbar, IonText, IonTextarea, IonTitle, IonToolbar } from "@ionic/react";
+import { addCircleSharp, addOutline, closeCircleSharp, trashOutline } from "ionicons/icons";
 import React from "react";
-import { IonPage, IonHeader, IonToolbar, IonTitle, IonFooter, IonContent, IonCard, IonCardContent, IonSearchbar, IonInput, IonItem, IonList, IonText, IonLabel, IonRadio, IonRadioGroup, IonButton, IonIcon, IonRow, IonCol, IonGrid, IonTextarea, IonDatetime} from "@ionic/react";
-import "../css/CriarPlanoAlimentar.css"
-import {addCircleSharp, closeCircleSharp, addOutline, trashOutline } from "ionicons/icons";
-import { PlanoAlimentar, Refeicao } from '../../models/Other/PlanoAlimentar';
-import { getAllClientsPremium, selectUser } from "../../models/API/UserAPI";
 import { getListaRefeicoes, setPlanoAlimentar } from "../../models/API/PlanoAlimentarAPI";
+import { getAllClientsPremium, selectUser } from "../../models/API/UserAPI";
+import { PlanoAlimentar, Refeicao } from '../../models/Other/PlanoAlimentar';
+import "../css/CriarPlanoAlimentar.css";
 
 class CriarPlanoAlimentar extends React.Component<any>{
 
@@ -465,11 +465,7 @@ class CriarPlanoAlimentar extends React.Component<any>{
 
         </IonContent>
  
-        <IonFooter>
-          <IonToolbar class="ion-text-center">
-            <IonTitle border-top size="small">© UMFit 2020</IonTitle>
-          </IonToolbar>
-        </IonFooter>
+        
       </IonPage>
     );
     }

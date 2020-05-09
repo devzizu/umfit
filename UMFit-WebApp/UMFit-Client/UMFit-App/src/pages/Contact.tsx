@@ -1,9 +1,9 @@
 
+import { IonCard, IonCardContent, IonCardHeader, IonCardTitle, IonContent, IonHeader, IonIcon, IonPage, IonTitle, IonToolbar } from "@ionic/react";
+import { call, mailOutline } from "ionicons/icons";
 import React from "react";
-import { IonPage, IonHeader, IonToolbar, IonTitle, IonFooter, IonContent, IonCard, IonCardContent, IonCardTitle, IonCardHeader, IonIcon} from "@ionic/react";
-import "./css/Contact.css"
+import "./css/Contact.css";
 
-import { mailOutline, call} from "ionicons/icons";
 
 const Contact: React.FC = () => {
 
@@ -47,11 +47,7 @@ const Contact: React.FC = () => {
           </IonCard>
         </IonContent>
 
-        <IonFooter>
-          <IonToolbar class="ion-text-center">
-            <IonTitle border-top size="small">© UMFit 2020</IonTitle>
-          </IonToolbar>
-        </IonFooter>
+        
 
       </IonPage>
     );
