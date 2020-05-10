@@ -7,35 +7,19 @@ import "../css/ShowPlanoAlimentar.css";
 import { PlanoAlimentar, Refeicao} from "../../models/Other/PlanoAlimentar";
 import { getPlanosAlimentares } from "../../models/API/PlanoAlimentarAPI";
 
-const pequeno_almoco: Refeicao = {
+const RefeicaoNotDef: Refeicao = {
 
-    nome: "Pequeno-Almoço",
-    descricao: "Panquecas" 
+    nome: "Não existem refeições planeadas!",
+    descricao: "Fale com um instrutor e efetue o seu Planeamento Alimentar." 
 }
 
-const Jantar: Refeicao = {
+const PlanNotDefined: PlanoAlimentar = {
 
-    nome: "Jantar",
-    descricao: "Alforrecas" 
-}
-
-const Terca_Feira: PlanoAlimentar = {
-
-    nome: "Terca Feira",
-    refeicoes_livres: "1",
-    frequencia: "5x semana",
+    nome: "Não existem planos alimentares!",
+    refeicoes_livres: "-",
+    frequencia: "-",
     data_fim : "",
-    lista_refeicoes: [pequeno_almoco, Jantar]
-
-}
-
-const Segunda_Feira: PlanoAlimentar = {
-
-    nome: "Segunda Feira",
-    refeicoes_livres: "4",
-    frequencia: "3x semana",
-    data_fim : "",
-    lista_refeicoes: [Jantar, pequeno_almoco]
+    lista_refeicoes: [RefeicaoNotDef]
 }
 
 class ShowPlanoAlimentar extends React.Component<any>{
@@ -55,14 +39,14 @@ class ShowPlanoAlimentar extends React.Component<any>{
         this.state = {
 
             planoAlimentar: {
-                nome:"",
+                nome:"Ainda não existem planos alimentares!",
                 refeicoes_livres:"",
                 frequencia:"",
                 data_fim: "",
                 lista_refeicoes:[]
             },
             indice_plano: 0,
-            lista_plano_alimentar: [Segunda_Feira, Terca_Feira],
+            lista_plano_alimentar: [PlanNotDefined],
 
             user: this.props.user
 
@@ -96,8 +80,6 @@ class ShowPlanoAlimentar extends React.Component<any>{
     }
 
     async componentDidMount(){
-
-        console.log("Boas")
 
         await getPlanosAlimentares(this.state.user.email).then(
 
@@ -137,7 +119,7 @@ class ShowPlanoAlimentar extends React.Component<any>{
                     });
 
                     } else {
-                    alert("REQUEST ERROR "+value.status);
+                    console.log("REQUEST ERROR! Got status " + value.status);
                 }
             })
             .catch(function(error: any) {
@@ -250,7 +232,7 @@ class ShowPlanoAlimentar extends React.Component<any>{
                             
                             {
                                 s.descricao.split(";").map((des, i) => (
-                                    <IonRow className="margens-nomes">
+                                    <IonRow key={i + des} className="margens-nomes">
                                         <IonItem>
                                             <IonIcon icon={informationOutline}></IonIcon>
                                             <b>&nbsp;</b>

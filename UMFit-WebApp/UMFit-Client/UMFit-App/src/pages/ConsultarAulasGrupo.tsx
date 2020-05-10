@@ -69,6 +69,7 @@ class ConsultarAulasGrupo extends React.Component<any> {
     }
 
     async componentDidMount() {
+        this.update();
         this.timerID = setInterval( () => this.update() , 5000);
         var day = (new Date()).getDay() - 1;
             var ususalSearchDay = diasDaSemana[(new Date()).getDay() - 1];
@@ -232,20 +233,18 @@ class ConsultarAulasGrupo extends React.Component<any> {
                                                             <b>&nbsp;&nbsp;</b>
                                                             <IonLabel><div className="textResponsive"><b>Lotação atual: </b><br></br><br></br>{aulaDoDia.lotacao_atual} inscritos (máximo {aulaDoDia.lotacao_max} alunos)</div></IonLabel>
                                                         </IonItem>
-                                                        
+                                                        <br></br>
                                                         { this.state.userType==="Cliente"?
-                                                         (aulaDoDia.marcada? 
+                                                         (aulaDoDia.marcada?                                        
                                                             <IonButton color="danger" onClick = {()=>this.desmarcarAula(aulaDoDia.id)}>
-                                                                Desmarcar Aula  <b>&nbsp;&nbsp;</b>
-                                                            <IonIcon icon={removeOutline}></IonIcon> 
+                                                                Desmarcar Aula  <b>&nbsp;</b>
+                                                                <IonIcon icon={removeOutline}></IonIcon> 
                                                             </IonButton>
-
-
                                                         :
-                                                        <IonButton color="success" onClick = {()=>this.marcarAula(aulaDoDia.id)}> 
-                                                        Marcar Aula  <b>&nbsp;&nbsp;</b>
-                                                        <IonIcon icon={addOutline}></IonIcon>
-                                                        </IonButton>
+                                                            <IonButton color="success" onClick = {()=>this.marcarAula(aulaDoDia.id)}> 
+                                                                Marcar Aula  <b>&nbsp;</b>
+                                                                <IonIcon icon={addOutline}></IonIcon>
+                                                            </IonButton>
                                                         ) 
                                                         :
                                                         <React.Fragment></React.Fragment>
