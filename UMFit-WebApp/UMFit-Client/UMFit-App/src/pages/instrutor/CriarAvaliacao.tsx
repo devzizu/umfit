@@ -270,12 +270,12 @@ class CriarAvaliacao extends React.Component<any>{
 
                     <IonCard ion-activatable className="cardColSelected" color="primary" button={true} onClick={()=>{ console.log("NICE");this.setState({selecionada:elem, indexed : noIndex})}}  key={elem.data + elem.instrutor_nome} >
                     <IonItem ><IonIcon icon={calendarOutline }></IonIcon><IonLabel><div className="responsiveTextCardCavl">&nbsp;Data: {elem.data}</div></IonLabel></IonItem>
-                    <IonItem ><IonIcon icon={personCircleOutline}></IonIcon><IonLabel><div className="responsiveTextCardCavl">&nbsp;Instrutor: {elem.instrutor_nome}</div></IonLabel></IonItem>
+                    <IonItem ><IonIcon icon={personCircleOutline}></IonIcon><IonLabel><div className="responsiveTextCardCavl">&nbsp;Cliente: {elem.instrutor_nome}</div></IonLabel></IonItem>
                     </IonCard>
                      : 
                     <IonCard ion-activatable className="cardColUnselected" button={true} onClick={()=>{console.log("NICE NICE");this.setState({selecionada:elem, indexed : index })}}  key={elem.data + elem.instrutor_nome} >
                     <IonItem  ><IonIcon icon={calendarOutline }></IonIcon><IonLabel><div className="responsiveTextCardCavl">&nbsp;Data: {elem.data}</div></IonLabel></IonItem>
-                    <IonItem ><IonIcon icon={personCircleOutline}></IonIcon><IonLabel><div className="responsiveTextCardCavl">&nbsp;Instrutor: {elem.instrutor_nome}</div></IonLabel></IonItem>
+                    <IonItem ><IonIcon icon={personCircleOutline}></IonIcon><IonLabel><div className="responsiveTextCardCavl">&nbsp;Cliente: {elem.instrutor_nome}</div></IonLabel></IonItem>
                     </IonCard> 
                     
  

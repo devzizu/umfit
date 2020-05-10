@@ -1,6 +1,6 @@
 .profilePic {
     min-width: 130px;
-    min-height: 130px;
+    max-height: 130px;
 }
 
 .PageContent {

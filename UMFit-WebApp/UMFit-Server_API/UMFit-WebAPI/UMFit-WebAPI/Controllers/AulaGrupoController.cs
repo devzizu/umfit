@@ -107,7 +107,8 @@ namespace UMFit_WebAPI.Controllers
             AulaGrupo ag = _system.GetAulaID(tmp);
             ClienteAula ca = new ClienteAula(ag.id,ag.hora,ag.dia,uMail,ag.instrutor_email,ag.espaço_ginasio);
             
-            if ( (  (ag.lotaçao_Max < ag.lotaçao_Atual + 1) || !( _system.MarcarAula(ca))) ) ret = BadRequest();
+            if ( (  (ag.lotaçao_Max < ag.lotaçao_Atual + 1) || !( _system.MarcarAula(ca))) ) 
+                ret = BadRequest();
 
 
             return (ret);

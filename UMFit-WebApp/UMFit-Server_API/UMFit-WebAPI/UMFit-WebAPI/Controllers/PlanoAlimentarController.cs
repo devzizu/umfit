@@ -4,6 +4,7 @@ using System.Text.Json;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using Newtonsoft.Json.Linq;
+using UMFit_WebAPI.Dto;
 using UMFit_WebAPI.Models.UMFit_LN;
 using UMFit_WebAPI.Models.UMFit_LN.Planos.PlanoAlimentar;
 
@@ -60,7 +61,6 @@ namespace UMFit_WebAPI.Controllers
                     DateTime.Parse(plano.GetValue("data_fim").ToString()),
                     lista
                     );
-                Console.WriteLine(pa.ToString());
                 
                 if (_system.AddPlanoAlimentar(pa)) ret = Ok();
             }
@@ -69,9 +69,15 @@ namespace UMFit_WebAPI.Controllers
             return (ret);
             
         }
-
         
-        
-        
+        [HttpPost("consultar")]
+        public ActionResult<string> GetPlanosAlimentares([FromBody] StringDto emailWrapper)
+        {
+            string email = emailWrapper.valueST;
+            
+            List<PlanoAlimentar> planosList = _system.GetPlanosAlimentares(email);
+            
+            return Ok(planosList);
+        }
     }
 }

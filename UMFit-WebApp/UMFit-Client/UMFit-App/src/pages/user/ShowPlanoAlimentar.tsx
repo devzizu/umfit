@@ -1,16 +1,16 @@
 
 import { IonButton, IonCard, IonCol, IonContent, IonGrid, IonHeader, IonIcon, IonItem, IonLabel, IonPage, IonRow, IonTitle, IonToolbar } from "@ionic/react";
-import { hourglassOutline, informationOutline, pizzaOutline } from "ionicons/icons";
+import { arrowForwardCircleSharp, hourglassOutline, pizzaOutline } from "ionicons/icons";
 import React from "react";
+import { getPlanosAlimentares } from "../../models/API/PlanoAlimentarAPI";
+import { PlanoAlimentar, Refeicao } from "../../models/Other/PlanoAlimentar";
 import { User } from "../../models/Other/User";
 import "../css/ShowPlanoAlimentar.css";
-import { PlanoAlimentar, Refeicao} from "../../models/Other/PlanoAlimentar";
-import { getPlanosAlimentares } from "../../models/API/PlanoAlimentarAPI";
 
 const RefeicaoNotDef: Refeicao = {
 
     nome: "Não existem refeições planeadas!",
-    descricao: "Fale com um instrutor e efetue o seu Planeamento Alimentar." 
+    descricao: "Marque uma avaliação!" 
 }
 
 const PlanNotDefined: PlanoAlimentar = {
@@ -110,12 +110,10 @@ class ShowPlanoAlimentar extends React.Component<any>{
                             resultList.push(planoRes);
                         }
 
-                        if(resultList.length === 0) 
-                            this.setState({lista_plano_alimentar: []});
-                        else {
+                        if(resultList.length > 0) 
                         this.setState({lista_plano_alimentar: resultList});
 
-                        }
+                        console.log(resultList);
                     });
 
                     } else {
@@ -228,13 +226,14 @@ class ShowPlanoAlimentar extends React.Component<any>{
 
                             <IonRow className="margens-nomes"> 
                                 <IonLabel className="nome-exercicio"><div className="responsiveText-ca">{s.nome}</div></IonLabel>
-                            </IonRow> 
-                            
+                            </IonRow>                             
                             {
                                 s.descricao.split(";").map((des, i) => (
+                                    (des !== "") ?
                                     <IonRow key={i + des} className="margens-nomes">
                                         <IonItem>
-                                            <IonIcon icon={informationOutline}></IonIcon>
+                                        <IonIcon icon={arrowForwardCircleSharp}></IonIcon>
+    
                                             <b>&nbsp;</b>
                                             <IonLabel className="text-title">
                                                 <div className="responsiveText-ca">{des}
@@ -242,6 +241,7 @@ class ShowPlanoAlimentar extends React.Component<any>{
                                             </IonLabel>                        
                                         </IonItem>
                                     </IonRow>
+                                    : console.log(des)
                                 ))
                             }
 
