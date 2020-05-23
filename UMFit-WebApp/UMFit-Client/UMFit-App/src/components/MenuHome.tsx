@@ -150,7 +150,7 @@ const appPagesFuncionario: AppPage[] = [
   },
   {
     title: 'Plano de Aulas',
-    url: '/profile/planoaulas',
+    url: '/profile/editaraulas',
     iosIcon: calendarOutline,
     mdIcon: calendarOutline
   },

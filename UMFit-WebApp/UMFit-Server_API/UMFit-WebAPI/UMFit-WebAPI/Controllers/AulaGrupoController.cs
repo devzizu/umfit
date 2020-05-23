@@ -124,6 +124,44 @@ namespace UMFit_WebAPI.Controllers
 
             return (ret);
         }
+        
+        
+        [HttpPost("editar")]
+        public ActionResult<string> editarAula(dynamic json)
+        {
+            JObject received = JObject.Parse(JsonSerializer.Serialize( json));
+            ActionResult<string> ret = BadRequest();
+           // var uMail  =_system.getUserGivenToken(received.GetValue("token").ToString());
+            JObject extract =(JObject) received.GetValue("aula");
+            AulaGrupo ag = new AulaGrupo(
+                extract.GetValue("id").ToObject<int>(),
+                TimeSpan.Parse( extract.GetValue("hora").ToString().Replace('h',':')),
+                extract.GetValue("dia").ToString(),
+                extract.GetValue("nome").ToString(),
+                extract.GetValue("lotacao_atual").ToObject<int>(),
+                extract.GetValue("lotacao_max").ToObject<int>(),
+                extract.GetValue("duracao").ToString(),
+                extract.GetValue("dificuldade").ToString(),
+                extract.GetValue("instrutor_email").ToString(),
+                extract.GetValue("espaco_ginasio").ToString()
+            );
+            if ( _system.EditarAula(ag,ag.id) ) ret =Ok();
+
+
+            return (ret);
+        }
+        
+        
+        
+        [HttpPost("clientesAula")]
+        public ActionResult<string> getInAula([FromBody] StringDto token){
+            
+            string idAula = token.valueST;
+            List<string> ret = new List<string>();
+            _system.getClientesAula(idAula).ForEach((mail)=>ret.Add(_system.GetUser(mail).GetName()) );
+            
+            return Ok(ret);
+        }
 
 
 

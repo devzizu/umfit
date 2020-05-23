@@ -196,5 +196,15 @@ namespace UMFit_WebAPI.Models.UMFit_LN
         {
             return aulaGrupoDAO.DesmarcárAula(id, mail);
         }
+
+        public bool EditarAula(AulaGrupo ag, in int agId)
+        {
+            return aulaGrupoDAO.UpdateAulaGrupo(ag,agId);
+        }
+        
+        public List<string> getClientesAula(string idAula)
+        {
+            return aulaGrupoDAO.GetAlunos(idAula);
+        }
     }
 }

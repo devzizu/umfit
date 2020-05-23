@@ -45,6 +45,7 @@ import UserProfile from './pages/UserProfile';
 /* Theme variables */
 import './theme/variables.css';
 import ShowPlanoAlimentar from './pages/user/ShowPlanoAlimentar';
+import EditarAulasGrupo from './pages/funcionario/EditarAulasGrupo';
 
 
 
@@ -382,8 +383,8 @@ class ProfileFuncionario extends React.Component<any> {
           <Route path="/profile/removeruser" render={() => {return <RemoveUser email={this.state.user.email}/>}} exact={true} />
 
           <Route path="/profile/mydetails" render={() => {return <UpdateDetails user={this.state.user} email={this.state.user.email} />}} exact={true} />
-          <Route path="/profile/planoaulas" render={() => {return <ConsultarAulasGrupo user={this.state.user}  />}} exact={true} />
           <Route path="/profile/logout" component={() => {return <LogOut setLogged={this.props.setLogged}/>}} exact={true} />
+          <Route path="/profile/editaraulas" component={EditarAulasGrupo} exact={true} />
 
           <Route path='*' exact={true} component={Component404} />
 

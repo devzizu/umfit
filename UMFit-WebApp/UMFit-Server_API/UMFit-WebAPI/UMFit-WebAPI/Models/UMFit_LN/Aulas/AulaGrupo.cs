@@ -90,11 +90,31 @@ namespace UMFit_WebAPI.Models.UMFit_LN.Aulas
             command.Parameters.Add("@DIFICULDADE", MySqlDbType.VarChar);
             command.Parameters["@DIFICULDADE"].Value = this.dificuldade;
 
-            command.Parameters.Add("@EMAIL_INSTR", MySqlDbType.VarChar);
-            command.Parameters["@EMAIL_INSTR"].Value = this.instrutor_email;
+            command.Parameters.Add("@INSTRUTOR_EMAIL", MySqlDbType.VarChar);
+            command.Parameters["@INSTRUTOR_EMAIL"].Value = this.instrutor_email;
 
             command.Parameters.Add("@ESPAÇO_GINASIO", MySqlDbType.VarChar);
             command.Parameters["@ESPAÇO_GINASIO"].Value = this.espaço_ginasio;
+        }
+        
+        
+        
+        
+        public string ToSqlUpdate()
+        {
+            StringBuilder r = new StringBuilder();
+
+            r.Append("hora = @HORA, ");
+            r.Append("dia = @DIA, ");
+            r.Append("nome = @NOME, ");
+            r.Append("lotaçao_Atual = @LOTAÇAO_ATUAL, ");
+            r.Append("lotaçao_Max = @LOTAÇAO_MAX, ");
+            r.Append("duraçao = @DURAÇAO, ");
+            r.Append("dificuldade = @DIFICULDADE, ");
+            r.Append("Instrutor_email = @INSTRUTOR_EMAIL, ");
+            r.Append("Espaço_Ginasio = @ESPAÇO_GINASIO");
+
+            return r.ToString();
         }
 
     }
