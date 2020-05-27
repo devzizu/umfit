@@ -34,10 +34,13 @@ namespace UMFit_WebAPI.Controllers
                 sendJson.ToString()
             ));
         }
-        [HttpPost("planoSemanalC")]
-        public ActionResult<string> PlanoSemanalC([FromBody] StringDto rec)
+        [HttpPost("planosemanal/cliente")]
+        public ActionResult<string> PlanoSemanalC([FromBody] dynamic rec)
         {
-            List<int> participaçions = _system.GetAulasCliente(rec.valueST);
+            JObject job = JObject.Parse(rec.ToString());
+            if (!_system.isUserOnline(job.GetValue("valueST").ToString())) return Unauthorized("Client Offline");
+
+            List<int> participaçions = _system.GetAulasCliente(job.GetValue("email").ToString());
 
             JObject sendJson = new JObject();
             sendJson.Add("Segunda",DiaToJson(_system.GetAulasDia("Segunda"),participaçions));
@@ -97,28 +100,31 @@ namespace UMFit_WebAPI.Controllers
         }
         
         
-        [HttpPost("marcarAula")]
+        [HttpPost("marcar")]
         public ActionResult<string> marcarAula(dynamic json)
         {
             JObject received = JObject.Parse(JsonSerializer.Serialize( json));
             ActionResult<string> ret = Ok();
-            var uMail  =_system.getUserGivenToken(received.GetValue("token").ToString());
+            var uMail  =_system.getUserGivenToken(received.GetValue("valueST").ToString());
+            if(uMail==null) return Unauthorized("Client Offline");
             var tmp = received.GetValue("aula").ToObject<int>();
             AulaGrupo ag = _system.GetAulaID(tmp);
             ClienteAula ca = new ClienteAula(ag.id,ag.hora,ag.dia,uMail,ag.instrutor_email,ag.espaço_ginasio);
             
             if ( (  (ag.lotaçao_Max < ag.lotaçao_Atual + 1) || !( _system.MarcarAula(ca))) ) 
-                ret = BadRequest();
+                ret = BadRequest("Lotaçao Maxima atingida");
 
 
             return (ret);
         }
-        [HttpPost("desmarcárAula")]
+        [HttpPost("desmarcar")]
         public ActionResult<string> DesmarcarAula(dynamic json)
         {
             JObject received = JObject.Parse(JsonSerializer.Serialize( json));
             ActionResult<string> ret = Ok();
-            var uMail  =_system.getUserGivenToken(received.GetValue("token").ToString());
+            if(!_system.isUserOnline(received.GetValue("valueST").ToString())) return Unauthorized("Client Offline");
+
+            var uMail  =_system.getUserGivenToken(received.GetValue("valueST").ToString());
             var id = received.GetValue("aula").ToObject<int>();
             _system.DesmarcarAula(id, uMail);
 
@@ -130,8 +136,9 @@ namespace UMFit_WebAPI.Controllers
         public ActionResult<string> editarAula(dynamic json)
         {
             JObject received = JObject.Parse(JsonSerializer.Serialize( json));
-            ActionResult<string> ret = BadRequest();
-           // var uMail  =_system.getUserGivenToken(received.GetValue("token").ToString());
+            ActionResult<string> ret = Ok();
+            if(!_system.isUserOnline(received.GetValue("valueST").ToString())) return Unauthorized("Client Offline");
+            
             JObject extract =(JObject) received.GetValue("aula");
             AulaGrupo ag = new AulaGrupo(
                 extract.GetValue("id").ToObject<int>(),
@@ -145,18 +152,19 @@ namespace UMFit_WebAPI.Controllers
                 extract.GetValue("instrutor_email").ToString(),
                 extract.GetValue("espaco_ginasio").ToString()
             );
-            if ( _system.EditarAula(ag,ag.id) ) ret =Ok();
-
-
+            _system.EditarAula(ag, ag.id);
+            
             return (ret);
         }
         
         
         
-        [HttpPost("clientesAula")]
-        public ActionResult<string> getInAula([FromBody] StringDto token){
+        [HttpPost("aula/clientes")]
+        public ActionResult<string> getInAula([FromBody] dynamic token){
             
-            string idAula = token.valueST;
+            JObject received = JObject.Parse(JsonSerializer.Serialize( token));
+            if(!_system.isUserOnline(received.GetValue("valueST").ToString())) return Unauthorized("Client Offline");
+            string idAula = received.GetValue("aula").ToString();
             List<string> ret = new List<string>();
             _system.getClientesAula(idAula).ForEach((mail)=>ret.Add(_system.GetUser(mail).GetName()) );
             

@@ -1,5 +1,5 @@
 
-import { IonAlert, IonButton, IonCard, IonCardHeader, IonCardSubtitle, IonCardTitle, IonCol, IonContent, IonGrid, IonHeader, IonIcon, IonItem, IonLabel, IonPage, IonRow, IonSelect, IonSelectOption, IonTitle, IonToolbar, IonModal, IonPopover } from "@ionic/react";
+import { IonAlert, IonButton, IonCard, IonCardHeader, IonCardSubtitle, IonCardTitle, IonCol, IonContent, IonGrid, IonHeader, IonIcon, IonItem, IonLabel, IonPage, IonRow, IonSelect, IonSelectOption, IonTitle, IonToolbar, IonPopover } from "@ionic/react";
 import { addOutline, bodyOutline, calendarOutline, informationOutline, removeOutline, sendOutline, timerOutline, eyeOutline } from "ionicons/icons";
 import React from "react";
 import { desmarcarAula, getPlanoSemanalAulas, marcarAula, alunosAula } from "../models/API/AulaGrupoAPI";
@@ -179,17 +179,20 @@ class ConsultarAulasGrupo extends React.Component<any> {
             cssClass='popover'
             >
 
-            <IonGrid>
+            <IonGrid > 
 
-            <IonLabel className="text-title"><div className="responsiveText">Lista de Alunos Inscritos:</div></IonLabel>
+            <IonRow className="padding">
+                <IonLabel className="text-title"><div className="responsiveText">Lista de Alunos Inscritos ({this.state.listaClientes.length}) </div></IonLabel>
+            </IonRow>
             
-
             {this.state.listaClientes.map((s)=>{
 
-                return <IonCard key={s} className="card-exercicio">
-                        <IonLabel className="text-title"><div className="responsiveText">{s}</div></IonLabel>
-
-                        </IonCard>
+                return  <IonItem key={s}>
+                            <IonIcon icon={bodyOutline}></IonIcon>
+                            <b>&nbsp;&nbsp;</b>
+                            <IonLabel><div className="textResponsive">{s}</div></IonLabel>
+                        </IonItem>
+                
             })}
 
 
@@ -277,8 +280,12 @@ class ConsultarAulasGrupo extends React.Component<any> {
                                                             <IonIcon icon={informationOutline}></IonIcon>
                                                             <b>&nbsp;&nbsp;</b>
                                                             <IonLabel><div className="textResponsive"><b>Lotação atual: </b><br></br><br></br>{aulaDoDia.lotacao_atual} inscritos (máximo {aulaDoDia.lotacao_max} alunos)</div></IonLabel>
-                                                            
                                                         </IonItem>
+
+                                                        <IonButton onClick = {()=>this.ativarListaClientes(aulaDoDia.id)}>
+                                                            <IonIcon icon={eyeOutline}></IonIcon>
+                                                            Ver Inscritos
+                                                        </IonButton>
                                                         
                                                         <br></br>
                                                         { this.state.userType==="Cliente"?

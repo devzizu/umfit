@@ -31,10 +31,9 @@
     height: auto;
 }
 
-.popover{
+.card-no-border{
 
-    --max-height : 50%;
-    --max-width : 50%;
+    box-shadow: none !important
 }
 
 @media screen and (max-width: 600px) {
@@ -45,6 +44,18 @@
         width: 100px;
         height: 100px;
     }
+
+    .popover{
+
+        height : 400px;
+        width : 150px;
+    }
+
+    .padding{
+
+        padding: 2.5%;
+    }
+    
 }
 
 @media screen and (min-width: 600px) {
@@ -54,5 +65,16 @@
     .aulaImage {
         width: 150px;
         height: 150px;
+    }
+
+    .popover{
+
+        height : 450px;
+        width : 200px;
+    }
+
+    .padding{
+
+        padding: 2.5%;
     }
 }

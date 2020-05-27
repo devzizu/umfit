@@ -27,11 +27,14 @@ namespace UMFit_WebAPI.Controllers
             ));
         }
 
-        [HttpPost("add")]
+        [HttpPost()]
         public ActionResult<string> SetPlano([FromBody] dynamic rec)
         {
             var jobject = JObject.Parse(JsonSerializer.Serialize(rec));
             
+            
+            if (!_system.isUserOnline(jobject.valueST.ToString())) return Unauthorized("Client Offline");
+
             ActionResult<string> ret= BadRequest("Impossível inserir plano alimentar");
             
             string email = jobject.GetValue("email");
@@ -71,9 +74,12 @@ namespace UMFit_WebAPI.Controllers
         }
         
         [HttpPost("consultar")]
-        public ActionResult<string> GetPlanosAlimentares([FromBody] StringDto emailWrapper)
+        public ActionResult<string> GetPlanosAlimentares([FromBody] dynamic rec)
         {
-            string email = emailWrapper.valueST;
+            var jobject = JObject.Parse(JsonSerializer.Serialize(rec));
+            if (!_system.isUserOnline(jobject.valueST.ToString())) return Unauthorized("Client Offline");
+
+            string email = jobject.email.ToString();
             
             List<PlanoAlimentar> planosList = _system.GetPlanosAlimentares(email);
             

@@ -1,14 +1,15 @@
-
 using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
+using System.Text.Json;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using UMFit_WebAPI.Dto;
 using UMFit_WebAPI.Models.UMFit_LN;
 using UMFit_WebAPI.Models.UMFit_LN.Avaliacao;
+using UMFit_WebAPI.Models.UMFit_LN.Planos.PlanoAlimentar;
+using JsonSerializer = System.Text.Json.JsonSerializer;
 
 namespace UMFit_WebAPI.Controllers
 {
@@ -21,14 +22,11 @@ namespace UMFit_WebAPI.Controllers
         [HttpPost("evolucao")]
         public ActionResult<string> Evolucao([FromBody] StringDto token)
         {
-
-            bool tokenOK = _system.isUserOnline(token.valueST);
+            if( !_system.isUserOnline(token.valueST)) return Unauthorized("Client Offline");
 
             var listaCinturas = new List<Registo_Avaliaçao>();
             var listaPesos = new List<Registo_Avaliaçao>();
 
-            if (tokenOK)
-            {
                 string email = _system.getUserGivenToken(token.valueST);
 
                 listaPesos = _system.Generate_Reg(email, 
@@ -38,11 +36,9 @@ namespace UMFit_WebAPI.Controllers
                 listaCinturas = _system.Generate_Reg(email, 
                     "cintura", 
                     false);
-            }
-            
+      
             var result = new
             {
-                TokenStatus = tokenOK,
                 Pesos = listaPesos,
                 Cinturas = listaCinturas
             };
@@ -50,12 +46,17 @@ namespace UMFit_WebAPI.Controllers
             return Ok(result);
         }
 
-        [HttpPost("last")]
-        public ActionResult<string> UltimaAvaliacao([FromBody] StringDto token){
-            string email=token.valueST;
+        [HttpPost("ultima")]
+        public ActionResult<string> UltimaAvaliacao([FromBody] dynamic rec){
+            var jobject = JObject.Parse(JsonSerializer.Serialize(rec));
+
+            if (!_system.isUserOnline(jobject.valueST.ToString())) return Unauthorized("Client Offline");
+
+          string email = jobject.email.ToString();
+            
             Avaliaçao av = _system.GetUltAvaliaçaoR(email);
             
-            if (av == null) return BadRequest("Utilizador ainda não tem Avaliaçoes");
+            if (av == null) return NotFound("Utilizador ainda não tem Avaliaçoes");
             
             JObject job = JObject.Parse(JsonConvert.SerializeObject(av));
             var nome = _system.GetUser(email).GetName();
@@ -70,15 +71,17 @@ namespace UMFit_WebAPI.Controllers
             return Ok(job.ToString());
         }
         
-        [HttpPost("criar")]
+        [HttpPost]
         public ActionResult<string> criarAvaliacao([FromBody] dynamic rec)
         {
             JObject jObject = JObject.Parse(rec.ToString());
+            
 
             DateTime data = Convert.ToDateTime(jObject["data"].ToString());
             string email_cliente = (string) jObject["email_cliente"];
             string email_instrutor = (string) jObject["email_instrutor"];
-            
+            if (!_system.isUserOnline(jObject.GetValue("valueST").ToString())) return Unauthorized("Client Offline");
+
             ActionResult<string> ret= BadRequest("Impossível inserir avaliação");
             
             try
@@ -121,9 +124,12 @@ namespace UMFit_WebAPI.Controllers
             return (ret);
         }
         
-        [HttpPost("agendadas")]
-        public ActionResult<string> AvaliacoesAgendadas([FromBody] StringDto token){
-            string email=token.valueST;
+        [HttpPost("agendadas/cliente")]
+        public ActionResult<string> AvaliacoesAgendadas([FromBody] dynamic rec){
+            var jobject = JObject.Parse(JsonSerializer.Serialize(rec));
+            if (!_system.isUserOnline(jobject.valueST.ToString())) return Unauthorized("Client Offline");
+
+            string email=jobject.email.ToString();
             List<Avaliaçao> av = _system.GetAvaAgendCli(email);
             JArray array = new JArray();
             foreach(Avaliaçao a in av)
@@ -144,6 +150,8 @@ namespace UMFit_WebAPI.Controllers
         {
             ActionResult<string> ret=Ok();
             JObject job = JObject.Parse((string) obj.ToString());
+            if (!_system.isUserOnline(job.GetValue("valueST").ToString())) return Unauthorized("Client Offline");
+
             JObject ava =(JObject) job.GetValue("avaliacao");
             Avaliaçao av = new Avaliaçao( Convert.ToDateTime(ava.GetValue("data").ToString()),
                                    ava.GetValue("instrutor_email").ToString(),
@@ -152,9 +160,13 @@ namespace UMFit_WebAPI.Controllers
             if (!_system.agendarAvaliaçao(av)) ret = BadRequest();
             return ret;
         }
-        [HttpPost("agendadasI")]
-        public ActionResult<string> AvaliacoesAgendadasInstrutor([FromBody] StringDto token){
-            string email=token.valueST;
+        [HttpPost("agendadas/instrutor")]
+        public ActionResult<string> AvaliacoesAgendadasInstrutor([FromBody] dynamic rec){
+            
+            JObject job = JObject.Parse((string) rec.ToString());
+            if (!_system.isUserOnline(job.GetValue("valueST").ToString())) return Unauthorized("Client Offline");
+
+            string email=job.GetValue("email").ToString();
             List<Avaliaçao> av = _system.GetAvaAgendInst(email);
             JArray array = new JArray();
             foreach(Avaliaçao a in av)

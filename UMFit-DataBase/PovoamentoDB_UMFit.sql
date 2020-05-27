@@ -1,5 +1,4 @@
 use UMFit_DB;
-select * from Avaliaçao_Realizada;
 -- NOTAS
 -- Género é definido por um inteiro. 0 no caso de ser feminino e 1 caso seja masculino;
 -- A categoria do cliente tem os seguintes valores possiveis: Standard, Premium;
@@ -492,9 +491,6 @@ values (44, "20:00:00", "Sexta", "Yoga", 0, 20, "0h:30m", "Fácil",
 -- insert into Clientes_na_AulaGrupo 
 -- values ("a85729@alunos.uminho.pt", 1, "2020-03-18", "a85227@alunos.uminho.pt");
 
-select * from Avaliaçao_Realizada ar, Avaliaçao_Agendada aa
-                    where ar.idAvaliaçao = aa.idAvaliaçao;
-
 
 -- AVALIAÇAO REALIZADA -----------------------------------------------------------------------------------------
 insert into Avaliaçao_Realizada 
@@ -512,9 +508,6 @@ values (4, 181, 80.3, 7.00, 70.3, 24.72, 13, 81.6, 83.8, 118.5, 92.8, 35.9, 35.9
 insert into Avaliaçao_Realizada 
 values (5, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
 
-select * from Avaliaçao_Realizada;
-delete from Avaliaçao_Agendada where idAvaliaçao = 1010101010;
-delete from Avaliaçao_Realizada where idAvaliaçao = 1010101010;
 
 -- AVALIAÇAO AGENDADA -----------------------------------------------------------------------------------------
 insert into Avaliaçao_Agendada
@@ -531,8 +524,6 @@ values ("2020-04-08 10:00:00", "anaSILVa@hotmail.com", "a83719@alunos.uminho.pt"
 
 insert into Avaliaçao_Agendada
 values ("2020-04-30 18:00:00", "a85227@alunos.uminho.pt", "a83719@alunos.uminho.pt", 5);
-
-select * from Aula_Grupo;
 
 -- EXERCICIO -----------------------------------------------------------------------------------------
 insert into Exercicio 
@@ -606,3 +597,10 @@ values (1, 1);
 -- PLANO ALIMENTAR DO CLIENTE -----------------------------------------------------------------------------------------
 insert into PlanoAlimentar_do_Cliente 
 values (1, "a85729@alunos.uminho.pt");
+
+
+
+-- Teste ---------------------------------------------
+insert into UtilizadoresOnline values(
+'test', '3020-05-31 17:45:36', 'tokenValido'
+);

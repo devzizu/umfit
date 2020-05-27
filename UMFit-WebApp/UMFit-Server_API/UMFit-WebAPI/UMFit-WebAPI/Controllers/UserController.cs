@@ -26,6 +26,7 @@ namespace UMFit_WebAPI.Controllers
         [HttpPost("logout")]
         public ActionResult<string> Logout([FromBody] StringDto token)
         {
+            if (!_system.isUserOnline(token.valueST)) return Unauthorized("Client offline");
             _system.logout(token.valueST);
 
             return Ok();
@@ -35,6 +36,7 @@ namespace UMFit_WebAPI.Controllers
         public ActionResult<string> Status([FromBody] StringDto token)
         {
             var validToken = _system.isUserOnline(token.valueST);
+            if (!validToken) return Unauthorized("Client offline");   
 
             String statusToken = validToken ? "online" : "offline";
             
@@ -74,8 +76,8 @@ namespace UMFit_WebAPI.Controllers
 
             }
 
-            string userData = validToken ? JsonSerializer.Serialize(user, user.GetType()) : "{}";
-            StringBuilder aEstePontoMaisValeCriarUmaClassSoParaEsteReturn = new StringBuilder()
+            string userData = JsonSerializer.Serialize(user, user.GetType()) ;
+            StringBuilder a = new StringBuilder()
                 .Append("{")
                 .Append("\"status\":\"")
                 .Append(statusToken)
@@ -83,7 +85,7 @@ namespace UMFit_WebAPI.Controllers
                 .Append(userData)
                 .Append("}");
 
-            return Ok(aEstePontoMaisValeCriarUmaClassSoParaEsteReturn.ToString());
+            return Ok(a.ToString());
         }
         
         [HttpPost("authenticate")]
@@ -118,13 +120,13 @@ namespace UMFit_WebAPI.Controllers
             
             if (user == null || typeOfUser == -1)
             {
-                return BadRequest(new
+                return Unauthorized(new
                 {
                     message = "Credentials are wrong..."
                 });
             }
             
-            StringBuilder aEstePontoMaisValeCriarUmaClassSoParaEsteReturn = new StringBuilder()
+            StringBuilder a = new StringBuilder()
                 .Append("{")
                 .Append("\"token\":\"")
                 .Append(token)
@@ -132,7 +134,7 @@ namespace UMFit_WebAPI.Controllers
                 .Append(JsonSerializer.Serialize(user, user.GetType()))
                 .Append("}");
 
-            return Ok(aEstePontoMaisValeCriarUmaClassSoParaEsteReturn.ToString());
+            return Ok(a.ToString());
         }
 
         [HttpPost("create")]
@@ -141,72 +143,74 @@ namespace UMFit_WebAPI.Controllers
 
             var res = JsonSerializer.Serialize( json);
             var createUserObject = JObject.Parse(res);
-
-            var userJson = createUserObject.newUser;
             
+            var userJson = createUserObject.newUser;
+            if (_system.GetUser((string)userJson.email) != null) return Conflict("Email já registado");
             InterfaceUtilizador user = null;
             var tipo = -1;
-            
-            switch (Convert.ToString(userJson.tipoDeUser))
+            try
             {
-                case "Cliente":
+                switch (Convert.ToString(userJson.tipoDeUser))
                 {
-                     user = new Cliente((string) userJson.email, 
-                         (int) Convert.ToInt32(userJson.nif), 
-                          (string) userJson.nome,
-                         (int) Convert.ToInt16(userJson.genero),
-                         (DateTime) Convert.ToDateTime(userJson.data_nascimento),
-                         (string) userJson.localidade,
-                         (string) userJson.categoria);
-                     tipo = 0;
-                     break;
-                }
-                case "Instrutor":
-                {
-                    user = new Instrutor((string) userJson.email, 
-                        (int) Convert.ToInt32(userJson.nif), 
-                        (string) userJson.nome,
-                        (int) Convert.ToInt16(userJson.genero),
-                        (DateTime) Convert.ToDateTime(userJson.data_nascimento),
-                        (string) userJson.localidade);
-                    
-                    tipo = 1;
-                    break;
-                }
-                case "Rececionista":
-                {
-                    user = new Rececionista((string) userJson.email, 
-                        (int) Convert.ToInt32(userJson.nif), 
-                        (string) userJson.nome,
-                        (int) Convert.ToInt16(userJson.genero),
-                        (DateTime) Convert.ToDateTime(userJson.data_nascimento),
-                        (string) userJson.localidade);
+                    case "Cliente":
+                    {
+                        user = new Cliente((string) userJson.email,
+                            (int) Convert.ToInt32(userJson.nif),
+                            (string) userJson.nome,
+                            (int) Convert.ToInt16(userJson.genero),
+                            (DateTime) Convert.ToDateTime(userJson.data_nascimento),
+                            (string) userJson.localidade,
+                            (string) userJson.categoria);
+                        tipo = 0;
+                        break;
+                    }
+                    case "Instrutor":
+                    {
+                        user = new Instrutor((string) userJson.email,
+                            (int) Convert.ToInt32(userJson.nif),
+                            (string) userJson.nome,
+                            (int) Convert.ToInt16(userJson.genero),
+                            (DateTime) Convert.ToDateTime(userJson.data_nascimento),
+                            (string) userJson.localidade);
 
-                    
-                    tipo = 2;
-                    break;
+                        tipo = 1;
+                        break;
+                    }
+                    case "Rececionista":
+                    {
+                        user = new Rececionista((string) userJson.email,
+                            (int) Convert.ToInt32(userJson.nif),
+                            (string) userJson.nome,
+                            (int) Convert.ToInt16(userJson.genero),
+                            (DateTime) Convert.ToDateTime(userJson.data_nascimento),
+                            (string) userJson.localidade);
+
+
+                        tipo = 2;
+                        break;
+                    }
                 }
             }
-
-            var success = _system.createUser(user, tipo, (string) Convert.ToString(createUserObject.passwordHash));
-
-            return Ok(new
+            catch (Exception)
             {
-                Success = success 
-            });
+                return BadRequest("Credenciais Invalidas");}
+
+            if (!_system.createUser(user, tipo, (string) Convert.ToString(createUserObject.passwordHash)))
+                return BadRequest("Credenciais Invalidas");
+
+            return Ok();
         }
 
         [HttpPost("update")]
         public ActionResult<string> AtualizarUtilizador([FromBody] dynamic json)
-        {
-
-            var res = JsonSerializer.Serialize( json);
+        {Console.WriteLine(json); 
+           try{
+               
+            var res = JsonSerializer.Serialize(json);
             var createUserObject = JObject.Parse(res);
-
             string email = (string) createUserObject.userEmail;
             string passHash = (string) createUserObject.newPasswordHash;
             string localidadeNova = (string) createUserObject.newLocalidade;
-            
             InterfaceUtilizador user = null;
             int typeOfUser = _system.TypeUser(email);
 
@@ -237,14 +241,16 @@ namespace UMFit_WebAPI.Controllers
             }
 
             _system.UpdateUser(user, typeOfUser, passHash);
-            
-            return Ok();
+           }catch(Exception) {
+               return BadRequest("Dados Invalidos");}
+
+           return Ok();
         }
 
         [HttpPost("emails")]
         public ActionResult<string> GetEmails([FromBody] StringDto token)
         {
-            
+            if(!_system.isUserOnline(token.valueST)) return Unauthorized("Client offline");
             var emailsList = _system.GetAllEmails();
 
             return Ok(new
@@ -256,7 +262,10 @@ namespace UMFit_WebAPI.Controllers
         public ActionResult<string> SelectUser([FromBody] dynamic json)
         {
             var res = JsonSerializer.Serialize( json);
-            String email = JObject.Parse(res).GetValue("email").ToString();
+            JObject job = JObject.Parse(res);
+            String email = job.GetValue("email").ToString();
+            if (!_system.isUserOnline(job.GetValue("valueST").ToString())) return Unauthorized("Client Offline");
+
             InterfaceUtilizador u = _system.GetUser(email);
             var user = new JObject();
             user.Add("name",u.GetName());
@@ -273,15 +282,17 @@ namespace UMFit_WebAPI.Controllers
         public ActionResult<string> RemoveUser([FromBody] dynamic json)
         {
             var res = JObject.Parse(JsonSerializer.Serialize(json));
+            if (!_system.isUserOnline(res.GetValue("valueST").ToString())) return Unauthorized("Client Offline");
             String email =res.GetValue("email").ToString();
             char type =res.GetValue("type").ToString()[0];
             _system.RemoveUser(email,type);
             return Ok();
         }
-        [HttpPost("emailsC")]
+        [HttpPost("emails/clientes")]
         public ActionResult<string> GetClientEmails([FromBody] StringDto token)
         {
-            
+            if (!_system.isUserOnline(token.valueST)) return Unauthorized("Client Offline");
+
             var emailsList = _system.GetUserEmails();
 
             return Ok(new
@@ -290,10 +301,11 @@ namespace UMFit_WebAPI.Controllers
             });
         }
         
-        [HttpPost("emailsPremium")]
+        [HttpPost("emails/clientes/premium")]
         public ActionResult<string> GetClientEmailsPremium ([FromBody] StringDto token)
         {
-            
+            if (!_system.isUserOnline((string) token.valueST)) return Unauthorized("Client Offline");
+
             var emailsList = _system.GetPremiumClientEmails();
 
             return Ok(new
@@ -302,22 +314,31 @@ namespace UMFit_WebAPI.Controllers
             });
         }
         
-        [HttpPost("updateCat")]
+        [HttpPost("categoria")]
         public ActionResult<string> AtualizarCat([FromBody] dynamic json)
         {
             var received = JObject.Parse(JsonSerializer.Serialize( json));
+            if (!_system.isUserOnline(received.GetValue("valueST").ToString())) return Unauthorized("Client Offline");
+
 
             string email = (string) received.userEmail;
             string newTipo = (string) received.tipo;
 
             int typeOfUser = _system.TypeUser(email);
-            if (typeOfUser != 0) return NotFound("Não existe categoria num " + ((typeOfUser==1)? "Instrutor": (typeOfUser==2? "Treinador" :"Utilizador Invalido") ) );
+            if (typeOfUser == -1) return NotFound("Utilizador Invalido");
+            if (typeOfUser != 0)
+                return StatusCode(403,
+                    "Não existe categoria num " + ((typeOfUser == 1)
+                        ? "Instrutor"
+                        : (typeOfUser == 2 ? "Treinador" : " ")));
             _system.UpdateClientCat(email, newTipo.Remove(0, "Cliente ".Length));
             return Ok();
         }
-        [HttpPost("emailsI")]
+        [HttpPost("emails/instrutores")]
         public ActionResult<string> GetIntrutorEmails([FromBody] StringDto token)
         {
+            if (!_system.isUserOnline(token.valueST)) return Unauthorized("Client Offline");
+
             var emailsList = _system.GetAllEmailsNames("Instrutor");
             return Ok(new
             {

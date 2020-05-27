@@ -26,9 +26,10 @@ namespace UMFit_WebAPI.Controllers
         };
         
         [HttpPost("exercicios")]
-        public ActionResult<string> Exercicios([FromBody] dynamic rec)
+        public ActionResult<string> Exercicios([FromBody] StringDto rec)
         {
-           
+            if (!_system.isUserOnline(rec.valueST)) return Unauthorized("Client Offline");
+
            var send = new JObject();
            send.Add("exercicios",new JArray(_exList));
            return (Ok(
@@ -36,12 +37,13 @@ namespace UMFit_WebAPI.Controllers
                ));
         }
 
-        [HttpPost("add")]
+        [HttpPost]
         public ActionResult<string> SetPlano([FromBody] dynamic rec)
         {
             var jobject = JObject.Parse(JsonSerializer.Serialize(rec));
             ActionResult<string> ret= BadRequest("Impossível inserir plano de treino");
-            
+            if (!_system.isUserOnline(jobject.valueST.ToString())) return Unauthorized("Client Offline");
+
             string email = jobject.GetValue("email");
             
             
@@ -76,9 +78,13 @@ namespace UMFit_WebAPI.Controllers
         }
         
         [HttpPost("consultar")]
-        public ActionResult<string> GetPlanosTreino([FromBody] StringDto emailWrapper)
+        public ActionResult<string> GetPlanosTreino([FromBody] dynamic rec)
         {
-            string email = emailWrapper.valueST;
+            var jobject = JObject.Parse(JsonSerializer.Serialize(rec));
+            if (!_system.isUserOnline(jobject.valueST.ToString())) return Unauthorized("Client Offline");
+
+
+            string email = jobject.email.ToString();
             
             List<PlanoTreino> planosList = _system.GetPlanosTreino(email);
             
