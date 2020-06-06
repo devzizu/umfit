@@ -3,7 +3,7 @@ import { AvaliacaoAgendada } from "../../pages/user/AgendarAvaliacao";
 
 export {}
 
-var baseURL: string = "http://" + IP_ADDR + ":5000/api/avaliacao";
+var baseURL: string = "https://" + IP_ADDR + "/api/avaliacao";
 
 export function getEvolucao () {
 

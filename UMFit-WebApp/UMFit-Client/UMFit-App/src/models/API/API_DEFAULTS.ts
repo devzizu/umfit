@@ -1,4 +1,4 @@
 
-var IP_ADDR: string = "192.168.1.18"
+var IP_ADDR: string = "umfit-api.azurewebsites.net"
 
 export default IP_ADDR;

@@ -2,7 +2,7 @@ import IP_ADDR from "./API_DEFAULTS";
 
 export { };
 
-var baseURL: string = "http://" + IP_ADDR + ":5000/api/aulagrupo";
+var baseURL: string = "https://" + IP_ADDR + "/api/aulagrupo";
 
 export function getPlanoSemanalAulas (email:string) {
     const res = fetch(baseURL + "/planosemanal/cliente", {

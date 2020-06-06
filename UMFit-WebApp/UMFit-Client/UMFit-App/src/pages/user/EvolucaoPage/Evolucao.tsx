@@ -75,13 +75,12 @@ class Evolucao extends React.Component<any> {
     }
 
     async componentDidMount() {
-        await getEvolucao().then(
-            (res :any) => {
-                if(res.status !== 400) return;
-                res.json();}   
-        ).then(
+      const ret =  await getEvolucao();
+      if(ret.status !== 200) return;
+        ret.json().then(
             (jsonData : any)  => {
-
+          
+                
                 this.setState({
 
                     peso: jsonData.pesos.map((elem: any) => {
@@ -102,11 +101,7 @@ class Evolucao extends React.Component<any> {
     }
 
     render() {
-        
-        console.log("Peso:");
-        console.log(this.state.peso);
-        console.log("Cintura:");
-        console.log(this.state.cintura);
+
 
         //----------------------------------------------------------------------
 
