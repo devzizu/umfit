@@ -7,6 +7,7 @@
 using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using UMFit_WebAPI.Models.UMFit_LN.Avaliacao;
 
 namespace UMFit_WebAPI.Models.Data.DAO
@@ -19,8 +20,7 @@ namespace UMFit_WebAPI.Models.Data.DAO
          *  Neste caso, utiliza (como primeira fase) Localhost
          */
         private static MySqlConnection connection = new MySqlConnection(DataBaseConnector.builderLocalhost.ToString());
-
-
+        
         // Vai buscar todas as Avaliações (realizadas ou não)
         // Vai buscar todas as Avaliações (realizadas ou não)
         public List<Avaliaçao> GetTodasAvaliaçoes()
@@ -29,8 +29,9 @@ namespace UMFit_WebAPI.Models.Data.DAO
 
             try
             {
+                
                 // Abre a conexão à Base de Dados
-                connection.Open();
+                if(connection.State == ConnectionState.Closed) if(connection.State == ConnectionState.Closed) connection.Open();
 
                 Perimetros p;
                 Composiçao_Corporal cc;
@@ -89,7 +90,7 @@ namespace UMFit_WebAPI.Models.Data.DAO
             try
             {
                 // Abre a conexão à Base de Dados
-                connection.Open();
+                if(connection.State == ConnectionState.Closed) if(connection.State == ConnectionState.Closed) connection.Open();
 
                 MySqlCommand command;
                 string sqlCommand;
@@ -151,7 +152,7 @@ namespace UMFit_WebAPI.Models.Data.DAO
             try
             {
                 // Abre a conexão à Base de Dados
-                connection.Open();
+                if(connection.State == ConnectionState.Closed) if(connection.State == ConnectionState.Closed) connection.Open();
 
                 MySqlCommand command;
                 string sqlCommand;
@@ -272,7 +273,7 @@ namespace UMFit_WebAPI.Models.Data.DAO
             try
             {
                 // Abre a conexão à Base de Dados
-                connection.Open();
+                if(connection.State == ConnectionState.Closed) if(connection.State == ConnectionState.Closed) connection.Open();
 
                 Perimetros p;
                 Composiçao_Corporal cc;
@@ -329,7 +330,7 @@ namespace UMFit_WebAPI.Models.Data.DAO
             try
             {
                 // Abre a conexão à Base de Dados
-                connection.Open();
+                if(connection.State == ConnectionState.Closed) if(connection.State == ConnectionState.Closed) connection.Open();
 
                 Perimetros p;
                 Composiçao_Corporal cc;
@@ -381,7 +382,7 @@ namespace UMFit_WebAPI.Models.Data.DAO
             try
             {
                 // Abre a conexão à Base de Dados
-                connection.Open();
+                if(connection.State == ConnectionState.Closed) if(connection.State == ConnectionState.Closed) connection.Open();
 
                 Perimetros p;
                 Composiçao_Corporal cc;

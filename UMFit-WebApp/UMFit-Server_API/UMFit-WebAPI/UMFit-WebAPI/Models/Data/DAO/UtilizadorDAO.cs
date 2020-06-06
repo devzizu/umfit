@@ -2,6 +2,7 @@
 using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using Microsoft.Extensions.FileSystemGlobbing.Internal.PathSegments;
 using UMFit_WebAPI.Models.Security;
 using UMFit_WebAPI.Models.UMFit_LN.Utilizadores;
@@ -19,7 +20,7 @@ namespace UMFit_WebAPI.Models.Data.DAO
 
             try
             {
-                connection.Open();
+                if(connection.State == ConnectionState.Closed) connection.Open();
 
                 // Utilizador é Cliente, Instrutor ou Rececionista? --------------------------------------------
 
@@ -87,7 +88,7 @@ namespace UMFit_WebAPI.Models.Data.DAO
 
             try
             {
-                connection.Open();
+                if(connection.State == ConnectionState.Closed) connection.Open();
 
                 MySqlCommand command;
                 string sqlCommand;
@@ -188,7 +189,7 @@ namespace UMFit_WebAPI.Models.Data.DAO
 
             try
             {
-                connection.Open();
+                if(connection.State == ConnectionState.Closed) connection.Open();
 
                 string hashPass = CalculateHash.GetHashString(passInserida);
 
@@ -344,7 +345,7 @@ namespace UMFit_WebAPI.Models.Data.DAO
 
         public void LogOut(string token)
         {
-            connection.Open();
+            if(connection.State == ConnectionState.Closed) connection.Open();
 
             string sqlCommand = "delete from UtilizadoresOnline where token = @TOKEN";
             MySqlCommand command = new MySqlCommand(sqlCommand, connection);
@@ -359,7 +360,7 @@ namespace UMFit_WebAPI.Models.Data.DAO
 
         public bool IsUserOnline(string token)
         {
-            connection.Open();
+            if(connection.State == ConnectionState.Closed) connection.Open();
 
             string sqlCommand = "select data_expirar from UtilizadoresOnline where token = @TOKEN";
             MySqlCommand command = new MySqlCommand(sqlCommand, connection);
@@ -396,7 +397,7 @@ namespace UMFit_WebAPI.Models.Data.DAO
             try
             {
                 // Abre a conexão à Base de Dados
-                connection.Open();
+                if(connection.State == ConnectionState.Closed) connection.Open();
 
                 string sqlCommand = "select email from UtilizadoresOnline where token = @TOKEN";
                 MySqlCommand command = new MySqlCommand(sqlCommand, connection);
@@ -441,7 +442,7 @@ namespace UMFit_WebAPI.Models.Data.DAO
 
                     ExisteLocal(u.localidade);
 
-                    connection.Open();
+                    if(connection.State == ConnectionState.Closed) connection.Open();
 
                     sqlCommand = "insert into Cliente (email, nif, nome, hashpass, data_nascimento, " +
                         "genero, categoria, localidade) " +
@@ -464,7 +465,7 @@ namespace UMFit_WebAPI.Models.Data.DAO
 
                     ExisteLocal(u.localidade);
 
-                    connection.Open();
+                    if(connection.State == ConnectionState.Closed) connection.Open();
 
                     sqlCommand = "insert into Instrutor (email, nif, nome, hashpass, data_nascimento, " +
                                  "genero, localidade) " +
@@ -487,7 +488,7 @@ namespace UMFit_WebAPI.Models.Data.DAO
 
                     ExisteLocal(u.localidade);
 
-                    connection.Open();
+                    if(connection.State == ConnectionState.Closed) connection.Open();
 
                     sqlCommand = "insert into Rececionista (email, nif, nome, hashpass, data_nascimento, " +
                                  "genero, localidade) " +
@@ -529,7 +530,7 @@ namespace UMFit_WebAPI.Models.Data.DAO
         {
             try
             {
-                connection.Open();
+                if(connection.State == ConnectionState.Closed) connection.Open();
 
                 string sqlCommand = "insert into Codigo_Postal (localidade, codigo_postal) " +
                                     "select * from (select @LOCALIDADE as loc, @CODIGO_POSTAL as cod) as tmp " +
@@ -564,7 +565,7 @@ namespace UMFit_WebAPI.Models.Data.DAO
                 //Renovar token date
                 DateTime newDate = DateTime.Now.AddDays(5);
                
-                connection.Open();
+                if(connection.State == ConnectionState.Closed) connection.Open();
 
                 string sqlCommand = "update UtilizadoresOnline set data_expirar = @DATA where token = @TOKEN";
 
@@ -595,7 +596,7 @@ namespace UMFit_WebAPI.Models.Data.DAO
             try
             {
 
-                connection.Open();
+                if(connection.State == ConnectionState.Closed) connection.Open();
 
                 string sqlCommand = "select email from Rececionista " +
                                      "union select email from Cliente " +
@@ -628,7 +629,7 @@ namespace UMFit_WebAPI.Models.Data.DAO
         {
             try
             {
-                connection.Open();
+                if(connection.State == ConnectionState.Closed) connection.Open();
 
                 string sqlCommand = "delete from UtilizadoresOnline where email = @EMAIL";
                 MySqlCommand command = new MySqlCommand(sqlCommand, connection);
@@ -708,7 +709,7 @@ namespace UMFit_WebAPI.Models.Data.DAO
                      */ 
                     ExisteLocal(user.GetLocalidade());
 
-                    connection.Open();
+                    if(connection.State == ConnectionState.Closed) connection.Open();
                     
                     command = new MySqlCommand(sqlCommand, connection);
 
@@ -742,7 +743,7 @@ namespace UMFit_WebAPI.Models.Data.DAO
                      */
                     ExisteLocal(user.GetLocalidade());
 
-                    connection.Open();
+                    if(connection.State == ConnectionState.Closed) connection.Open();
 
                     command = new MySqlCommand(sqlCommand, connection);
 
@@ -773,7 +774,7 @@ namespace UMFit_WebAPI.Models.Data.DAO
                      */
                     ExisteLocal(user.GetLocalidade());
 
-                    connection.Open();
+                    if(connection.State == ConnectionState.Closed) connection.Open();
 
                     command = new MySqlCommand(sqlCommand, connection);
 
@@ -805,7 +806,7 @@ namespace UMFit_WebAPI.Models.Data.DAO
         public void UpdateCat(string email, string cat)
         {
             try
-            {   connection.Open();
+            {   if(connection.State == ConnectionState.Closed) connection.Open();
                 MySqlCommand command;
                 string sqlCommand;
 
@@ -832,7 +833,7 @@ namespace UMFit_WebAPI.Models.Data.DAO
 
             try
             {
-                connection.Open();
+                if(connection.State == ConnectionState.Closed) connection.Open();
                 string sqlCommand = "select email from Cliente ";
                 MySqlCommand cmd = new MySqlCommand(sqlCommand, connection);
                 MySqlDataReader reader = cmd.ExecuteReader();
@@ -862,7 +863,7 @@ namespace UMFit_WebAPI.Models.Data.DAO
 
             try
             {
-                connection.Open();
+                if(connection.State == ConnectionState.Closed) connection.Open();
                 string sqlCommand = "select email, categoria from Cliente where categoria = 'Premium' ";
                 MySqlCommand cmd = new MySqlCommand(sqlCommand, connection);
                 MySqlDataReader reader = cmd.ExecuteReader();
@@ -896,7 +897,7 @@ namespace UMFit_WebAPI.Models.Data.DAO
 
             try
             {
-                connection.Open();
+                if(connection.State == ConnectionState.Closed) connection.Open();
                 string sqlCommand = "select email from Instrutor ";
                 MySqlCommand cmd = new MySqlCommand(sqlCommand, connection);
                 MySqlDataReader reader = cmd.ExecuteReader();
@@ -934,7 +935,7 @@ namespace UMFit_WebAPI.Models.Data.DAO
                 else
                 {
                     sqlCommand = "select email, nome from " + tipo;}
-                connection.Open();
+                if(connection.State == ConnectionState.Closed) connection.Open();
 
 
                 MySqlCommand cmd = new MySqlCommand(sqlCommand, connection);

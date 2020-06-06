@@ -1,7 +1,8 @@
 ﻿﻿using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
-using UMFit_WebAPI.Models.UMFit_LN.Planos.PlanoAlimentar;
+ using System.Data;
+ using UMFit_WebAPI.Models.UMFit_LN.Planos.PlanoAlimentar;
 
 namespace UMFit_WebAPI.Models.Data.DAO
 {
@@ -20,7 +21,7 @@ namespace UMFit_WebAPI.Models.Data.DAO
 
             try
             {
-                connection.Open();
+                if(connection.State == ConnectionState.Closed) connection.Open();
 
                 string sqlCommand = "insert into Plano_Alimentar (nome, frequencia, refeiçoes_livres, data_Fim) " +
                     "values(" + pa.ToSql() + ")";
@@ -91,7 +92,7 @@ namespace UMFit_WebAPI.Models.Data.DAO
 
             try
             {
-                connection.Open();
+                if(connection.State == ConnectionState.Closed) connection.Open();
 
                 string sqlCommand = "select idPlano_Alimentar from PlanoAlimentar_do_Cliente where Cliente_email = @CLIENTE_EMAIL";
 

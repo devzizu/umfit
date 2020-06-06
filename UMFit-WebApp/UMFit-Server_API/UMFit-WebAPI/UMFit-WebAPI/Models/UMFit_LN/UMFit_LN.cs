@@ -1,4 +1,5 @@
 
+using System;
 using System.Collections.Generic;
 using UMFit_WebAPI.Models.Data.DAO;
 using UMFit_WebAPI.Models.UMFit_LN.Aulas;
@@ -12,7 +13,7 @@ namespace UMFit_WebAPI.Models.UMFit_LN
 {
     public class UMFit_LN
     {
-        private readonly UtilizadorDAO utilizadoresDAO = new UtilizadorDAO();
+        private static readonly UtilizadorDAO utilizadoresDAO = new UtilizadorDAO();
         private readonly AulaGrupoDAO aulaGrupoDAO = new AulaGrupoDAO();
         private readonly PlanoTreinoDAO planoTreinoDAO = new PlanoTreinoDAO();
         private readonly AvaliaçaoDAO avaliaçaoDAO = new AvaliaçaoDAO();
@@ -24,26 +25,35 @@ namespace UMFit_WebAPI.Models.UMFit_LN
         }
 
         public InterfaceUtilizador Authenticate(string userDtoEmail, string userDtoPassword,string token)
-        {
+        {    lock(utilizadoresDAO){
             return utilizadoresDAO.LogIn(userDtoEmail, userDtoPassword, token);
+        }
         }
 
         public int TypeUser(string email)
         {
-            
-            return utilizadoresDAO.TypeUser(email);
+            lock (utilizadoresDAO)
+            {
+                return utilizadoresDAO.TypeUser(email);
+            }
         }
 
         public bool isUserOnline(string token)
         {
-            return utilizadoresDAO.IsUserOnline(token);
+            lock (utilizadoresDAO)
+            {
+                return utilizadoresDAO.IsUserOnline(token);
+            }
         }
 
         public void logout(string email)
         {
-            utilizadoresDAO.LogOut(email);
+            lock (utilizadoresDAO)
+            {
+                utilizadoresDAO.LogOut(email);
+            }
         }
-        
+
         /*
            Função que gera uma lista com parametros das avaliações do cliente em causa, associados à data da sua realização
            A função recebe o email do cliente, o parâmetro pretendido (peso, altura, massa_magra,...) e um bool para indicar
@@ -51,160 +61,248 @@ namespace UMFit_WebAPI.Models.UMFit_LN
         */
         public List<Registo_Avaliaçao> Generate_Reg(string emailCliente, string param, bool isCompCorp)
         {
-            List<Avaliaçao> listA = avaliaçaoDAO.GetAvalRCliente(emailCliente);
-
-            List<Registo_Avaliaçao> reg = new List<Registo_Avaliaçao>();
-
-            Registo_Avaliaçao r;
-
-            for(int i = 0;  i < listA.Count; i++)
+            lock (utilizadoresDAO)
             {
-                r = new Registo_Avaliaçao(listA[i].GetParam(param, isCompCorp), listA[i].data);
-                reg.Add(r);
-            }
+                List<Avaliaçao> listA = avaliaçaoDAO.GetAvalRCliente(emailCliente);
 
-            return reg;
+                List<Registo_Avaliaçao> reg = new List<Registo_Avaliaçao>();
+
+                Registo_Avaliaçao r;
+
+                for (int i = 0; i < listA.Count; i++)
+                {
+                    r = new Registo_Avaliaçao(listA[i].GetParam(param, isCompCorp), listA[i].data);
+                    reg.Add(r);
+                }
+
+                return reg;
+            }
         }
 
         public string getUserGivenToken(string validToken)
         {
+            lock (utilizadoresDAO)
+            {
 
-            return utilizadoresDAO.GetUserGivenToken(validToken);
+                return utilizadoresDAO.GetUserGivenToken(validToken);
+            }
         }
 
         public InterfaceUtilizador GetUser(string email)
         {
-            return utilizadoresDAO.GetUser(email);
+            lock (utilizadoresDAO)
+            {
+                return utilizadoresDAO.GetUser(email);
+            }
         }
 
         public void RenovaToken(string token)
         {
-            utilizadoresDAO.RenovaToken(token);
+            lock (utilizadoresDAO)
+            {
+                utilizadoresDAO.RenovaToken(token);
+            }
         }
 
         public bool createUser(InterfaceUtilizador user, int tipo, string passwordHash)
         {
-            return utilizadoresDAO.InsertUser(user, tipo, passwordHash);   
+            lock (utilizadoresDAO)
+            {
+                return utilizadoresDAO.InsertUser(user, tipo, passwordHash);
+            }
         }
 
         public List<string> GetAllEmails()
         {
-            return utilizadoresDAO.GetAllEmails();
+            lock (utilizadoresDAO)
+            {
+                return utilizadoresDAO.GetAllEmails();
+            }
         }
 
-        public void RemoveUser(string email,char type)
+        public void RemoveUser(string email, char type)
         {
-            UtilizadorDAO.RemoveUser(email,type);
+            lock (utilizadoresDAO)
+            {
+                UtilizadorDAO.RemoveUser(email, type);
+            }
         }
 
         public void UpdateUser(InterfaceUtilizador user, in int typeOfUser, string passHash)
         {
-            utilizadoresDAO.UpdateUser(user, typeOfUser, passHash);
+            lock (utilizadoresDAO)
+            {
+                utilizadoresDAO.UpdateUser(user, typeOfUser, passHash);
+            }
         }
 
         public void UpdateClientCat(string email, string cat)
         {
-            utilizadoresDAO.UpdateCat(email, cat);
+            lock (utilizadoresDAO)
+            {
+                utilizadoresDAO.UpdateCat(email, cat);
+            }
         }
 
         public List<string> GetUserEmails()
         {
-            return utilizadoresDAO.GetUserEmails();
+            lock (utilizadoresDAO)
+            {
+                return utilizadoresDAO.GetUserEmails();
+            }
         }
 
         public List<string> GetPremiumClientEmails()
         {
-            return utilizadoresDAO.GetClientesPremiumEmails();
+            lock (utilizadoresDAO)
+            {
+                return utilizadoresDAO.GetClientesPremiumEmails();
+            }
         }
 
         public List<AulaGrupo> GetAulasDia(string dia)
         {
-            return aulaGrupoDAO.GetAulasDia(dia);
+            lock (utilizadoresDAO)
+            {
+                return aulaGrupoDAO.GetAulasDia(dia);
+            }
         }
 
         public bool AddPlano(PlanoTreino pt)
         {
-            return planoTreinoDAO.InsertPlanoTreino(pt);
+            lock (utilizadoresDAO)
+            {
+                return planoTreinoDAO.InsertPlanoTreino(pt);
+            }
         }
 
         public Avaliaçao GetUltAvaliaçaoR(string email)
         {
-         return avaliaçaoDAO.GetUltAvaliaçaoR( email);
+            lock (utilizadoresDAO)
+            {
+                return avaliaçaoDAO.GetUltAvaliaçaoR(email);
+            }
         }
-        
+
         public bool AddPlanoAlimentar(PlanoAlimentar pa)
         {
-            return planoAlimentarDao.InsertPlanoAlimentar(pa);
+            lock (utilizadoresDAO)
+            {
+                return planoAlimentarDao.InsertPlanoAlimentar(pa);
+            }
         }
-        
+
         public List<PlanoTreino> GetPlanosTreino(string mail)
         {
-            return planoTreinoDAO.GetPlanoTreino(mail);
+            lock (utilizadoresDAO)
+            {
+                return planoTreinoDAO.GetPlanoTreino(mail);
+            }
         }
-        
+
         public bool AddAvaliacao(Avaliaçao av)
         {
-            return avaliaçaoDAO.UpdateAvaliaçaoRealizada(av);
+            lock (utilizadoresDAO)
+            {
+                return avaliaçaoDAO.UpdateAvaliaçaoRealizada(av);
+            }
         }
-        
+
         public List<PlanoAlimentar> GetPlanosAlimentares(string mail)
         {
-            return planoAlimentarDao.GetPlanoAlimentar(mail);
+            lock (utilizadoresDAO)
+            {
+                return planoAlimentarDao.GetPlanoAlimentar(mail);
+            }
         }
 
         public List<string> GetInstrutorEmails()
         {
-            return utilizadoresDAO.GetInstrutorEmails();
+            lock (utilizadoresDAO)
+            {
+                return utilizadoresDAO.GetInstrutorEmails();
+            }
         }
 
         public List<Avaliaçao> GetAvaAgendCli(string emailCliente)
         {
-            return avaliaçaoDAO.GetAvaAgendCli(emailCliente);
+            lock (utilizadoresDAO)
+            {
+                return avaliaçaoDAO.GetAvaAgendCli(emailCliente);
 
+            }
         }
 
         public Dictionary<string, string> GetAllEmailsNames(string tipo)
         {
-            return utilizadoresDAO.GetAllEmailsNames(tipo);
+            lock (utilizadoresDAO)
+            {
+                return utilizadoresDAO.GetAllEmailsNames(tipo);
+            }
         }
 
         public bool agendarAvaliaçao(Avaliaçao av)
         {
-            return avaliaçaoDAO.InsertAvaliaçao(av);
+            lock (utilizadoresDAO)
+            {
+                return avaliaçaoDAO.InsertAvaliaçao(av);
+            }
         }
 
         public List<Avaliaçao> GetAvaAgendInst(string email)
         {
-            return avaliaçaoDAO.GetAvalInstr(email, 'A');
+            lock (utilizadoresDAO)
+            {
+                return avaliaçaoDAO.GetAvalInstr(email, 'A');
+            }
         }
 
         public AulaGrupo GetAulaID(int id)
         {
-            return aulaGrupoDAO.GetAulaID(id);
+            lock (utilizadoresDAO)
+            {
+                return aulaGrupoDAO.GetAulaID(id);
+            }
         }
 
         public bool MarcarAula(ClienteAula ca)
         {
-           return aulaGrupoDAO.MarcarAula(ca);
+            lock (utilizadoresDAO)
+            {
+                return aulaGrupoDAO.MarcarAula(ca);
+            }
         }
 
         public List<int> GetAulasCliente(string mail)
         {
-            return aulaGrupoDAO.GetAulasCliente(mail);
+            lock (utilizadoresDAO)
+            {
+                return aulaGrupoDAO.GetAulasCliente(mail);
+            }
         }
+
         public bool DesmarcarAula(int id, string mail)
         {
-            return aulaGrupoDAO.DesmarcárAula(id, mail);
+            lock (utilizadoresDAO)
+            {
+                return aulaGrupoDAO.DesmarcárAula(id, mail);
+            }
         }
 
         public bool EditarAula(AulaGrupo ag, in int agId)
         {
-            return aulaGrupoDAO.UpdateAulaGrupo(ag,agId);
+            lock (utilizadoresDAO)
+            {
+                return aulaGrupoDAO.UpdateAulaGrupo(ag, agId);
+            }
         }
-        
+
         public List<string> getClientesAula(string idAula)
         {
-            return aulaGrupoDAO.GetAlunos(idAula);
+            lock (utilizadoresDAO)
+            {
+                return aulaGrupoDAO.GetAlunos(idAula);
+            }
         }
     }
 }

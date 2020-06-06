@@ -16,74 +16,86 @@ namespace UMFit_WebAPI.Controllers
     {
         private readonly UMFit_LN _system = new UMFit_LN();
         private readonly object[] _refList = {"Pequeno-Almoço", "Almoço", "Lanche", "Jantar"};
-        
+
         [HttpPost("refeicoes")]
         public ActionResult<string> Refeicoes([FromBody] dynamic rec)
         {
-            var send = new JObject();
-            send.Add("refeicoes",new JArray(_refList));
-            return (Ok(
-                send.ToString()
-            ));
+            lock (_system)
+            {
+                var send = new JObject();
+                send.Add("refeicoes", new JArray(_refList));
+                return (Ok(
+                    send.ToString()
+                ));
+            }
         }
 
         [HttpPost()]
         public ActionResult<string> SetPlano([FromBody] dynamic rec)
         {
-            var jobject = JObject.Parse(JsonSerializer.Serialize(rec));
-            
-            
-            if (!_system.isUserOnline(jobject.valueST.ToString())) return Unauthorized("Client Offline");
-
-            ActionResult<string> ret= BadRequest("Impossível inserir plano alimentar");
-            
-            string email = jobject.GetValue("email");
-            
-            JObject plano = jobject.GetValue("planoAlimentar");
-            
-            List<Refeiçao> lista =  new List<Refeiçao>();
-
-            JArray ja = plano.GetValue("lista_refeicoes").ToObject<JArray>();
-            
-            try
+            lock (_system)
             {
-                if(email.Equals("")) throw new Exception("EMAIL BROKEN");
-                foreach (JObject v in ja)
+                var jobject = JObject.Parse(JsonSerializer.Serialize(rec));
+
+
+                if (!_system.isUserOnline(jobject.valueST.ToString())) return Unauthorized("Client Offline");
+
+                ActionResult<string> ret = BadRequest("Impossível inserir plano alimentar");
+
+                string email = jobject.GetValue("email");
+
+                JObject plano = jobject.GetValue("planoAlimentar");
+
+                List<Refeiçao> lista = new List<Refeiçao>();
+
+                JArray ja = plano.GetValue("lista_refeicoes").ToObject<JArray>();
+
+                try
                 {
-                    Refeiçao re = new Refeiçao(v.GetValue("nome").ToString(),
-                        v.GetValue("descricao").ToString()
+                    if (email.Equals("")) throw new Exception("EMAIL BROKEN");
+                    foreach (JObject v in ja)
+                    {
+                        Refeiçao re = new Refeiçao(v.GetValue("nome").ToString(),
+                            v.GetValue("descricao").ToString()
+                        );
+                        lista.Add(re);
+                    }
+
+                    PlanoAlimentar pa = new PlanoAlimentar(
+                        email,
+                        plano.GetValue("nome").ToString(),
+                        plano.GetValue("frequencia").ToString(),
+                        int.Parse(plano.GetValue("refeicoes_livres").ToString()),
+                        DateTime.Parse(plano.GetValue("data_fim").ToString()),
+                        lista
                     );
-                    lista.Add(re);
+
+                    if (_system.AddPlanoAlimentar(pa)) ret = Ok();
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine(e.ToString());
                 }
 
-                PlanoAlimentar pa = new PlanoAlimentar(
-                    email,
-                    plano.GetValue("nome").ToString(),
-                    plano.GetValue("frequencia").ToString(), 
-                    int.Parse(plano.GetValue("refeicoes_livres").ToString()), 
-                    DateTime.Parse(plano.GetValue("data_fim").ToString()),
-                    lista
-                    );
-                
-                if (_system.AddPlanoAlimentar(pa)) ret = Ok();
-            }
-            catch (Exception e) { Console.WriteLine(e.ToString()); }
+                return (ret);
 
-            return (ret);
-            
+            }
         }
-        
+
         [HttpPost("consultar")]
         public ActionResult<string> GetPlanosAlimentares([FromBody] dynamic rec)
         {
-            var jobject = JObject.Parse(JsonSerializer.Serialize(rec));
-            if (!_system.isUserOnline(jobject.valueST.ToString())) return Unauthorized("Client Offline");
+            lock (_system)
+            {
+                var jobject = JObject.Parse(JsonSerializer.Serialize(rec));
+                if (!_system.isUserOnline(jobject.valueST.ToString())) return Unauthorized("Client Offline");
 
-            string email = jobject.email.ToString();
-            
-            List<PlanoAlimentar> planosList = _system.GetPlanosAlimentares(email);
-            
-            return Ok(planosList);
+                string email = jobject.email.ToString();
+
+                List<PlanoAlimentar> planosList = _system.GetPlanosAlimentares(email);
+
+                return Ok(planosList);
+            }
         }
     }
 }

@@ -2,6 +2,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Data;
 using System.Text;
 using UMFit_WebAPI.Models.UMFit_LN.Aulas;
 
@@ -19,12 +20,13 @@ namespace UMFit_WebAPI.Models.Data.DAO
         public List<AulaGrupo> GetAulas(MySqlCommand command)
         {
             List<AulaGrupo> list = new List<AulaGrupo>();
-
+            MySqlDataReader reader = null;
             try
+            
             {
-                connection.Open();
+                if(connection.State == ConnectionState.Closed) connection.Open();
 
-                MySqlDataReader reader = command.ExecuteReader();
+                reader = command.ExecuteReader();
 
                 while (reader.Read() && reader.HasRows)
                 {
@@ -35,7 +37,7 @@ namespace UMFit_WebAPI.Models.Data.DAO
                     list.Add(aula);
                 }
 
-                reader.Close();
+                
             }
             catch (Exception e)
             {
@@ -43,6 +45,7 @@ namespace UMFit_WebAPI.Models.Data.DAO
             }
             finally
             {
+                reader.Close();
                 connection.Close();
             }
 
@@ -87,7 +90,7 @@ namespace UMFit_WebAPI.Models.Data.DAO
 
             try
             {
-                connection.Open();
+                if(connection.State == ConnectionState.Closed) connection.Open();
 
                 string sqlCommand = "insert into Aula_Grupo (hora, dia, nome, lotaçao_Atual," +
                                     " lotaçao_Max, duraçao, dificuldade, Instrutor_email, Espaço_Ginasio)" +
@@ -131,7 +134,7 @@ namespace UMFit_WebAPI.Models.Data.DAO
             bool r = false;
             try
             {
-                connection.Open();
+                if(connection.State == ConnectionState.Closed) connection.Open();
 
                 string sqlCommand =
                     "delete from Clientes_na_AulaGrupo where Cliente_email = @EMAIL and idAula_Grupo=@ID";
@@ -173,7 +176,7 @@ namespace UMFit_WebAPI.Models.Data.DAO
             bool r = false;
             try
             {
-                connection.Open();
+                if(connection.State == ConnectionState.Closed) connection.Open();
 
                 string sqlCommand =
                     "insert into Clientes_na_AulaGrupo (idAula_Grupo,hora, dia,Cliente_email,  Instrutor_email, Espaço_Ginasio)" +
@@ -216,13 +219,12 @@ namespace UMFit_WebAPI.Models.Data.DAO
             command.Parameters.Add(new MySqlParameter("@EMAIL", MySqlDbType.VarChar));
             command.Parameters["@EMAIL"].Value = mail;
 
-
+            
             List<int> ret = new List<int>();
             MySqlDataReader reader= null;
             try
             {
-                connection.Open();
-
+                if(connection.State == ConnectionState.Closed) connection.Open();
                 reader = command.ExecuteReader();
 
                 while (reader.Read() && reader.HasRows)
@@ -294,7 +296,7 @@ namespace UMFit_WebAPI.Models.Data.DAO
             try
             {
                 // Abre a conexão à Base de Dados
-                connection.Open();
+                if(connection.State == ConnectionState.Closed) connection.Open();
 
                 if (command.ExecuteNonQuery() > 0 && commandClienteAula.ExecuteNonQuery() > 0)
                     r = true;
@@ -324,13 +326,14 @@ namespace UMFit_WebAPI.Models.Data.DAO
             command.Parameters["@IDAULA_GRUPO"].Value = Convert.ToInt32(idAula);
 
             List<string> listClientes = new List<string>();
-
+            MySqlDataReader reader = null;
+            
             try
             {
                 // Abre a conexão à Base de Dados
-                connection.Open();
+                if(connection.State == ConnectionState.Closed) connection.Open();
 
-                MySqlDataReader reader = command.ExecuteReader();
+               reader = command.ExecuteReader();
 
                 // Inicia a leitura do resultado do comando SQL
                 while (reader.Read())
@@ -341,7 +344,7 @@ namespace UMFit_WebAPI.Models.Data.DAO
                     }
                 }
 
-                reader.Close();
+  
             }
             catch (Exception e)
             {
@@ -349,6 +352,7 @@ namespace UMFit_WebAPI.Models.Data.DAO
             }
             finally
             {
+                reader.Close();
                 // Fecha a conexão à Base de Dados
                 connection.Close();
             }

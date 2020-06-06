@@ -14,10 +14,18 @@ namespace UMFit_WebAPI.Models.Data
          */
         public static MySqlBaseConnectionStringBuilder builderLocalhost = new MySqlConnectionStringBuilder
         {
+            Server = "umfit.mysql.database.azure.com",
+            UserID = "api-access@umfit",
+            Password = "Hc8Vv_S4wwxmtTGm5TVW",
+            Database = "umfit_db",
+            SslMode = MySqlSslMode.Required
+          
+            /*
             Server = "localhost",
             UserID = "UMFit",
             Password = "umfitli4",
             Database = "UMFit_DB"
+            */
         };
     }
 }

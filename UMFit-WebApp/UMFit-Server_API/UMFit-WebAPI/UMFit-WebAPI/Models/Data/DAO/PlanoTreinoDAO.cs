@@ -2,6 +2,7 @@
 using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using UMFit_WebAPI.Models.UMFit_LN.Planos.PlanoTreino;
 
 namespace UMFit_WebAPI.Models.Data.DAO
@@ -21,7 +22,7 @@ namespace UMFit_WebAPI.Models.Data.DAO
 
             try
             {
-                connection.Open();
+                if(connection.State == ConnectionState.Closed) connection.Open();
 
                 string sqlCommand = "insert into Plano_Treino (nome, data_Fim, grupo_muscular, frequencia) " +
                     "values(" + pt.ToSql() +")";
@@ -92,7 +93,7 @@ namespace UMFit_WebAPI.Models.Data.DAO
 
             try
             {
-                connection.Open();
+                if(connection.State == ConnectionState.Closed) connection.Open();
 
                 string sqlCommand = "select idPlano_Treino from PlanoTreino_do_Cliente where Cliente_email = @CLIENTE_EMAIL";
 

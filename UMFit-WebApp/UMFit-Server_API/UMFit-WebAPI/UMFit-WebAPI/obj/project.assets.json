@@ -5828,7 +5828,7 @@
       "outputPath": "/home/hc/Desktop/li4_umfit/UMFit-WebApp/UMFit-Server_API/UMFit-WebAPI/UMFit-WebAPI/obj/",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "/home/hc/.config/NuGet/NuGet.Config"
+        "/home/hc/.nuget/NuGet/NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "netcoreapp3.1"

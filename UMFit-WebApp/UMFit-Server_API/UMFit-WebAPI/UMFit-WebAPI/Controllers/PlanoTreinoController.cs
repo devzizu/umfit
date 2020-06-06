@@ -24,71 +24,84 @@ namespace UMFit_WebAPI.Controllers
             "Agachamento Normal c/ Barra", "Cadeira Adutora", "Cadeira Extensora", "Máquina de Costas",
             "Elevações na Barra", "Pushada", "Serrote"
         };
-        
+
         [HttpPost("exercicios")]
         public ActionResult<string> Exercicios([FromBody] StringDto rec)
         {
-            if (!_system.isUserOnline(rec.valueST)) return Unauthorized("Client Offline");
+            lock (_system)
+            {
+                if (!_system.isUserOnline(rec.valueST)) return Unauthorized("Client Offline");
 
-           var send = new JObject();
-           send.Add("exercicios",new JArray(_exList));
-           return (Ok(
-               send.ToString()
-               ));
+                var send = new JObject();
+                send.Add("exercicios", new JArray(_exList));
+                return (Ok(
+                    send.ToString()
+                ));
+            }
         }
 
         [HttpPost]
         public ActionResult<string> SetPlano([FromBody] dynamic rec)
         {
-            var jobject = JObject.Parse(JsonSerializer.Serialize(rec));
-            ActionResult<string> ret= BadRequest("Impossível inserir plano de treino");
-            if (!_system.isUserOnline(jobject.valueST.ToString())) return Unauthorized("Client Offline");
-
-            string email = jobject.GetValue("email");
-            
-            
-            JObject plano = jobject.GetValue("planotreino");
-            List<Exercicio> lista =  new List<Exercicio>();
-            
-            JArray ja = plano.GetValue("lista_exercicios").ToObject<JArray>();
-            try
+            lock (_system)
             {
-                if(email.Equals("")) throw new Exception("EMAIL BROKEN");
-                foreach (JObject v in ja)
+                var jobject = JObject.Parse(JsonSerializer.Serialize(rec));
+                ActionResult<string> ret = BadRequest("Impossível inserir plano de treino");
+                if (!_system.isUserOnline(jobject.valueST.ToString())) return Unauthorized("Client Offline");
+
+                string email = jobject.GetValue("email");
+
+
+                JObject plano = jobject.GetValue("planotreino");
+                List<Exercicio> lista = new List<Exercicio>();
+
+                JArray ja = plano.GetValue("lista_exercicios").ToObject<JArray>();
+                try
                 {
-                    Exercicio ex = new Exercicio(v.GetValue("nome").ToString(),
-                        int.Parse(v.GetValue("nm_repeticoes").ToString()),
-                        int.Parse(v.GetValue("nm_series").ToString())
+                    if (email.Equals("")) throw new Exception("EMAIL BROKEN");
+                    foreach (JObject v in ja)
+                    {
+                        Exercicio ex = new Exercicio(v.GetValue("nome").ToString(),
+                            int.Parse(v.GetValue("nm_repeticoes").ToString()),
+                            int.Parse(v.GetValue("nm_series").ToString())
+                        );
+                        lista.Add(ex);
+                    }
+
+                    PlanoTreino pt = new PlanoTreino(
+                        plano.GetValue("nome").ToString(),
+                        DateTime.Parse(plano.GetValue("data_fim").ToString()),
+                        plano.GetValue("grupos_musculares").ToString(),
+                        plano.GetValue("frequencia").ToString(),
+                        email,
+                        lista
                     );
-                    lista.Add(ex);
+                    if (_system.AddPlano(pt)) ret = Ok();
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine(e.ToString());
                 }
 
-                PlanoTreino pt = new PlanoTreino(
-                    plano.GetValue("nome").ToString(),
-                    DateTime.Parse(plano.GetValue("data_fim").ToString()),
-                    plano.GetValue("grupos_musculares").ToString(),
-                    plano.GetValue("frequencia").ToString(),
-                    email,
-                    lista
-                );
-                if (_system.AddPlano(pt)) ret = Ok();
+                return (ret);
             }
-            catch (Exception e) { Console.WriteLine(e.ToString()); }
-            return (ret);
         }
-        
+
         [HttpPost("consultar")]
         public ActionResult<string> GetPlanosTreino([FromBody] dynamic rec)
         {
-            var jobject = JObject.Parse(JsonSerializer.Serialize(rec));
-            if (!_system.isUserOnline(jobject.valueST.ToString())) return Unauthorized("Client Offline");
+            lock (_system)
+            {
+                var jobject = JObject.Parse(JsonSerializer.Serialize(rec));
+                if (!_system.isUserOnline(jobject.valueST.ToString())) return Unauthorized("Client Offline");
 
 
-            string email = jobject.email.ToString();
-            
-            List<PlanoTreino> planosList = _system.GetPlanosTreino(email);
-            
-            return Ok(planosList);
+                string email = jobject.email.ToString();
+
+                List<PlanoTreino> planosList = _system.GetPlanosTreino(email);
+
+                return Ok(planosList);
+            }
         }
     }
 }
