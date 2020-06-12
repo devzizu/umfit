@@ -1,6 +1,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using UMFit_WebAPI.Models.Data.DAO;
 using UMFit_WebAPI.Models.UMFit_LN.Aulas;
 using UMFit_WebAPI.Models.UMFit_LN.Avaliacao;
@@ -18,6 +19,7 @@ namespace UMFit_WebAPI.Models.UMFit_LN
         private readonly PlanoTreinoDAO planoTreinoDAO = new PlanoTreinoDAO();
         private readonly AvaliaçaoDAO avaliaçaoDAO = new AvaliaçaoDAO();
         private readonly PlanoAlimentarDAO planoAlimentarDao = new PlanoAlimentarDAO();
+        private readonly EstatisticaDAO estatisticaDao = new EstatisticaDAO();
         
         public UMFit_LN()
         {
@@ -285,7 +287,7 @@ namespace UMFit_WebAPI.Models.UMFit_LN
         {
             lock (utilizadoresDAO)
             {
-                return aulaGrupoDAO.DesmarcárAula(id, mail);
+                return aulaGrupoDAO.DesmarcarAula(id, mail);
             }
         }
 
@@ -302,6 +304,14 @@ namespace UMFit_WebAPI.Models.UMFit_LN
             lock (utilizadoresDAO)
             {
                 return aulaGrupoDAO.GetAlunos(idAula);
+            }
+        }
+
+        public Dictionary<string, int> GetEstatisticasCliente(string email)
+        {
+            lock (utilizadoresDAO)
+            {
+                return estatisticaDao.GetEstatisticaCli(email);
             }
         }
     }

@@ -24,6 +24,7 @@
             <e p="DAO" t="Include">
               <e p="AulaGrupoDAO.cs" t="Include" />
               <e p="AvaliaçaoDAO.cs" t="Include" />
+              <e p="EstatisticaDAO.cs" t="Include" />
               <e p="PlanoAlimentarDAO.cs" t="Include" />
               <e p="PlanoTreinoDAO.cs" t="Include" />
               <e p="UtilizadorDAO.cs" t="Include" />
@@ -37,6 +38,7 @@
             <e p="Aulas" t="Include">
               <e p="AulaGrupo.cs" t="Include" />
               <e p="ClienteAula.cs" t="Include" />
+              <e p="Estatistica.cs" t="Include" />
             </e>
             <e p="Avaliacao" t="Include">
               <e p="Avaliaçao.cs" t="Include" />
@@ -75,7 +77,7 @@
         <e p="appsettings.json" t="Include" />
         <e p="bin" t="ExcludeRecursive" />
         <e p="obj" t="ExcludeRecursive">
-          <e p="Debug" t="Include">
+          <e p="Release" t="Include">
             <e p="netcoreapp3.1" t="Include">
               <e p="UMFit-WebAPI.AssemblyInfo.cs" t="Include" />
             </e>

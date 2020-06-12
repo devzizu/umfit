@@ -1,15 +1,42 @@
 
 import { IonCard, IonCardContent, IonCardHeader, IonCardSubtitle, IonCardTitle, IonCol, IonContent, IonGrid, IonHeader, IonIcon, IonPage, IonRow, IonTitle, IonToolbar } from "@ionic/react";
-import { calendarOutline, cardOutline, femaleOutline, informationCircleOutline, locationOutline, mailOutline, maleOutline } from "ionicons/icons";
+import { analyticsOutline, bicycle, calendarOutline, cardOutline, checkmarkDoneOutline, femaleOutline, informationCircleOutline, locationOutline, mailOutline, maleOutline } from "ionicons/icons";
 import React from "react";
 import { User } from "../models/Other/User";
 import './css/UserProfile.css';
+import { HorizontalBar } from "react-chartjs-2";
+import { estatisticasCliente } from "../models/API/AulaGrupoAPI";
 
+var graphAulasGrupo = {
+  labels: ["a"],
+  datasets: [
+    {
+      label: 'Número de aulas',
+      backgroundColor: 'rgb(206, 143, 27, 0.6)',
+      borderWidth: 1,
+      hoverBackgroundColor: 'rgb(196, 131, 11, 0.4)',
+      data: [1]
+    }
+  ]
+};
+
+interface PersonalStats {
+
+    aulas_participadas: number,
+    aula_preferida: string
+}
+
+interface MapStatsEntry {
+  Key : string,
+  Value: number
+}
 
 class UserProfile extends React.Component<any> {
 
   state: {
-    user: User
+    user: User,
+    stats: PersonalStats,
+    graphStatsValues: MapStatsEntry[]
   }
 
   constructor(props: any) {
@@ -17,12 +44,17 @@ class UserProfile extends React.Component<any> {
     super(props);
 
     this.state = {
-      user: this.props.user
+      user: this.props.user,
+      stats: {
+          aulas_participadas: 0,
+          aula_preferida: "Nenhuma"
+      },
+      graphStatsValues: []
     }
 
   }
 
-  componentDidMount() {
+  async componentDidMount() {
 
     console.log("In user profile:");
     console.log(this.props.user);
@@ -33,10 +65,47 @@ class UserProfile extends React.Component<any> {
       //user: getTestValueUser()
     });
 
+    //---------------------------------------------------------------------------
+
+    const res = await estatisticasCliente();
+
+    res.json().then((data) => {
+      
+      var sum = 0;
+      data.forEach((element:any) => {
+        sum+=element.Value;
+      });
+
+      this.setState({
+        graphStatsValues: data,
+        stats: { aulas_participadas: sum, aula_preferida: data[0].Key }
+      });
+    });
+
+    //---------------------------------------------------------------------------
   }
 
   render() {
 
+    console.log(graphAulasGrupo);
+    var labelsAulas : string[] = [];
+    var numbAulas : number[] = [];
+    var options = {
+      scales: {
+        xAxes: [{
+          ticks: {
+             min: 0,
+             stepSize: 1
+           }
+         }]
+        }}
+    this.state.graphStatsValues.forEach((elem) => labelsAulas.push(elem.Key));
+    this.state.graphStatsValues.forEach((elem) => numbAulas.push(elem.Value));
+
+    graphAulasGrupo.labels = labelsAulas;
+    graphAulasGrupo.datasets[0].data = numbAulas;
+
+    console.log(graphAulasGrupo);
     return(
 
     <IonPage>
@@ -81,11 +150,17 @@ class UserProfile extends React.Component<any> {
 
                     <IonCard className="cardSecond">
 
+                      <IonCardHeader>
+                        <IonCardTitle className="estatisticasHeaderTitle">
+                          <IonIcon icon={analyticsOutline}></IonIcon>
+                          &nbsp;Minhas informações:
+                        </IonCardTitle>
+                      </IonCardHeader>
+
                       <IonCardContent>
 
                           <IonIcon slot="start" icon={informationCircleOutline} />
-                        <b>&nbsp;</b><b>Tipo de utilizador: </b>{this.state.user.tipoDeUser}
-                        <br></br>
+                        <b>&nbsp;</b>{this.state.user.tipoDeUser}
                         <br></br>
                         <IonIcon slot="start" icon={mailOutline} />
                         <b> E-Mail:</b> {this.state.user.email}
@@ -102,7 +177,7 @@ class UserProfile extends React.Component<any> {
                         <b> Localidade:</b> {this.state.user.localidade}
                         <br></br>
                         <IonIcon slot="start" icon={calendarOutline} />
-                        <b> Data de Nascimento:</b> {this.state.user.data_nascimento}
+                        <b> Data de Nascimento:</b> {this.state.user.data_nascimento.substr(0, this.state.user.data_nascimento.indexOf('T'))}
                         <br></br>
                         <IonIcon slot="start" icon={cardOutline} />
                         <b> NIF:</b> {this.state.user.nif}
@@ -116,23 +191,73 @@ class UserProfile extends React.Component<any> {
             </IonRow>
             
           {/* ------------------------------------------------------------------------- */}
-          <IonRow>
+          
+            { this.state.user.tipoDeUser==="Cliente" &&
 
-            <IonCol>
+                <>
 
-                <IonCard className="cardSecond">
+                    <IonRow>
 
-                  <IonCardContent>
+                        <IonCol>
 
-                      (more info soon...)
+                            <IonCard className="cardSecond">
+                            
+                            <IonCardHeader>
+                                <IonCardTitle className="estatisticasHeaderTitle">
+                                <IonIcon icon={analyticsOutline}></IonIcon>
+                                &nbsp;Atividades:
+                                </IonCardTitle>
+                            </IonCardHeader>
 
-                  </IonCardContent>
+                            <IonCardContent>
+                                    
+                                    <IonRow>
 
-                </IonCard>
+                                    <IonCol>
+                                        <IonCard className="cardStats">
 
-            </IonCol>
+                                        <IonCardHeader>
+                                            <IonCardTitle className="estatisticasSingle">
+                                            <IonIcon icon={bicycle}></IonIcon>
+                                            &nbsp;Número de aulas participadas: {this.state.stats.aulas_participadas}
+                                            </IonCardTitle>
+                                        </IonCardHeader>
 
-            </IonRow>          
+                                        </IonCard>
+                                    </IonCol>
+                                    </IonRow>
+                                    <IonRow>
+                                        <IonCol>
+                                        <IonCard className="cardStats">
+
+                                        <IonCardHeader>
+                                            <IonCardTitle className="estatisticasSingle">
+                                            <IonIcon icon={checkmarkDoneOutline}></IonIcon>
+                                            &nbsp;Aula preferida: {this.state.stats.aula_preferida}
+                                            </IonCardTitle>
+                                        </IonCardHeader>
+
+                                        </IonCard>
+                                    </IonCol>
+
+                                    </IonRow>
+
+                                    <IonRow>
+
+                                        <HorizontalBar options={options} data={graphAulasGrupo} />
+
+                                    </IonRow>
+
+                            </IonCardContent>
+
+                            </IonCard>
+
+                        </IonCol>
+
+                </IonRow>          
+                </>
+            }
+
           </IonGrid>
 
           </IonContent>
@@ -147,4 +272,3 @@ class UserProfile extends React.Component<any> {
 */
 
 export default UserProfile;
-

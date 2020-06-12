@@ -100,3 +100,18 @@ export function alunosAula (id : string) {
 
     return res;
 }
+export function estatisticasCliente () {
+
+    const res = fetch(baseURL + "/cliente/estatisticas", {
+        method: 'post',
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
+        body:JSON.stringify({
+            valueST : localStorage.getItem("token")
+        })
+    });
+
+    return res;
+}

@@ -1,12 +1,18 @@
 .cardFirst {
     text-align: center;
-    border-top: 10px solid rgb(196, 131, 11);
+    border-top: 15px outset rgb(196, 131, 11);
     --ion-background-color: rgb(241, 231, 231);
 }
 
 .cardSecond {
     color: black;
     border-top: 10px solid rgb(196, 131, 11);
+    --ion-background-color: rgb(241, 231, 231);
+}
+
+.cardStats {
+    color: orange;
+    border: 2px outset rgb(206, 143, 27);
     --ion-background-color: rgb(241, 231, 231);
 }
 
@@ -18,4 +24,14 @@
 .profilePic {
     min-width: 100px;    
     max-height: 100px;    
+}
+
+.estatisticasHeaderTitle {
+    font-weight: bold;
+    color: rgb(94, 83, 64);
+}
+
+.estatisticasSingle {
+    color: rgb(29, 27, 23);
+    font-size: 16px;
 }

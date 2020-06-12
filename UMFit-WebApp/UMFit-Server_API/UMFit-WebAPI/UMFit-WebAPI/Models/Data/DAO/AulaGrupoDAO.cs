@@ -16,7 +16,81 @@ namespace UMFit_WebAPI.Models.Data.DAO
          *  Neste caso, utiliza (como primeira fase) Localhost
          */
         private static MySqlConnection connection = new MySqlConnection(DataBaseConnector.builderLocalhost.ToString());
+public  bool MarcarAula(ClienteAula ca)
+        {
+            bool r = false;
+            try
+            {
+                connection.Open();
 
+                string sqlCommand = "insert into Clientes_na_AulaGrupo (idAula_Grupo,hora, dia,Cliente_email,  Instrutor_email, Espaço_Ginasio)" +
+                                    " values(" + ca.ToSql() + ")";
+
+                MySqlCommand command = new MySqlCommand(sqlCommand, connection);
+
+                ca.InitParam(command);
+
+                if (command.ExecuteNonQuery() > 0)
+                {
+                    sqlCommand = "update Aula_Grupo set lotaçao_Atual = lotaçao_Atual+1 where idAula_Grupo =" + ca.id;
+                    command = new MySqlCommand(sqlCommand, connection);
+
+                    if (command.ExecuteNonQuery() > 0) 
+                    { 
+                        r = true;
+
+                        sqlCommand = "select nome from Aula_Grupo where idAula_Grupo = @ID_AULA";
+                        command = new MySqlCommand(sqlCommand, connection);
+
+                        command.Parameters.Add(new MySqlParameter("@ID_AULA", MySqlDbType.Int32));
+                        command.Parameters["@ID_AULA"].Value = ca.id;
+
+                        string nomeAula = Convert.ToString(command.ExecuteScalar());
+
+                        sqlCommand = "update Estatistica set num_vezes_feita = num_vezes_feita + 1 where Cliente_email = @CLIENTE_EMAIL " +
+                            " and nome = @NOME_AULA";
+                        command = new MySqlCommand(sqlCommand, connection);
+
+                        command.Parameters.Add(new MySqlParameter("@CLIENTE_EMAIL", MySqlDbType.VarChar));
+                        command.Parameters["@CLIENTE_EMAIL"].Value = ca.cliente_email;
+
+                        command.Parameters.Add(new MySqlParameter("@NOME_AULA", MySqlDbType.VarChar));
+                        command.Parameters["@NOME_AULA"].Value = nomeAula;
+
+                        if (command.ExecuteNonQuery() == 0)
+                        {
+                            sqlCommand = "insert into Estatistica (nome, num_vezes_feita, Cliente_email) values " +
+                                "(@NOME_AULA, @NUM_VEZES_FEITA, @CLIENTE_EMAIL)";
+                            command = new MySqlCommand(sqlCommand, connection);
+
+                            command.Parameters.Add(new MySqlParameter("@CLIENTE_EMAIL", MySqlDbType.VarChar));
+                            command.Parameters["@CLIENTE_EMAIL"].Value = ca.cliente_email;
+
+                            command.Parameters.Add(new MySqlParameter("@NOME_AULA", MySqlDbType.VarChar));
+                            command.Parameters["@NOME_AULA"].Value = nomeAula;
+
+                            command.Parameters.Add(new MySqlParameter("@NUM_VEZES_FEITA", MySqlDbType.Int16));
+                        
+                            command.Parameters["@NUM_VEZES_FEITA"].Value = 1;
+                            command.ExecuteNonQuery(); 
+                        }
+                        
+                    }
+                }
+                
+            }
+            catch (Exception e) 
+            { 
+                Console.WriteLine(e.ToString()); 
+            }
+            finally 
+            { 
+                connection.Close(); 
+            }
+
+            return r;
+        }
+    
         public List<AulaGrupo> GetAulas(MySqlCommand command)
         {
             List<AulaGrupo> list = new List<AulaGrupo>();
@@ -129,15 +203,14 @@ namespace UMFit_WebAPI.Models.Data.DAO
             return ret.Count < 1 ? null : ret[0];
         }
 
-        public bool DesmarcárAula(int id, string mail)
+      public bool DesmarcarAula(int id, string mail)
         {
             bool r = false;
             try
             {
-                if(connection.State == ConnectionState.Closed) connection.Open();
+                connection.Open();
 
-                string sqlCommand =
-                    "delete from Clientes_na_AulaGrupo where Cliente_email = @EMAIL and idAula_Grupo=@ID";
+                string sqlCommand = "delete from Clientes_na_AulaGrupo where Cliente_email = @EMAIL and idAula_Grupo=@ID";
 
                 MySqlCommand command = new MySqlCommand(sqlCommand, connection);
                 command.Parameters.Add(new MySqlParameter("@EMAIL", MySqlDbType.VarChar));
@@ -145,10 +218,7 @@ namespace UMFit_WebAPI.Models.Data.DAO
                 command.Parameters.Add(new MySqlParameter("@ID", MySqlDbType.Int16));
                 command.Parameters["@ID"].Value = id;
 
-                if (command.ExecuteNonQuery() > 0)
-                {
-                    r = true;
-                }
+                if (command.ExecuteNonQuery() > 0) { r = true; }
 
                 sqlCommand = "update Aula_Grupo set lotaçao_Atual=lotaçao_Atual-1 where idAula_Grupo =" + id;
                 command = new MySqlCommand(sqlCommand, connection);
@@ -156,61 +226,32 @@ namespace UMFit_WebAPI.Models.Data.DAO
                 if (command.ExecuteNonQuery() > 0)
                 {
                     r = true;
-                }
 
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e.ToString());
-            }
-            finally
-            {
-                connection.Close();
-            }
-
-            return r;
-        }
-
-        public bool MarcarAula(ClienteAula ca)
-        {
-            bool r = false;
-            try
-            {
-                if(connection.State == ConnectionState.Closed) connection.Open();
-
-                string sqlCommand =
-                    "insert into Clientes_na_AulaGrupo (idAula_Grupo,hora, dia,Cliente_email,  Instrutor_email, Espaço_Ginasio)" +
-                    " values(" + ca.ToSql() + ")";
-
-                MySqlCommand command = new MySqlCommand(sqlCommand, connection);
-
-                ca.InitParam(command);
-
-                if (command.ExecuteNonQuery() > 0)
-                {
-
-                    sqlCommand = "update Aula_Grupo set lotaçao_Atual=lotaçao_Atual+1 where idAula_Grupo =" + ca.id;
+                    sqlCommand = "select nome from Aula_Grupo where idAula_Grupo = @ID_AULA";
                     command = new MySqlCommand(sqlCommand, connection);
 
-                    if (command.ExecuteNonQuery() > 0)
-                    {
-                        r = true;
-                    }
-                }
+                    command.Parameters.Add(new MySqlParameter("@ID_AULA", MySqlDbType.Int32));
+                    command.Parameters["@ID_AULA"].Value = id;
 
+                    string nomeAula = Convert.ToString(command.ExecuteScalar());
+
+                    sqlCommand = "update Estatistica set num_vezes_feita = num_vezes_feita - 1 where Cliente_email = @CLIENTE_EMAIL " +
+                        " and nome = @NOME_AULA";
+                    command = new MySqlCommand(sqlCommand, connection);
+
+                    command.Parameters.Add(new MySqlParameter("@CLIENTE_EMAIL", MySqlDbType.VarChar));
+                    command.Parameters["@CLIENTE_EMAIL"].Value = mail;
+
+                    command.Parameters.Add(new MySqlParameter("@NOME_AULA", MySqlDbType.VarChar));
+                    command.Parameters["@NOME_AULA"].Value = nomeAula;
+                    command.ExecuteNonQuery();
+                }
             }
-            catch (Exception e)
-            {
-                Console.WriteLine(e.ToString());
-            }
-            finally
-            {
-                connection.Close();
-            }
+            catch (Exception e) { Console.WriteLine(e.ToString()); }
+            finally { connection.Close(); }
 
             return r;
         }
-
         public List<int> GetAulasCliente(string mail)
         {
 

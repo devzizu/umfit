@@ -26,7 +26,7 @@ namespace UMFit_WebAPI.Controllers
             lock (_system)
             {
                 JObject sendJson = new JObject();
-                //List<AulaGrupo> tst;
+
                 sendJson.Add("Segunda", DiaToJson(_system.GetAulasDia("Segunda")));
                 sendJson.Add("Terca", DiaToJson(_system.GetAulasDia("Terca")));
                 sendJson.Add("Quarta", DiaToJson(_system.GetAulasDia("Quarta")));
@@ -207,6 +207,32 @@ namespace UMFit_WebAPI.Controllers
                 return Ok(ret);
             }
         }
+        
+      [HttpPost("cliente/estatisticas")]
+              public ActionResult<string> GetEstatisticasCliente([FromBody] dynamic rec)
+              {
+                  lock (_system)
+                  {
+                      JObject job = JObject.Parse(rec.ToString());
+                      if (!_system.isUserOnline(job.GetValue("valueST").ToString())) return Unauthorized("Client Offline");
+      
+                      string email = _system.getUserGivenToken(job.GetValue("valueST").ToString());
+                      
+                      Dictionary<string, int> estatisticasMap = new Dictionary<string, int>();
+                      foreach(KeyValuePair<string, int> entry in _system.GetEstatisticasCliente(email))
+                      {
+                         if(entry.Value>0) estatisticasMap.Add(entry.Key,entry.Value);
+                         else
+                         {
+                             Console.WriteLine("Boken estatistica: "+entry.ToString());
+                         }
+                      }
+
+
+      
+                      return Ok(estatisticasMap.ToList());
+                  }
+              }  
 
 
 
