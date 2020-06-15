@@ -12,6 +12,6 @@ pages:
   - cp -r build/* public
  artifacts:
   paths:
-  - public
+  - UMFit-WebApp/UMFit-Client/UMFit-App/public
  only:
   - master
