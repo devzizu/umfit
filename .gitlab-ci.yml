@@ -2,7 +2,7 @@ image: node:latest
 pages:
  stage: deploy
  script:
-  - ls
+  - cd /UMFit-WebApp/UMFit-Client/UMFit-App
   - npm install -g ionic cordova
   - npm install
   # we need to set the basePath to the sub dir
