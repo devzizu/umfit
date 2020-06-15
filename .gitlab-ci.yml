@@ -9,7 +9,7 @@ pages:
   - ionic build --prod -- --base-href="https://devzizu.gitlab.io/li4_umfit"
   - rm -rf public
   - mkdir public
-  - cp -r www/* public
+  - cp -r build/* public
  artifacts:
   expire_in: 1 week
   paths:
