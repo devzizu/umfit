@@ -185,7 +185,9 @@ class App extends React.Component {
                 <Menu selectedPage={this.state.selectedPage} menus={this.state.menus}/>
                   
                   <IonRouterOutlet id="main">
-                    
+                  <Route path="/li4_umfit" component={(props: any) => {
+                    return <Redirect to="/home" />;
+                    }} />
                     <Route path="/home" component={(props: any) => {
                       
                       if (logged) {
