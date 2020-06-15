@@ -182,6 +182,8 @@ class ConsultarAulasGrupo extends React.Component<any> {
 
 <IonPopover isOpen={this.state.boolListaClientes === true} 
             onDidDismiss={() => this.setState({boolListaClientes : false})}
+            cssClass='popover'
+            showBackdrop = {false}
             >
 
             <IonGrid > 
@@ -289,7 +291,7 @@ class ConsultarAulasGrupo extends React.Component<any> {
 
                                                         <IonButton onClick = {()=>this.ativarListaClientes(aulaDoDia.id)}>
                                                             <IonIcon icon={eyeOutline}></IonIcon>
-                                                            <b>&nbsp;</b>Ver Inscritos
+                                                            Ver Inscritos
                                                         </IonButton>
                                                         
                                                         <br></br>

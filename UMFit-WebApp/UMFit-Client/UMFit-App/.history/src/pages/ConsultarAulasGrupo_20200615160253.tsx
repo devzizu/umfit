@@ -112,7 +112,7 @@ class ConsultarAulasGrupo extends React.Component<any> {
                 planoAulasSemanal: planoAulasSemanalTest
             });
         });
-       
+       window.location.reload(); 
     }
 
 
@@ -124,7 +124,6 @@ class ConsultarAulasGrupo extends React.Component<any> {
             if (data.status===400) this.setState({alert : "Oops! Não conseguiste crashar o sistema!"});
        this.update();    
     })
-
 }
 
    async marcarAula(id: number) {
@@ -136,7 +135,6 @@ class ConsultarAulasGrupo extends React.Component<any> {
                 this.update();
             }
         );
-         
     }
 
     async atualizaLista(id: any){
@@ -171,17 +169,15 @@ class ConsultarAulasGrupo extends React.Component<any> {
 
 <IonAlert
           isOpen={this.state.alert.length>0}
-        
-          onDidDismiss={() => {this.setState({alert : ""});
-                               window.location.reload()}}
+          onDidDismiss={() => this.setState({alert : ""})}
           header={'Alerta'}
           message={this.state.alert}
           buttons={['OK']}
         />
 
-
 <IonPopover isOpen={this.state.boolListaClientes === true} 
             onDidDismiss={() => this.setState({boolListaClientes : false})}
+            cssClass='popover'
             >
 
             <IonGrid > 
@@ -289,7 +285,7 @@ class ConsultarAulasGrupo extends React.Component<any> {
 
                                                         <IonButton onClick = {()=>this.ativarListaClientes(aulaDoDia.id)}>
                                                             <IonIcon icon={eyeOutline}></IonIcon>
-                                                            <b>&nbsp;</b>Ver Inscritos
+                                                            Ver Inscritos
                                                         </IonButton>
                                                         
                                                         <br></br>

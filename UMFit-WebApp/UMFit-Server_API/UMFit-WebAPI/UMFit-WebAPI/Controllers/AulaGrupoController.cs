@@ -71,12 +71,12 @@ namespace UMFit_WebAPI.Controllers
                 foreach (var e in dia)
                 {
                     iter.Add("id", e.id);
-                    iter.Add("hora", e.hora.Hours + "h" + e.hora.Minutes);
+                    iter.Add("hora", e.hora.Hours + "h" + (e.hora.Minutes<10? "0":"")+e.hora.Minutes );
                     iter.Add("dia", e.dia);
                     iter.Add("nome", e.nome);
                     iter.Add("lotacao_atual", e.lotaçao_Atual);
                     iter.Add("lotacao_max", e.lotaçao_Max);
-                    iter.Add("duracao", e.duraçao);
+                    iter.Add("duracao", e.duraçao.Replace(":", ""));
                     iter.Add("dificuldade", e.dificuldade);
                     iter.Add("instrutor_email", e.instrutor_email);
                     iter.Add("espaco_ginasio", e.espaço_ginasio);
@@ -103,12 +103,12 @@ namespace UMFit_WebAPI.Controllers
                     }
 
                     iter.Add("id", e.id);
-                    iter.Add("hora", e.hora.Hours + "h" + e.hora.Minutes);
+                    iter.Add("hora", e.hora.Hours + "h" + (e.hora.Minutes<10? "0":"")+e.hora.Minutes );
                     iter.Add("dia", e.dia);
                     iter.Add("nome", e.nome);
                     iter.Add("lotacao_atual", e.lotaçao_Atual);
                     iter.Add("lotacao_max", e.lotaçao_Max);
-                    iter.Add("duracao", e.duraçao);
+                    iter.Add("duracao", e.duraçao.Replace(":", ""));
                     iter.Add("dificuldade", e.dificuldade);
                     iter.Add("instrutor_email", e.instrutor_email);
                     iter.Add("espaco_ginasio", e.espaço_ginasio);

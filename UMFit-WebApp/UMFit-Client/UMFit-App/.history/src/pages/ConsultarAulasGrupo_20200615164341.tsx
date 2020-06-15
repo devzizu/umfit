@@ -289,7 +289,7 @@ class ConsultarAulasGrupo extends React.Component<any> {
 
                                                         <IonButton onClick = {()=>this.ativarListaClientes(aulaDoDia.id)}>
                                                             <IonIcon icon={eyeOutline}></IonIcon>
-                                                            <b>&nbsp;</b>Ver Inscritos
+                                                            Ver Inscritos
                                                         </IonButton>
                                                         
                                                         <br></br>

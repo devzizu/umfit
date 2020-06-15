@@ -169,19 +169,21 @@ class ConsultarAulasGrupo extends React.Component<any> {
             <IonPage>
 
 
-<IonAlert
+{<IonAlert
           isOpen={this.state.alert.length>0}
-        
-          onDidDismiss={() => {this.setState({alert : ""});
-                               window.location.reload()}}
+          onDidDismiss={() => this.setState({alert : ""})}
           header={'Alerta'}
           message={this.state.alert}
           buttons={['OK']}
         />
-
+        &&
+        this.state.alert.length>0
+        &&
+        window.location.reload()}
 
 <IonPopover isOpen={this.state.boolListaClientes === true} 
             onDidDismiss={() => this.setState({boolListaClientes : false})}
+            cssClass='popover'
             >
 
             <IonGrid > 
@@ -289,7 +291,7 @@ class ConsultarAulasGrupo extends React.Component<any> {
 
                                                         <IonButton onClick = {()=>this.ativarListaClientes(aulaDoDia.id)}>
                                                             <IonIcon icon={eyeOutline}></IonIcon>
-                                                            <b>&nbsp;</b>Ver Inscritos
+                                                            Ver Inscritos
                                                         </IonButton>
                                                         
                                                         <br></br>

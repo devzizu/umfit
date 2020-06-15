@@ -78,7 +78,7 @@ class UserProfile extends React.Component<any> {
 
       this.setState({
         graphStatsValues: data,
-        stats: { aulas_participadas: sum, aula_preferida: data[0]===undefined? "Sem aulas": data[0].Key }
+        stats: { aulas_participadas: sum, aula_preferida: data[0].Key }
       });
     });
 
@@ -241,13 +241,12 @@ class UserProfile extends React.Component<any> {
                                     </IonCol>
 
                                     </IonRow>
-                                    {this.state.stats.aula_preferida !== "Sem aulas" &&
+
                                     <IonRow>
 
                                         <HorizontalBar options={options} data={graphAulasGrupo} />
 
                                     </IonRow>
-                                    }
 
                             </IonCardContent>
 

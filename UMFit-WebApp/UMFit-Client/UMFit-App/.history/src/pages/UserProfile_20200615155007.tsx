@@ -241,13 +241,12 @@ class UserProfile extends React.Component<any> {
                                     </IonCol>
 
                                     </IonRow>
-                                    {this.state.stats.aula_preferida !== "Sem aulas" &&
+                                    this.state.aula_preferida === "Sem aulas" &&
                                     <IonRow>
 
                                         <HorizontalBar options={options} data={graphAulasGrupo} />
 
                                     </IonRow>
-                                    }
 
                             </IonCardContent>
 

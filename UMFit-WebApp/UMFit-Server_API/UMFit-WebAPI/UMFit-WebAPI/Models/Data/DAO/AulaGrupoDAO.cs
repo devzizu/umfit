@@ -136,14 +136,45 @@ public  bool MarcarAula(ClienteAula ca)
 
         public List<AulaGrupo> GetAulasDia(string dia)
         {
-            string sqlCommand = "select * from Aula_Grupo where dia = @DIA order by hora";
+            string sqlCommand = "select a.*, i.nome from aula_grupo a , instrutor i where i.email = a.Instrutor_email and " + 
+                                "dia = @DIA order by hora";
 
             MySqlCommand command = new MySqlCommand(sqlCommand, connection);
 
             command.Parameters.Add(new MySqlParameter("@DIA", MySqlDbType.VarChar));
             command.Parameters["@DIA"].Value = dia;
 
-            return GetAulas(command);
+            List<AulaGrupo> list = new List<AulaGrupo>();
+            MySqlDataReader reader = null;
+            try
+            
+            {
+                if(connection.State == ConnectionState.Closed) connection.Open();
+
+                reader = command.ExecuteReader();
+
+                while (reader.Read() && reader.HasRows)
+                {
+                    AulaGrupo aula = new AulaGrupo(reader.GetInt32(0), reader.GetTimeSpan(1), reader.GetString(2),
+                        reader.GetString(3), reader.GetInt16(4), reader.GetInt16(5), reader.GetString(6),
+                        reader.GetString(7), reader.GetString(10), reader.GetString(9));
+
+                    list.Add(aula);
+                }
+
+                
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.ToString());
+            }
+            finally
+            {
+                reader.Close();
+                connection.Close();
+            }
+
+            return list;
         }
 
         public List<AulaGrupo> GetAulasInstr(string instr)

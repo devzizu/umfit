@@ -90,8 +90,11 @@ class ConsultarAulasGrupo extends React.Component<any> {
 
     async update(){
         const res = await getPlanoSemanalAulas(this.state.userEmail);
+
         const json = res.json();
+
         var planoAulasSemanalTest: Map<string, AulaGrupo[]> = new Map();
+
         json.then((data) => {
 
             var resultObj = JSON.parse(data);
@@ -112,31 +115,25 @@ class ConsultarAulasGrupo extends React.Component<any> {
                 planoAulasSemanal: planoAulasSemanalTest
             });
         });
-       
+
     }
 
 
    async desmarcarAula(id: number) {
-       await desmarcarAula(id).then(
-        (data : any)=> {
-            console.log(data);
-            if (data.status===200) this.setState({alert : "Aula desmarcada com sucesso!"});
-            if (data.status===400) this.setState({alert : "Oops! Não conseguiste crashar o sistema!"});
-       this.update();    
-    })
-
-}
-
+       await desmarcarAula(id);
+       this.update();     
+    }
    async marcarAula(id: number) {
          await marcarAula(id).then(
             (data : any)=> {
                 console.log(data);
                 if (data.status===200) this.setState({alert : "Aula marcada com sucesso!"});
-                if (data.status===400) this.setState({alert : "Oops! Aula cheia..."})
+                if (data.status===400) this.setState({alert : "Aula não marcada com sucesso!"})
                 this.update();
             }
         );
-         
+        
+
     }
 
     async atualizaLista(id: any){
@@ -171,17 +168,15 @@ class ConsultarAulasGrupo extends React.Component<any> {
 
 <IonAlert
           isOpen={this.state.alert.length>0}
-        
-          onDidDismiss={() => {this.setState({alert : ""});
-                               window.location.reload()}}
+          onDidDismiss={() => this.setState({alert : ""})}
           header={'Alerta'}
           message={this.state.alert}
           buttons={['OK']}
         />
 
-
 <IonPopover isOpen={this.state.boolListaClientes === true} 
             onDidDismiss={() => this.setState({boolListaClientes : false})}
+            cssClass='popover'
             >
 
             <IonGrid > 
@@ -289,7 +284,7 @@ class ConsultarAulasGrupo extends React.Component<any> {
 
                                                         <IonButton onClick = {()=>this.ativarListaClientes(aulaDoDia.id)}>
                                                             <IonIcon icon={eyeOutline}></IonIcon>
-                                                            <b>&nbsp;</b>Ver Inscritos
+                                                            Ver Inscritos
                                                         </IonButton>
                                                         
                                                         <br></br>
