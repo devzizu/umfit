@@ -11,4 +11,4 @@ pages:
   paths:
   - /UMFit-WebApp/UMFit-Client/UMFit-App/build
  only:
-  - dev
+  - master
