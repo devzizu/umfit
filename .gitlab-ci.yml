@@ -6,7 +6,7 @@ pages:
   - npm install -g ionic cordova
   - npm install
   # we need to set the basePath to the sub dir
-  - ionic build --prod -- --base-href="https://devzizu.gitlab.io/li4_umfit"
+  - ionic build --prod
  artifacts:
   paths:
   - UMFit-WebApp/UMFit-Client/UMFit-App/build
