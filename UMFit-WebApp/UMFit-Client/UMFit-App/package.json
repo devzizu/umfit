@@ -1,6 +1,7 @@
 {
   "name": "UMFit-App",
   "version": "0.0.1",
+  "homepage": "https://devzizu.gitlab.io/li4_umfit/",
   "private": true,
   "dependencies": {
     "@capacitor/core": "1.5.0",
