@@ -7,8 +7,11 @@ pages:
   - npm install
   # we need to set the basePath to the sub dir
   - ionic build --prod
+  - rm -rf public
+  - mkdir public
+  - cp -r build/* public
  artifacts:
   paths:
-  - UMFit-WebApp/UMFit-Client/UMFit-App/build
+  - public
  only:
   - master
