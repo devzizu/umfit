@@ -1,0 +1,7 @@
+pages:
+  stage: deploy
+  artifacts:
+    paths:
+    - UMFit-WebApp/UMFit-Client/UMFit-App/build
+  only:
+  - master
