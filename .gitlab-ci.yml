@@ -3,7 +3,7 @@ pages:
  stage: deploy
  script:
   - cd UMFit-WebApp/UMFit-Client/UMFit-App
-  - npm install -g @ionic/cli cordova cordova-res
+  - npm install -g ionic cordova
   - npm install
   # we need to set the basePath to the sub dir
   - ionic build --prod
