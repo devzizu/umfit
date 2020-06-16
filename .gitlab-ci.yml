@@ -1,5 +1,7 @@
 image: node:latest
 pages:
+ variables:
+    PUBLIC_URL: "/li4_umfit"
  stage: deploy
  script:
   - cd UMFit-WebApp/UMFit-Client/UMFit-App
