@@ -339,16 +339,16 @@ namespace UMFit_WebAPI.Models.Data.DAO
                 MySqlDataReader reader = command.ExecuteReader();
 
                 // Inicia a leitura do resultado do comando SQL
-                while (reader.Read() && reader.HasRows)
+                if (reader.Read() && reader.HasRows)
                 {
                     /* 
                      * Caso o atributo "altura" (está na posição 1 do resultado do SQL) da Base de Dados seja null
                      * é porque a Avaliação não foi realizada.
                      */
                     if (!reader.IsDBNull(1))
-                    {
+                    {    
                         cc = new Composiçao_Corporal(reader.GetInt32(1), reader.GetFloat(2), reader.GetFloat(3),
-                        reader.GetFloat(4), reader.GetFloat(5), reader.GetInt32(6));
+                        reader.GetFloat(4), reader.GetFloat(5), reader.GetInt32(6));    
 
                         p = new Perimetros(reader.GetFloat(7), reader.GetFloat(8), reader.GetFloat(9), reader.GetFloat(10),
                         reader.GetFloat(11), reader.GetFloat(12), reader.GetFloat(13), reader.GetFloat(14), reader.GetFloat(15),
@@ -357,7 +357,7 @@ namespace UMFit_WebAPI.Models.Data.DAO
                         ava = new Avaliaçao(reader.GetDateTime(19), reader.GetString(20), reader.GetString(21), cc, p);
 
                         reader.Close();
-                        break;
+
                     }
                 }
 
@@ -366,8 +366,7 @@ namespace UMFit_WebAPI.Models.Data.DAO
             catch (Exception e)
             {
                 Console.WriteLine(e.ToString());
-                foreach (MySqlParameter v in command.Parameters)
-                    Console.WriteLine("Query V: "+v.ToString());
+
 
             }
             finally

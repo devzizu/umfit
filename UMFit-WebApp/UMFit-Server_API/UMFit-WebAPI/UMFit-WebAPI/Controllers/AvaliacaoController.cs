@@ -96,7 +96,7 @@ namespace UMFit_WebAPI.Controllers
 
                 try
                 {
-                    if (email_cliente.Equals("")) throw new Exception("EMAIL BROKEN");
+                    if (email_cliente.Equals("")) throw new Exception("EMAIL INVÁLIDO");
 
                     Composiçao_Corporal cc = new Composiçao_Corporal(
                         int.Parse(jObject["plano_treino"]["composicao_corporal"]["altura"].ToString()),

@@ -224,7 +224,7 @@ namespace UMFit_WebAPI.Controllers
                          if(entry.Value>0) estatisticasMap.Add(entry.Key,entry.Value);
                          else
                          {
-                             Console.WriteLine("Boken estatistica: "+entry.ToString());
+                             Console.WriteLine("Estatistica < 1: "+entry.ToString());
                          }
                       }
 
