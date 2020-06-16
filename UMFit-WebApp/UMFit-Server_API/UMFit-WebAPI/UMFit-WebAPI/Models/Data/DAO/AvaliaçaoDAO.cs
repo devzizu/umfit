@@ -8,6 +8,7 @@ using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Runtime.CompilerServices;
 using UMFit_WebAPI.Models.UMFit_LN.Avaliacao;
 
 namespace UMFit_WebAPI.Models.Data.DAO
@@ -365,6 +366,9 @@ namespace UMFit_WebAPI.Models.Data.DAO
             catch (Exception e)
             {
                 Console.WriteLine(e.ToString());
+                foreach (MySqlParameter v in command.Parameters)
+                    Console.WriteLine("Query V: "+v.ToString());
+
             }
             finally
             {
@@ -470,7 +474,7 @@ namespace UMFit_WebAPI.Models.Data.DAO
 
             command.Parameters.Add(new MySqlParameter("@EMAILCLIENTE", MySqlDbType.VarChar));
             command.Parameters["@EMAILCLIENTE"].Value = emailCliente;
-
+            Console.WriteLine("EC :"+emailCliente);
             return GenericAvaliaçaoR(command);
         }
 

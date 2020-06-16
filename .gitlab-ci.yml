@@ -9,6 +9,7 @@ pages:
   - ionic build --prod
   - mkdir ../../../public
   - cp -r build/* ../../../public
+  - cp ../../../public/index.html ../../../public/404.html"
  artifacts:
   paths:
   - public
