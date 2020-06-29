@@ -162,7 +162,7 @@ namespace UMFit_WebAPI.Models.Data.DAO
 
                     reader.Close();
 
-                    planos.Add(pt);
+                    if(pt!=null) planos.Add(pt);
                 }
             }
             catch (Exception e)
