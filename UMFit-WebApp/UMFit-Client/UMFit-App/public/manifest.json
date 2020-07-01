@@ -1,7 +1,7 @@
 {
   "name": "UMFit",
     "short_name": "UMFit",
-    "start_url": "/",
+    "start_url": "/li4_umfit",
     "display": "fullscreen",
     "icons": [{
       "src": "assets/icon/logo.png",
