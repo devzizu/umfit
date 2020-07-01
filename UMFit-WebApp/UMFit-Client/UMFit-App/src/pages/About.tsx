@@ -1,4 +1,4 @@
-import { IonCard, IonCardContent, IonCardHeader, IonCardTitle, IonContent, IonHeader, IonPage, IonTitle, IonToolbar } from "@ionic/react";
+import { IonCard, IonCardContent, IonCardHeader, IonCardTitle, IonContent, IonHeader, IonPage, IonTitle, IonToolbar, IonButtons, IonMenuButton } from "@ionic/react";
 import React from "react";
 import "./css/About.css";
 
@@ -8,9 +8,14 @@ const About: React.FC = () => {
       <IonPage>
 
 
+        
+        
         <IonHeader>
-          <IonToolbar color="primary">
-            <IonTitle id="page-title">UMFit | Sobre</IonTitle>
+        <IonToolbar color="primary">
+          <IonButtons slot="start">
+            <IonMenuButton />
+          </IonButtons>
+          <IonTitle id="page-title">Sobre</IonTitle>
           </IonToolbar>
         </IonHeader>
 

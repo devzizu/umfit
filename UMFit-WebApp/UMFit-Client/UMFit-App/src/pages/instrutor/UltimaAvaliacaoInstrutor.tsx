@@ -1,5 +1,5 @@
 
-import { IonCard, IonCardContent, IonCol, IonContent, IonGrid, IonHeader, IonItem, IonLabel, IonList, IonPage, IonRadio, IonRadioGroup, IonRow, IonSearchbar, IonText, IonTitle, IonToolbar } from "@ionic/react";
+import { IonCard, IonCardContent, IonCol, IonContent, IonGrid, IonHeader, IonItem, IonLabel, IonList, IonPage, IonRadio, IonRadioGroup, IonRow, IonSearchbar, IonText, IonTitle, IonToolbar, IonButtons, IonMenuButton } from "@ionic/react";
 import React from "react";
 import { Pie } from "react-chartjs-2";
 import { getLastAvaliacao } from "../../models/API/EvolucaoAPI";
@@ -200,9 +200,13 @@ class UltimaAvaliacaoInstrutor extends React.Component<any>{
     return(
       <IonPage>
 
+        
         <IonHeader>
-          <IonToolbar color="primary">
-            <IonTitle id="page-title">Última Avaliação do Cliente</IonTitle>
+        <IonToolbar>
+          <IonButtons slot="start">
+            <IonMenuButton />
+          </IonButtons>
+          <IonTitle>Última Avaliação do Cliente</IonTitle>
           </IonToolbar>
         </IonHeader>
 

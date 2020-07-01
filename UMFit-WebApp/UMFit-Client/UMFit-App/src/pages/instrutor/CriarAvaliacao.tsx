@@ -1,4 +1,4 @@
-import { IonAlert, IonButton, IonCard, IonCardContent, IonCol, IonContent, IonGrid, IonHeader, IonIcon, IonInput, IonItem, IonLabel, IonPage, IonRange, IonRow, IonText, IonTitle, IonToolbar } from "@ionic/react";
+import { IonAlert, IonButton, IonCard, IonCardContent, IonCol, IonContent, IonGrid, IonHeader, IonIcon, IonInput, IonItem, IonLabel, IonPage, IonRange, IonRow, IonText, IonTitle, IonToolbar, IonButtons, IonMenuButton } from "@ionic/react";
 import { addOutline, calendarOutline, personCircleOutline, trashOutline } from "ionicons/icons";
 import React from "react";
 import { criarAvaliacao, getAvaliacoesAgendadasInstrutor } from "../../models/API/EvolucaoAPI";
@@ -244,9 +244,15 @@ class CriarAvaliacao extends React.Component<any>{
     return(
       <IonPage>
 
+        
+        
+        
         <IonHeader>
-          <IonToolbar color="primary">
-            <IonTitle className="title" id="page-title">Criar Avaliação</IonTitle>
+        <IonToolbar color="primary">
+          <IonButtons slot="start">
+            <IonMenuButton />
+          </IonButtons>
+          <IonTitle id="page-title">Criar Avaliação</IonTitle>
 
           </IonToolbar>
         </IonHeader>

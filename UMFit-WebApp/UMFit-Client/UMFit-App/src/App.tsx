@@ -1,4 +1,4 @@
-import { IonApp, IonButton, IonCard, IonCardContent, IonCardHeader, IonContent, IonHeader, IonInput, IonPage, IonRouterOutlet, IonSplitPane, IonText, IonTitle, IonToolbar, IonLoading } from '@ionic/react';
+import { IonApp, IonButton, IonCard, IonCardContent, IonCardHeader, IonContent, IonHeader, IonInput, IonPage, IonRouterOutlet, IonSplitPane, IonText, IonTitle, IonToolbar, IonLoading, IonButtons, IonMenuButton } from '@ionic/react';
 import { IonReactRouter } from '@ionic/react-router';
 /* Core CSS required for Ionic components to work properly */
 import '@ionic/react/css/core.css';
@@ -64,7 +64,8 @@ class App extends React.Component {
     menus: string,
     logged: boolean,
     loadingAPIcall: boolean,
-    userLogged: User
+    userLogged: User,
+    openPane:boolean
   }
   
   setLogged = (logged: boolean, user: User) => {
@@ -103,6 +104,7 @@ class App extends React.Component {
       selectedPage: '',
       menus: 'home',
       logged: false,
+      openPane : false,
       loadingAPIcall: true,
       //loadingAPIcall: false,
       userLogged: new User("", "", -1, "", -1, "", "", "")
@@ -177,11 +179,12 @@ class App extends React.Component {
 
     return (
         <IonApp>
+   
           {
             this.state.loadingAPIcall  ?<div></div> : (
               <IonReactRouter basename ={process.env.PUBLIC_URL} >
             
-              <IonSplitPane id="split-pane" contentId="main">
+              <IonSplitPane  id="split-pane" contentId="main">
                 <Menu selectedPage={this.state.selectedPage} menus={this.state.menus}/>
                   
                   <IonRouterOutlet id="main">
@@ -262,9 +265,13 @@ class Home extends React.Component<any> {
       <IonPage>
 
 
-        <IonHeader>
-          <IonToolbar color="primary">
-            <IonTitle id="page-title">UMFit</IonTitle>
+        
+<IonHeader>
+        <IonToolbar color="primary">
+          <IonButtons slot="start">
+            <IonMenuButton />
+          </IonButtons>
+          <IonTitle id="page-title">UMFit</IonTitle>
           </IonToolbar>
         </IonHeader>
 

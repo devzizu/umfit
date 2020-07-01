@@ -1,5 +1,5 @@
 
-import { IonButton, IonCard, IonCardContent, IonCol, IonContent, IonDatetime, IonGrid, IonHeader, IonIcon, IonInput, IonItem, IonLabel, IonList, IonPage, IonRadio, IonRadioGroup, IonRow, IonSearchbar, IonText, IonTextarea, IonTitle, IonToolbar, IonLoading, IonAlert } from "@ionic/react";
+import { IonButton, IonCard, IonCardContent, IonCol, IonContent, IonDatetime, IonGrid, IonHeader, IonIcon, IonInput, IonItem, IonLabel, IonList, IonPage, IonRadio, IonRadioGroup, IonRow, IonSearchbar, IonText, IonTextarea, IonTitle, IonToolbar, IonLoading, IonAlert, IonButtons, IonMenuButton } from "@ionic/react";
 import { addCircleSharp, addOutline, closeCircleSharp, trashOutline } from "ionicons/icons";
 import React from "react";
 import { getListaRefeicoes, setPlanoAlimentar } from "../../models/API/PlanoAlimentarAPI";
@@ -243,9 +243,14 @@ class CriarPlanoAlimentar extends React.Component<any>{
     return(
       <IonPage>
 
+        
+        
         <IonHeader>
-          <IonToolbar color="primary">
-            <IonTitle id="page-title">Novo Plano Alimentar</IonTitle>
+        <IonToolbar color="primary">
+          <IonButtons slot="start">
+            <IonMenuButton />
+          </IonButtons>
+          <IonTitle id="page-title">Novo Plano Alimentar</IonTitle>
           </IonToolbar>
         </IonHeader>
 

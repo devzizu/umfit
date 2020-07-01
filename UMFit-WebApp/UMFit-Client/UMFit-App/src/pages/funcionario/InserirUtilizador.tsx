@@ -22,7 +22,9 @@ class InserirUtilizador extends React.Component<any> {
         genero: string,
         data_nascimento: string,
         categoria: string,
-        loadingAPI: false
+        loadingAPI: false,
+        overflow : string,
+        popup : string
     }
 
     stateToAPI: {
@@ -44,7 +46,9 @@ class InserirUtilizador extends React.Component<any> {
             genero: "",
             data_nascimento: "1999-02-20",
             categoria: "",
-            loadingAPI: false
+            loadingAPI: false,
+            overflow : "",
+            popup:""
         }
 
         this.stateToAPI = {
@@ -167,9 +171,14 @@ class InserirUtilizador extends React.Component<any> {
 
                                             <IonItem>
                                                 <IonIcon slot="start" icon={personOutline}></IonIcon>
-                                                <IonLabel position="floating">Nome Completo <IonText color="danger">*</IonText></IonLabel>
-                                                <IonInput required value={this.state.nome_completo} onIonChange={(e) => {
-                                                    this.setState({ nome_completo: (e.target as HTMLInputElement).value });
+                                              <IonLabel position="floating">Nome Completo   
+                                                    <IonText color="danger">*</IonText>   
+        <IonText color={ (parseInt(this.state.overflow.split('/',1)[0])>=20)? "danger": "secondary"} >{this.state.overflow.length>0? '  ('+ this.state.overflow + ')' : "" }</IonText>
+                                              </IonLabel>
+                                                <IonInput required value={this.state.nome_completo} onIonChange={(e : any) => {
+                                                    var ret :string = e.detail.value!
+                                                    ret=ret.split(" ",1)[0]
+                                                    this.setState({ overflow : ret.length>0? + ret.length+"/20" :"",nome_completo: e.detail.value! })
                                                 }}></IonInput>
                                             </IonItem>                                           
 
@@ -200,7 +209,7 @@ class InserirUtilizador extends React.Component<any> {
                                             <IonItem>
                                                 <IonIcon slot="start" icon={cardOutline}></IonIcon>
                                                 <IonLabel position="floating">Nif</IonLabel>
-                                                <IonInput type="number" value={this.state.nif} onIonChange={(e) => {
+                                                <IonInput required pattern="[0-9]*" type="number" value={this.state.nif} onIonChange={(e) => {
                                                     this.setState({ nif: (e.target as HTMLInputElement).value });
                                                 }}></IonInput>
                                             </IonItem>                                           

@@ -1,5 +1,5 @@
 
-import { IonAlert, IonButton, IonCard, IonCardHeader, IonCardSubtitle, IonCardTitle, IonCol, IonContent, IonGrid, IonHeader, IonIcon, IonItem, IonLabel, IonPage, IonRow, IonSelect, IonSelectOption, IonTitle, IonToolbar, IonPopover } from "@ionic/react";
+import { IonAlert, IonButton, IonCard, IonCardHeader, IonCardSubtitle, IonCardTitle, IonCol, IonContent, IonGrid, IonHeader, IonIcon, IonItem, IonLabel, IonPage, IonRow, IonSelect, IonSelectOption, IonTitle, IonToolbar, IonPopover, IonButtons, IonMenuButton } from "@ionic/react";
 import { addOutline, bodyOutline, calendarOutline, informationOutline, removeOutline, sendOutline, timerOutline, eyeOutline } from "ionicons/icons";
 import React from "react";
 import { desmarcarAula, getPlanoSemanalAulas, marcarAula, alunosAula } from "../models/API/AulaGrupoAPI";
@@ -205,9 +205,13 @@ class ConsultarAulasGrupo extends React.Component<any> {
 
 </IonPopover>
           
-                <IonHeader>
-                <IonToolbar color="primary">
-                    <IonTitle id="page-title">
+                
+        <IonHeader>
+        <IonToolbar color="primary">
+          <IonButtons slot="start">
+            <IonMenuButton />
+          </IonButtons>
+          <IonTitle id="page-title">
                     Plano de aulas<b>&nbsp;</b>
                     <IonIcon icon={calendarOutline}></IonIcon>    
                     </IonTitle>

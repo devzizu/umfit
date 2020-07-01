@@ -1,5 +1,5 @@
 
-import { IonCard, IonCardContent, IonCardHeader, IonCardTitle, IonContent, IonHeader, IonIcon, IonPage, IonTitle, IonToolbar } from "@ionic/react";
+import { IonCard, IonCardContent, IonCardHeader, IonCardTitle, IonContent, IonHeader, IonIcon, IonPage, IonTitle, IonToolbar, IonButtons, IonMenuButton } from "@ionic/react";
 import { call, mailOutline } from "ionicons/icons";
 import React from "react";
 import "./css/Contact.css";
@@ -11,11 +11,18 @@ const Contact: React.FC = () => {
       <IonPage>
 
 
+        
+        
         <IonHeader>
-          <IonToolbar color="primary">
-            <IonTitle id="page-title">UMFit | Contacto</IonTitle>
+        <IonToolbar color="primary">
+          <IonButtons slot="start">
+            <IonMenuButton />
+          </IonButtons>
+          <IonTitle id="page-title">UMFit | Contacto</IonTitle>
           </IonToolbar>
         </IonHeader>
+
+
 
 
         <IonContent>

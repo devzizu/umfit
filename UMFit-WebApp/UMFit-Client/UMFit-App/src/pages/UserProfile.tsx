@@ -1,5 +1,5 @@
 
-import { IonCard, IonCardContent, IonCardHeader, IonCardSubtitle, IonCardTitle, IonCol, IonContent, IonGrid, IonHeader, IonIcon, IonPage, IonRow, IonTitle, IonToolbar } from "@ionic/react";
+import { IonCard, IonCardContent, IonCardHeader, IonCardSubtitle, IonCardTitle, IonCol, IonContent, IonGrid, IonHeader, IonIcon, IonPage, IonRow, IonTitle, IonToolbar, IonButtons, IonMenuButton } from "@ionic/react";
 import { analyticsOutline, bicycle, calendarOutline, cardOutline, checkmarkDoneOutline, femaleOutline, informationCircleOutline, locationOutline, mailOutline, maleOutline } from "ionicons/icons";
 import React from "react";
 import { User } from "../models/Other/User";
@@ -110,9 +110,14 @@ class UserProfile extends React.Component<any> {
 
     <IonPage>
             
-            <IonHeader>
-                <IonToolbar color="primary">
-                  <IonTitle id="page-title">Olá {this.state.user.nome}!</IonTitle>
+            
+        
+        <IonHeader>
+        <IonToolbar color="primary">
+          <IonButtons slot="start">
+            <IonMenuButton />
+          </IonButtons>
+          <IonTitle id="page-title">Olá {this.state.user.nome}!</IonTitle>
                 </IonToolbar>
             </IonHeader>
         

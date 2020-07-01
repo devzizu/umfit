@@ -1,7 +1,6 @@
 ion-content ion-toolbar {
   --background: translucent;
 }
-
 #page-title {
   
   text-align: center;
@@ -9,11 +8,24 @@ ion-content ion-toolbar {
   justify-content: center;
   align-content: center;
   flex-direction: column;
-
+  font-size: 26px;
   font-family: monospace;
-  font-size: 25px;
   font-weight: bold;
   color: white;
+}
+@media screen and (max-width: 450px) {
+#page-title {
+  
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  flex-direction: column;
+  font-size: 20px;
+  font-family: monospace;
+  font-weight: bold;
+  color: white;
+}
 }
 
 .background-image {

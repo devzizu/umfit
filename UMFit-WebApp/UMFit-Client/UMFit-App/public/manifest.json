@@ -1,7 +1,7 @@
 {
-  "start_url": "/",
   "name": "UMFit",
     "short_name": "UMFit",
+    "start_url": "https://devzizu.gitlab.io/li4_umfit/home",
     "display": "fullscreen",
     "icons": [{
       "src": "assets/icon/logo.png",
@@ -9,5 +9,6 @@
       "type": "image/png"
     }],
     "background_color": "#4e8ef7",
-    "theme_color": "#4e8ef7"
+    "theme_color": "#4e8ef7",
+    "prefer_related_applications": false
   }
