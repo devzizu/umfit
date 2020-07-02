@@ -1,5 +1,5 @@
 
-import { IonButton, IonCol, IonContent, IonDatetime, IonGrid, IonHeader, IonIcon, IonInput, IonItem, IonLabel, IonPage, IonRow, IonSelect, IonSelectOption, IonText, IonTitle, IonToolbar, IonButtons, IonMenuButton } from "@ionic/react";
+import { IonButton, IonCol, IonContent, IonDatetime, IonGrid, IonHeader, IonIcon, IonInput, IonItem, IonLabel, IonPage, IonRow, IonSelect, IonSelectOption, IonText, IonTitle, IonToolbar, IonButtons, IonMenuButton, IonLoading, IonAlert } from "@ionic/react";
 import sha256 from "fast-sha256";
 import { buildOutline, calendarOutline, closeOutline, peopleCircleOutline, transgenderOutline } from "ionicons/icons";
 import React from "react";
@@ -16,6 +16,8 @@ class UpdateDetails extends React.Component<any> {
         password: string,
         localidade: string,
         user: User
+        alert: string
+        loading: string
     }
 
     stateToAPI: {
@@ -31,6 +33,8 @@ class UpdateDetails extends React.Component<any> {
         this.state = {
             password: "",
             localidade: "",
+            loading: "",
+            alert:"",
             user: this.props.user
         }
 
@@ -42,10 +46,10 @@ class UpdateDetails extends React.Component<any> {
     }
 
     createUpdateUserState() {
-
+        this.setState({loading:"A atualizar informações..."})
         let pass_enc = new TextEncoder();
         let encoded = pass_enc.encode(this.state.password);
-        let hash256 = Buffer.from(sha256(encoded)).toString('hex').toUpperCase();
+        let hash256 = this.state.password.length>0? Buffer.from(sha256(encoded)).toString('hex').toUpperCase() : "";
 
         var local = this.state.user.localidade;
         if (this.state.localidade === "") {
@@ -63,18 +67,16 @@ class UpdateDetails extends React.Component<any> {
             }   
         }
 
-        updateUserDetailsAPI(this.stateToAPI);
+        updateUserDetailsAPI(this.stateToAPI).then(()=>this.setState({loading:"", alert:"Informações atualizadas!"}));
 
-        alert("Perfil atualizado!");
-
-        this.clearState();
-        window.location.reload();
+        this.clearState(false);
     }
 
-    clearState() {
+    clearState(b:boolean) {
         this.setState({
             password: "",
-            localidade: ""
+            localidade: "",
+            alert: b? "Formulário Limpo!":""
         });        
     }
 
@@ -93,6 +95,19 @@ class UpdateDetails extends React.Component<any> {
                 </IonHeader>
     
                 <IonContent className="PageContent">
+                <IonLoading
+      isOpen={this.state.loading!==""}
+      onDidDismiss={() => {this.setState({loading: ""})}}
+      message={this.state.loading}
+    />
+        <IonAlert
+          isOpen={this.state.alert!==""}
+          onDidDismiss={() => {this.setState({alert : ""}) ; if(this.state.alert ==="Informações atualizadas!") window.location.reload()} }
+    
+          header={'Aviso'}
+          message={this.state.alert}
+          buttons={['Ok, percebido!']}
+        />
 
                     <IonGrid className="PageGrid">
 
@@ -204,7 +219,6 @@ class UpdateDetails extends React.Component<any> {
                                         <IonCol>
                                             <IonButton className="submitUser" expand="block" color="success" onClick={(event) => {
                                                 event.preventDefault();
-                                                alert("Atualizar informações?");
                                                 this.createUpdateUserState();
 
                                             }}>Atualizar informações</IonButton>
@@ -212,7 +226,7 @@ class UpdateDetails extends React.Component<any> {
 
                                         <IonCol>
                                             <IonButton className="clearForm" expand="block" color="light" onClick={() => {
-                                                this.clearState();
+                                                this.clearState(true);
                                             }}>Limpar formulário</IonButton>
                                         </IonCol>
 

@@ -4,7 +4,7 @@
     "start_url": "/li4_umfit",
     "display": "fullscreen",
     "icons": [{
-      "src": "assets/icon/logo.png",
+      "src": "assets/icon/logo512.png",
       "sizes": "512x512",
       "type": "image/png"
     }],

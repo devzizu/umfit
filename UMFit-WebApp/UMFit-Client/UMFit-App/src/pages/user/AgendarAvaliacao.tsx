@@ -1,4 +1,4 @@
-import { IonButton, IonCard, IonCardHeader, IonCardTitle, IonContent, IonDatetime, IonHeader, IonIcon, IonItem, IonLabel, IonList, IonPage, IonRow, IonSearchbar, IonTitle, IonToolbar, IonMenuButton, IonButtons, IonLoading, IonAlert } from "@ionic/react";
+import { IonAlert, IonButton, IonButtons, IonCard, IonCardHeader, IonCardTitle, IonContent, IonDatetime, IonHeader, IonIcon, IonItem, IonLabel, IonList, IonLoading, IonMenuButton, IonPage, IonRow, IonSearchbar, IonTitle, IonToolbar } from "@ionic/react";
 import { calendarOutline, personCircle, personCircleOutline } from "ionicons/icons";
 import React from "react";
 import { getAvaliacoesAgendadas, setAvaliacao } from "../../models/API/EvolucaoAPI";
@@ -70,7 +70,8 @@ class AgendarAvaliacao extends React.Component<any>{
             var i;
             for( i in ret){
            map.set(i,ret[i]);
-           pick.list_init.push(i);
+           pick.list_init.push(ret[i]);
+           if (pick.list_now.length<3) pick.list_now.push(ret[i]);
         }
         });
 
@@ -87,23 +88,22 @@ class AgendarAvaliacao extends React.Component<any>{
         console.log(this.state);
         var pick = this.state.pickInstrutor;
         pick.query = query;
-        if(query===""){pick.list_now=[]}
+        if(query===""){pick.list_now= pick.list_init.copyWithin(0,0).slice(0,3)}
             else{
-        pick.list_now = (this.state.pickInstrutor.list_init.filter((value)=> value.toLowerCase().indexOf(query.toLowerCase()) >= 0)).slice(0,4);}
+        pick.list_now = (this.state.pickInstrutor.list_init.filter((value)=> value.toLowerCase().indexOf(query.toLowerCase()) >= 0)).slice(0,40);}
         this.setState({
             pickInstrutor : pick
         })
 
     }
-   async selectInstrutor(mail: string) {
+   async selectInstrutor(nome: string) {
+     var mail:string =""
         var aval = this.state.aval;
-        var st = this.state.instrutores.get(mail);
-        var nome = st ? st : "" ;
-        console.log(st);
-        
         var resetSearch :SearchBar ={query: "",list_now :[],list_init : this.state.pickInstrutor.list_init } 
-        
 
+        for(var [m,n] of this.state.instrutores.entries())
+        if(n===nome){mail=m; break;}
+    
 
         aval.instrutor_email = mail;    
         aval.instrutor_nome = nome;
