@@ -21,10 +21,11 @@ ion-content ion-toolbar {
   justify-content: center;
   align-content: center;
   flex-direction: column;
-  font-size: 20px;
+  font-size: 18px;
   font-family: monospace;
   font-weight: bold;
   color: white;
+  margin-right: 16%;
 }
 }
 

@@ -1,5 +1,5 @@
 
-import { IonButton, IonCol, IonContent, IonDatetime, IonGrid, IonHeader, IonIcon, IonInput, IonItem, IonLabel, IonLoading, IonPage, IonRow, IonSelect, IonSelectOption, IonText, IonTitle, IonToolbar } from "@ionic/react";
+import { IonButton, IonCol, IonContent, IonDatetime, IonGrid, IonHeader, IonIcon, IonInput, IonItem, IonLabel, IonLoading, IonPage, IonRow, IonSelect, IonSelectOption, IonText, IonTitle, IonToolbar, IonButtons, IonMenuButton } from "@ionic/react";
 import sha256 from "fast-sha256";
 import { calendarOutline, cardOutline, codeWorkingOutline, locationOutline, mailOutline, peopleCircleOutline, personOutline, transgenderOutline } from "ionicons/icons";
 import React from "react";
@@ -145,7 +145,10 @@ class InserirUtilizador extends React.Component<any> {
 
                 <IonHeader>
                 <IonToolbar color="primary">
-                    <IonTitle id="page-title">Novo Utilizador</IonTitle>
+                <IonButtons slot="start">
+                    <IonMenuButton />
+                </IonButtons>
+                <IonTitle id="page-title">Novo utilizador</IonTitle>
                 </IonToolbar>
                 </IonHeader>
     

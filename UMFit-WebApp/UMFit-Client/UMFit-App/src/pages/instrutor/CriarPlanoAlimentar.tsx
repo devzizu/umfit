@@ -112,9 +112,9 @@ class CriarPlanoAlimentar extends React.Component<any>{
         var Exercicio = JSON.parse(JSON.stringify(this.state.refeicao))
 
         list_refeicoes.push(Exercicio)
-        this.setState({lista_refeicoes_selecionados: list_refeicoes})
 
-        this.setState({exercicio: Object.assign(this.state.refeicao,{descricao: ""})})
+        this.setState({lista_refeicoes_selecionados: list_refeicoes})
+        this.setState({alert: "Refeição Adicionada!", exercicio: Object.assign(this.state.refeicao,{descricao: ""})})
     }
 
     rmRefeicao(indice : any){
@@ -137,7 +137,9 @@ class CriarPlanoAlimentar extends React.Component<any>{
 
     }      
 
-    limparPlanoAlimentar(){
+    limparPlanoAlimentar(b :boolean){
+
+        var al = (b? "Plano limpo!" : "");
 
         this.setState({
 
@@ -147,7 +149,7 @@ class CriarPlanoAlimentar extends React.Component<any>{
 
             lista_refeicoes_selecionados: new Array<Refeicao>(),
             
-            alert: "Plano limpo!",
+            alert: al,
 
             nome_refeicao: "",
 
@@ -181,6 +183,7 @@ class CriarPlanoAlimentar extends React.Component<any>{
                     case 400 : this.setState({loading:"",alert:"Verifique se os campos estão válidos"}); break;
                 }});
         console.log(resultado)
+        this.limparPlanoAlimentar(false);
     }
 
     componentDidMount(){
@@ -250,7 +253,7 @@ class CriarPlanoAlimentar extends React.Component<any>{
           <IonButtons slot="start">
             <IonMenuButton />
           </IonButtons>
-          <IonTitle id="page-title">Novo Plano Alimentar</IonTitle>
+          <IonTitle id="page-title">Plano Alimentar</IonTitle>
           </IonToolbar>
         </IonHeader>
 
@@ -341,12 +344,12 @@ class CriarPlanoAlimentar extends React.Component<any>{
                     </IonItem>
 
                     <IonItem>
-                        <IonLabel class="ion-text-wrap"><div className="detailsPA">Frequencia: </div></IonLabel>
+                        <IonLabel class="ion-text-wrap"><div className="detailsPA">Frequência: </div></IonLabel>
                         <IonInput value={this.state.frequencia} onIonChange={e => {this.setFreq(e.detail.value)}}/>
                     </IonItem>
 
                     <IonItem>
-                        <IonLabel class="ion-text-wrap"><div className="detailsPA">Refeicoes Livres: </div></IonLabel>
+                        <IonLabel class="ion-text-wrap"><div className="detailsPA">Nº Ref. Livres: </div></IonLabel>
                         <IonInput value={this.state.refeicoes_livres} onIonChange={e => {this.setRefLiv(e.detail.value)}}/>
                     </IonItem>
                     <IonItem>
@@ -476,7 +479,7 @@ class CriarPlanoAlimentar extends React.Component<any>{
                 <IonRow>
 
                     <IonCol>
-                            <IonButton className="botaoGridPA" color= "success" onClick={async () => {this.limparPlanoAlimentar.call(this)}}>
+                            <IonButton className="botaoGridPA" color= "success" onClick={() => {this.limparPlanoAlimentar(true)}}>
                                 <IonText> Limpar</IonText>
                                 <IonIcon slot="icon-only" icon={trashOutline}/>
                             </IonButton>

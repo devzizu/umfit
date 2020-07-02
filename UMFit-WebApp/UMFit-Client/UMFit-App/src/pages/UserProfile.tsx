@@ -117,7 +117,7 @@ class UserProfile extends React.Component<any> {
           <IonButtons slot="start">
             <IonMenuButton />
           </IonButtons>
-          <IonTitle id="page-title">Olá {this.state.user.nome}!</IonTitle>
+          <IonTitle id="page-title">Olá {this.state.user.nome.split(' ', 1)[0]}!</IonTitle>
                 </IonToolbar>
             </IonHeader>
         

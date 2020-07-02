@@ -1,5 +1,5 @@
 
-import { IonButton, IonCard, IonCol, IonContent, IonGrid, IonHeader, IonIcon, IonItem, IonLabel, IonPage, IonRow, IonTitle, IonToolbar } from "@ionic/react";
+import { IonButton, IonCard, IonCol, IonContent, IonGrid, IonHeader, IonIcon, IonItem, IonLabel, IonPage, IonRow, IonTitle, IonToolbar, IonButtons, IonMenuButton } from "@ionic/react";
 import { barbellOutline, hourglassOutline, informationOutline } from "ionicons/icons";
 import React from "react";
 import { getPlanosTreino } from "../../models/API/PlanoTreinoAPI";
@@ -198,11 +198,14 @@ class ShowPlanoTreino extends React.Component<any>{
     return(
       <IonPage>
 
-        <IonHeader>
-          <IonToolbar color="primary">
-            <IonTitle id="page-title">Plano Treino</IonTitle>
-          </IonToolbar>
-        </IonHeader>
+                <IonHeader>
+                <IonToolbar color="primary">
+                <IonButtons slot="start">
+                    <IonMenuButton />
+                </IonButtons>
+                <IonTitle id="page-title">Planos de Treino</IonTitle>
+                </IonToolbar>
+                </IonHeader>
 
         <IonContent>
             
@@ -213,7 +216,7 @@ class ShowPlanoTreino extends React.Component<any>{
                         {
                             (this.state.indice_plano - 1 >= 0) ? (
                                 <IonButton className="buttonNextBefore" disabled={false} onClick={() => this.planoanterior()}>
-                                    Anterior ({this.state.lista_plano_treino[this.state.indice_plano-1].nome})
+                                    Anterior
                                 </IonButton>
                             ):(
                                 <IonButton className="buttonNextBefore" disabled>
@@ -227,7 +230,7 @@ class ShowPlanoTreino extends React.Component<any>{
                         {
                             (this.state.indice_plano + 1 < this.state.lista_plano_treino.length) ? (
                                 <IonButton className="buttonNextBefore" disabled={false} onClick={() => this.proximoplano()}>
-                                    Próximo ({this.state.lista_plano_treino[this.state.indice_plano+1].nome})
+                                    Próximo
                                 </IonButton>
                             ):(
                                 <IonButton className="buttonNextBefore"  disabled>
@@ -242,7 +245,7 @@ class ShowPlanoTreino extends React.Component<any>{
 
                     <IonRow>
                         <IonCol className="margens-centrar">
-                    <IonLabel className="nome-treino"> <b>Plano de Treino:</b> <i>{this.state.lista_plano_treino[this.state.indice_plano].nome}</i> (Até <i>...</i>) </IonLabel>
+                    <IonLabel className="nome-treino"> <b>Plano de Treino:</b> <i>{this.state.lista_plano_treino[this.state.indice_plano].nome}</i> </IonLabel>
                         </IonCol>
                     </IonRow>
                     

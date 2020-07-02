@@ -1,5 +1,5 @@
 
-import { IonCard, IonCardHeader, IonCardSubtitle, IonCardTitle, IonCol, IonContent, IonGrid, IonHeader, IonItem, IonList, IonPage, IonRow, IonSelect, IonSelectOption, IonTitle, IonToolbar } from "@ionic/react";
+import { IonCard, IonCardHeader, IonCardSubtitle, IonCardTitle, IonCol, IonContent, IonGrid, IonHeader, IonItem, IonList, IonPage, IonRow, IonSelect, IonSelectOption, IonTitle, IonToolbar, IonButtons, IonMenuButton } from "@ionic/react";
 import React from "react";
 import { Line } from "react-chartjs-2";
 import { getEvolucao } from "../../../models/API/EvolucaoAPI";
@@ -157,9 +157,12 @@ class Evolucao extends React.Component<any> {
                 {/* Page title */}
 
                 <IonHeader>
-                    <IonToolbar color="primary">
-                        <IonTitle id="page-title">Evolução</IonTitle>
-                    </IonToolbar>
+                <IonToolbar color="primary">
+                <IonButtons slot="start">
+                    <IonMenuButton />
+                </IonButtons>
+                <IonTitle id="page-title">Evolução Física</IonTitle>
+                </IonToolbar>
                 </IonHeader>
             
                 {/* Menu superior para escolha de grupo de gráficos */}

@@ -37,6 +37,7 @@ var LocalIMG = require('../imgs/aulas/local.png');
 var TrxIMG = require('../imgs/aulas/trx.png');
 var ZumbaIMG = require('../imgs/aulas/zumba.png');
 var NatacaoIMG = require('../imgs/aulas/natacao.png');
+var DefaultIMG = require('../imgs/aulas/exercicio_default.png');
 
 //---------------------------------------------------------------------------------------------------------------------------------
 
@@ -322,17 +323,22 @@ class ConsultarAulasGrupo extends React.Component<any> {
 
                                                             case 'Cycling': return <img className="aulaImage" src={CyclingIMG} alt="Loading..."/>;
                                                             case 'Pilates': return <img className="aulaImage" src={PilatesIMG} alt="Loading..."/>;
+                                                            case 'Cross Trainning': return <img className="aulaImage" src={CrossTrainingIMG} alt="Loading..."/>;
                                                             case 'Cross Training': return <img className="aulaImage" src={CrossTrainingIMG} alt="Loading..."/>;
+                                                            case 'G.A.P.': return <img className="aulaImage" src={FuncionalIMG} alt="Loading..."/>;
                                                             case 'Local': return <img className="aulaImage" src={LocalIMG} alt="Loading..."/>;
+                                                            case 'Aerolocal': return <img className="aulaImage" src={LocalIMG} alt="Loading..."/>;
                                                             case 'Jump': return <img className="aulaImage" src={JumpIMG} alt="Loading..."/>;
                                                             case 'Kickboxing': return <img className="aulaImage" src={KickboxingIMG} alt="Loading..."/>;
                                                             case 'Funcional': return <img className="aulaImage" src={FuncionalIMG} alt="Loading..."/>;
+                                                            case 'Steel Tonic': return <img className="aulaImage" src={FuncionalIMG} alt="Loading..."/>;
                                                             case 'Salsa': return <img className="aulaImage" src={SalsaIMG} alt="Loading..."/>;
+                                                            case 'Dance Workout': return <img className="aulaImage" src={SalsaIMG} alt="Loading..."/>;
                                                             case 'Yoga': return <img className="aulaImage" src={YogaIMG} alt="Loading..."/>;
                                                             case 'Zumba': return <img className="aulaImage" src={ZumbaIMG} alt="Loading..."/>;
                                                             case 'TRX': return <img className="aulaImage" src={TrxIMG} alt="Loading..."/>;
                                                             case 'Natação': return <img className="aulaImage" src={NatacaoIMG} alt="Loading..."/>;
-                                                        
+                                                            default: return <img className="aulaImage" src={DefaultIMG} alt="Loading..."/>;
                                                         }
                                                     })()}
                                                     </IonCol>

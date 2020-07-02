@@ -10,20 +10,14 @@ const Contact: React.FC = () => {
     return(
       <IonPage>
 
-
-        
-        
         <IonHeader>
         <IonToolbar color="primary">
           <IonButtons slot="start">
             <IonMenuButton />
           </IonButtons>
-          <IonTitle id="page-title">UMFit | Contacto</IonTitle>
+          <IonTitle id="page-title">Contacto</IonTitle>
           </IonToolbar>
         </IonHeader>
-
-
-
 
         <IonContent>
 

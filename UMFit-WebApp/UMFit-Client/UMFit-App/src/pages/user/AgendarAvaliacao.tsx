@@ -1,4 +1,4 @@
-import { IonButton, IonCard, IonCardHeader, IonCardTitle, IonContent, IonDatetime, IonHeader, IonIcon, IonItem, IonLabel, IonList, IonPage, IonRow, IonSearchbar, IonTitle, IonToolbar } from "@ionic/react";
+import { IonButton, IonCard, IonCardHeader, IonCardTitle, IonContent, IonDatetime, IonHeader, IonIcon, IonItem, IonLabel, IonList, IonPage, IonRow, IonSearchbar, IonTitle, IonToolbar, IonMenuButton, IonButtons, IonLoading, IonAlert } from "@ionic/react";
 import { calendarOutline, personCircle, personCircleOutline } from "ionicons/icons";
 import React from "react";
 import { getAvaliacoesAgendadas, setAvaliacao } from "../../models/API/EvolucaoAPI";
@@ -36,7 +36,10 @@ class AgendarAvaliacao extends React.Component<any>{
         aval : AvaliacaoAgendada;
         avals : AvaliacaoAgendada[];
         instrutores : Map<string,string>;
-       pickInstrutor : SearchBar; 
+       pickInstrutor : SearchBar;
+       alert: string
+       loading: string
+       
     }
 
     constructor(props : any){
@@ -46,7 +49,9 @@ class AgendarAvaliacao extends React.Component<any>{
             aval : avalInicial,
             avals : [],
             instrutores : new Map(),
-            pickInstrutor : searchInit
+            pickInstrutor : searchInit,
+            loading: "",
+            alert:""
         }
     }
     
@@ -106,34 +111,50 @@ class AgendarAvaliacao extends React.Component<any>{
     }
 
     setAgendacao() {
+        this.setState({loading : "A criar plano..."});
         setAvaliacao(this.state.email,this.state.aval).then(
-            (data) => {
-                console.log(data.status);
-            }
-        )
-        alert("Avaliação Marcada");
-        window.location.reload();
+            async (value: any) => {
+                console.log("Agendar response value: \n");
+                console.log(value)
+                this.setState({loading:""})
+                switch (value.status){
+                    case 200 : this.setState({alert : "Avaliação marcada!"});break;
+                    case 400 : this.setState({alert :"Verifique se os campos estão válidos..."}); break;
+                }})
+
+        //alert("Avaliação Marcada");
+        this.componentDidMount();
     }
 
 
     render(){
+       
         var localVals = this.state.avals;
     
-        
-
-
-
-
         return(
             <IonPage>
-    
+
             <IonHeader>
-              <IonToolbar color="primary">
-                <IonTitle id="page-title">Agenda de Avaliações</IonTitle>
-              </IonToolbar>
-            </IonHeader>
-            <IonContent>
-    
+                <IonToolbar color="primary">
+                <IonButtons slot="start">
+                    <IonMenuButton />
+                </IonButtons>
+                <IonTitle id="page-title">Agendar</IonTitle>
+                </IonToolbar>
+                </IonHeader>
+        <IonContent>
+        <IonLoading
+      isOpen={this.state.loading!==""}
+      onDidDismiss={() => {this.setState({loading: ""})}}
+      message={this.state.loading}
+    />
+        <IonAlert
+          isOpen={this.state.alert!==""}
+          onDidDismiss={() => this.setState({alert : ""})}
+          header={'Aviso'}
+          message={this.state.alert}
+          buttons={['Ok, percebido!']}
+        />
     <IonCard className="cardAval">
         <IonCardHeader>
             <IonItem>
@@ -158,14 +179,17 @@ class AgendarAvaliacao extends React.Component<any>{
         <IonLabel slot="end">
               {this.state.aval.instrutor_nome}
         </IonLabel>
-    </IonItem>
+        
+        </IonItem>
+        
         <IonItem>
               <IonLabel>Instrutor:</IonLabel>
               <IonToolbar>
                     <IonSearchbar value={this.state.pickInstrutor.query} onIonChange={e => this.setQuery(e.detail.value!)} placeholder="Email do instrutor...">
                     </IonSearchbar>
             </IonToolbar>
-            </IonItem>{this.state.pickInstrutor.list_now.length!==0? (
+        </IonItem>{this.state.pickInstrutor.list_now.length!==0? (
+        
         <IonItem>
             <IonList>
                     {this.state.pickInstrutor.list_now.map(

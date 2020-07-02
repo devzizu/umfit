@@ -201,15 +201,14 @@ class UltimaAvaliacaoInstrutor extends React.Component<any>{
       <IonPage>
 
         
-        <IonHeader>
-        <IonToolbar>
+<IonHeader>
+        <IonToolbar color="primary">
           <IonButtons slot="start">
             <IonMenuButton />
           </IonButtons>
-          <IonTitle>Última Avaliação do Cliente</IonTitle>
+          <IonTitle id="page-title">Última Avaliação</IonTitle>
           </IonToolbar>
         </IonHeader>
-
         <IonContent>
 
         <IonCard className="card-left">

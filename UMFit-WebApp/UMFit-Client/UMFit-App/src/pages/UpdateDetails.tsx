@@ -1,5 +1,5 @@
 
-import { IonButton, IonCol, IonContent, IonDatetime, IonGrid, IonHeader, IonIcon, IonInput, IonItem, IonLabel, IonPage, IonRow, IonSelect, IonSelectOption, IonText, IonTitle, IonToolbar } from "@ionic/react";
+import { IonButton, IonCol, IonContent, IonDatetime, IonGrid, IonHeader, IonIcon, IonInput, IonItem, IonLabel, IonPage, IonRow, IonSelect, IonSelectOption, IonText, IonTitle, IonToolbar, IonButtons, IonMenuButton } from "@ionic/react";
 import sha256 from "fast-sha256";
 import { buildOutline, calendarOutline, closeOutline, peopleCircleOutline, transgenderOutline } from "ionicons/icons";
 import React from "react";
@@ -63,17 +63,11 @@ class UpdateDetails extends React.Component<any> {
             }   
         }
 
-        updateUserDetailsAPI(this.stateToAPI).then(
-            res => res.json()            
-        ).then(
-        
-            (jsonData) => {
+        updateUserDetailsAPI(this.stateToAPI);
 
-                console.log("Got this json from update:");
-                console.log(jsonData);   
-            }
-        );
-        
+        alert("Perfil atualizado!");
+
+        this.clearState();
         window.location.reload();
     }
 
@@ -91,7 +85,10 @@ class UpdateDetails extends React.Component<any> {
 
                 <IonHeader>
                 <IonToolbar color="primary">
-                    <IonTitle id="page-title">Atualizar perfil</IonTitle>
+                <IonButtons slot="start">
+                    <IonMenuButton />
+                </IonButtons>
+                <IonTitle id="page-title">Atualizar perfil</IonTitle>
                 </IonToolbar>
                 </IonHeader>
     
