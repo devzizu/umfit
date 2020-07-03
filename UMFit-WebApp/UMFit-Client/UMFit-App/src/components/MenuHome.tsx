@@ -317,7 +317,7 @@ const Menu: React.FunctionComponent<MenuProps> = ({ selectedPage, menus }) => {
         </IonList>
       </IonContent>
       <IonFooter className="footer">
-          <IonToolbar class="ion-text-center">
+          <IonToolbar color="primary" class="ion-text-center">
             <IonTitle className="text-footer" size="small">© 2020 UMFit</IonTitle>
           </IonToolbar>
         </IonFooter>

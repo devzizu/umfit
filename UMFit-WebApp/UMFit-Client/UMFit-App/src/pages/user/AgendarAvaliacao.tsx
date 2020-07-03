@@ -185,7 +185,7 @@ class AgendarAvaliacao extends React.Component<any>{
         <IonItem>
               <IonLabel>Instrutor:</IonLabel>
               <IonToolbar>
-                    <IonSearchbar value={this.state.pickInstrutor.query} onIonChange={e => this.setQuery(e.detail.value!)} placeholder="Email do instrutor...">
+                    <IonSearchbar value={this.state.pickInstrutor.query} onIonChange={e => this.setQuery(e.detail.value!)} placeholder="Nome do instrutor...">
                     </IonSearchbar>
             </IonToolbar>
         </IonItem>{this.state.pickInstrutor.list_now.length!==0? (

@@ -561,6 +561,8 @@ class LogInForm extends React.Component<any> {
 
               await response.then(async (value) => {
                   
+                console.log(value);
+
                   //Success OK = 200    
                   if (value.status === 200) {
                                    
