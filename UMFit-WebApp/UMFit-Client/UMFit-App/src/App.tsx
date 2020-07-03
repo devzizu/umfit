@@ -1,4 +1,4 @@
-import { IonApp, IonButton, IonCard, IonCardContent, IonCardHeader, IonContent, IonHeader, IonInput, IonPage, IonRouterOutlet, IonSplitPane, IonText, IonTitle, IonToolbar, IonLoading, IonButtons, IonMenuButton } from '@ionic/react';
+import { IonApp, IonButton, IonCard, IonCardContent, IonCardHeader, IonContent, IonHeader, IonInput, IonPage, IonRouterOutlet, IonSplitPane, IonText, IonTitle, IonToolbar, IonLoading, IonButtons, IonMenuButton, IonAlert } from '@ionic/react';
 import { IonReactRouter } from '@ionic/react-router';
 /* Core CSS required for Ionic components to work properly */
 import '@ionic/react/css/core.css';
@@ -476,7 +476,8 @@ class LogInForm extends React.Component<any> {
     emailValue: string,
     passwordValue: string,
     rememberMe: boolean,
-    loading : boolean
+    loading : boolean,
+    alert: string
   }
 
   constructor(props: any) {
@@ -487,7 +488,8 @@ class LogInForm extends React.Component<any> {
       emailValue: "",
       passwordValue: "",
       rememberMe: false,
-      loading : false
+      loading : false,
+      alert: ""
     }
   }
 
@@ -503,6 +505,13 @@ class LogInForm extends React.Component<any> {
       onDidDismiss={() => {this.setState({loading: false})}}
       message={'A iniciar sessão...'}
     />
+            <IonAlert
+          isOpen={this.state.alert!==""}
+          onDidDismiss={() => this.setState({alert : ""})}
+          header={'Aviso'}
+          message={this.state.alert}
+          buttons={['Ok, percebido!']}
+        />
           <div id="Logo"></div>
           
           <div id="phrase">
@@ -574,12 +583,12 @@ class LogInForm extends React.Component<any> {
 
                   //Login error: 401    
                   } else {
-                    this.setState({loading: false});
-                      alert("E-mail ou password incorretos...");
+                    this.setState({loading: false, alert: "E-mail ou password incorretos..."});
+                      //alert("E-mail ou password incorretos...");
 
                   }
-              }).catch(function(error) {
-                alert("Server is currently down... \n\n".concat("Error details: \n\n\t").concat(error));
+              }).catch(error => {
+                this.setState({loading: false, alert: "Rede não disponível! Tenta novamente mais tarde!"});
               });
 
               //for debug

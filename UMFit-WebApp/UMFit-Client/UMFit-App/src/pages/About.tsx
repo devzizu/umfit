@@ -32,18 +32,19 @@ const About: React.FC = () => {
             </IonCardHeader>
             
             <IonCardContent className="about-text">
-              Esta aplicação foi desenvolvida e concebida no ambiento da 
+              Esta aplicação foi desenvolvida âmbito da 
               unidade curricular de Laboratórios de Informática IV.
               <br></br>
               <br></br>
-              A ideia desta aplicação surgiu da necessidade de implementar uma 
-              aplicação para ginásios capaz de tornar mais interativa e ativa a 
-              comunicação entre o cliente e o seu ginásio.
+              A ideia desta aplicação surgiu na necessidade de implementar uma 
+              aplicação para ginásios capaz de tornar mais interativa e prática a 
+              comunicação entre um cliente e o seu ginásio.
               <br></br>
               <br></br>
-              Foi assim portanto implementadas funcionalidades como a vizualização 
+              Foram assim portanto implementadas funcionalidades como a vizualização 
               da evolução do cliente desde a sua entrada do ginásio, planos alimentares 
-              para o mesmo e planos de treino propostos pelo instrutor.
+              para o mesmo e planos de treino propostos pelo instrutor e registos das suas
+              avaliações.
               <br></br>
               <br></br>
               A estas funcionaliades poderão ser desenvolvidas muitas outras que a equipa de
