@@ -176,6 +176,48 @@ public  bool MarcarAula(ClienteAula ca)
 
             return list;
         }
+        public List<AulaGrupo> GetAulasDiaEmail(string dia)
+        {
+            string sqlCommand = "select a.*, i.email from aula_grupo a , instrutor i where i.email = a.Instrutor_email and " + 
+                                "dia = @DIA order by hora";
+
+            MySqlCommand command = new MySqlCommand(sqlCommand, connection);
+
+            command.Parameters.Add(new MySqlParameter("@DIA", MySqlDbType.VarChar));
+            command.Parameters["@DIA"].Value = dia;
+
+            List<AulaGrupo> list = new List<AulaGrupo>();
+            MySqlDataReader reader = null;
+            try
+            
+            {
+                if(connection.State == ConnectionState.Closed) connection.Open();
+
+                reader = command.ExecuteReader();
+
+                while (reader.Read() && reader.HasRows)
+                {
+                    AulaGrupo aula = new AulaGrupo(reader.GetInt32(0), reader.GetTimeSpan(1), reader.GetString(2),
+                        reader.GetString(3), reader.GetInt16(4), reader.GetInt16(5), reader.GetString(6),
+                        reader.GetString(7), reader.GetString(10), reader.GetString(9));
+
+                    list.Add(aula);
+                }
+
+                
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.ToString());
+            }
+            finally
+            {
+                reader.Close();
+                connection.Close();
+            }
+
+            return list;
+        }
 
         public List<AulaGrupo> GetAulasInstr(string instr)
         {
@@ -431,5 +473,36 @@ public  bool MarcarAula(ClienteAula ca)
 
             return listClientes;
         }
+        
+        public string GetEmailFromI(string nome)
+        {
+            string sqlCommand = "select email from instrutor  where nome = @NOME";
+
+            MySqlCommand command = new MySqlCommand(sqlCommand, connection);
+
+            command.Parameters.Add(new MySqlParameter("@NOME", MySqlDbType.VarChar));
+            command.Parameters["@NOME"].Value = nome;
+            string ret = "";
+            try
+            
+            {
+                if(connection.State == ConnectionState.Closed) connection.Open();
+
+                
+                ret= Convert.ToString(command.ExecuteScalar());
+
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.ToString());
+            }
+            finally
+            {
+                connection.Close();
+            }
+
+            return ret;
+        }
+
     }
 }

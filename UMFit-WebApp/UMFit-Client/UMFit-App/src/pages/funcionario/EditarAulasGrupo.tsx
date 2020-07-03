@@ -140,7 +140,8 @@ class EditarAulasGrupo extends React.Component<any> {
     async editarAula(){
         console.log(this.state.aulaSelecionada);
         await editarAula(this.state.aulaSelecionada)
-        .then((val)=>this.setState({alert : val.status===200? "Aula Editada!" : "Volte mais tarde!" }) )
+        .then((val)=>this.setState({ selectedIndex:-1,aulaSelecionada:noSelection,alert : val.status===200? "Aula Editada!" : "Volte mais tarde!" }) )
+        
     }
     editarSelecionada(param : string,newParam:any):void{
         var sel=this.state.aulaSelecionada;
@@ -263,7 +264,7 @@ class EditarAulasGrupo extends React.Component<any> {
                                                     </IonItem>
                                                     <b>&nbsp;&nbsp;</b>
                                                     <IonItem>   
-                                                    <IonCardSubtitle> <b>Email do Instrutor:</b> 
+                                                    <IonCardSubtitle> <b>Nome do Instrutor:</b> 
                                                     <IonInput value={this.state.aulaSelecionada.instrutor_email} onIonChange={e => this.editarSelecionada("instrutor",e.detail.value!)}></IonInput>
                                                     </IonCardSubtitle>
                                                     </IonItem>

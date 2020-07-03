@@ -33,3 +33,7 @@
 /home/hc/Desktop/li4_umfit/UMFit-WebApp/UMFit-Server_API/UMFit-WebAPI/UMFit-WebAPI/obj/Release/netcoreapp3.1/UMFit-WebAPI.csproj.CopyComplete
 /home/hc/Desktop/li4_umfit/UMFit-WebApp/UMFit-Server_API/UMFit-WebAPI/UMFit-WebAPI/obj/Release/netcoreapp3.1/UMFit-WebAPI.dll
 /home/hc/Desktop/li4_umfit/UMFit-WebApp/UMFit-Server_API/UMFit-WebAPI/UMFit-WebAPI/obj/Release/netcoreapp3.1/UMFit-WebAPI.pdb
+/home/hc/Desktop/li4_umfit/UMFit-WebApp/UMFit-Server_API/UMFit-WebAPI/UMFit-WebAPI/bin/Release/netcoreapp3.1/K4os.Compression.LZ4.dll
+/home/hc/Desktop/li4_umfit/UMFit-WebApp/UMFit-Server_API/UMFit-WebAPI/UMFit-WebAPI/bin/Release/netcoreapp3.1/K4os.Compression.LZ4.Streams.dll
+/home/hc/Desktop/li4_umfit/UMFit-WebApp/UMFit-Server_API/UMFit-WebAPI/UMFit-WebAPI/bin/Release/netcoreapp3.1/K4os.Hash.xxHash.dll
+/home/hc/Desktop/li4_umfit/UMFit-WebApp/UMFit-Server_API/UMFit-WebAPI/UMFit-WebAPI/bin/Release/netcoreapp3.1/Zstandard.Net.dll

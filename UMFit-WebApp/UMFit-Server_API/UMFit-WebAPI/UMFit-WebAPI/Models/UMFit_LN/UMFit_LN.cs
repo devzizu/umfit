@@ -169,6 +169,13 @@ namespace UMFit_WebAPI.Models.UMFit_LN
                 return aulaGrupoDAO.GetAulasDia(dia);
             }
         }
+        public List<AulaGrupo> GetAulasDiaEmail(string dia)
+        {
+            lock (utilizadoresDAO)
+            {
+                return aulaGrupoDAO.GetAulasDiaEmail(dia);
+            }
+        }
 
         public bool AddPlano(PlanoTreino pt)
         {
@@ -312,6 +319,14 @@ namespace UMFit_WebAPI.Models.UMFit_LN
             lock (utilizadoresDAO)
             {
                 return estatisticaDao.GetEstatisticaCli(email);
+            }
+        }
+
+        public string GetEmailFromI(string nome)
+        {
+            lock (utilizadoresDAO)
+            {
+                return aulaGrupoDAO.GetEmailFromI(nome);
             }
         }
     }

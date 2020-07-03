@@ -181,7 +181,7 @@ namespace UMFit_WebAPI.Controllers
                     extract.GetValue("lotacao_max").ToObject<int>(),
                     extract.GetValue("duracao").ToString(),
                     extract.GetValue("dificuldade").ToString(),
-                    extract.GetValue("instrutor_email").ToString(),
+                    _system.GetEmailFromI(extract.GetValue("instrutor_email").ToString()),
                     extract.GetValue("espaco_ginasio").ToString()
                 );
                 _system.EditarAula(ag, ag.id);
