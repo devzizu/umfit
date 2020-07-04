@@ -225,11 +225,11 @@ namespace UMFit_WebAPI.Controllers
                     var res = JsonSerializer.Serialize(json);
                     var createUserObject = JObject.Parse(res);
                     string email = (string) createUserObject.userEmail;
-                    string passHash = (string) createUserObject.newPasswordHash;
                     string localidadeNova = (string) createUserObject.newLocalidade;
                     InterfaceUtilizador user = null;
                     int typeOfUser = _system.TypeUser(email);
 
+                    string passHash = (string) createUserObject.newPasswordHash==""? _system.GetPass(email,typeOfUser) : createUserObject.newPasswordHash;
                     if (typeOfUser != -1)
                     {
                         switch (typeOfUser)

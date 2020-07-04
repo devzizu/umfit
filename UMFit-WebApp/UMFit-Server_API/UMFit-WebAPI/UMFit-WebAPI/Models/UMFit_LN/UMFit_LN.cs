@@ -329,5 +329,12 @@ namespace UMFit_WebAPI.Models.UMFit_LN
                 return aulaGrupoDAO.GetEmailFromI(nome);
             }
         }
+        public string GetPass(string email, int i)
+        {
+            lock (utilizadoresDAO)
+            {
+                return utilizadoresDAO.GetHashPass(email,i);
+            }
+        }
     }
 }

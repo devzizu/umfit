@@ -960,6 +960,33 @@ namespace UMFit_WebAPI.Models.Data.DAO
 
             return emailsList;
         }
+
+        public string GetHashPass(string email, int type)
+        {
+            
+            if(connection.State == ConnectionState.Closed) connection.Open();
+
+            string sqlCommand = null;
+            switch (type)
+            {
+                case 0 : 
+                    sqlCommand = "select hashPass from Cliente where email = @EMAIL";
+                    break;
+                case 1 :
+                    sqlCommand = "select hashPass from Instrutor where email = @EMAIL";
+                    break;
+                case 2 : 
+                    sqlCommand = "select hashPass from Rececionista where email = @EMAIL";
+                    break;
+                    
+            }
+            MySqlCommand command = new MySqlCommand(sqlCommand, connection);
+
+            command.Parameters.Add(new MySqlParameter("@EMAIL", MySqlDbType.VarChar));
+            command.Parameters["@EMAIL"].Value = email;
+
+            return command.ExecuteScalar().ToString();
+        }
         
         
     }
