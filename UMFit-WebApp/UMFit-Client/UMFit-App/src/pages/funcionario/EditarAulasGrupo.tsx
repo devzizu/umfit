@@ -1,6 +1,6 @@
 
-import { IonAlert, IonButton, IonCard, IonCardHeader, IonCardSubtitle, IonCardTitle, IonCol, IonContent, IonGrid, IonHeader, IonIcon, IonInput, IonItem, IonLabel, IonPage, IonPopover, IonRow, IonSelect, IonSelectOption, IonTitle, IonToolbar } from "@ionic/react";
-import { bodyOutline, calendarOutline, checkmark, close, eyeOutline, informationOutline, sendOutline, timerOutline, settingsOutline } from "ionicons/icons";
+import { IonAlert, IonButton, IonCard, IonCardHeader, IonCardSubtitle, IonCardTitle, IonCol, IonContent, IonGrid, IonHeader, IonIcon, IonInput, IonItem, IonLabel, IonPage, IonPopover, IonRow, IonSelect, IonSelectOption, IonTitle, IonToolbar, IonButtons, IonMenuButton } from "@ionic/react";
+import { bodyOutline, checkmark, close, eyeOutline, informationOutline, sendOutline, timerOutline, settingsOutline } from "ionicons/icons";
 import React from "react";
 import { alunosAula, editarAula, getPlanoSemanal } from "../../models/API/AulaGrupoAPI";
 import "../css/EditarAulasGrupo.css";
@@ -200,14 +200,16 @@ class EditarAulasGrupo extends React.Component<any> {
             </IonGrid>
 
 </IonPopover>
-                 <IonHeader>
+
+                <IonHeader>
                 <IonToolbar color="primary">
-                    <IonTitle id="page-title">
-                    Plano de aulas<b>&nbsp;</b>
-                    <IonIcon icon={calendarOutline}></IonIcon>    
-                    </IonTitle>
+                <IonButtons slot="start">
+                    <IonMenuButton />
+                </IonButtons>
+                <IonTitle id="page-title">Plano de aulas</IonTitle>
                 </IonToolbar>
                 </IonHeader>
+
                 <IonContent className="PageContent">
 
                     <IonGrid>
