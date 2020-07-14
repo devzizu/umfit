@@ -1,5 +1,6 @@
 - Project title : UMFit
-- Version       : Unreleased (2020)
+- Version       : Released (2020)
+- This project was developed originally at gitlab.com and everything was imported to github.com
 
 ###### Maintainers:
 
