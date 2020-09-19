@@ -21,6 +21,6 @@ This software was developed for **Informatic Labs IV** subject whose goals were 
   - **Front-End**: Ionic Framework + ReactJS using NodeJS;
   - **Back-End**: .NET Core + C# and Postman for API testing;
   - **Database**: MySQL;
-  - *Deployment*: GitLab Pages.
+  - *Deployment*: GitLab Pages @ devzizu.gitlab.io/li4_umfit/
 
 > Note: This project was originally developed @ GitLab. It includes a full report of the development process. 
