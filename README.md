@@ -1,6 +1,8 @@
 # UMFit - Progressive web application
 
-<img src="https://raw.githubusercontent.com/devzizu/LI4_UMFit/master/UMFit-WebApp/UMFit-Client/UMFit-App/src/imgs/logo512.png" width="100" height="100">
+<p align="center">
+  <img src="https://raw.githubusercontent.com/devzizu/LI4_UMFit/master/UMFit-WebApp/UMFit-Client/UMFit-App/src/imgs/logo512.png" width="150" height="150">
+</p>
 
 UMFit is a progressive web application developed by a group of students from UMinho@Portugal and aims to be a more complete and reliable way of communication between Clients, Employees and Personal Trainers of a gym. With many functionalities like training and meal plans, client personal evolution in different parameters, group classes and many more.
 
