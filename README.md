@@ -1,4 +1,4 @@
-# UMFit
+# UMFit - Progressive web application
 
 UMFit is a progressive web application developed by a group of students from UMinho@Portugal and aims to be a more complete and reliable way of communication between Clients, Employees and Personal Trainers of a gym. With many functionalities like training and meal plans, client personal evolution in different parameters, group classes and many more.
 
