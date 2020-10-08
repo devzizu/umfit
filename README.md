@@ -8,14 +8,14 @@ This software was developed for **Informatic Labs IV** subject whose goals were 
 
 ### Tools
 
-  - **Front-End**: Ionic Framework + ReactJS and NodeJS (Lighthouse for PWA testing);
-  - **Back-End**: .NET Core + C# (Postman for API testing);
-  - **Database**: MySQL;
-  - *Deployment*: GitLab Pages @ devzizu.gitlab.io/li4_umfit/ (frontend), Microsoft Azure (backend)
+  - **Front-End**: Ionic Framework + Reac.js, Node.js and Lighthouse for PWA testing;
+  - **Back-End**: .NET Core w/ C# and Postman for API testing and documentation;
+  - **Database**: MySQL DBMS () + MySQL Workbench;
+  - *Deployment/hosting*: GitLab Pages @ devzizu.gitlab.io/li4_umfit/ (frontend) and Microsoft Azure (backend)
 
-> Note: This project was originally developed @ GitLab. It includes a full report of the development process. 
+> Note: This project was originally developed @ GitLab. It includes a full [report](https://github.com/devzizu/LI4_UMFit/blob/master/UMFit_Report.pdf) of the development process. 
 
-### Members / Mainteiners 
+### Members / Maintainers
 
 - João Azevedo    | [A85227]
 - Pedro Machado  | [A83719]
