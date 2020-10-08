@@ -1,9 +1,9 @@
 # UMFit - Progressive web application
-
+<br>
 <p align="center">
-  <img src="https://raw.githubusercontent.com/devzizu/LI4_UMFit/master/UMFit-WebApp/UMFit-Client/UMFit-App/src/imgs/logo512.png" width="150" height="150">
+  <img src="https://raw.githubusercontent.com/devzizu/LI4_UMFit/master/UMFit-WebApp/UMFit-Client/UMFit-App/src/imgs/logo512.png" width="200" height="200">
 </p>
-
+<br>
 UMFit is a progressive web application developed by a group of students from UMinho@Portugal and aims to be a more complete and reliable way of communication between Clients, Employees and Personal Trainers of a gym. With many functionalities like training and meal plans, client personal evolution in different parameters, group classes and many more.
 
 ### Development
@@ -21,6 +21,8 @@ This software was developed for **Informatic Labs IV** subject whose goals were 
 
 > Note: This project was originally developed @ GitLab. It includes a full [report](https://github.com/devzizu/LI4_UMFit/blob/master/UMFit_Report.pdf) of the development process. 
 
+<br>
+
 ### Members / Maintainers
 
 
@@ -32,5 +34,6 @@ This software was developed for **Informatic Labs IV** subject whose goals were 
 | [Paulo Lima](https://github.com/paulolima18) | A89983 |
 | [Hugo Cunha](https://gitlab.com/HCHexY)    | A84656 | 
 
+<br>
 
 >**University of Minho, Software Engineering (3rd year)**.
