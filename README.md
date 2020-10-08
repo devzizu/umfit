@@ -17,7 +17,7 @@ This software was developed for **Informatic Labs IV** subject whose goals were 
   - **Database**: MySQL DBMS + MySQL Workbench;
   - **Deployment / hosting**: 
     - GitLab Pages &nbsp;&nbsp;&nbsp;@ **devzizu.gitlab.io/li4_umfit/** &emsp;&emsp;&nbsp;(*frontend*) 
-    - Microsoft Azure @ **umfit-api.azurewebsites.net/api** (*backend*)
+    - Microsoft Azure @ **umfit-api.azurewebsites.net** (*backend*)
 
 > Note: This project was originally developed @ GitLab. It includes a full [report](https://github.com/devzizu/LI4_UMFit/blob/master/UMFit_Report.pdf) of the development process. 
 
