@@ -12,7 +12,7 @@ This software was developed for **Informatic Labs IV** subject whose goals were 
 
 ### Tools
 
-  - **Front-End**: Ionic Framework + Reac.js, Node.js and Lighthouse for PWA testing;
+  - **Front-End**: Ionic Framework + React.js and Lighthouse for PWA testing;
   - **Back-End**: .NET Core w/ C# and Postman for API testing and documentation;
   - **Database**: MySQL DBMS + MySQL Workbench;
   - **Deployment / hosting**: 
